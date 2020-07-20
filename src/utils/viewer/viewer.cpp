@@ -155,19 +155,16 @@ Mouse Functions:
     Click a mesh to highlight it.
   WHEEL:
     Modify orthographic camera zoom/perspective camera FOV (+SHIFT for fine grained control)
-
 Key Commands:
 -------------
   esc: Exit the application.
   'H': Display this help message.
-
   Agent Controls:
   'wasd': Move the agent's body forward/backward, left/right.
   'zx': Move the agent's body up/down.
   arrow keys: Turn the agent's body left/right and camera look up/down.
   '9': Randomly place agent on NavMesh (if loaded).
   'q': Query the agent's state and print to terminal.
-
   Utilities:
   '1' toggle recording locations for trajectory visualization.
   '2' build and display trajectory visualization.
@@ -179,7 +176,6 @@ Key Commands:
   'c' show/hide FPS overlay.
   'n' show/hide NavMesh wireframe.
   'i' Save a screenshot to "./screenshots/year_month_day_hour-minute-second/#.png"
-
   Object Interactions:
   SPACE: Toggle physics simulation on/off
   '.': Take a single simulation step if not simulating continuously.
