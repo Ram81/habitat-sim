@@ -814,13 +814,18 @@ class Simulator {
       Magnum::Vector3 point, Magnum::Vector3 refPoint, const Magnum::Vector2i& viewSize, 
       float distance=1.0);
 
-  float depthAt(const Magnum::Vector2i& crosshairPos,
-    const Magnum::Vector2i& viewSize);
+  void grabReleaseObjectUsingCrossHair(Magnum::Vector2i windowSize);
 
   Magnum::Vector3 unproject(
       const Magnum::Vector2i& crosshairPos,
       const Magnum::Vector2i& viewSize,
       float depth);
+  
+  void createCrossHairNode(Magnum::Vector2i windowSize);
+
+  void syncGrippedObject();
+
+  void syncGrippedObjects();
 
   /**
    * @brief Getter for PRNG.
