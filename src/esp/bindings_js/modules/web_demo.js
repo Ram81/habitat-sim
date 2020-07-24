@@ -33,7 +33,7 @@ class WebDemo {
     agentConfig = this.updateAgentConfigWithSensors({ ...agentConfig });
 
     this.simenv.addAgent(agentConfig);
-    this.simenv.createCrossHairNode(this.simenv.resolution);
+    this.simenv.updateCrossHairNode(this.simenv.resolution);
 
     if (initializeTopDown) {
       this.topdown = new TopDownMap(
@@ -103,6 +103,7 @@ class WebDemo {
 
     this.task.init();
     this.task.reset();
+    //this.task.initializeRandomObjects();
   }
 }
 
