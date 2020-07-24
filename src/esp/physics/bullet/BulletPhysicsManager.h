@@ -191,7 +191,7 @@ class BulletPhysicsManager : public PhysicsManager {
   // in the current scene.
   int getNumActiveContactPoints() override;
 
-   /**
+  /**
    * @brief 
    *
    * @param physObjectID The object ID and key identifying the object in @ref
