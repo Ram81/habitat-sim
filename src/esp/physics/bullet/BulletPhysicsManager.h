@@ -200,7 +200,6 @@ class BulletPhysicsManager : public PhysicsManager {
    */
   virtual void setActive(const int physObjectID, bool active) override;
 
-
  protected:
   //============ Initialization =============
   /**

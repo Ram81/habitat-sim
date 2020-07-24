@@ -1063,7 +1063,6 @@ void Simulator::grabReleaseObjectUsingCrossHair(Magnum::Vector2i windowSize) {
     
     physicsManager_->setObjectMotionType(grippedObjectId,
         esp::physics::MotionType::STATIC);
-    //physicsManager_->setActive(agentObjectId, true);
     grippedObjectId = -1;
   } else if (nearestObjId != -1) {
     Magnum::Matrix4 agentT =
