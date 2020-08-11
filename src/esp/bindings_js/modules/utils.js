@@ -1,8 +1,10 @@
-import { infoSemanticFileName } from "./defaults";
-
 // Copyright (c) Facebook, Inc. and its affiliates.
 // This source code is licensed under the MIT license found in the
 // LICENSE file in the root directory of this source tree.
+
+/* global FS */
+
+import { infoSemanticFileName } from "./defaults";
 
 /**
  *
@@ -104,4 +106,28 @@ export function buildConfigFromURLParameters(config = {}) {
 
 export function getRandomInt(max = 5) {
   return Math.floor(Math.random() * max);
+}
+
+export function readJSON(url, options = { encoding: "utf8" }) {
+  let contentsRaw = FS.readFile(url, { encoding: options["encoding"] });
+  let contents = JSON.parse(contentsRaw);
+  return contents;
+}
+
+export function buildEpisodeFromJSON(task = "task.json") {
+  let episodeJSON = readJSON(task);
+  let episode = {};
+  episode.startState = {};
+  episode.startState.position = episodeJSON.episodes["0"].start_position;
+  episode.startState.rotation = episodeJSON.episodes["0"].start_rotation;
+  episode.sceneID = episodeJSON.episodes["0"].scene_id;
+  episode.objects = episodeJSON.episodes["0"].objects;
+  return episode;
+}
+
+export function replaceAll(str, needle, replacement) {
+  while (str.indexOf(needle) !== -1) {
+    str = str.replace(needle, replacement);
+  }
+  return str;
 }

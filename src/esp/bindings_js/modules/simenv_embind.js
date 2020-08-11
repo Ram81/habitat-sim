@@ -6,6 +6,7 @@
 
 import { primitiveObjectHandles, fileBasedObjectHandles } from "./defaults";
 import { getRandomInt } from "./utils";
+import PsiturkEventLogger from "./event_logger";
 
 /**
  * SimEnv class
@@ -25,6 +26,7 @@ class SimEnv {
   constructor(config, episode = {}, agentId = 0) {
     this.sim = new Module.Simulator(config);
     this.pathfinder = this.sim.getPathFinder();
+    this.psiturk = new PsiturkEventLogger(window.psiTurk);
 
     this.setEpisode(episode);
 
@@ -38,6 +40,7 @@ class SimEnv {
    * Resets the simulation.
    */
   reset() {
+    //this.removeAllObjects();
     this.sim.reset();
     if (this.initialAgentState !== null) {
       const agent = this.sim.getAgent(this.selectedAgentId);
@@ -45,10 +48,10 @@ class SimEnv {
     }
     this.updateCrossHairNode(this.getCrosshairPosition());
     this.syncObjects();
-    this.addRandomObjects();
 
     this.grippedObjectId = -1;
     this.gripOffset = null;
+    this.psiturk.handleRecordTrialData("TEST", "simReset", {});
   }
 
   /**
@@ -69,7 +72,18 @@ class SimEnv {
 
     if (Object.keys(episode).length > 0) {
       this.initialAgentState = this.createAgentState(episode.startState);
+      let objects = episode.objects;
+      for (let index in objects) {
+        let objectLibHandle = objects[index]["objectHandle"];
+        let position = objects[index]["position"];
+
+        this.addObjectAtLocation(objectLibHandle, position);
+      }
+      this.recomputeNavMesh();
     }
+    this.psiturk.handleRecordTrialData("TEST", "setEpisode", {
+      episode: episode
+    });
   }
 
   /**
@@ -87,17 +101,23 @@ class SimEnv {
   }
 
   /**
-   * Adds n random objects at random navigable points in simulation.
+   * Adds a static object at specific position in simulation.
    */
-  addRandomObjects(numberOfObjects = 4) {
-    for (let object = 0; object < numberOfObjects; object++) {
-      if (object % 2 == 0) {
-        this.addTemplateObject();
-      } else {
-        this.addPrimitiveObject();
-      }
+  addObjectAtLocation(objectLibHandle, position) {
+    let objectId = this.addObjectByHandle(objectLibHandle);
+    this.setTranslation(this.convertVec3fToVector3(position), objectId, 0);
+    this.setObjectMotionType(Module.MotionType.STATIC, objectId, 0);
+    return objectId;
+  }
+
+  /**
+   * Remove all existing objects
+   */
+  removeAllObjects() {
+    let existingObjectIds = this.getExistingObjectIDs();
+    for (let index = 0; index < existingObjectIds.size(); index++) {
+      this.removeObject(existingObjectIds.get(index));
     }
-    this.recomputeNavMesh();
   }
 
   /**
@@ -141,7 +161,7 @@ class SimEnv {
    */
   removeObject(objectId) {
     // using default values for rest of the params
-    return this.sim.removeObject(objectId, true, true, 0);
+    this.sim.removeObject(objectId, true, true, 0);
   }
 
   /**
@@ -161,11 +181,15 @@ class SimEnv {
   addPrimitiveObject() {
     let primitiveObjectIdx = getRandomInt(primitiveObjectHandles.length);
     let objectLibHandle = primitiveObjectHandles[primitiveObjectIdx];
+    console.log(objectLibHandle);
     let objectId = this.addObjectByHandle(objectLibHandle);
     let newPosition = this.pathfinder.getRandomNavigablePoint();
+    console.log(newPosition);
     let position = this.convertVec3fToVector3(newPosition);
+    console.log(position);
     this.setTranslation(position, objectId, 0);
     this.setObjectMotionType(Module.MotionType.STATIC, objectId, 0);
+    console.log(objectId);
     return objectId;
   }
 
@@ -176,11 +200,15 @@ class SimEnv {
   addTemplateObject() {
     let fileBasedObjectIdx = getRandomInt(fileBasedObjectHandles.length);
     let objectLibHandle = fileBasedObjectHandles[fileBasedObjectIdx];
+    console.log(objectLibHandle);
     let objectId = this.addObjectByHandle(objectLibHandle);
     let newPosition = this.pathfinder.getRandomNavigablePoint();
+    console.log(newPosition);
     let position = this.convertVec3fToVector3(newPosition);
+    console.log(position);
     this.setTranslation(position, objectId, 0);
     this.setObjectMotionType(Module.MotionType.STATIC, objectId, 0);
+    console.log(objectId);
     return objectId;
   }
 
@@ -241,7 +269,6 @@ class SimEnv {
       this.gripOffset = agentTransform
         .inverted()
         .mul(this.getTransformation(nearestObjectId, 0));
-
       this.setObjectMotionType(Module.MotionType.KINEMATIC, nearestObjectId, 0);
       this.grippedObjectId = nearestObjectId;
     } else {
@@ -472,7 +499,10 @@ class SimEnv {
    * @returns {Array} [magnitude, clockwise-angle (in radians)]
    */
   distanceToGoal() {
-    if (Object.keys(this.episode).length === 0) {
+    if (
+      Object.keys(this.episode).length === 0 ||
+      this.episode.goal === undefined
+    ) {
       return [0, 0];
     }
     let dst = this.episode.goal.position;

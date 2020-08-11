@@ -37,6 +37,7 @@ export const defaultScene =
 export const infoSemanticFileName = "info_semantic.json";
 
 export const dataHome = "data/";
+export const taskHome = "data/tasks/";
 export const primitiveObjectHandles = [
   "cylinderSolid_rings_1_segments_12_halfLen_1_useTexCoords_false_useTangents_false_capEnds_true"
 ];
@@ -58,6 +59,25 @@ export const fileBasedObjects = {
       objectHandle: "chair.phys_properties.json",
       physicsProperties: "test_assets/objects/chair.phys_properties.json",
       renderMesh: "test_assets/objects/chair.glb"
+    }
+  ]
+};
+
+export const flythroughReplayTask = {
+  name: "rtask.json",
+  config: "tasks/rtask.json"
+};
+
+export const flythroughReplayFile = {
+  name: "flythrough.csv",
+  location: "replays/flythrough.csv"
+};
+
+export const taskFiles = {
+  tasks: [
+    {
+      name: "task.json",
+      config: "tasks/task.json"
     }
   ]
 };

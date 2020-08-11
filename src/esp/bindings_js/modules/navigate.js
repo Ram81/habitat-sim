@@ -2,10 +2,12 @@
 // This source code is licensed under the MIT license found in the
 // LICENSE file in the root directory of this source tree.
 
-/*global Module */
-import ObjectSensor from "./object_sensor";
+/* global FS, Module */
 
-const IOU_TOLERANCE = 0.5;
+import ObjectSensor from "./object_sensor";
+import PsiturkEventLogger from "./event_logger";
+import { flythroughReplayFile } from "./defaults";
+import { replaceAll } from "./utils";
 
 /**
  * NavigateTask class
@@ -25,6 +27,7 @@ class NavigateTask {
     this.topdown = components.topdown;
     this.semanticsEnabled = false;
     this.radarEnabled = false;
+    this.keyBindListener = null;
 
     if (this.components.semantic) {
       this.semanticsEnabled = true;
@@ -67,6 +70,8 @@ class NavigateTask {
       this.radarCtx = components.radar.getContext("2d");
     }
 
+    this.psiturk = new PsiturkEventLogger(window.psiTurk);
+
     this.actions = [
       { name: "moveForward", key: "w" },
       { name: "turnLeft", key: "a" },
@@ -76,7 +81,8 @@ class NavigateTask {
       { name: "addPrimitiveObject", key: "8" },
       { name: "addTemplateObject", key: "o" },
       { name: "removeLastObject", key: "9" },
-      { name: "grabReleaseObject", key: "h" }
+      { name: "grabReleaseObject", key: "h" },
+      { name: "endPsiturkTask", key: "n" }
     ];
   }
 
@@ -94,6 +100,10 @@ class NavigateTask {
    */
   init() {
     this.bindKeys();
+    this.psiturk.handleRecordTrialData("TEST", "simInitialized", {
+      config: window.config
+    });
+    this.initialized = true;
   }
 
   /**
@@ -105,26 +115,125 @@ class NavigateTask {
     this.render();
   }
 
+  /**
+   * Runs flythrough for a task
+   */
+  runFlythrough() {
+    const _self = this;
+    this.psiturk.handleRecordTrialData("TEST", "flythroughStart", {});
+
+    const keysWereBound = !!this.keyBindListener;
+    this.unbindKeys();
+
+    // playback speed
+    let speed = 1.0;
+
+    const replayContents = FS.readFile(flythroughReplayFile.location, {
+      encoding: "utf8"
+    });
+    const replayLines = replayContents.split(/\r?\n/);
+
+    let startTimestamp = null;
+    let replayDuration = 0;
+
+    this.replayTimeouts = [];
+    for (let iLine = 0; iLine < replayLines.length; ++iLine) {
+      const line = replayLines[iLine];
+      // Skip empty lines
+      if (line.length === 0) {
+        continue;
+      }
+
+      const rawLineParts = line.split(",");
+      const lineParts = rawLineParts.slice(0, 3);
+
+      const timestamp = lineParts[2];
+      console.log("Ts: " + timestamp);
+      let datumStr = rawLineParts.slice(3).join(",");
+      if (datumStr[0] == '"' && datumStr[datumStr.length - 1] == '"') {
+        // Remove outside quotes
+        datumStr = datumStr.slice(1, datumStr.length - 1);
+        // Replace double quotes with single
+        datumStr = replaceAll(datumStr, '""', '"');
+      }
+
+      const datum = JSON.parse(datumStr);
+
+      if (!startTimestamp) {
+        startTimestamp = timestamp;
+      }
+
+      const delay = (timestamp - startTimestamp) / speed;
+      const replayTimeout = window.setTimeout(function() {
+        if (datum["event"] === "simReset") {
+          _self.reset();
+        } else if (datum["event"] == "handleAction") {
+          _self.handleAction(datum["data"]["action"]);
+        } else {
+          console.log("Unrecognized line", iLine, ":", datum);
+        }
+      }, delay);
+      this.replayTimeouts.push(replayTimeout);
+      replayDuration = delay;
+    }
+
+    this.clearTimeouts = function() {
+      this.clearTimeouts = null;
+
+      if (this.replayTimeouts) {
+        for (let i = 0; i < this.replayTimeouts.length; ++i) {
+          const timeout = this.replayTimeouts[i];
+          window.clearTimeout(timeout);
+        }
+        delete this.replayTimeouts;
+      }
+
+      if (keysWereBound) {
+        _self.bindKeys();
+      }
+      _self.setStatus("");
+    };
+
+    const finalTimeout = window.setTimeout(function() {
+      if (typeof this.clearTimeouts === "function") {
+        this.clearTimeouts();
+      }
+      window.finishTrial();
+    }, replayDuration + 1);
+
+    this.replayTimeouts.push(finalTimeout);
+  }
+
   // PRIVATE methods.
 
   setStatus(text) {
     this.components.status.style = "color:white";
     this.components.status.innerHTML = text;
+    this.psiturk.handleRecordTrialData("TEST", "setStatus", { text: text });
   }
 
   setErrorStatus(text) {
     this.components.status.style = "color:red";
     this.components.status.innerHTML = text;
+    this.psiturk.handleRecordTrialData("TEST", "setErrorStatus", {
+      text: text
+    });
   }
 
   setWarningStatus(text) {
     this.components.status.style = "color:orange";
     this.components.status.innerHTML = text;
+    this.psiturk.handleRecordTrialData("TEST", "setWarningStatus", {
+      text: text
+    });
   }
 
   setSuccessStatus(text) {
     this.components.status.style = "color:green";
     this.components.status.innerHTML = text;
+    this.psiturk.handleRecordTrialData("TEST", "setSuccessStatus", {
+      text: text
+    });
   }
 
   renderImage() {
@@ -214,6 +323,7 @@ class NavigateTask {
   }
 
   render(options = { renderTopDown: true }) {
+    this.psiturk.handleRecordTrialData("TEST", "renderStart", {});
     this.renderImage();
 
     this.sim.updateCrossHairNode(this.sim.getCrosshairPosition());
@@ -222,9 +332,13 @@ class NavigateTask {
     this.renderImage();
     this.renderSemanticImage();
     this.renderTopDown(options);
+    this.psiturk.handleRecordTrialData("TEST", "renderEnd", {});
   }
 
   handleAction(action) {
+    this.psiturk.handleRecordTrialData("TEST", "handleAction", {
+      action: action
+    });
     if (action === "addPrimitiveObject") {
       this.sim.addPrimitiveObject();
     } else if (action === "addTemplateObject") {
@@ -233,6 +347,11 @@ class NavigateTask {
       this.sim.removeLastObject();
     } else if (action == "grabReleaseObject") {
       this.sim.grabReleaseObject();
+    } else if (action == "endPsiturkTask") {
+      // end psiturk task
+      if (window.finishTrial) {
+        window.finishTrial();
+      }
     } else {
       this.sim.step(action);
     }
@@ -240,34 +359,33 @@ class NavigateTask {
     this.render();
   }
 
+  handleKeypress(key) {
+    for (let a of this.actions) {
+      if (key === a.key) {
+        this.handleAction(a.name);
+        break;
+      }
+    }
+  }
+
   bindKeys() {
-    document.addEventListener(
-      "keydown",
-      event => {
-        if (event.key === " " && this.objectSensor) {
-          event.preventDefault();
-          const iou = this.objectSensor.computeIOU(this.semanticData);
-          if (iou > parseFloat(window.config.iou) * IOU_TOLERANCE) {
-            this.setSuccessStatus(
-              "You found the " + window.config.category + "!"
-            );
-          } else if (iou > 0) {
-            this.setWarningStatus("IoU is too low. Please get a better view.");
-          } else {
-            this.setErrorStatus(window.config.category + " not found!");
-          }
-          return;
-        }
-        for (let a of this.actions) {
-          if (event.key === a.key) {
-            this.handleAction(a.name);
-            event.preventDefault();
-            break;
-          }
-        }
-      },
-      true
-    );
+    var _self = this;
+    if (_self.keyBindListener) {
+      console.log("Keys already bound. Returning");
+      return;
+    }
+    _self.keyBindListener = function(event) {
+      event.preventDefault();
+      _self.handleKeypress(event.key);
+    };
+    document.addEventListener("keydown", _self.keyBindListener, true);
+  }
+
+  unbindKeys() {
+    if (this.keyBindListener) {
+      document.removeEventListener("keydown", this.keyBindListener, true);
+      this.keyBindListener = null;
+    }
   }
 }
 

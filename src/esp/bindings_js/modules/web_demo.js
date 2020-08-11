@@ -6,12 +6,13 @@
 import {
   defaultAgentConfig,
   defaultEpisode,
-  defaultResolution
+  defaultResolution,
+  flythroughReplayTask
 } from "./defaults";
 import SimEnv from "./simenv_embind";
 import TopDownMap from "./topdown";
 import NavigateTask from "./navigate";
-import { buildConfigFromURLParameters } from "./utils";
+import { buildConfigFromURLParameters, buildEpisodeFromJSON } from "./utils";
 
 class WebDemo {
   currentResolution = defaultResolution;
@@ -54,6 +55,27 @@ class WebDemo {
       scope: document.getElementById("scope"),
       status: document.getElementById("status")
     });
+  }
+
+  loadEpisode(episodeConfigPath) {
+    let episode;
+    if (episodeConfigPath === undefined) {
+      episode = defaultEpisode;
+    } else {
+      episode = buildEpisodeFromJSON(episodeConfigPath);
+    }
+    return episode;
+  }
+
+  setEpisode(episodeConfigPath) {
+    let episode = this.loadEpisode(episodeConfigPath);
+    this.simenv.setEpisode(episode);
+  }
+
+  runFlythrough() {
+    this.setEpisode(flythroughReplayTask.name);
+    this.task.reset();
+    this.task.runFlythrough();
   }
 
   updateAgentConfigWithSensors(agentConfig = defaultAgentConfig) {

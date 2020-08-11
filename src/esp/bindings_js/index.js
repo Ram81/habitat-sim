@@ -7,7 +7,14 @@
 import WebDemo from "./modules/web_demo";
 import VRDemo from "./modules/vr_demo";
 import ViewerDemo from "./modules/viewer_demo";
-import { defaultScene, dataHome, fileBasedObjects } from "./modules/defaults";
+import {
+  defaultScene,
+  dataHome,
+  fileBasedObjects,
+  taskFiles,
+  flythroughReplayFile,
+  flythroughReplayTask
+} from "./modules/defaults";
 import "./bindings.css";
 import {
   checkWebAssemblySupport,
@@ -64,6 +71,40 @@ function preloadPhysConfig(url) {
     );
   }
 
+  // load task config
+  var tasks = taskFiles.tasks;
+  for (let index in tasks) {
+    let taskName = tasks[index]["name"];
+    let taskConfig = tasks[index]["config"];
+
+    if (taskName == window.config.taskConfig) {
+      FS.createPreloadedFile(
+        emDataHome,
+        taskName,
+        dataHome.concat(taskConfig),
+        true,
+        false
+      );
+    }
+  }
+
+  // load replay episode config
+  FS.createPreloadedFile(
+    emDataHome,
+    flythroughReplayTask.name,
+    dataHome.concat(flythroughReplayTask.config),
+    true,
+    false
+  );
+
+  FS.createPreloadedFile(
+    emDataHome,
+    flythroughReplayFile.name,
+    dataHome.concat(flythroughReplayFile.location),
+    true,
+    false
+  );
+
   return emDataHome.concat("/".concat(file));
 }
 
@@ -107,7 +148,9 @@ Module.onRuntimeInitialized = () => {
     demo = new WebDemo();
   }
 
-  demo.display();
+  let episode = demo.loadEpisode("/data/".concat(window.config.taskConfig));
+  demo.display(undefined, episode);
+  window.demo = demo;
 };
 
 function checkSupport() {
