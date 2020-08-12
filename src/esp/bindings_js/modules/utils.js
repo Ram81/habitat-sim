@@ -4,7 +4,7 @@
 
 /* global FS */
 
-import { infoSemanticFileName } from "./defaults";
+import { infoSemanticFileName, defaultEpisode } from "./defaults";
 
 /**
  *
@@ -130,4 +130,14 @@ export function replaceAll(str, needle, replacement) {
     str = str.replace(needle, replacement);
   }
   return str;
+}
+
+export function loadEpisode(episodeConfigPath) {
+  let episode;
+  if (episodeConfigPath === undefined) {
+    episode = defaultEpisode;
+  } else {
+    episode = buildEpisodeFromJSON(episodeConfigPath);
+  }
+  return episode;
 }

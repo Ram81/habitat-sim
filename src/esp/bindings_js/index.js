@@ -20,7 +20,8 @@ import {
   checkWebAssemblySupport,
   checkWebgl2Support,
   getInfoSemanticUrl,
-  buildConfigFromURLParameters
+  buildConfigFromURLParameters,
+  loadEpisode
 } from "./modules/utils";
 
 function preload(url) {
@@ -77,7 +78,7 @@ function preloadPhysConfig(url) {
     let taskName = tasks[index]["name"];
     let taskConfig = tasks[index]["config"];
 
-    if (taskName == window.config.taskConfig) {
+    if (taskName == window.config.taskConfig.name) {
       FS.createPreloadedFile(
         emDataHome,
         taskName,
@@ -112,7 +113,10 @@ Module.preRun.push(() => {
   let config = {};
   config.scene = defaultScene;
   buildConfigFromURLParameters(config);
+
   window.config = config;
+  window.config.taskConfig = taskFiles["tasks"][parseInt(window.config.task)];
+
   const scene = config.scene;
   Module.scene = preload(scene);
 
@@ -148,7 +152,7 @@ Module.onRuntimeInitialized = () => {
     demo = new WebDemo();
   }
 
-  let episode = demo.loadEpisode("/data/".concat(window.config.taskConfig));
+  let episode = loadEpisode("/data/".concat(window.config.taskConfig.name));
   demo.display(undefined, episode);
   window.demo = demo;
 };

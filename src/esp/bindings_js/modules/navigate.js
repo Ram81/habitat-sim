@@ -126,11 +126,14 @@ class NavigateTask {
     this.unbindKeys();
 
     // playback speed
-    let speed = 1.0;
+    let speed = 2.0;
 
-    const replayContents = FS.readFile(flythroughReplayFile.location, {
-      encoding: "utf8"
-    });
+    const replayContents = FS.readFile(
+      "/data/".concat(flythroughReplayFile.name),
+      {
+        encoding: "utf8"
+      }
+    );
     const replayLines = replayContents.split(/\r?\n/);
 
     let startTimestamp = null;
@@ -148,7 +151,6 @@ class NavigateTask {
       const lineParts = rawLineParts.slice(0, 3);
 
       const timestamp = lineParts[2];
-      console.log("Ts: " + timestamp);
       let datumStr = rawLineParts.slice(3).join(",");
       if (datumStr[0] == '"' && datumStr[datumStr.length - 1] == '"') {
         // Remove outside quotes
@@ -169,8 +171,6 @@ class NavigateTask {
           _self.reset();
         } else if (datum["event"] == "handleAction") {
           _self.handleAction(datum["data"]["action"]);
-        } else {
-          console.log("Unrecognized line", iLine, ":", datum);
         }
       }, delay);
       this.replayTimeouts.push(replayTimeout);

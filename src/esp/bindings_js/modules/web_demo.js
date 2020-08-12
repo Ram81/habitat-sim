@@ -12,7 +12,7 @@ import {
 import SimEnv from "./simenv_embind";
 import TopDownMap from "./topdown";
 import NavigateTask from "./navigate";
-import { buildConfigFromURLParameters, buildEpisodeFromJSON } from "./utils";
+import { buildConfigFromURLParameters, loadEpisode } from "./utils";
 
 class WebDemo {
   currentResolution = defaultResolution;
@@ -57,23 +57,13 @@ class WebDemo {
     });
   }
 
-  loadEpisode(episodeConfigPath) {
-    let episode;
-    if (episodeConfigPath === undefined) {
-      episode = defaultEpisode;
-    } else {
-      episode = buildEpisodeFromJSON(episodeConfigPath);
-    }
-    return episode;
-  }
-
   setEpisode(episodeConfigPath) {
-    let episode = this.loadEpisode(episodeConfigPath);
+    let episode = loadEpisode(episodeConfigPath);
     this.simenv.setEpisode(episode);
   }
 
   runFlythrough() {
-    this.setEpisode(flythroughReplayTask.name);
+    this.setEpisode("/data/".concat(flythroughReplayTask.name));
     this.task.reset();
     this.task.runFlythrough();
   }
