@@ -40,7 +40,6 @@ class SimEnv {
    * Resets the simulation.
    */
   reset() {
-    //this.removeAllObjects();
     this.sim.reset();
     if (this.initialAgentState !== null) {
       const agent = this.sim.getAgent(this.selectedAgentId);
@@ -67,6 +66,7 @@ class SimEnv {
    * @param {Object} episode - episode config
    */
   setEpisode(episode = {}) {
+    this.removeAllObjects();
     this.episode = episode;
     this.initialAgentState = null;
 
@@ -181,15 +181,11 @@ class SimEnv {
   addPrimitiveObject() {
     let primitiveObjectIdx = getRandomInt(primitiveObjectHandles.length);
     let objectLibHandle = primitiveObjectHandles[primitiveObjectIdx];
-    console.log(objectLibHandle);
     let objectId = this.addObjectByHandle(objectLibHandle);
     let newPosition = this.pathfinder.getRandomNavigablePoint();
-    console.log(newPosition);
     let position = this.convertVec3fToVector3(newPosition);
-    console.log(position);
     this.setTranslation(position, objectId, 0);
     this.setObjectMotionType(Module.MotionType.STATIC, objectId, 0);
-    console.log(objectId);
     return objectId;
   }
 
@@ -200,15 +196,11 @@ class SimEnv {
   addTemplateObject() {
     let fileBasedObjectIdx = getRandomInt(fileBasedObjectHandles.length);
     let objectLibHandle = fileBasedObjectHandles[fileBasedObjectIdx];
-    console.log(objectLibHandle);
     let objectId = this.addObjectByHandle(objectLibHandle);
     let newPosition = this.pathfinder.getRandomNavigablePoint();
-    console.log(newPosition);
     let position = this.convertVec3fToVector3(newPosition);
-    console.log(position);
     this.setTranslation(position, objectId, 0);
     this.setObjectMotionType(Module.MotionType.STATIC, objectId, 0);
-    console.log(objectId);
     return objectId;
   }
 

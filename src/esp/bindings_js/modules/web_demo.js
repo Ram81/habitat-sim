@@ -59,6 +59,9 @@ class WebDemo {
 
   setEpisode(episodeConfigPath) {
     let episode = loadEpisode(episodeConfigPath);
+    let taskInstruction = document.getElementById("task-instruction");
+    taskInstruction.innerHTML =
+      "<hr> <h1>Task: " + episode.task.instruction + "</h1> <hr>";
     this.simenv.setEpisode(episode);
   }
 
@@ -66,6 +69,11 @@ class WebDemo {
     this.setEpisode("/data/".concat(flythroughReplayTask.name));
     this.task.reset();
     this.task.runFlythrough();
+  }
+
+  runInit() {
+    this.setEpisode("/data/".concat(window.config.taskConfig.name));
+    this.task.reset();
   }
 
   updateAgentConfigWithSensors(agentConfig = defaultAgentConfig) {

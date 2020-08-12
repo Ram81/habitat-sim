@@ -122,6 +122,7 @@ export function buildEpisodeFromJSON(task = "task.json") {
   episode.startState.rotation = episodeJSON.episodes["0"].start_rotation;
   episode.sceneID = episodeJSON.episodes["0"].scene_id;
   episode.objects = episodeJSON.episodes["0"].objects;
+  episode.task = episodeJSON.episodes["0"].task;
   return episode;
 }
 

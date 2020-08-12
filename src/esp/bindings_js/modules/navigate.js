@@ -119,6 +119,7 @@ class NavigateTask {
    * Runs flythrough for a task
    */
   runFlythrough() {
+    this.setStatus("Initializing...");
     const _self = this;
     this.psiturk.handleRecordTrialData("TEST", "flythroughStart", {});
 
@@ -126,7 +127,7 @@ class NavigateTask {
     this.unbindKeys();
 
     // playback speed
-    let speed = 2.0;
+    let speed = 1.0;
 
     const replayContents = FS.readFile(
       "/data/".concat(flythroughReplayFile.name),
@@ -169,8 +170,8 @@ class NavigateTask {
       const replayTimeout = window.setTimeout(function() {
         if (datum["event"] === "simReset") {
           _self.reset();
-        } else if (datum["event"] == "handleAction") {
-          _self.handleAction(datum["data"]["action"]);
+        } else if (datum["event"] == "handleKeyPress") {
+          _self.handleKeypress(datum["data"]["key"]);
         }
       }, delay);
       this.replayTimeouts.push(replayTimeout);
@@ -202,6 +203,7 @@ class NavigateTask {
     }, replayDuration + 1);
 
     this.replayTimeouts.push(finalTimeout);
+    this.psiturk.handleRecordTrialData("TEST", "flythroughEnd", {});
   }
 
   // PRIVATE methods.
@@ -209,31 +211,21 @@ class NavigateTask {
   setStatus(text) {
     this.components.status.style = "color:white";
     this.components.status.innerHTML = text;
-    this.psiturk.handleRecordTrialData("TEST", "setStatus", { text: text });
   }
 
   setErrorStatus(text) {
     this.components.status.style = "color:red";
     this.components.status.innerHTML = text;
-    this.psiturk.handleRecordTrialData("TEST", "setErrorStatus", {
-      text: text
-    });
   }
 
   setWarningStatus(text) {
     this.components.status.style = "color:orange";
     this.components.status.innerHTML = text;
-    this.psiturk.handleRecordTrialData("TEST", "setWarningStatus", {
-      text: text
-    });
   }
 
   setSuccessStatus(text) {
     this.components.status.style = "color:green";
     this.components.status.innerHTML = text;
-    this.psiturk.handleRecordTrialData("TEST", "setSuccessStatus", {
-      text: text
-    });
   }
 
   renderImage() {
@@ -323,7 +315,6 @@ class NavigateTask {
   }
 
   render(options = { renderTopDown: true }) {
-    this.psiturk.handleRecordTrialData("TEST", "renderStart", {});
     this.renderImage();
 
     this.sim.updateCrossHairNode(this.sim.getCrosshairPosition());
@@ -332,13 +323,9 @@ class NavigateTask {
     this.renderImage();
     this.renderSemanticImage();
     this.renderTopDown(options);
-    this.psiturk.handleRecordTrialData("TEST", "renderEnd", {});
   }
 
   handleAction(action) {
-    this.psiturk.handleRecordTrialData("TEST", "handleAction", {
-      action: action
-    });
     if (action === "addPrimitiveObject") {
       this.sim.addPrimitiveObject();
     } else if (action === "addTemplateObject") {
@@ -376,6 +363,9 @@ class NavigateTask {
     }
     _self.keyBindListener = function(event) {
       event.preventDefault();
+      _self.psiturk.handleRecordTrialData("TEST", "handleKeyPress", {
+        key: event.key
+      });
       _self.handleKeypress(event.key);
     };
     document.addEventListener("keydown", _self.keyBindListener, true);
