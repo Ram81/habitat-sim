@@ -32,6 +32,7 @@ class SimEnv {
 
     this.resolution = null;
     this.grippedObjectId = -1;
+    this.nearestObjectId = -1;
     this.gripOffset = null;
     this.selectedAgentId = agentId;
   }
@@ -218,18 +219,7 @@ class SimEnv {
    * @returns {number} object ID or -1 if object was unable to be added
    */
   grabReleaseObject() {
-    let crossHairPosition = this.getCrosshairPosition();
-    let ray = this.unproject(crossHairPosition);
-    let crossHairPoint = ray.direction;
-    let refPoint = this.getAgentAbsoluteTranslation(0);
-
-    let nearestObjectId = this.findNearestObjectUnderCrosshair(
-      0,
-      crossHairPoint,
-      refPoint,
-      this.resolution
-    );
-
+    let nearestObjectId = this.getObjectUnderCrosshair();
     let agentTransform = this.getAgentTransformation(0);
 
     if (this.grippedObjectId != -1) {
@@ -388,6 +378,17 @@ class SimEnv {
   }
 
   /**
+   * Turn on/off rendering for the bounding box of the object's visual
+   * component.
+   * @param {boolean} drawBB - whether or not the render the bounding box
+   * @param {number} objectID - object id identifying the object in sim.existingObjects_
+   * @param {number} sceneID - scene id
+   */
+  setObjectBBDraw(drawBB, objectID, sceneID) {
+    this.sim.setObjectBBDraw(drawBB, objectID, sceneID);
+  }
+
+  /**
    * @param {double} dt - step the physical world forward in time by a desired duration.
    * @returns {double} world time after step
    */
@@ -436,6 +437,39 @@ class SimEnv {
       return element * 0.5;
     });
     return center;
+  }
+
+  getObjectUnderCrosshair() {
+    let crossHairPosition = this.getCrosshairPosition();
+    let ray = this.unproject(crossHairPosition);
+    let crossHairPoint = ray.direction;
+    let refPoint = this.getAgentAbsoluteTranslation(0);
+
+    let nearestObjectId = this.findNearestObjectUnderCrosshair(
+      0,
+      crossHairPoint,
+      refPoint,
+      this.resolution
+    );
+    return nearestObjectId;
+  }
+
+  drawBBAroundNearestObject() {
+    let objectId = this.getObjectUnderCrosshair();
+    if (objectId == -1) {
+      if (this.nearestObjectId != -1) {
+        this.setObjectBBDraw(false, this.nearestObjectId, 0);
+        this.nearestObjectId = objectId;
+      }
+    } else {
+      if (this.nearestObjectId != -1 && this.nearestObjectId != objectId) {
+        this.setObjectBBDraw(false, this.nearestObjectId, 0);
+      }
+      if (this.nearestObjectId != objectId) {
+        this.nearestObjectId = objectId;
+        this.setObjectBBDraw(true, this.nearestObjectId, 0);
+      }
+    }
   }
 
   recomputeNavMesh() {

@@ -74,8 +74,8 @@ class NavigateTask {
 
     this.actions = [
       { name: "moveForward", key: "w" },
-      { name: "turnLeft", key: "a" },
-      { name: "turnRight", key: "d" },
+      { name: "turnLeft", key: "ArrowLeft" },
+      { name: "turnRight", key: "ArrowRight" },
       { name: "lookUp", key: "ArrowUp" },
       { name: "lookDown", key: "ArrowDown" },
       { name: "addPrimitiveObject", key: "8" },
@@ -318,6 +318,7 @@ class NavigateTask {
     this.renderImage();
 
     this.sim.updateCrossHairNode(this.sim.getCrosshairPosition());
+    this.sim.drawBBAroundNearestObject();
     this.sim.syncObjects();
 
     this.renderImage();

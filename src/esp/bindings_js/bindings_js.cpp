@@ -318,5 +318,6 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
       .function("unproject", &Simulator::unproject)
       .function("getAgentTransformation", &Simulator::getAgentTransformation)
       .function("getAgentAbsoluteTranslation",
-                &Simulator::getAgentAbsoluteTranslation);
+                &Simulator::getAgentAbsoluteTranslation)
+      .function("setObjectBBDraw", &Simulator::setObjectBBDraw);
 }
