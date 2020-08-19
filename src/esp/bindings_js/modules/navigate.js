@@ -28,6 +28,7 @@ class NavigateTask {
     this.semanticsEnabled = false;
     this.radarEnabled = false;
     this.keyBindListener = null;
+    this.lastInteractedObjectId = -1;
 
     if (this.components.semantic) {
       this.semanticsEnabled = true;
@@ -74,8 +75,11 @@ class NavigateTask {
 
     this.actions = [
       { name: "moveForward", key: "w" },
+      { name: "moveBackward", key: "s" },
       { name: "turnLeft", key: "ArrowLeft" },
       { name: "turnRight", key: "ArrowRight" },
+      { name: "turnLeft", key: "a" },
+      { name: "turnRight", key: "d" },
       { name: "lookUp", key: "ArrowUp" },
       { name: "lookDown", key: "ArrowDown" },
       { name: "addPrimitiveObject", key: "8" },
@@ -335,6 +339,15 @@ class NavigateTask {
       this.sim.removeLastObject();
     } else if (action == "grabReleaseObject") {
       this.sim.grabReleaseObject();
+      let objectId = this.sim.grippedObjectId;
+      if (objectId == -1) {
+        this.setStatus(
+          this.sim.objectsInScene[this.lastInteractedObjectId] + " released"
+        );
+      } else {
+        this.setStatus(this.sim.objectsInScene[objectId] + " picked up");
+      }
+      this.lastInteractedObjectId = objectId;
     } else if (action == "endPsiturkTask") {
       // end psiturk task
       if (window.finishTrial) {
@@ -342,8 +355,8 @@ class NavigateTask {
       }
     } else {
       this.sim.step(action);
+      this.setStatus(action);
     }
-    this.setStatus(action);
     this.render();
   }
 

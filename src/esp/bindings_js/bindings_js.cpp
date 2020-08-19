@@ -124,7 +124,13 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
       .function("z", em::select_overload<float&()>(&Magnum::Vector3::z))
       .class_function("xAxis", &Magnum::Vector3::xAxis)
       .class_function("yAxis", &Magnum::Vector3::yAxis)
-      .class_function("zAxis", &Magnum::Vector3::zAxis);
+      .class_function("zAxis", &Magnum::Vector3::zAxis)
+      .function(
+          "toString", em::optional_override([](const Magnum::Vector3& self) {
+            std::ostringstream out;
+            Magnum::Debug{&out, Magnum::Debug::Flag::NoNewlineAtTheEnd} << self;
+            return out.str();
+          }));
 
   em::value_object<std::pair<vec3f, vec3f>>("aabb")
       .field("min", &std::pair<vec3f, vec3f>::first)
@@ -172,8 +178,8 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
       .smart_ptr<PathFinder::ptr>("PathFinder::ptr")
       .property("bounds", &PathFinder::bounds)
       .function("isNavigable", &PathFinder::isNavigable)
-      .function("getRandomNavigablePoint",
-                &PathFinder::getRandomNavigablePoint);
+      .function("getRandomNavigablePoint", &PathFinder::getRandomNavigablePoint)
+      .function("snapPoint", &PathFinder::snapPoint<Magnum::Vector3>);
 
   em::class_<SensorSuite>("SensorSuite")
       .smart_ptr_constructor("SensorSuite", &SensorSuite::create<>)
@@ -319,5 +325,6 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
       .function("getAgentTransformation", &Simulator::getAgentTransformation)
       .function("getAgentAbsoluteTranslation",
                 &Simulator::getAgentAbsoluteTranslation)
-      .function("setObjectBBDraw", &Simulator::setObjectBBDraw);
+      .function("setObjectBBDraw", &Simulator::setObjectBBDraw)
+      .function("sampleObjectState", &Simulator::sampleObjectState);
 }

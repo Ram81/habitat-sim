@@ -1020,11 +1020,38 @@ void Simulator::updateCrossHairNode(Magnum::Vector2i crossHairPosition) {
 void Simulator::syncGrippedObject(int grippedObjectId) {
   if (grippedObjectId != -1) {
     auto agentBodyNode_ = &getAgent(0)->node();
-    Magnum::Matrix4 agentT =
-        agentBodyNode_->MagnumObject::transformationMatrix();
-    physicsManager_->setTranslation(
-        grippedObjectId, agentT.transformPoint(Magnum::Vector3{0.0, 0.0, 0.0}));
+    Magnum::Matrix4 agentT = agentBodyNode_->absoluteTransformation();
+
+    auto objectSceneNode = getObjectSceneNode(grippedObjectId, 0);
+    float grippedObjectBuffer =
+        objectSceneNode->getCumulativeBB().sizeY() / 2.0;
+    LOG(WARNING) << "grip buf: " << grippedObjectBuffer;
+
+    LOG(WARNING) << "grip buf: " << grippedObjectBuffer;
+    Magnum::Vector3 offset{0.3, 0.8, -0.2};
+    Magnum::Vector3 buffer{0.0, grippedObjectBuffer, 0.0};
+
+    physicsManager_->setTranslation(grippedObjectId,
+                                    agentT.transformPoint(offset + buffer));
+    physicsManager_->setRotation(grippedObjectId, agentBodyNode_->rotation());
   }
+}
+
+bool Simulator::sampleObjectState(int objectID, int sceneID) {
+  scene::SceneNode* object_node = getObjectSceneNode(objectID, sceneID);
+  auto sceneAttributesMgr = resourceManager_->getSceneAttributesManager();
+  double scene_collision_margin = 0.0;  // sceneAttributesMgr->getMargin();
+  Magnum::Range3D xform_bb = esp::geo::getTransformedBB(
+      object_node->getCumulativeBB(), object_node->transformation());
+  // also account for collision margin of the scene
+  Magnum::Vector3 y_translation =
+      Magnum::Vector3(0, xform_bb.sizeY() / 2.0 + scene_collision_margin, 0);
+  setTranslation(y_translation + getTranslation(objectID), objectID);
+  // test for penetration with the environment
+  if (!contactTest(objectID)) {
+    return true;
+  }
+  return false;
 }
 
 }  // namespace sim

@@ -70,6 +70,7 @@ class SimEnv {
     this.removeAllObjects();
     this.episode = episode;
     this.initialAgentState = null;
+    this.objectsInScene = [];
 
     if (Object.keys(episode).length > 0) {
       this.initialAgentState = this.createAgentState(episode.startState);
@@ -79,6 +80,7 @@ class SimEnv {
         let position = objects[index]["position"];
 
         this.addObjectAtLocation(objectLibHandle, position);
+        this.objectsInScene.push(objects[index]["object"]);
       }
       this.recomputeNavMesh();
     }
@@ -107,6 +109,7 @@ class SimEnv {
   addObjectAtLocation(objectLibHandle, position) {
     let objectId = this.addObjectByHandle(objectLibHandle);
     this.setTranslation(this.convertVec3fToVector3(position), objectId, 0);
+    this.sampleObjectState(objectId, 0);
     this.setObjectMotionType(Module.MotionType.STATIC, objectId, 0);
     return objectId;
   }
@@ -219,6 +222,8 @@ class SimEnv {
    * @returns {number} object ID or -1 if object was unable to be added
    */
   grabReleaseObject() {
+    // let crossHairPosition = this.getCrosshairPosition();
+    // let ray = this.unproject(crossHairPosition);
     let nearestObjectId = this.getObjectUnderCrosshair();
     let agentTransform = this.getAgentTransformation(0);
 
@@ -470,6 +475,10 @@ class SimEnv {
         this.setObjectBBDraw(true, this.nearestObjectId, 0);
       }
     }
+  }
+
+  sampleObjectState(objectID, sceneID) {
+    this.sim.sampleObjectState(objectID, sceneID);
   }
 
   recomputeNavMesh() {
