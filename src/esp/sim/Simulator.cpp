@@ -1025,9 +1025,7 @@ void Simulator::syncGrippedObject(int grippedObjectId) {
     auto objectSceneNode = getObjectSceneNode(grippedObjectId, 0);
     float grippedObjectBuffer =
         objectSceneNode->getCumulativeBB().sizeY() / 2.0;
-    LOG(WARNING) << "grip buf: " << grippedObjectBuffer;
 
-    LOG(WARNING) << "grip buf: " << grippedObjectBuffer;
     Magnum::Vector3 offset{0.3, 0.8, -0.2};
     Magnum::Vector3 buffer{0.0, grippedObjectBuffer, 0.0};
 

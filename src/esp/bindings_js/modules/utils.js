@@ -142,3 +142,21 @@ export function loadEpisode(episodeConfigPath) {
   }
   return episode;
 }
+
+// export function getEmptySlot(inventory) {
+//   for (let index = 0; index < inventory.length; index++) {
+//     if (inventory[index] === undefined) {
+//       return index;
+//     }
+//   }
+//   return -1;
+// }
+
+// export function getObjectSlot(inventory, objectId) {
+//   for (let index = 0; index < inventory.length; index++) {
+//     if (inventory[index]["objectId"] === objectId) {
+//       return index;
+//     }
+//   }
+//   return -1;
+// }

@@ -6,8 +6,9 @@
 
 import ObjectSensor from "./object_sensor";
 import PsiturkEventLogger from "./event_logger";
-import { flythroughReplayFile } from "./defaults";
+import { flythroughReplayFile, inventorySlots } from "./defaults";
 import { replaceAll } from "./utils";
+import Inventory from "./inventory";
 
 /**
  * NavigateTask class
@@ -29,6 +30,7 @@ class NavigateTask {
     this.radarEnabled = false;
     this.keyBindListener = null;
     this.lastInteractedObjectId = -1;
+    this.inventory = new Inventory(inventorySlots);
 
     if (this.components.semantic) {
       this.semanticsEnabled = true;
@@ -69,6 +71,10 @@ class NavigateTask {
     if (this.components.radar) {
       this.radarEnabled = true;
       this.radarCtx = components.radar.getContext("2d");
+    }
+
+    if (this.components.inventory) {
+      this.inventory.initInventory(components.inventory.getContext("2d"));
     }
 
     this.psiturk = new PsiturkEventLogger(window.psiTurk);
@@ -115,6 +121,7 @@ class NavigateTask {
    */
   reset() {
     this.sim.reset();
+    this.inventory.reset();
     this.setStatus("Ready");
     this.render();
   }
@@ -321,13 +328,47 @@ class NavigateTask {
   render(options = { renderTopDown: true }) {
     this.renderImage();
 
+    this.inventory.renderInventory();
     this.sim.updateCrossHairNode(this.sim.getCrosshairPosition());
     this.sim.drawBBAroundNearestObject();
-    this.sim.syncObjects();
+    //this.sim.syncObjects();
 
     this.renderImage();
     this.renderSemanticImage();
     this.renderTopDown(options);
+  }
+
+  handleInventoryUpdate(isCollision) {
+    let objectId = this.sim.grippedObjectId;
+    if (isCollision) {
+      this.setStatus("Collision while releasing object!");
+      return;
+    }
+    if (objectId == -1) {
+      let slot = this.inventory.findObjectSlot(this.lastInteractedObjectId);
+      if (slot != -1) {
+        this.inventory.setSlot(slot, undefined);
+      }
+      if (this.lastInteractedObjectId != -1) {
+        let object = this.sim.getObjectFromScene(this.lastInteractedObjectId);
+        this.setStatus(object["object"] + " released");
+      }
+    } else {
+      let emptySlot = this.inventory.getEmptySlot();
+      let object = this.sim.getObjectFromScene(objectId);
+
+      if (emptySlot == -1) {
+        console.log("No empty slot in inventory");
+      } else {
+        this.inventory.setSlot(emptySlot, {
+          objectId: objectId,
+          object: object["object"],
+          objectIcon: object["objectIcon"]
+        });
+        this.setStatus(object["object"] + " picked up");
+      }
+    }
+    this.lastInteractedObjectId = objectId;
   }
 
   handleAction(action) {
@@ -338,16 +379,10 @@ class NavigateTask {
     } else if (action === "removeLastObject") {
       this.sim.removeLastObject();
     } else if (action == "grabReleaseObject") {
-      this.sim.grabReleaseObject();
-      let objectId = this.sim.grippedObjectId;
-      if (objectId == -1) {
-        this.setStatus(
-          this.sim.objectsInScene[this.lastInteractedObjectId] + " released"
-        );
-      } else {
-        this.setStatus(this.sim.objectsInScene[objectId] + " picked up");
-      }
-      this.lastInteractedObjectId = objectId;
+      let isCollision = this.sim.inventoryGrabReleaseObject();
+      this.handleInventoryUpdate(isCollision);
+      //this.setStatus(status);
+      //this.lastInteractedObjectId = this.sim.grippedObjectId;
     } else if (action == "endPsiturkTask") {
       // end psiturk task
       if (window.finishTrial) {

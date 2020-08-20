@@ -103,6 +103,8 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
   em::class_<Magnum::Matrix4>("Matrix4")
       .constructor<Magnum::Matrix4>()
       .function("inverted", &Magnum::Matrix4::inverted)
+      .function("translation", em::select_overload<Magnum::Vector3&()>(
+                                   &Magnum::Matrix4::translation))
       .function("mul",
                 em::optional_override(
                     [](const Magnum::Matrix4& self, const Magnum::Matrix4 rhs) {

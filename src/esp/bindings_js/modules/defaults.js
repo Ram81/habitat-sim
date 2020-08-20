@@ -81,3 +81,5 @@ export const taskFiles = {
     }
   ]
 };
+
+export const inventorySlots = 1;

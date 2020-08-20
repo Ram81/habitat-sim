@@ -47,7 +47,7 @@ class SimEnv {
       agent.setState(this.initialAgentState, true);
     }
     this.updateCrossHairNode(this.getCrosshairPosition());
-    this.syncObjects();
+    //this.syncObjects();
 
     this.grippedObjectId = -1;
     this.gripOffset = null;
@@ -77,10 +77,11 @@ class SimEnv {
       let objects = episode.objects;
       for (let index in objects) {
         let objectLibHandle = objects[index]["objectHandle"];
-        let position = objects[index]["position"];
+        let position = this.convertVec3fToVector3(objects[index]["position"]);
 
-        this.addObjectAtLocation(objectLibHandle, position);
-        this.objectsInScene.push(objects[index]["object"]);
+        let objectId = this.addObjectAtLocation(objectLibHandle, position);
+        this.objectsInScene.push(objects[index]);
+        objects[index]["objectId"] = objectId;
       }
       this.recomputeNavMesh();
     }
@@ -96,6 +97,24 @@ class SimEnv {
     this.sim.updateCrossHairNode(postion);
   }
 
+  updateObjectInScene(prevObjectId, newObjectId) {
+    for (let index = 0; index < this.objectsInScene.length; index++) {
+      if (this.objectsInScene[index]["objectId"] == prevObjectId) {
+        this.objectsInScene[index]["objectId"] = newObjectId;
+        break;
+      }
+    }
+  }
+
+  getObjectFromScene(objectId) {
+    for (let index = 0; index < this.objectsInScene.length; index++) {
+      if (this.objectsInScene[index]["objectId"] == objectId) {
+        return this.objectsInScene[index];
+      }
+    }
+    return null;
+  }
+
   /**
    * Sync objects grabbed by agent to agent body.
    */
@@ -108,7 +127,7 @@ class SimEnv {
    */
   addObjectAtLocation(objectLibHandle, position) {
     let objectId = this.addObjectByHandle(objectLibHandle);
-    this.setTranslation(this.convertVec3fToVector3(position), objectId, 0);
+    this.setTranslation(position, objectId, 0);
     this.sampleObjectState(objectId, 0);
     this.setObjectMotionType(Module.MotionType.STATIC, objectId, 0);
     return objectId;
@@ -222,8 +241,6 @@ class SimEnv {
    * @returns {number} object ID or -1 if object was unable to be added
    */
   grabReleaseObject() {
-    // let crossHairPosition = this.getCrosshairPosition();
-    // let ray = this.unproject(crossHairPosition);
     let nearestObjectId = this.getObjectUnderCrosshair();
     let agentTransform = this.getAgentTransformation(0);
 
@@ -263,6 +280,54 @@ class SimEnv {
     }
 
     this.recomputeNavMesh();
+  }
+
+  /**
+   * Grab or release object under cross hair to inventory.
+   * @returns {number} object ID or -1 if object was unable to be added
+   */
+  inventoryGrabReleaseObject() {
+    let nearestObjectId = this.getObjectUnderCrosshair();
+    let agentTransform = this.getAgentTransformation(0);
+
+    if (this.grippedObjectId != -1) {
+      // already gripped, so let it go
+      let objectTransform = agentTransform.mul(this.gripOffset);
+      let objectPosition = objectTransform.translation();
+
+      let isNav = this.pathfinder.isNavigable(
+        this.convertVector3ToVec3f(objectPosition),
+        0.5
+      );
+      // check for collision (apparently this is always true)
+      if (!isNav) {
+        console.log("Colliding with object or position is not navigable");
+        return true;
+      }
+
+      let object = this.getObjectFromScene(this.grippedObjectId);
+
+      let newObjectId = this.addObjectByHandle(object["objectHandle"]);
+      this.setTransformation(objectTransform, newObjectId, 0);
+
+      this.setObjectMotionType(Module.MotionType.STATIC, newObjectId, 0);
+
+      this.updateObjectInScene(this.grippedObjectId, newObjectId);
+
+      this.grippedObjectId = -1;
+    } else if (nearestObjectId != -1) {
+      this.gripOffset = agentTransform
+        .inverted()
+        .mul(this.getTransformation(nearestObjectId, 0));
+
+      this.removeObject(nearestObjectId, 0);
+      this.grippedObjectId = nearestObjectId;
+    } else {
+      return false;
+    }
+
+    this.recomputeNavMesh();
+    return false;
   }
 
   /**
@@ -462,7 +527,7 @@ class SimEnv {
   drawBBAroundNearestObject() {
     let objectId = this.getObjectUnderCrosshair();
     if (objectId == -1) {
-      if (this.nearestObjectId != -1) {
+      if (this.nearestObjectId != -1 && this.grippedObjectId == -1) {
         this.setObjectBBDraw(false, this.nearestObjectId, 0);
         this.nearestObjectId = objectId;
       }

@@ -50,6 +50,7 @@ class WebDemo {
     this.task = new NavigateTask(this.simenv, {
       topdown: this.topdown,
       canvas: this.canvasElement,
+      inventory: document.getElementById("inventory"),
       semantic: document.getElementById("semantic"),
       radar: document.getElementById("radar"),
       scope: document.getElementById("scope"),
