@@ -49,7 +49,10 @@ class Inventory {
 
   findObjectSlot(objectId) {
     for (let index = 0; index < this.inventorySlots; index++) {
-      if (this.inventory[index]["objectId"] === objectId) {
+      if (
+        this.inventory[index] !== undefined &&
+        this.inventory[index]["objectId"] === objectId
+      ) {
         return index;
       }
     }
@@ -62,7 +65,7 @@ class Inventory {
     }
 
     const height = 80;
-    const padding = 5;
+    const padding = 2;
     const width = height * this.inventorySlots;
     let ctx = this.inventoryCtx;
     ctx.clearRect(0, 0, width, height);
@@ -72,8 +75,11 @@ class Inventory {
       // draw box
       const boxOffset = padding + i * (boxSize + padding);
       ctx.beginPath();
+      ctx.strokeStyle = "grey";
+      ctx.lineWidth = 5;
       ctx.rect(boxOffset, padding, boxSize, boxSize);
       ctx.stroke();
+      ctx.closePath();
 
       const imgSize = boxSize - padding * 2;
       if (this.inventory[i] !== undefined) {

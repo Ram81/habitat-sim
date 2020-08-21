@@ -527,12 +527,19 @@ class SimEnv {
   drawBBAroundNearestObject() {
     let objectId = this.getObjectUnderCrosshair();
     if (objectId == -1) {
-      if (this.nearestObjectId != -1 && this.grippedObjectId == -1) {
+      if (
+        this.nearestObjectId != -1 &&
+        this.grippedObjectId != this.nearestObjectId
+      ) {
         this.setObjectBBDraw(false, this.nearestObjectId, 0);
         this.nearestObjectId = objectId;
       }
     } else {
-      if (this.nearestObjectId != -1 && this.nearestObjectId != objectId) {
+      if (
+        this.nearestObjectId != -1 &&
+        this.nearestObjectId != objectId &&
+        this.grippedObjectId != this.nearestObjectId
+      ) {
         this.setObjectBBDraw(false, this.nearestObjectId, 0);
       }
       if (this.nearestObjectId != objectId) {

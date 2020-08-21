@@ -381,8 +381,6 @@ class NavigateTask {
     } else if (action == "grabReleaseObject") {
       let isCollision = this.sim.inventoryGrabReleaseObject();
       this.handleInventoryUpdate(isCollision);
-      //this.setStatus(status);
-      //this.lastInteractedObjectId = this.sim.grippedObjectId;
     } else if (action == "endPsiturkTask") {
       // end psiturk task
       if (window.finishTrial) {

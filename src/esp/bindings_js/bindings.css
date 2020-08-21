@@ -49,3 +49,12 @@
 .hidden {
   display: none !important;
 }
+
+.inventory-center {
+  margin-top: 1.5em;
+  text-align: center;
+}
+
+#inventory {
+  border: 5px solid #000000;
+}
