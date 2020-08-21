@@ -69,8 +69,8 @@ export const flythroughReplayTask = {
 };
 
 export const flythroughReplayFile = {
-  name: "flythrough.csv",
-  location: "replays/flythrough.csv"
+  name: "flythroughInventory.csv",
+  location: "replays/flythroughInventory.csv"
 };
 
 export const taskFiles = {
