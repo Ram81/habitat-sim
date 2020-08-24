@@ -74,7 +74,7 @@ class NavigateTask {
     }
 
     if (this.components.inventory) {
-      this.inventory.initInventory(components.inventory.getContext("2d"));
+      this.inventory.initInventory(components.inventory);
     }
 
     this.psiturk = new PsiturkEventLogger(window.psiTurk);
@@ -122,6 +122,7 @@ class NavigateTask {
   reset() {
     this.sim.reset();
     this.inventory.reset();
+    this.inventory.renderInventory();
     this.setStatus("Ready");
     this.render();
   }
@@ -328,7 +329,7 @@ class NavigateTask {
   render(options = { renderTopDown: true }) {
     this.renderImage();
 
-    this.inventory.renderInventory();
+    //this.inventory.renderInventory();
     this.sim.updateCrossHairNode(this.sim.getCrosshairPosition());
     this.sim.drawBBAroundNearestObject();
     //this.sim.syncObjects();
@@ -381,6 +382,7 @@ class NavigateTask {
     } else if (action == "grabReleaseObject") {
       let isCollision = this.sim.inventoryGrabReleaseObject();
       this.handleInventoryUpdate(isCollision);
+      this.inventory.renderInventory();
     } else if (action == "endPsiturkTask") {
       // end psiturk task
       if (window.finishTrial) {

@@ -17,6 +17,7 @@ class Inventory {
   constructor(inventorySlots) {
     this.inventorySlots = inventorySlots;
     this.inventory = new Array(inventorySlots);
+    this.inventoryComponent = null;
     this.inventoryEnabled = false;
     this.inventoryCtx = null;
   }
@@ -25,9 +26,10 @@ class Inventory {
     this.inventory = new Array(this.inventorySlots);
   }
 
-  initInventory(context) {
+  initInventory(component) {
+    this.inventoryComponent = component;
     this.inventoryEnabled = true;
-    this.inventoryCtx = context;
+    this.inventoryCtx = component.getContext("2d");
   }
 
   setSlot(index, value) {
@@ -67,6 +69,12 @@ class Inventory {
     const height = 80;
     const padding = 2;
     const width = height * this.inventorySlots;
+
+    if (this.inventoryComponent.style.border === "") {
+      this.inventoryComponent.style.border = "5px solid #000000";
+      this.inventoryComponent.width = width.toString();
+    }
+
     let ctx = this.inventoryCtx;
     ctx.clearRect(0, 0, width, height);
     ctx.fillStyle = "darkslategray";

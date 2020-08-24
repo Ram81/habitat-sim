@@ -1052,5 +1052,28 @@ bool Simulator::sampleObjectState(int objectID, int sceneID) {
   return false;
 }
 
+Magnum::Vector3 Simulator::findFloorPositionUnderCrosshair(
+    Magnum::Vector3 point,
+    Magnum::Vector3 refPoint,
+    const Magnum::Vector2i& viewSize,
+    float distance) {
+  int nearestObjId = ID_UNDEFINED;
+  scene::SceneGraph& sceneGraph = sceneManager_->getSceneGraph(activeSceneID_);
+  gfx::RenderCamera& renderCamera_ = sceneGraph.getDefaultRenderCamera();
+
+  const esp::geo::Ray ray{renderCamera_.node().absoluteTranslation(), point};
+  physics::RaycastResults results = castRay(ray);
+  Magnum::Vector3 hitPoint;
+
+  for (int rayIdx = 0; rayIdx < results.hits.size(); rayIdx++) {
+    if ((results.hits[rayIdx].point - refPoint).length() <= distance) {
+      hitPoint = results.hits[rayIdx].point;
+      return hitPoint;
+    }
+  }
+
+  return Magnum::Vector3{0.0, 0.0, 0.0};
+}
+
 }  // namespace sim
 }  // namespace esp

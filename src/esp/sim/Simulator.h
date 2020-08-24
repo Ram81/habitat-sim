@@ -826,6 +826,12 @@ class Simulator {
 
   bool sampleObjectState(int objectID, int sceneID);
 
+  Magnum::Vector3 findFloorPositionUnderCrosshair(
+      Magnum::Vector3 point,
+      Magnum::Vector3 refPoint,
+      const Magnum::Vector2i& viewSize,
+      float distance = 1.0);
+
   /**
    * @brief Getter for PRNG.
    *

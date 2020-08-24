@@ -128,6 +128,8 @@ class SimEnv {
   addObjectAtLocation(objectLibHandle, position) {
     let objectId = this.addObjectByHandle(objectLibHandle);
     this.setTranslation(position, objectId, 0);
+    //console.log(objectLibHandle);
+    //console.log(this.getTranslation(objectId, 0).toString());
     this.sampleObjectState(objectId, 0);
     this.setObjectMotionType(Module.MotionType.STATIC, objectId, 0);
     return objectId;
@@ -288,15 +290,39 @@ class SimEnv {
    */
   inventoryGrabReleaseObject() {
     let nearestObjectId = this.getObjectUnderCrosshair();
-    let agentTransform = this.getAgentTransformation(0);
 
     if (this.grippedObjectId != -1) {
       // already gripped, so let it go
-      let objectTransform = agentTransform.mul(this.gripOffset);
-      let objectPosition = objectTransform.translation();
+      let crossHairPosition = this.getCrosshairPosition();
+      let ray = this.unproject(crossHairPosition);
+      let crossHairPoint = ray.direction;
+      let refPoint = this.getAgentAbsoluteTranslation(0);
+
+      let floorPosition = this.sim.findFloorPositionUnderCrosshair(
+        crossHairPoint,
+        refPoint,
+        this.resolution,
+        1.0
+      );
+
+      if (
+        floorPosition.x() === 0 &&
+        floorPosition.y() === 0 &&
+        floorPosition.z() === 0
+      ) {
+        console.log("Invalid point!");
+        return true;
+      }
+
+      // use original Y value to keep object on the floor
+      let newObjectPosition = new Module.Vector3(
+        floorPosition.x(),
+        this.grippedObjectTransformation.translation().y(),
+        floorPosition.z()
+      );
 
       let isNav = this.pathfinder.isNavigable(
-        this.convertVector3ToVec3f(objectPosition),
+        this.convertVector3ToVec3f(newObjectPosition),
         0.5
       );
       // check for collision (apparently this is always true)
@@ -308,17 +334,16 @@ class SimEnv {
       let object = this.getObjectFromScene(this.grippedObjectId);
 
       let newObjectId = this.addObjectByHandle(object["objectHandle"]);
-      this.setTransformation(objectTransform, newObjectId, 0);
-
+      this.setTranslation(newObjectPosition, newObjectId, 0);
       this.setObjectMotionType(Module.MotionType.STATIC, newObjectId, 0);
 
       this.updateObjectInScene(this.grippedObjectId, newObjectId);
-
       this.grippedObjectId = -1;
     } else if (nearestObjectId != -1) {
-      this.gripOffset = agentTransform
-        .inverted()
-        .mul(this.getTransformation(nearestObjectId, 0));
+      this.grippedObjectTransformation = this.getTransformation(
+        nearestObjectId,
+        0
+      );
 
       this.removeObject(nearestObjectId, 0);
       this.grippedObjectId = nearestObjectId;

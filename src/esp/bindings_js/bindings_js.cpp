@@ -328,5 +328,7 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
       .function("getAgentAbsoluteTranslation",
                 &Simulator::getAgentAbsoluteTranslation)
       .function("setObjectBBDraw", &Simulator::setObjectBBDraw)
-      .function("sampleObjectState", &Simulator::sampleObjectState);
+      .function("sampleObjectState", &Simulator::sampleObjectState)
+      .function("findFloorPositionUnderCrosshair",
+                &Simulator::findFloorPositionUnderCrosshair);
 }
