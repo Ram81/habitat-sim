@@ -305,15 +305,6 @@ class SimEnv {
         1.0
       );
 
-      if (
-        floorPosition.x() === 0 &&
-        floorPosition.y() === 0 &&
-        floorPosition.z() === 0
-      ) {
-        console.log("Invalid point!");
-        return true;
-      }
-
       // use original Y value to keep object on the floor
       let newObjectPosition = new Module.Vector3(
         floorPosition.x(),

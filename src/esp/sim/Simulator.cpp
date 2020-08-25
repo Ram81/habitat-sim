@@ -1072,7 +1072,10 @@ Magnum::Vector3 Simulator::findFloorPositionUnderCrosshair(
     }
   }
 
-  return Magnum::Vector3{0.0, 0.0, 0.0};
+  auto agentBodyNode_ = &getAgent(0)->node();
+  Magnum::Matrix4 T = agentBodyNode_->MagnumObject::transformationMatrix();
+  Magnum::Vector3 new_pos = T.transformPoint({0.0f, 0.0f, -1.0f});
+  return new_pos;  // Magnum::Vector3{0.0, 0.0, 0.0};
 }
 
 }  // namespace sim
