@@ -88,11 +88,7 @@ class NavigateTask {
       { name: "turnRight", key: "d" },
       { name: "lookUp", key: "ArrowUp" },
       { name: "lookDown", key: "ArrowDown" },
-      { name: "addPrimitiveObject", key: "8" },
-      { name: "addTemplateObject", key: "o" },
-      { name: "removeLastObject", key: "9" },
-      { name: "grabReleaseObject", key: "h" },
-      { name: "endPsiturkTask", key: "n" }
+      { name: "grabReleaseObject", key: "h" }
     ];
   }
 
@@ -383,11 +379,6 @@ class NavigateTask {
       let isCollision = this.sim.inventoryGrabReleaseObject();
       this.handleInventoryUpdate(isCollision);
       this.inventory.renderInventory();
-    } else if (action == "endPsiturkTask") {
-      // end psiturk task
-      if (window.finishTrial) {
-        window.finishTrial();
-      }
     } else {
       this.sim.step(action);
       this.setStatus(action);
@@ -397,7 +388,7 @@ class NavigateTask {
 
   handleKeypress(key) {
     for (let a of this.actions) {
-      if (key === a.key) {
+      if (a.key.toLowerCase() === key.toLowerCase()) {
         this.handleAction(a.name);
         break;
       }
