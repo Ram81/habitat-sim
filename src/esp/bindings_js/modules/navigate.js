@@ -80,15 +80,15 @@ class NavigateTask {
     this.psiturk = new PsiturkEventLogger(window.psiTurk);
 
     this.actions = [
-      { name: "moveForward", key: "w" },
-      { name: "moveBackward", key: "s" },
-      { name: "turnLeft", key: "ArrowLeft" },
-      { name: "turnRight", key: "ArrowRight" },
-      { name: "turnLeft", key: "a" },
-      { name: "turnRight", key: "d" },
-      { name: "lookUp", key: "ArrowUp" },
-      { name: "lookDown", key: "ArrowDown" },
-      { name: "grabReleaseObject", key: "h" }
+      { name: "moveForward", key: "w", keyCode: 87 },
+      { name: "moveBackward", key: "s", keyCode: 83 },
+      { name: "turnLeft", key: "ArrowLeft", keyCode: 37 },
+      { name: "turnRight", key: "ArrowRight", keyCode: 39 },
+      { name: "turnLeft", key: "a", keyCode: 65 },
+      { name: "turnRight", key: "d", keyCode: 68 },
+      { name: "lookUp", key: "ArrowUp", keyCode: 38 },
+      { name: "lookDown", key: "ArrowDown", keyCode: 40 },
+      { name: "grabReleaseObject", key: " ", keyCode: 32 }
     ];
   }
 
@@ -178,8 +178,8 @@ class NavigateTask {
       const replayTimeout = window.setTimeout(function() {
         if (datum["event"] === "simReset") {
           _self.reset();
-        } else if (datum["event"] == "handleKeyPress") {
-          _self.handleKeypress(datum["data"]["key"]);
+        } else if (datum["event"] == "handleAction") {
+          _self.handleAction(datum["data"]["action"]);
         }
       }, delay);
       this.replayTimeouts.push(replayTimeout);
@@ -388,7 +388,10 @@ class NavigateTask {
 
   handleKeypress(key) {
     for (let a of this.actions) {
-      if (a.key.toLowerCase() === key.toLowerCase()) {
+      if (a.keyCode === key) {
+        this.psiturk.handleRecordTrialData("TEST", "handleAction", {
+          action: a.name
+        });
         this.handleAction(a.name);
         break;
       }
@@ -403,10 +406,7 @@ class NavigateTask {
     }
     _self.keyBindListener = function(event) {
       event.preventDefault();
-      _self.psiturk.handleRecordTrialData("TEST", "handleKeyPress", {
-        key: event.key
-      });
-      _self.handleKeypress(event.key);
+      _self.handleKeypress(event.keyCode);
     };
     document.addEventListener("keydown", _self.keyBindListener, true);
   }
