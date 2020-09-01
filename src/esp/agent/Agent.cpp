@@ -49,6 +49,18 @@ bool Agent::act(const std::string& actionName) {
                         /*applyFilter=*/true);
     } else {
       for (const auto& p : sensors_.getSensors()) {
+        auto maxXUpRotation = Magnum::Quaternion::rotation(
+            Magnum::Deg(90), Magnum::Math::Vector3<float>::xAxis());
+        auto maxXDownRotation = Magnum::Quaternion::rotation(
+            Magnum::Deg(-90), Magnum::Math::Vector3<float>::xAxis());
+        auto sensorRotation = p.second->object().rotation();
+        if (actionName.compare("lookUp") == 0 &&
+            sensorRotation == maxXUpRotation) {
+          continue;
+        } else if (actionName.compare("lookDown") == 0 &&
+                   sensorRotation == maxXDownRotation) {
+          continue;
+        }
         controls_->action(p.second->object(), actionSpec.name,
                           actionSpec.actuation.at("amount"),
                           /*applyFilter=*/false);

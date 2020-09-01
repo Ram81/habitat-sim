@@ -10,6 +10,7 @@ import ViewerDemo from "./modules/viewer_demo";
 import {
   defaultScene,
   dataHome,
+  sceneHome,
   fileBasedObjects,
   taskFiles,
   flythroughReplayFile,
@@ -30,7 +31,7 @@ function preload(url) {
     const splits = url.split("/");
     file = splits[splits.length - 1];
   }
-  FS.createPreloadedFile("/", file, url, true, false);
+  FS.createPreloadedFile("/", file, sceneHome.concat(url), true, false);
   return file;
 }
 
@@ -78,7 +79,10 @@ function preloadPhysConfig(url) {
     let taskName = tasks[index]["name"];
     let taskConfig = tasks[index]["config"];
 
-    if (taskName == window.config.taskConfig.name) {
+    if (
+      window.config.taskConfig !== undefined &&
+      taskName == window.config.taskConfig.name
+    ) {
       FS.createPreloadedFile(
         emDataHome,
         taskName,
@@ -152,8 +156,12 @@ Module.onRuntimeInitialized = () => {
     demo = new WebDemo();
   }
 
-  let episode = loadEpisode("/data/".concat(window.config.taskConfig.name));
-  demo.display(undefined, episode);
+  if (window.config.taskConfig !== undefined) {
+    let episode = loadEpisode("/data/".concat(window.config.taskConfig.name));
+    demo.display(undefined, episode);
+  } else {
+    demo.display();
+  }
   window.demo = demo;
 };
 
