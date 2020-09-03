@@ -128,8 +128,6 @@ class SimEnv {
   addObjectAtLocation(objectLibHandle, position) {
     let objectId = this.addObjectByHandle(objectLibHandle);
     this.setTranslation(position, objectId, 0);
-    //console.log(objectLibHandle);
-    //console.log(this.getTranslation(objectId, 0).toString());
     this.sampleObjectState(objectId, 0);
     this.setObjectMotionType(Module.MotionType.STATIC, objectId, 0);
     return objectId;

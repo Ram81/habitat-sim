@@ -110,6 +110,10 @@ class NavigateTask {
       config: window.config
     });
     this.initialized = true;
+    // setInterval(() => {
+    //   this.sim.stepWorld(1.0 / 10.0);
+    //   this.render();
+    // }, 100.0);
   }
 
   /**
