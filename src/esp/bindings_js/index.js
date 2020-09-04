@@ -14,7 +14,8 @@ import {
   fileBasedObjects,
   taskFiles,
   flythroughReplayFile,
-  flythroughReplayTask
+  flythroughReplayTask,
+  trainingTask
 } from "./modules/defaults";
 import "./bindings.css";
 import {
@@ -106,6 +107,15 @@ function preloadPhysConfig(url) {
     emDataHome,
     flythroughReplayFile.name,
     dataHome.concat(flythroughReplayFile.location),
+    true,
+    false
+  );
+
+  // load training task episode config
+  FS.createPreloadedFile(
+    emDataHome,
+    trainingTask.name,
+    dataHome.concat(trainingTask.config),
     true,
     false
   );

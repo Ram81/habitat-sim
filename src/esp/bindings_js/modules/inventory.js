@@ -2,8 +2,6 @@
 // This source code is licensed under the MIT license found in the
 // LICENSE file in the root directory of this source tree.
 
-//import { getEmptySlot, getObjectSlot } from "./utils";
-
 /**
  * Inventory class
  */
@@ -11,7 +9,7 @@ class Inventory {
   // PUBLIC methods.
 
   /**
-   * Create navigate task.
+   * Create inverntory.
    * @param {number} inventorySlots - inventory size
    */
   constructor(inventorySlots) {

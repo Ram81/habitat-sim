@@ -31,6 +31,7 @@ class NavigateTask {
     this.keyBindListener = null;
     this.lastInteractedObjectId = -1;
     this.inventory = new Inventory(inventorySlots);
+    this.taskValidator = null;
 
     if (this.components.semantic) {
       this.semanticsEnabled = true;
@@ -75,6 +76,10 @@ class NavigateTask {
 
     if (this.components.inventory) {
       this.inventory.initInventory(components.inventory);
+    }
+
+    if (this.components.taskValidator) {
+      this.taskValidator = this.components.taskValidator;
     }
 
     this.psiturk = new PsiturkEventLogger(window.psiTurk);
@@ -383,6 +388,11 @@ class NavigateTask {
       let isCollision = this.sim.inventoryGrabReleaseObject();
       this.handleInventoryUpdate(isCollision);
       this.inventory.renderInventory();
+      if (this.sim.grippedObjectId === -1 && this.taskValidator.validate()) {
+        if (window.finishTrial) {
+          window.finishTrial();
+        }
+      }
     } else {
       this.sim.step(action);
       this.setStatus(action);

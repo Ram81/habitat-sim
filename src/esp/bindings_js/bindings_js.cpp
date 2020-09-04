@@ -181,7 +181,9 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
       .property("bounds", &PathFinder::bounds)
       .function("isNavigable", &PathFinder::isNavigable)
       .function("getRandomNavigablePoint", &PathFinder::getRandomNavigablePoint)
-      .function("snapPoint", &PathFinder::snapPoint<Magnum::Vector3>);
+      .function("snapPoint", &PathFinder::snapPoint<Magnum::Vector3>)
+      .function("findPath", em::select_overload<bool(ShortestPath&)>(
+                                &PathFinder::findPath));
 
   em::class_<SensorSuite>("SensorSuite")
       .smart_ptr_constructor("SensorSuite", &SensorSuite::create<>)

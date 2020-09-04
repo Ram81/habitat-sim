@@ -7,12 +7,14 @@ import {
   defaultAgentConfig,
   defaultEpisode,
   defaultResolution,
-  flythroughReplayTask
+  flythroughReplayTask,
+  trainingTask
 } from "./defaults";
 import SimEnv from "./simenv_embind";
 import TopDownMap from "./topdown";
 import NavigateTask from "./navigate";
 import { buildConfigFromURLParameters, loadEpisode } from "./utils";
+import TaskValidator from "./TaskValidator";
 
 class WebDemo {
   currentResolution = defaultResolution;
@@ -22,7 +24,7 @@ class WebDemo {
   initializeModules(
     agentConfig = defaultAgentConfig,
     episode = defaultEpisode,
-    initializeTopDown = true
+    initializeTopDown = false
   ) {
     this.config = new Module.SimulatorConfiguration();
     this.config.scene_id = Module.scene;
@@ -47,6 +49,7 @@ class WebDemo {
 
     this.canvasElement = document.getElementById(this.canvasId);
 
+    this.taskValidator = new TaskValidator(episode, this.simenv);
     this.task = new NavigateTask(this.simenv, {
       topdown: this.topdown,
       canvas: this.canvasElement,
@@ -54,7 +57,8 @@ class WebDemo {
       semantic: document.getElementById("semantic"),
       radar: document.getElementById("radar"),
       scope: document.getElementById("scope"),
-      status: document.getElementById("status")
+      status: document.getElementById("status"),
+      taskValidator: this.taskValidator
     });
   }
 
@@ -74,6 +78,11 @@ class WebDemo {
 
   runInit() {
     this.setEpisode("/data/".concat(window.config.taskConfig.name));
+    this.task.reset();
+  }
+
+  runTrainingTask() {
+    this.setEpisode("/data/".concat(trainingTask.name));
     this.task.reset();
   }
 

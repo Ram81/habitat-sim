@@ -83,4 +83,9 @@ export const taskFiles = {
   ]
 };
 
+export const trainingTask = {
+  name: "trainingTask.json",
+  config: "tasks/trainingTask.json"
+};
+
 export const inventorySlots = 1;

@@ -47,7 +47,6 @@ class SimEnv {
       agent.setState(this.initialAgentState, true);
     }
     this.updateCrossHairNode(this.getCrosshairPosition());
-    //this.syncObjects();
 
     this.grippedObjectId = -1;
     this.gripOffset = null;
@@ -595,6 +594,37 @@ class SimEnv {
 
   unproject(crossHairPosition) {
     return this.sim.unproject(crossHairPosition);
+  }
+
+  /**
+   * Get the geodesic distance between two points.
+   * @param {number} positionA - starting position
+   * @param {number} positionB - ending position
+   * @returns {number} distance between positionA and positionB
+   */
+  geodesicDistance(positionA, positionB) {
+    let path = new Module.ShortestPath();
+    path.requestedStart = positionA;
+    path.requestedEnd = positionB;
+    this.pathfinder.findPath(path);
+    return path.geodesicDistance;
+  }
+
+  /**
+   * Get the geodesic distance between two objects.
+   * @param {number} sourceObjectId - source object id
+   * @param {number} destinationObjectId - destination object id
+   * @returns {number} distance between sourceObjectId and destinationObjectId
+   */
+  getDistanceBetweenObjects(sourceObjectId, destinationObjectId) {
+    let sourcePosition = this.getTranslation(sourceObjectId, 0);
+    let destinationPosition = this.getTranslation(destinationObjectId, 0);
+
+    let distance = this.geodesicDistance(
+      this.convertVector3ToVec3f(sourcePosition),
+      this.convertVector3ToVec3f(destinationPosition)
+    );
+    return distance;
   }
 
   convertVector3ToVec3f(position) {
