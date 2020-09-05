@@ -79,6 +79,10 @@ export const taskFiles = {
     {
       name: "task.json",
       config: "tasks/task.json"
+    },
+    {
+      name: "trainingTask.json",
+      config: "tasks/trainingTask.json"
     }
   ]
 };

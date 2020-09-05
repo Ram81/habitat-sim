@@ -9,6 +9,7 @@ import PsiturkEventLogger from "./event_logger";
 import { flythroughReplayFile, inventorySlots } from "./defaults";
 import { replaceAll } from "./utils";
 import Inventory from "./inventory";
+import TaskValidator from "./TaskValidator";
 
 /**
  * NavigateTask class
@@ -223,6 +224,10 @@ class NavigateTask {
     this.psiturk.handleRecordTrialData("TEST", "flythroughEnd", {});
   }
 
+  setTaskValidator(epsiode) {
+    this.taskValidator = new TaskValidator(epsiode, this.sim);
+  }
+
   // PRIVATE methods.
 
   setStatus(text) {
@@ -390,7 +395,8 @@ class NavigateTask {
       this.inventory.renderInventory();
       if (this.sim.grippedObjectId === -1 && this.taskValidator.validate()) {
         if (window.finishTrial) {
-          window.finishTrial();
+          this.setStatus("Task completed!");
+          setTimeout(window.finishTrial, 500);
         }
       }
     } else {

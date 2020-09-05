@@ -114,6 +114,10 @@ class SimEnv {
     return null;
   }
 
+  getObjectsInScene() {
+    return this.objectsInScene;
+  }
+
   /**
    * Sync objects grabbed by agent to agent body.
    */

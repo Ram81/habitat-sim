@@ -36,15 +36,17 @@ class TaskValidator {
     }
 
     let objectToGoalMap = goal.objectToGoalMap;
+    let objectsInScene = this.sim.getObjectsInScene();
     for (let key in objectToGoalMap) {
-      let sourceObjectId = parseInt(key);
+      let sourceObjectId = objectsInScene[parseInt(key)]["objectId"];
       let receptacles = objectToGoalMap[key];
 
       let success = false;
       for (let i = 0; i < receptacles.length; i++) {
+        let receptacleObjectId = objectsInScene[receptacles[i]]["objectId"];
         let distance = this.sim.getDistanceBetweenObjects(
           sourceObjectId,
-          receptacles[i]
+          receptacleObjectId
         );
         if (distance <= 2.0) {
           success = true;

@@ -62,27 +62,36 @@ class WebDemo {
     });
   }
 
-  setEpisode(episodeConfigPath) {
-    let episode = loadEpisode(episodeConfigPath);
+  setEpisode(episode) {
     let taskInstruction = document.getElementById("task-instruction");
     taskInstruction.innerHTML =
       "<hr> <h1>Task: " + episode.task.instruction + "</h1> <hr>";
     this.simenv.setEpisode(episode);
   }
 
+  setTaskValidator(episode) {
+    this.task.setTaskValidator(episode);
+  }
+
   runFlythrough() {
-    this.setEpisode("/data/".concat(flythroughReplayTask.name));
+    let episode = loadEpisode("/data/".concat(flythroughReplayTask.name));
+    this.setEpisode(episode);
+    this.setTaskValidator(episode);
     this.task.reset();
     this.task.runFlythrough();
   }
 
   runInit() {
-    this.setEpisode("/data/".concat(window.config.taskConfig.name));
+    let episode = loadEpisode("/data/".concat(window.config.taskConfig.name));
+    this.setEpisode(episode);
+    this.setTaskValidator(episode);
     this.task.reset();
   }
 
   runTrainingTask() {
-    this.setEpisode("/data/".concat(trainingTask.name));
+    let episode = loadEpisode("/data/".concat(trainingTask.name));
+    this.setEpisode(episode);
+    this.setTaskValidator(episode);
     this.task.reset();
   }
 
