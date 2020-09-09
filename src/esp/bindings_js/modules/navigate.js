@@ -116,10 +116,10 @@ class NavigateTask {
       config: window.config
     });
     this.initialized = true;
-    // setInterval(() => {
-    //   this.sim.stepWorld(1.0 / 10.0);
-    //   this.render();
-    // }, 100.0);
+    setInterval(() => {
+      this.sim.stepWorld(1.0 / 10.0);
+      this.render();
+    }, 100.0);
   }
 
   /**
@@ -339,10 +339,8 @@ class NavigateTask {
   render(options = { renderTopDown: true }) {
     this.renderImage();
 
-    //this.inventory.renderInventory();
     this.sim.updateCrossHairNode(this.sim.getCrosshairPosition());
     this.sim.drawBBAroundNearestObject();
-    //this.sim.syncObjects();
 
     this.renderImage();
     this.renderSemanticImage();

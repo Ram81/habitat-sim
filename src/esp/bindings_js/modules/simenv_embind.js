@@ -132,7 +132,7 @@ class SimEnv {
     let objectId = this.addObjectByHandle(objectLibHandle);
     this.setTranslation(position, objectId, 0);
     this.sampleObjectState(objectId, 0);
-    this.setObjectMotionType(Module.MotionType.STATIC, objectId, 0);
+    this.setObjectMotionType(Module.MotionType.DYNAMIC, objectId, 0);
     return objectId;
   }
 
@@ -278,6 +278,7 @@ class SimEnv {
         .mul(this.getTransformation(nearestObjectId, 0));
       this.setObjectMotionType(Module.MotionType.KINEMATIC, nearestObjectId, 0);
       this.grippedObjectId = nearestObjectId;
+      this.drawBBAroundNearestObject();
     } else {
       return;
     }
@@ -307,27 +308,21 @@ class SimEnv {
       );
 
       // use original Y value to keep object on the floor
+      let yValue = floorPosition.y();
+      if (this.grippedObjectTransformation.translation().y() >= yValue) {
+        yValue = this.grippedObjectTransformation.translation().y();
+      }
       let newObjectPosition = new Module.Vector3(
         floorPosition.x(),
-        this.grippedObjectTransformation.translation().y(),
+        yValue,
         floorPosition.z()
       );
-
-      let isNav = this.pathfinder.isNavigable(
-        this.convertVector3ToVec3f(newObjectPosition),
-        0.5
-      );
-      // check for collision (apparently this is always true)
-      if (!isNav) {
-        console.log("Colliding with object or position is not navigable");
-        return true;
-      }
 
       let object = this.getObjectFromScene(this.grippedObjectId);
 
       let newObjectId = this.addObjectByHandle(object["objectHandle"]);
       this.setTranslation(newObjectPosition, newObjectId, 0);
-      this.setObjectMotionType(Module.MotionType.STATIC, newObjectId, 0);
+      //this.setObjectMotionType(Module.MotionType.STATIC, newObjectId, 0);
 
       this.updateObjectInScene(this.grippedObjectId, newObjectId);
       this.grippedObjectId = -1;
