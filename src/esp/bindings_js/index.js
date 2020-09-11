@@ -53,21 +53,25 @@ function preloadPhysConfig(url) {
   // TODO Need to loop through the objects directory on the server (`phys/objects/*`) and put all of the glbs onto the client
   var objects = fileBasedObjects["objects"];
   for (let objectIdx in objects) {
-    let objectName = objects[objectIdx]["objectName"];
-    let objectHandle = objects[objectIdx]["objectHandle"];
     let physicsProperties = objects[objectIdx]["physicsProperties"];
+    let physicsPropertyName = physicsProperties.split("/")[
+      physicsProperties.split("/").length - 1
+    ];
     let renderMesh = objects[objectIdx]["renderMesh"];
+    let renderMeshName = renderMesh.split("/")[
+      renderMesh.split("/").length - 1
+    ];
 
     FS.createPreloadedFile(
       emObjHome,
-      objectName,
+      renderMeshName,
       dataHome.concat(renderMesh),
       true,
       false
     );
     FS.createPreloadedFile(
       emObjHome,
-      objectHandle,
+      physicsPropertyName,
       dataHome.concat(physicsProperties),
       true,
       false

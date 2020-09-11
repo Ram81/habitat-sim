@@ -42,37 +42,35 @@ export const sceneHome = "data/scenes/";
 export const primitiveObjectHandles = [
   "cylinderSolid_rings_1_segments_12_halfLen_1_useTexCoords_false_useTangents_false_capEnds_true"
 ];
-export const fileBasedObjectHandles = [
-  "/data/objects/sphere.phys_properties.json",
-  "/data/objects/chair.phys_properties.json",
-  "/data/objects/mini_soccer_ball.phys_properties.json",
-  "/data/objects/colored_wood_blocks.phys_properties.json"
-];
 
 export const fileBasedObjects = {
   objects: [
     {
-      objectName: "sphere.glb",
-      objectHandle: "sphere.phys_properties.json",
+      object: "sphere",
+      objectIcon: "/data/test_assets/objects/sphere.png",
+      objectHandle: "/data/objects/sphere.phys_properties.json",
       physicsProperties: "test_assets/objects/sphere.phys_properties.json",
       renderMesh: "test_assets/objects/sphere.glb"
     },
     {
-      objectName: "chair.glb",
-      objectHandle: "chair.phys_properties.json",
-      physicsProperties: "test_assets/objects/chair.phys_properties.json",
-      renderMesh: "test_assets/objects/chair.glb"
-    },
-    {
-      objectName: "mini_soccer_ball.glb",
-      objectHandle: "mini_soccer_ball.phys_properties.json",
+      object: "mini_soccer_ball",
+      objectIcon: "/data/test_assets/objects/mini_soccer_ball.png",
+      objectHandle: "/data/objects/mini_soccer_ball.phys_properties.json",
       physicsProperties:
         "test_assets/objects/mini_soccer_ball.phys_properties.json",
       renderMesh: "test_assets/objects/mini_soccer_ball.glb"
     },
     {
-      objectName: "colored_wood_blocks.glb",
-      objectHandle: "colored_wood_blocks.phys_properties.json",
+      object: "chair",
+      objectIcon: "/data/test_assets/objects/chair.png",
+      objectHandle: "/data/objects/chair.phys_properties.json",
+      physicsProperties: "test_assets/objects/chair.phys_properties.json",
+      renderMesh: "test_assets/objects/chair.glb"
+    },
+    {
+      object: "colored_wood_blocks",
+      objectIcon: "/data/test_assets/objects/colored_wood_blocks.png",
+      objectHandle: "/data/objects/colored_wood_blocks.phys_properties.json",
       physicsProperties:
         "test_assets/objects/colored_wood_blocks.phys_properties.json",
       renderMesh: "test_assets/objects/colored_wood_blocks.glb"

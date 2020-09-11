@@ -4,11 +4,7 @@
 
 /*global Module */
 
-import {
-  primitiveObjectHandles,
-  fileBasedObjectHandles,
-  fileBasedObjects
-} from "./defaults";
+import { primitiveObjectHandles, fileBasedObjects } from "./defaults";
 import { getRandomInt } from "./utils";
 import PsiturkEventLogger from "./event_logger";
 
@@ -83,8 +79,7 @@ class SimEnv {
         let position = this.convertVec3fToVector3(objects[index]["position"]);
 
         let objectId = this.addObjectAtLocation(objectLibHandle, position);
-        this.objectsInScene.push(objects[index]);
-        objects[index]["objectId"] = objectId;
+        this.addObjectInScene(objectId, objects[index]);
       }
       this.recomputeNavMesh();
     }
@@ -101,11 +96,7 @@ class SimEnv {
   }
 
   addObjectInScene(objectId, objectTemplate) {
-    let object = {};
-    let objectName = objectTemplate["objectName"].split(".")[0];
-    object["object"] = objectName;
-    object["objectIcon"] = "/data/test_assets/objects/" + objectName + ".png";
-    object["objectHandle"] = "/data/objects/" + objectTemplate["objectHandle"];
+    let object = JSON.parse(JSON.stringify(objectTemplate));
     object["objectId"] = objectId;
     this.objectsInScene.push(object);
   }
@@ -235,8 +226,9 @@ class SimEnv {
    * @returns {number} object ID or -1 if object was unable to be added
    */
   addTemplateObject() {
-    let fileBasedObjectIdx = getRandomInt(fileBasedObjectHandles.length);
-    let objectLibHandle = fileBasedObjectHandles[fileBasedObjectIdx];
+    let fileBasedObjectIdx = getRandomInt(fileBasedObjects["objects"].length);
+    let objectLibHandle =
+      fileBasedObjects["objects"][fileBasedObjectIdx]["objectHandle"];
     let objectId = this.addObjectByHandle(objectLibHandle);
     let agentTransform = this.getAgentTransformation(0);
     let position = agentTransform.transformPoint(
