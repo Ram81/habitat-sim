@@ -44,7 +44,9 @@ export const primitiveObjectHandles = [
 ];
 export const fileBasedObjectHandles = [
   "/data/objects/sphere.phys_properties.json",
-  "/data/objects/chair.phys_properties.json"
+  "/data/objects/chair.phys_properties.json",
+  "/data/objects/mini_soccer_ball.phys_properties.json",
+  "/data/objects/colored_wood_blocks.phys_properties.json"
 ];
 
 export const fileBasedObjects = {
@@ -60,6 +62,20 @@ export const fileBasedObjects = {
       objectHandle: "chair.phys_properties.json",
       physicsProperties: "test_assets/objects/chair.phys_properties.json",
       renderMesh: "test_assets/objects/chair.glb"
+    },
+    {
+      objectName: "mini_soccer_ball.glb",
+      objectHandle: "mini_soccer_ball.phys_properties.json",
+      physicsProperties:
+        "test_assets/objects/mini_soccer_ball.phys_properties.json",
+      renderMesh: "test_assets/objects/mini_soccer_ball.glb"
+    },
+    {
+      objectName: "colored_wood_blocks.glb",
+      objectHandle: "colored_wood_blocks.phys_properties.json",
+      physicsProperties:
+        "test_assets/objects/colored_wood_blocks.phys_properties.json",
+      renderMesh: "test_assets/objects/colored_wood_blocks.glb"
     }
   ]
 };
