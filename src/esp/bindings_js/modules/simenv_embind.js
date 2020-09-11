@@ -4,7 +4,11 @@
 
 /*global Module */
 
-import { primitiveObjectHandles, fileBasedObjectHandles } from "./defaults";
+import {
+  primitiveObjectHandles,
+  fileBasedObjectHandles,
+  fileBasedObjects
+} from "./defaults";
 import { getRandomInt } from "./utils";
 import PsiturkEventLogger from "./event_logger";
 
@@ -94,6 +98,16 @@ class SimEnv {
    */
   updateCrossHairNode(postion) {
     this.sim.updateCrossHairNode(postion);
+  }
+
+  addObjectInScene(objectId, objectTemplate) {
+    let object = {};
+    let objectName = objectTemplate["objectName"].split(".")[0];
+    object["object"] = objectName;
+    object["objectIcon"] = "/data/test_assets/objects/" + objectName + ".png";
+    object["objectHandle"] = "/data/objects/" + objectTemplate["objectHandle"];
+    object["objectId"] = objectId;
+    this.objectsInScene.push(object);
   }
 
   updateObjectInScene(prevObjectId, newObjectId) {
@@ -208,10 +222,11 @@ class SimEnv {
     let primitiveObjectIdx = getRandomInt(primitiveObjectHandles.length);
     let objectLibHandle = primitiveObjectHandles[primitiveObjectIdx];
     let objectId = this.addObjectByHandle(objectLibHandle);
-    let newPosition = this.pathfinder.getRandomNavigablePoint();
-    let position = this.convertVec3fToVector3(newPosition);
+    let agentTransform = this.getAgentTransformation(0);
+    let position = agentTransform.transformPoint(
+      new Module.Vector3(0.1, 1.5, -1.5)
+    );
     this.setTranslation(position, objectId, 0);
-    this.setObjectMotionType(Module.MotionType.STATIC, objectId, 0);
     return objectId;
   }
 
@@ -223,10 +238,15 @@ class SimEnv {
     let fileBasedObjectIdx = getRandomInt(fileBasedObjectHandles.length);
     let objectLibHandle = fileBasedObjectHandles[fileBasedObjectIdx];
     let objectId = this.addObjectByHandle(objectLibHandle);
-    let newPosition = this.pathfinder.getRandomNavigablePoint();
-    let position = this.convertVec3fToVector3(newPosition);
+    let agentTransform = this.getAgentTransformation(0);
+    let position = agentTransform.transformPoint(
+      new Module.Vector3(0.1, 1.5, -1.5)
+    );
     this.setTranslation(position, objectId, 0);
-    this.setObjectMotionType(Module.MotionType.STATIC, objectId, 0);
+    this.addObjectInScene(
+      objectId,
+      fileBasedObjects["objects"][fileBasedObjectIdx]
+    );
     return objectId;
   }
 
