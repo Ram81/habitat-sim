@@ -100,6 +100,10 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
       .element(em::index<0>())
       .element(em::index<1>());
 
+  em::value_object<RayHitInfo>("RayHitInfo")
+      .field("point", &RayHitInfo::point)
+      .field("objectId", &RayHitInfo::objectId);
+
   em::class_<Magnum::Matrix4>("Matrix4")
       .constructor<Magnum::Matrix4>()
       .function("inverted", &Magnum::Matrix4::inverted)

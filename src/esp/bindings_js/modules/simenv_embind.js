@@ -298,28 +298,48 @@ class SimEnv {
     this.recomputeNavMesh();
   }
 
+  handleDroppedObject(objectId) {
+    this.setObjectMotionType(Module.MotionType.STATIC, objectId, 0);
+    this.recomputeNavMesh();
+  }
+
   /**
    * Grab or release object under cross hair to inventory.
    * @returns {number} object ID or -1 if object was unable to be added
    */
   inventoryGrabReleaseObject() {
     let nearestObjectId = this.getObjectUnderCrosshair();
+    // to handle case or multiple reruns incase object is grabbed again within 2s
+    clearTimeout(this.handleDroppedObjectFunction);
 
     if (this.grippedObjectId != -1) {
       // already gripped, so let it go
       let crossHairPosition = this.getCrosshairPosition();
       let ray = this.unproject(crossHairPosition);
       let crossHairPoint = ray.direction;
-      let refPoint = this.getAgentAbsoluteTranslation(0);
+      // let refPoint = this.getAgentAbsoluteTranslation(0);
 
-      let floorPosition = this.sim.findFloorPositionUnderCrosshair(
-        crossHairPoint,
-        refPoint,
-        this.resolution,
-        1.0
-      );
+      // let rayHitInfo = this.sim.findFloorPositionUnderCrosshair(
+      //   crossHairPoint,
+      //   refPoint,
+      //   this.resolution,
+      //   1.0
+      // );
+      let floorPosition = this.getObjectDropPoint(crossHairPoint);
+      console.log(floorPosition.toString());
+      // let floorPosition = rayHitInfo.point;
+      // if (rayHitInfo.objectId != -1) {
+      //   floorPosition = new Module.Vector3(
+      //     floorPosition.x(),
+      //     floorPosition.y() + 0.25,
+      //     floorPosition.z()
+      //   );
+      // }
+      if (floorPosition == null) {
+        return true;
+      }
 
-      // use original Y value to keep object on the floor
+      // use original Y value to keep object on the floor if crosshair is pointing on ground
       let yValue = floorPosition.y();
       if (this.grippedObjectTransformation.translation().y() >= yValue) {
         yValue = this.grippedObjectTransformation.translation().y();
@@ -334,10 +354,13 @@ class SimEnv {
 
       let newObjectId = this.addObjectByHandle(object["objectHandle"]);
       this.setTranslation(newObjectPosition, newObjectId, 0);
-      //this.setObjectMotionType(Module.MotionType.STATIC, newObjectId, 0);
 
       this.updateObjectInScene(this.grippedObjectId, newObjectId);
       this.grippedObjectId = -1;
+
+      this.handleDroppedObjectFunction = setTimeout(() => {
+        this.handleDroppedObject(newObjectId);
+      }, 2000);
     } else if (nearestObjectId != -1) {
       this.grippedObjectTransformation = this.getTransformation(
         nearestObjectId,
@@ -350,7 +373,6 @@ class SimEnv {
       return false;
     }
 
-    this.recomputeNavMesh();
     return false;
   }
 
@@ -571,6 +593,36 @@ class SimEnv {
         this.setObjectBBDraw(true, this.nearestObjectId, 0);
       }
     }
+  }
+
+  getObjectDropPoint(initialCrossHairPosition) {
+    let refPoint = this.getAgentAbsoluteTranslation(0);
+    //let objectId = 0;
+    //let maxSteps = 5;
+    //let steps = 0;
+    let position = initialCrossHairPosition;
+    //while (objectId != -1 && steps < maxSteps) {
+    let rayHitInfo = this.sim.findFloorPositionUnderCrosshair(
+      position,
+      refPoint,
+      this.resolution,
+      1.0
+    );
+    position = rayHitInfo.point;
+    if (rayHitInfo.objectId != -1) {
+      position = new Module.Vector3(
+        position.x(),
+        position.y() + 0.25,
+        position.z()
+      );
+      return position;
+    }
+    // else {
+    //  return position;
+    //}
+    //steps += 1;
+    //}
+    return position;
   }
 
   sampleObjectState(objectID, sceneID) {

@@ -1052,7 +1052,7 @@ bool Simulator::sampleObjectState(int objectID, int sceneID) {
   return false;
 }
 
-Magnum::Vector3 Simulator::findFloorPositionUnderCrosshair(
+esp::physics::RayHitInfo Simulator::findFloorPositionUnderCrosshair(
     Magnum::Vector3 point,
     Magnum::Vector3 refPoint,
     const Magnum::Vector2i& viewSize,
@@ -1063,19 +1063,20 @@ Magnum::Vector3 Simulator::findFloorPositionUnderCrosshair(
 
   const esp::geo::Ray ray{renderCamera_.node().absoluteTranslation(), point};
   physics::RaycastResults results = castRay(ray);
-  Magnum::Vector3 hitPoint;
 
   for (int rayIdx = 0; rayIdx < results.hits.size(); rayIdx++) {
     if ((results.hits[rayIdx].point - refPoint).length() <= distance) {
-      hitPoint = results.hits[rayIdx].point;
-      return hitPoint;
+      return results.hits[rayIdx];
     }
   }
 
   auto agentBodyNode_ = &getAgent(0)->node();
   Magnum::Matrix4 T = agentBodyNode_->MagnumObject::transformationMatrix();
-  Magnum::Vector3 new_pos = T.transformPoint({0.0f, 1.5f, -1.0f});
-  return new_pos;
+  Magnum::Vector3 newPos = T.transformPoint({0.0f, 1.5f, -1.0f});
+  esp::physics::RayHitInfo rayHitInfo;
+  rayHitInfo.point = newPos;
+  rayHitInfo.objectId = -1;
+  return rayHitInfo;
 }
 
 }  // namespace sim
