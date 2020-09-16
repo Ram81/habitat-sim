@@ -917,6 +917,8 @@ class Simulator {
    */
   Corrade::Containers::Optional<bool> requiresTextures_;
 
+  esp::scene::SceneNode* crossHairNode_ = nullptr;
+
   ESP_SMART_POINTERS(Simulator)
 };
 
