@@ -1,0 +1,45 @@
+{
+    "episodes": [
+      {
+        "episode_id": "0",
+        "scene_id": "skokloster-castle.glb",
+        "task": {
+          "instruction": "Place the red sphere next to the brown chair",
+          "type": "arrangement",
+          "goal": {
+            "objectToGoalMap": {
+              "0": [1],
+              "1": [0]
+            }
+          }
+        },
+        "start_position": [
+          -1.2676633596420288,
+          0.2047852873802185,
+          12.595427513122559
+        ],
+        "start_rotation": [
+          0,
+          0.4536385088584658,
+          0,
+          0.8911857849408661
+        ],
+        "objects": [
+          {
+            "object": "sphere",
+            "objectIcon": "/data/test_assets/objects/sphere.png",
+            "objectHandle": "/data/objects/sphere.phys_properties.json",
+            "position": [-0.9517786502838135, 0.167676642537117, 11.343990325927734],
+            "motionType": "STATIC"
+          },
+          {
+            "object": "chair",
+            "objectIcon": "/data/test_assets/objects/chair.png",
+            "objectHandle": "/data/objects/chair.phys_properties.json",
+            "position": [1.0410436391830444, 0.192904531955719, 21.877525329589844],
+            "motionType": "STATIC"
+          }
+        ]
+      }
+    ]
+  }

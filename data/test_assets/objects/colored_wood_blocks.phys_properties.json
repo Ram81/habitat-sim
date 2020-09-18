@@ -1,0 +1,5 @@
+{
+"render mesh": "colored_wood_blocks.glb",
+"use bounding box for collision": true,
+"scale": [3.5, 3.5, 3.5]
+}

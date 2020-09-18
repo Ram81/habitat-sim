@@ -1037,7 +1037,7 @@ void Simulator::syncGrippedObject(int grippedObjectId) {
 
 bool Simulator::sampleObjectState(int objectID, int sceneID) {
   scene::SceneNode* object_node = getObjectSceneNode(objectID, sceneID);
-  auto sceneAttributesMgr = resourceManager_->getSceneAttributesManager();
+  auto sceneAttributesMgr = resourceManager_->getStageAttributesManager();
   double scene_collision_margin = 0.0;  // sceneAttributesMgr->getMargin();
   Magnum::Range3D xform_bb = esp::geo::getTransformedBB(
       object_node->getCumulativeBB(), object_node->transformation());

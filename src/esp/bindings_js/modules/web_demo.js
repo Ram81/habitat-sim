@@ -74,6 +74,7 @@ class WebDemo {
   }
 
   runFlythrough() {
+    window.config.disableLogging = true;
     let episode = loadEpisode("/data/".concat(flythroughReplayTask.name));
     this.setEpisode(episode);
     this.setTaskValidator(episode);
@@ -82,6 +83,7 @@ class WebDemo {
   }
 
   runInit() {
+    window.config.disableLogging = false;
     let episode = loadEpisode("/data/".concat(window.config.taskConfig.name));
     this.setEpisode(episode);
     this.setTaskValidator(episode);
@@ -89,6 +91,7 @@ class WebDemo {
   }
 
   runTrainingTask() {
+    window.config.disableLogging = true;
     let episode = loadEpisode("/data/".concat(trainingTask.name));
     this.setEpisode(episode);
     this.setTaskValidator(episode);
