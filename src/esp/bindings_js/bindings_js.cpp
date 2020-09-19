@@ -337,5 +337,6 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
       .function("setObjectBBDraw", &Simulator::setObjectBBDraw)
       .function("sampleObjectState", &Simulator::sampleObjectState)
       .function("findFloorPositionUnderCrosshair",
-                &Simulator::findFloorPositionUnderCrosshair);
+                &Simulator::findFloorPositionUnderCrosshair)
+      .function("contactTest", &Simulator::contactTest);
 }

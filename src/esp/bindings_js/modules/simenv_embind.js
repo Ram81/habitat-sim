@@ -287,13 +287,13 @@ class SimEnv {
         0
       );
       this.grippedObjectId = -1;
+      this.drawBBAroundNearestObject();
     } else if (nearestObjectId != -1) {
       this.gripOffset = agentTransform
         .inverted()
         .mul(this.getTransformation(nearestObjectId, 0));
       this.setObjectMotionType(Module.MotionType.KINEMATIC, nearestObjectId, 0);
       this.grippedObjectId = nearestObjectId;
-      this.drawBBAroundNearestObject();
     } else {
       return;
     }
@@ -314,7 +314,15 @@ class SimEnv {
       let crossHairPosition = this.getCrosshairPosition();
       let ray = this.unproject(crossHairPosition);
       let crossHairPoint = ray.direction;
-      let floorPosition = this.getObjectDropPoint(crossHairPoint);
+      let refPoint = this.getAgentAbsoluteTranslation(0);
+      // get raycast hit point
+      let rayHitInfo = this.sim.findFloorPositionUnderCrosshair(
+        crossHairPoint,
+        refPoint,
+        this.resolution,
+        1.5
+      );
+      let floorPosition = rayHitInfo.point;
       if (floorPosition == null) {
         return true;
       }
@@ -334,6 +342,15 @@ class SimEnv {
 
       let newObjectId = this.addObjectByHandle(object["objectHandle"]);
       this.setTranslation(newObjectPosition, newObjectId, 0);
+      // collision check on drop point
+      while (this.sim.contactTest(newObjectId, 0)) {
+        newObjectPosition = new Module.Vector3(
+          newObjectPosition.x(),
+          newObjectPosition.y() + 0.25,
+          newObjectPosition.z()
+        );
+        this.setTranslation(newObjectPosition, newObjectId, 0);
+      }
 
       this.updateObjectInScene(this.grippedObjectId, newObjectId);
       this.grippedObjectId = -1;
@@ -559,46 +576,16 @@ class SimEnv {
     } else {
       if (
         this.nearestObjectId != -1 &&
-        this.nearestObjectId != objectId &&
         this.grippedObjectId != this.nearestObjectId
       ) {
         this.setObjectBBDraw(false, this.nearestObjectId, 0);
+        this.nearestObjectId = -1;
       }
       if (this.nearestObjectId != objectId) {
         this.nearestObjectId = objectId;
         this.setObjectBBDraw(true, this.nearestObjectId, 0);
       }
     }
-  }
-
-  getObjectDropPoint(initialCrossHairPosition) {
-    let refPoint = this.getAgentAbsoluteTranslation(0);
-    let objectId = 0;
-    let maxSteps = 5;
-    let steps = 0;
-    let position = initialCrossHairPosition;
-    // handle computing drop point iteratively for multiple stacked objects
-    while (objectId != -1 && steps < maxSteps) {
-      steps += 1;
-      let rayHitInfo = this.sim.findFloorPositionUnderCrosshair(
-        position,
-        refPoint,
-        this.resolution,
-        1.0
-      );
-      position = rayHitInfo.point;
-      if (rayHitInfo.objectId != -1) {
-        position = new Module.Vector3(
-          position.x(),
-          position.y() + 0.35,
-          position.z()
-        );
-        return position;
-      } else {
-        return position;
-      }
-    }
-    return null;
   }
 
   sampleObjectState(objectID, sceneID) {
@@ -625,7 +612,7 @@ class SimEnv {
       crossHairPoint,
       refPoint,
       windowSize,
-      1.0
+      1.5
     );
   }
 
