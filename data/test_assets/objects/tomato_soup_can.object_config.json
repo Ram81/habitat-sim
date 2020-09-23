@@ -1,0 +1,7 @@
+{
+	"render_asset": "tomato_soup_can.glb",
+	"use_bounding_box_for_collision": true,
+	"requires_lighting": true,
+	"scale": [2.5, 2.5, 2.5],
+	"margin": 0
+}

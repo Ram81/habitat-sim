@@ -48,6 +48,7 @@ class SceneNodeControl(abc.ABC):
     """
 
     body_action: bool = False
+    interact_action: bool = False
 
     @abc.abstractmethod
     def __call__(

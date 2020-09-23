@@ -1,0 +1,7 @@
+{
+	"render_asset": "wood_block.glb",
+	"use_bounding_box_for_collision": true,
+	"requires_lighting": true,
+	"scale": [4.0, 3.0, 4.0],
+	"margin": 0
+}

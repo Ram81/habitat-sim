@@ -277,8 +277,9 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
       .property("objects", &SemanticScene::objects);
 
   em::class_<SceneNode>("SceneNode")
-      .function("getId", &SceneNode::getId)
-      .function("getSemanticId", &SceneNode::getSemanticId);
+      .property("id", &SceneNode::getId, &SceneNode::setId)
+      .property("semanticId", &SceneNode::getSemanticId,
+                &SceneNode::setSemanticId);
 
   em::enum_<MotionType>("MotionType")
       .value("ERROR_MOTIONTYPE", MotionType::ERROR_MOTIONTYPE)

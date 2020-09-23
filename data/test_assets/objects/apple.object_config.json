@@ -1,0 +1,7 @@
+{
+	"render_asset": "apple.glb",
+	"use_bounding_box_for_collision": true,
+	"scale": [2.0, 2.0, 2.0],
+	"requires_lighting": true,
+	"margin": 0
+}

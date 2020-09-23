@@ -76,6 +76,9 @@ class Simulator {
    * --headless mode on linux
    */
   int gpuDevice() const {
+    if (context_ == nullptr) {
+      return 0;
+    }
     CORRADE_ASSERT(context_ != nullptr,
                    "Simulator::gpuDevice: no OpenGL context.", 0);
     return context_->gpuDevice();
@@ -808,8 +811,7 @@ class Simulator {
                            const std::string& lightSetupKey,
                            int sceneID = 0);
 
-  int findNearestObjectUnderCrosshair(int refObjectID,
-                                      Magnum::Vector3 point,
+  int findNearestObjectUnderCrosshair(Magnum::Vector3 point,
                                       Magnum::Vector3 refPoint,
                                       const Magnum::Vector2i& viewSize,
                                       float distance = 1.0);

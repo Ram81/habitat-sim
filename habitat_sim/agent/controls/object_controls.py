@@ -47,12 +47,23 @@ class ObjectControls(object):
 
         return move_fn.body_action
 
+    @staticmethod
+    def is_interact_action(action_name: str):
+        r"""Checks to see if :p:`action_name` is an interaction action
+        :param action_name: Name of the action
+        """
+        move_fn = registry.get_move_fn(action_name)
+        # assert move_fn is not None, f"No move_fn for action '{action_name}'"
+
+        return move_fn.interact_action
+
     def action(
         self,
         obj: hsim.SceneNode,
         action_name: str,
         actuation_spec: ActuationSpec,
         apply_filter: bool = True,
+        **kwargs,
     ) -> bool:
         r"""Performs the action specified by :p:`action_name` on the object
 
@@ -65,13 +76,16 @@ class ObjectControls(object):
             after the action
         :return: Whether or not the action taken resulted in a collision
         """
+        result = {"collided": False}
         start_pos = obj.absolute_translation
         move_fn = registry.get_move_fn(action_name)
         assert move_fn is not None, f"No move_fn for action '{action_name}'"
-        move_fn(obj, actuation_spec)
+        if move_fn.interact_action:
+            move_fn_dict = move_fn(obj, actuation_spec, **kwargs)
+        else:
+            move_fn_dict = move_fn(obj, actuation_spec)
         end_pos = obj.absolute_translation
 
-        collided = False
         if apply_filter:
             filter_end = self.move_filter_fn(start_pos, end_pos)
             # Update the position to respect the filter
@@ -84,9 +98,13 @@ class ObjectControls(object):
             # collision _didn't_ happen. One such case is going up stairs.  Instead,
             # we check to see if the the amount moved after the application of the filter
             # is _less_ the the amount moved before the application of the filter
-            collided = (dist_moved_after_filter + EPS) < dist_moved_before_filter
-
-        return collided
+            result["collided"] = (
+                dist_moved_after_filter + EPS
+            ) < dist_moved_before_filter
+        if move_fn_dict is None:
+            return result["collided"]
+        result.update(move_fn_dict)
+        return result
 
     def __call__(
         self,

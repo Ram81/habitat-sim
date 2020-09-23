@@ -1,0 +1,5 @@
+{
+"render_asset": "pudding_box.glb",
+"use bounding box for collision": true,
+"requires_lighting": true
+}

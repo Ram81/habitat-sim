@@ -1,0 +1,6 @@
+{
+"render_asset": "colored_wood_blocks.glb",
+"use_bounding_box_for_collision": true,
+"requires_lighting": true,
+"scale": [3.5, 3.5, 3.5]
+}

@@ -134,7 +134,7 @@ class SimEnv {
   }
 
   /**
-   * Adds a static object at specific position in simulation.
+   * Adds a dynamic object at specific position in simulation.
    */
   addObjectAtLocation(objectLibHandle, position) {
     let objectId = this.addObjectByHandle(objectLibHandle);
@@ -555,7 +555,6 @@ class SimEnv {
     let refPoint = this.getAgentAbsoluteTranslation(0);
 
     let nearestObjectId = this.findNearestObjectUnderCrosshair(
-      0,
       crossHairPoint,
       refPoint,
       this.resolution
@@ -601,14 +600,8 @@ class SimEnv {
     this.sim.toggleNavMeshVisualization();
   }
 
-  findNearestObjectUnderCrosshair(
-    refObjectId,
-    crossHairPoint,
-    refPoint,
-    windowSize
-  ) {
+  findNearestObjectUnderCrosshair(crossHairPoint, refPoint, windowSize) {
     return this.sim.findNearestObjectUnderCrosshair(
-      refObjectId,
       crossHairPoint,
       refPoint,
       windowSize,

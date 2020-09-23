@@ -117,6 +117,7 @@ class Agent(object):
         agent_config: Optional[AgentConfiguration] = None,
         _sensors: Optional[SensorSuite] = None,
         controls: Optional[ObjectControls] = None,
+        sim: Optional[Simulator] = None,
     ) -> None:
         self.agent_config = agent_config if agent_config else AgentConfiguration()
         self._sensors = _sensors if _sensors else SensorSuite()
@@ -125,6 +126,9 @@ class Agent(object):
         scene_node.type = hsim.SceneNodeType.AGENT
         self.reconfigure(self.agent_config)
         self.initial_state: Optional[AgentState] = None
+        self.sim = sim
+        self.gripped_object_id = -1
+        self.inventory = None
 
     def reconfigure(
         self, agent_config: AgentConfiguration, reconfigure_sensors: bool = True
@@ -174,6 +178,59 @@ class Agent(object):
             did_collide = self.controls.action(
                 self.scene_node, action.name, action.actuation, apply_filter=True
             )
+        elif self.controls.is_interact_action(action.name):
+            ray = self.sim.unproject(self.sim.get_crosshair_position())
+            cross_hair_point = ray.direction
+            ref_point = self.body.object.absolute_translation
+
+            data = self.controls.action(
+                self.scene_node,
+                action.name,
+                action.actuation,
+                apply_filter=False,
+                sim=self.sim,
+                ref_point=ref_point,
+            )
+            nearest_object_id = data["nearest_object_id"]
+
+            # already gripped an object
+            if self.gripped_object_id != -1:
+                ray_hit_info = self.sim.find_floor_position_under_crosshair(
+                    cross_hair_point, ref_point, self.sim.get_resolution(), 1.5
+                )
+
+                floor_position = ray_hit_info.point
+                if floor_position is None:
+                    return True
+
+                y_value = floor_position.y
+                y_value = max(self.gripped_object_transformation.translation.y, y_value)
+
+                new_object_position = mn.Vector3(
+                    floor_position.x, y_value, floor_position.z
+                )
+                scene_object = self.sim.get_object_from_scene(self.gripped_object_id)
+                new_object_id = self.sim.add_object_by_handle(
+                    scene_object["objectHandle"]
+                )
+
+                self.sim.set_translation(new_object_position, new_object_id)
+                while self.sim.contact_test(new_object_id):
+                    new_object_position = mn.Vector3(
+                        new_object_position.x,
+                        new_object_position.y + 0.25,
+                        new_object_position.z,
+                    )
+                    self.sim.set_translation(new_object_position, new_object_id)
+                self.sim.update_object_in_scene(self.gripped_object_id, new_object_id)
+
+                self.gripped_object_id = -1
+            elif nearest_object_id != -1:
+                self.gripped_object_transformation = self.sim.get_transformation(
+                    nearest_object_id
+                )
+                self.sim.remove_object(nearest_object_id)
+                self.gripped_object_id = nearest_object_id
         else:
             for _, v in self._sensors.items():
                 habitat_sim.errors.assert_obj_valid(v)

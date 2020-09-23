@@ -1,0 +1,7 @@
+{
+"render_asset": "toy_airplane.glb",
+"use_bounding_box_for_collision": true,
+"requires_lighting": true,
+"scale": [2.0, 2.0, 2.0],
+"margin": 0
+}

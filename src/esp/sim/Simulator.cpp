@@ -178,6 +178,9 @@ void Simulator::reconfigure(const SimulatorConfiguration& cfg) {
     WindowlessContext since a (windowed) context already exists. */
     if (!context_ && !Magnum::GL::Context::hasCurrent()) {
       context_ = gfx::WindowlessContext::create_unique(config_.gpuDeviceId);
+      // LOG(WARNING) << "context_";
+      // LOG(WARNING) << context_;
+      // LOG(WARNING) << "context_";
     }
 
     // reinitalize members
@@ -187,6 +190,8 @@ void Simulator::reconfigure(const SimulatorConfiguration& cfg) {
         flags |= gfx::Renderer::Flag::NoTextures;
       renderer_ = gfx::Renderer::create(flags);
     }
+
+    flextGLInit(Magnum::GL::Context::current());
 
     auto& sceneGraph = sceneManager_->getSceneGraph(activeSceneID_);
     auto& rootNode = sceneGraph.getRootNode();
@@ -973,8 +978,7 @@ void Simulator::setObjectLightSetup(const int objectID,
   }
 }
 
-int Simulator::findNearestObjectUnderCrosshair(int refObjectID,
-                                               Magnum::Vector3 point,
+int Simulator::findNearestObjectUnderCrosshair(Magnum::Vector3 point,
                                                Magnum::Vector3 refPoint,
                                                const Magnum::Vector2i& viewSize,
                                                float distance) {

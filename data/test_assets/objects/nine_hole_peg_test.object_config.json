@@ -1,0 +1,5 @@
+{
+"render_asset": "nine_hole_peg_test.glb",
+"use_bounding_box_for_collision": true,
+"requires_lighting": true
+}
