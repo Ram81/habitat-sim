@@ -390,13 +390,15 @@ class Simulator(SimulatorBackend):
         resolution = (
             self._default_agent.agent_config.sensor_specifications[0].resolution * 0.5
         )
-        return mn.Vector2(list(map(int, resolution)))
+        res = list(map(int, resolution))
+        return mn.Vector2([res[1], res[0]])
 
     def get_resolution(self):
         resolution = self._default_agent.agent_config.sensor_specifications[
             0
         ].resolution
-        return mn.Vector2(list(map(int, resolution)))
+        res = list(map(int, resolution))
+        return mn.Vector2([res[1], res[0]])
 
     def add_object_in_scene(self, objectId, data):
         data["objectId"] = objectId

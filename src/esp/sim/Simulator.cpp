@@ -178,9 +178,6 @@ void Simulator::reconfigure(const SimulatorConfiguration& cfg) {
     WindowlessContext since a (windowed) context already exists. */
     if (!context_ && !Magnum::GL::Context::hasCurrent()) {
       context_ = gfx::WindowlessContext::create_unique(config_.gpuDeviceId);
-      // LOG(WARNING) << "context_";
-      // LOG(WARNING) << context_;
-      // LOG(WARNING) << "context_";
     }
 
     // reinitalize members
@@ -191,7 +188,7 @@ void Simulator::reconfigure(const SimulatorConfiguration& cfg) {
       renderer_ = gfx::Renderer::create(flags);
     }
 
-    flextGLInit(Magnum::GL::Context::current());
+    // flextGLInit(Magnum::GL::Context::current());
 
     auto& sceneGraph = sceneManager_->getSceneGraph(activeSceneID_);
     auto& rootNode = sceneGraph.getRootNode();

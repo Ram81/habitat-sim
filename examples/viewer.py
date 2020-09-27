@@ -125,7 +125,7 @@ class Viewer(Application):
         gl.default_framebuffer.clear(
             gl.FramebufferClear.COLOR | gl.FramebufferClear.DEPTH
         )
-        # obs = self.sim.get_sensor_observations()
+        self.sim.get_sensor_observations()
         self.swap_buffers()
 
     def key_press_event(self, event: Application.KeyEvent):
