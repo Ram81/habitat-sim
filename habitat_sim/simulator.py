@@ -165,6 +165,7 @@ class Simulator(SimulatorBackend):
         super().reset()
         for i in range(len(self.agents)):
             self.reset_agent(i)
+        self.update_cross_hair()
 
         if agent_ids is None:
             agent_ids = [self._default_agent_id]

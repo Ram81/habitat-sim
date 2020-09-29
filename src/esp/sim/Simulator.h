@@ -830,7 +830,7 @@ class Simulator {
 
   esp::physics::RayHitInfo findFloorPositionUnderCrosshair(
       Magnum::Vector3 point,
-      Magnum::Vector3 refPoint,
+      Magnum::Matrix4 refTransformation,
       const Magnum::Vector2i& viewSize,
       float distance = 1.0);
 

@@ -303,7 +303,7 @@ void initSimBindings(py::module& m) {
            "scene_id"_a = 0, R"(Sample object state to put it above navmesh)")
       .def("find_floor_position_under_crosshair",
            &Simulator::findFloorPositionUnderCrosshair, "point"_a,
-           "ref_point"_a, "view_size"_a, "distance"_a = 1.5,
+           "ref_transformation"_a, "view_size"_a, "distance"_a = 1.5,
            R"(Find a coordinate on navmesh in cross hair direction)")
       .def("find_nearest_object_under_crosshair",
            &Simulator::findNearestObjectUnderCrosshair, "point"_a,

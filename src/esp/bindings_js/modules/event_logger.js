@@ -13,7 +13,7 @@ class PsiturkEventLogger {
   }
 
   handleRecordTrialData(phase, event, data) {
-    if (this.psiturk && !window.config.disableLogging) {
+    if (this.psiturk && window.config.disableLogging == false) {
       this.psiturk.recordTrialData({
         phase: phase,
         event: event,
@@ -23,7 +23,7 @@ class PsiturkEventLogger {
   }
 
   handleRecordUnstructuredData(key, value) {
-    if (this.psiturk && !window.config.disableLogging) {
+    if (this.psiturk && window.config.disableLogging == false) {
       this.psiturk.recordUnstructuredData(key, value);
     }
   }

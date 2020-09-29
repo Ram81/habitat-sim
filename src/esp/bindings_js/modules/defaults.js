@@ -39,6 +39,7 @@ export const infoSemanticFileName = "info_semantic.json";
 export const dataHome = "data/";
 export const taskHome = "data/tasks/";
 export const sceneHome = "data/scenes/";
+export const flythroughHome = "data/replays/";
 export const primitiveObjectHandles = [
   "cylinderSolid_rings_1_segments_12_halfLen_1_useTexCoords_false_useTangents_false_capEnds_true"
 ];

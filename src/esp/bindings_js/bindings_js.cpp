@@ -326,6 +326,7 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
       .function("getLightSetup", &Simulator::getLightSetup)
       .function("setLightSetup", &Simulator::setLightSetup)
       .function("stepWorld", &Simulator::stepWorld)
+      .function("getWorldTime", &Simulator::getWorldTime)
       .function("syncGrippedObject", &Simulator::syncGrippedObject)
       .function("updateCrossHairNode", &Simulator::updateCrossHairNode)
       .function("recomputeNavMesh", &Simulator::recomputeNavMesh)

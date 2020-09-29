@@ -18,34 +18,34 @@
           0.8911857849408661
         ],
         "objects": [
-            {
+          {
+            "object": "mini_soccer_ball",
+            "objectIcon": "/data/test_assets/objects/mini_soccer_ball.png",
+            "objectHandle": "/data/objects/mini_soccer_ball.phys_properties.json",
+            "position": [0.7388381958007812, 0.19221456348896027, 20.759920120239258],
+            "motionType": "STATIC"
+          },
+          {
+            "object": "colored_wood_blocks",
+            "objectIcon": "/data/test_assets/objects/colored_wood_blocks.png",
+            "objectHandle": "/data/objects/colored_wood_blocks.phys_properties.json",
+            "position": [1.0410436391830444, 0.192904531955719, 21.877525329589844],
+            "motionType": "STATIC"
+          },
+          {
             "object": "sphere",
             "objectIcon": "/data/test_assets/objects/sphere.png",
-                "objectHandle": "/data/objects/sphere.phys_properties.json",
-                "position": [0.7388381958007812, 0.19221456348896027, 20.759920120239258],
-                "motionType": "STATIC"
-            },
-            {
-            "object": "chair",
-            "objectIcon": "/data/test_assets/objects/chair.png",
-                "objectHandle": "/data/objects/chair.phys_properties.json",
-                "position": [1.0410436391830444, 0.192904531955719, 21.877525329589844],
-                "motionType": "STATIC"
-            },
-            {
-            "object": "sphere",
-            "objectIcon": "/data/test_assets/objects/sphere.png",
-                "objectHandle": "/data/objects/sphere.phys_properties.json",
-                "position": [-0.9517786502838135, 0.167676642537117, 11.343990325927734],
-                "motionType": "STATIC"
-            },
-            {
-            "object": "chair",
-            "objectIcon": "/data/test_assets/objects/chair.png",
-                "objectHandle": "/data/objects/chair.phys_properties.json",
-                "position": [2.7583677768707275, 0.20991861820220947, 15.709589958190918],
-                "motionType": "STATIC"
-            }
+            "objectHandle": "/data/objects/sphere.phys_properties.json",
+            "position": [-0.9517786502838135, 0.167676642537117, 11.343990325927734],
+            "motionType": "STATIC"
+          },
+          {
+            "object": "colored_wood_blocks",
+            "objectIcon": "/data/test_assets/objects/colored_wood_blocks.png",
+            "objectHandle": "/data/objects/colored_wood_blocks.phys_properties.json",
+            "position": [2.7583677768707275, 0.20991861820220947, 15.709589958190918],
+            "motionType": "STATIC"
+          }
         ]
       }
     ]

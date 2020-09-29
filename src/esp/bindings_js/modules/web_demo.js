@@ -64,8 +64,11 @@ class WebDemo {
 
   setEpisode(episode) {
     let taskInstruction = document.getElementById("task-instruction");
-    taskInstruction.innerHTML =
-      "<hr> <h1>Task: " + episode.task.instruction + "</h1> <hr>";
+    if (taskInstruction !== undefined && taskInstruction !== null) {
+      console.log(taskInstruction);
+      taskInstruction.innerHTML =
+        "<hr> <h1>Task: " + episode.task.instruction + "</h1> <hr>";
+    }
     this.simenv.setEpisode(episode);
   }
 
@@ -75,6 +78,7 @@ class WebDemo {
 
   runFlythrough() {
     window.config.disableLogging = true;
+    window.config.runFlythrough = true;
     let episode = loadEpisode("/data/".concat(flythroughReplayTask.name));
     this.setEpisode(episode);
     this.setTaskValidator(episode);
@@ -84,6 +88,7 @@ class WebDemo {
 
   runInit() {
     window.config.disableLogging = false;
+    window.config.runFlythrough = false;
     let episode = loadEpisode("/data/".concat(window.config.taskConfig.name));
     this.setEpisode(episode);
     this.setTaskValidator(episode);
@@ -92,6 +97,7 @@ class WebDemo {
 
   runTrainingTask() {
     window.config.disableLogging = true;
+    window.config.runFlythrough = false;
     let episode = loadEpisode("/data/".concat(trainingTask.name));
     this.setEpisode(episode);
     this.setTaskValidator(episode);

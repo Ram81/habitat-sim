@@ -15,7 +15,8 @@ import {
   taskFiles,
   flythroughReplayFile,
   flythroughReplayTask,
-  trainingTask
+  trainingTask,
+  flythroughHome
 } from "./modules/defaults";
 import "./bindings.css";
 import {
@@ -98,6 +99,20 @@ function preloadPhysConfig(url) {
     }
   }
 
+  // load training task episode config
+  FS.createPreloadedFile(
+    emDataHome,
+    trainingTask.name,
+    dataHome.concat(trainingTask.config),
+    true,
+    false
+  );
+
+  return emDataHome.concat("/".concat(file));
+}
+
+function preloadFlythrough(flythroughReplayFileName) {
+  let emDataHome = "/data";
   // load replay episode config
   FS.createPreloadedFile(
     emDataHome,
@@ -109,22 +124,11 @@ function preloadPhysConfig(url) {
 
   FS.createPreloadedFile(
     emDataHome,
-    flythroughReplayFile.name,
-    dataHome.concat(flythroughReplayFile.location),
+    flythroughReplayFileName,
+    flythroughHome.concat(flythroughReplayFileName),
     true,
     false
   );
-
-  // load training task episode config
-  FS.createPreloadedFile(
-    emDataHome,
-    trainingTask.name,
-    dataHome.concat(trainingTask.config),
-    true,
-    false
-  );
-
-  return emDataHome.concat("/".concat(file));
 }
 
 Module.preRun.push(() => {
@@ -142,8 +146,17 @@ Module.preRun.push(() => {
   Module.physicsConfigFile = preloadPhysConfig(physicsConfigFile);
 
   Module.enablePhysics = window.config.enablePhysics === "true";
+  window.config.runFlythrough = window.config.runFlythrough === "true";
 
   const fileNoExtension = scene.substr(0, scene.lastIndexOf("."));
+
+  if (
+    window.config.flythroughFile === undefined ||
+    window.config.flythroughFile === null
+  ) {
+    window.config.flythroughFile = flythroughReplayFile.name;
+  }
+  preloadFlythrough(window.config.flythroughFile);
 
   if (!window.config.recomputeNavMesh) {
     preload(fileNoExtension + ".navmesh");
@@ -177,6 +190,9 @@ Module.onRuntimeInitialized = () => {
     demo.display(undefined, episode);
   } else {
     demo.display();
+  }
+  if (window.config.runFlythrough === true) {
+    demo.runFlythrough();
   }
   window.demo = demo;
 };

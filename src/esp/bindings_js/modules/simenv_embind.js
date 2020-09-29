@@ -309,16 +309,22 @@ class SimEnv {
     let nearestObjectId = this.getObjectUnderCrosshair();
     // to handle case or multiple reruns incase object is grabbed again within 2s
 
+    // let objIds = this.getExistingObjectIDs();
+    // for (let i = 0; i < objIds.size(); i++) {
+    //   console.log(this.getTranslation(objIds.get(i), 0).toString());
+    //   console.log(this.getObjectFromScene(objIds.get(i))["objectHandle"]);
+    // }
+
     if (this.grippedObjectId != -1) {
       // already gripped, so let it go
       let crossHairPosition = this.getCrosshairPosition();
       let ray = this.unproject(crossHairPosition);
       let crossHairPoint = ray.direction;
-      let refPoint = this.getAgentAbsoluteTranslation(0);
+      let refTransform = this.getAgentTransformation(0);
       // get raycast hit point
       let rayHitInfo = this.sim.findFloorPositionUnderCrosshair(
         crossHairPoint,
-        refPoint,
+        refTransform,
         this.resolution,
         1.5
       );
@@ -503,6 +509,10 @@ class SimEnv {
    */
   stepWorld(dt = 1.0 / 60.0) {
     return this.sim.stepWorld(dt);
+  }
+
+  getWorldTime() {
+    return this.sim.getWorldTime();
   }
 
   /**

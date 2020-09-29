@@ -6,7 +6,7 @@
 
 import ObjectSensor from "./object_sensor";
 import PsiturkEventLogger from "./event_logger";
-import { flythroughReplayFile, inventorySlots } from "./defaults";
+import { inventorySlots } from "./defaults";
 import { replaceAll } from "./utils";
 import Inventory from "./inventory";
 import TaskValidator from "./TaskValidator";
@@ -117,20 +117,40 @@ class NavigateTask {
       config: window.config
     });
     this.initialized = true;
-    setInterval(() => {
-      this.sim.stepWorld(1.0 / 10.0);
-      this.render();
-    }, 100.0);
+    this.initPhysics();
+  }
+
+  initPhysics() {
+    if (Module.enablePhysics && window.config.runFlythrough !== true) {
+      console.log("enabled physics step at 100ms interval");
+      this.physicsStepFunction = setInterval(() => {
+        let stepSize = 1.0 / 10.0;
+        this.psiturk.handleRecordTrialData("TEST", "stepPhysics", {
+          step: stepSize
+        });
+        this.sim.stepWorld(stepSize);
+        this.render();
+      }, 100.0);
+    }
+  }
+
+  disablePhysics() {
+    if (this.physicsStepFunction) {
+      console.log("clearing physics interval on reset");
+      window.clearInterval(this.physicsStepFunction);
+    }
   }
 
   /**
    * Reset the task.
    */
   reset() {
+    this.disablePhysics();
     this.sim.reset();
     this.inventory.reset();
     this.inventory.renderInventory();
     this.setStatus("Ready");
+    this.initPhysics();
     this.render();
   }
 
@@ -149,7 +169,7 @@ class NavigateTask {
     let speed = 1.0;
 
     const replayContents = FS.readFile(
-      "/data/".concat(flythroughReplayFile.name),
+      "/data/".concat(window.config.flythroughFile),
       {
         encoding: "utf8"
       }
@@ -158,6 +178,7 @@ class NavigateTask {
 
     let startTimestamp = null;
     let replayDuration = 0;
+    let startReplay = false;
 
     this.replayTimeouts = [];
     for (let iLine = 0; iLine < replayLines.length; ++iLine) {
@@ -181,6 +202,14 @@ class NavigateTask {
 
       const datum = JSON.parse(datumStr);
 
+      if (startReplay === false) {
+        if (datum["step"] === "viewer") {
+          startReplay = true;
+        } else {
+          continue;
+        }
+      }
+
       if (!startTimestamp) {
         startTimestamp = timestamp;
       }
@@ -190,7 +219,12 @@ class NavigateTask {
         if (datum["event"] === "simReset") {
           _self.reset();
         } else if (datum["event"] == "handleAction") {
+          console.log(datum["data"]["action"] + " " + _self.sim.getWorldTime());
           _self.handleAction(datum["data"]["action"]);
+        } else if (datum["event"] == "stepPhysics") {
+          console.log("stepPhysics " + _self.sim.getWorldTime());
+          _self.sim.stepWorld(1.0 / 10.0);
+          _self.render();
         }
       }, delay);
       this.replayTimeouts.push(replayTimeout);
@@ -368,7 +402,7 @@ class NavigateTask {
       let object = this.sim.getObjectFromScene(objectId);
 
       if (emptySlot == -1) {
-        console.log("No empty slot in inventory");
+        console.log("No empty slot in inventory!");
       } else {
         this.inventory.setSlot(emptySlot, {
           objectId: objectId,

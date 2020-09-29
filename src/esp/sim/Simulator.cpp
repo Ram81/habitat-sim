@@ -839,12 +839,12 @@ agent::Agent::ptr Simulator::getAgent(const int agentId) {
 }
 
 Magnum::Matrix4 Simulator::getAgentTransformation(int agentId) {
-  auto agentBodyNode = &getAgent(0)->node();
+  auto agentBodyNode = &getAgent(agentId)->node();
   return agentBodyNode->transformation();
 }
 
 Magnum::Vector3 Simulator::getAgentAbsoluteTranslation(int agentId) {
-  auto agentBodyNode = &getAgent(0)->node();
+  auto agentBodyNode = &getAgent(agentId)->node();
   return agentBodyNode->absoluteTranslation();
 }
 
@@ -1055,7 +1055,7 @@ bool Simulator::sampleObjectState(int objectID, int sceneID) {
 
 esp::physics::RayHitInfo Simulator::findFloorPositionUnderCrosshair(
     Magnum::Vector3 point,
-    Magnum::Vector3 refPoint,
+    Magnum::Matrix4 refTransformation,
     const Magnum::Vector2i& viewSize,
     float distance) {
   int nearestObjId = ID_UNDEFINED;
@@ -1064,6 +1064,7 @@ esp::physics::RayHitInfo Simulator::findFloorPositionUnderCrosshair(
 
   const esp::geo::Ray ray{renderCamera_.node().absoluteTranslation(), point};
   physics::RaycastResults results = castRay(ray);
+  Magnum::Vector3 refPoint = refTransformation.translation();
 
   for (int rayIdx = 0; rayIdx < results.hits.size(); rayIdx++) {
     if ((results.hits[rayIdx].point - refPoint).length() <= distance) {
@@ -1071,9 +1072,8 @@ esp::physics::RayHitInfo Simulator::findFloorPositionUnderCrosshair(
     }
   }
 
-  auto agentBodyNode_ = &getAgent(0)->node();
-  Magnum::Matrix4 T = agentBodyNode_->MagnumObject::transformationMatrix();
-  Magnum::Vector3 newPos = T.transformPoint({0.0f, 1.5f, -1.0f});
+  Magnum::Vector3 newPos =
+      refTransformation.transformPoint({0.0f, 1.5f, -1.0f});
   esp::physics::RayHitInfo rayHitInfo;
   rayHitInfo.point = newPos;
   rayHitInfo.objectId = -1;
