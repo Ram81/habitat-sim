@@ -65,7 +65,6 @@ class WebDemo {
   setEpisode(episode) {
     let taskInstruction = document.getElementById("task-instruction");
     if (taskInstruction !== undefined && taskInstruction !== null) {
-      console.log(taskInstruction);
       taskInstruction.innerHTML =
         "<hr> <h1>Task: " + episode.task.instruction + "</h1> <hr>";
     }
