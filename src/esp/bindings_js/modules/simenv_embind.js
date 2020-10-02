@@ -56,6 +56,72 @@ class SimEnv {
     this.psiturk.handleRecordTrialData("TEST", "simReset", {});
   }
 
+  runPhysicsTest() {
+    this.reset();
+    let sphereObjectId = this.addObjectByHandle(
+      "/data/objects/sphere.phys_properties.json"
+    );
+    let spherePosition = this.convertVec3fToVector3([
+      -0.9517786502838135,
+      2.167676642537117,
+      11.343990325927734
+    ]);
+    this.setObjectMotionType(Module.MotionType.DYNAMIC, sphereObjectId, 0);
+    this.setTranslation(spherePosition, sphereObjectId, 0);
+
+    let soccerBallObjectId = this.addObjectByHandle(
+      "/data/objects/mini_soccer_ball.phys_properties.json"
+    );
+    let soccerBallPosition = this.convertVec3fToVector3([
+      -0.9517786502838135,
+      0.467676642537117,
+      11.343990325927734
+    ]);
+    this.setObjectMotionType(Module.MotionType.DYNAMIC, soccerBallObjectId, 0);
+    this.setTranslation(soccerBallPosition, soccerBallObjectId, 0);
+
+    let chairObjectId = this.addObjectByHandle(
+      "/data/objects/chair.phys_properties.json"
+    );
+    let chairPosition = this.convertVec3fToVector3([
+      -0.9517786502838135,
+      1.57676642537117,
+      11.343990325927734
+    ]);
+    this.setObjectMotionType(Module.MotionType.DYNAMIC, chairObjectId, 0);
+    this.setTranslation(chairPosition, chairObjectId, 0);
+
+    let worldTime = this.getWorldTime();
+    let timeline = [];
+    let stepCount = 1;
+    while (worldTime <= 3.0) {
+      this.stepWorld();
+      worldTime = this.getWorldTime();
+
+      let objs = [];
+      let existingObjectIds = this.getExistingObjectIDs();
+      for (let index = 0; index < existingObjectIds.size(); index++) {
+        let obj = {
+          objectId: existingObjectIds.get(index),
+          translation: this.getTranslation(
+            existingObjectIds.get(index),
+            0
+          ).toString(),
+          motionType: this.getObjectMotionType(existingObjectIds.get(index), 0)
+            .value
+        };
+        objs.push(obj);
+      }
+      timeline.push({
+        worldTime: worldTime,
+        stepCount: stepCount,
+        objectStates: objs
+      });
+      stepCount++;
+    }
+    return timeline;
+  }
+
   /**
    * Change selected agent in the simulation.
    * @param {number} agentId - agent id

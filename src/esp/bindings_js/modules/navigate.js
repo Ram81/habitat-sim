@@ -95,7 +95,8 @@ class NavigateTask {
       { name: "lookUp", key: "ArrowUp", keyCode: 38 },
       { name: "lookDown", key: "ArrowDown", keyCode: 40 },
       { name: "grabReleaseObject", key: " ", keyCode: 32 },
-      { name: "addTemplateObject", key: "o", keyCode: 79 }
+      { name: "addTemplateObject", key: "o", keyCode: 79 },
+      { name: "physicsTest", key: "p", keyCode: 80 }
     ];
   }
 
@@ -121,7 +122,11 @@ class NavigateTask {
   }
 
   initPhysics() {
-    if (Module.enablePhysics && window.config.runFlythrough !== true) {
+    if (
+      Module.enablePhysics &&
+      window.config.runFlythrough !== true &&
+      window.config.enableStepPhysics === true
+    ) {
       console.log("enabled physics step at 100ms interval");
       this.physicsStepFunction = setInterval(() => {
         let stepSize = 1.0 / 10.0;
@@ -432,6 +437,8 @@ class NavigateTask {
           setTimeout(window.finishTrial, 500);
         }
       }
+    } else if (action == "physicsTest") {
+      this.sim.runPhysicsTest();
     } else {
       this.sim.step(action);
       this.setStatus(action);
