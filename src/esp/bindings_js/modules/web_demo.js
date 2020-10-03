@@ -78,6 +78,7 @@ class WebDemo {
   runFlythrough() {
     window.config.disableLogging = true;
     window.config.runFlythrough = true;
+    window.config.enableStepPhysics = false;
     let episode = loadEpisode("/data/".concat(flythroughReplayTask.name));
     this.setEpisode(episode);
     this.setTaskValidator(episode);
@@ -88,6 +89,7 @@ class WebDemo {
   runInit() {
     window.config.disableLogging = false;
     window.config.runFlythrough = false;
+    window.config.enableStepPhysics = true;
     let episode = loadEpisode("/data/".concat(window.config.taskConfig.name));
     this.setEpisode(episode);
     this.setTaskValidator(episode);
@@ -97,6 +99,7 @@ class WebDemo {
   runTrainingTask() {
     window.config.disableLogging = true;
     window.config.runFlythrough = false;
+    window.config.enableStepPhysics = true;
     let episode = loadEpisode("/data/".concat(trainingTask.name));
     this.setEpisode(episode);
     this.setTaskValidator(episode);

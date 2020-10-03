@@ -147,7 +147,7 @@ Module.preRun.push(() => {
 
   Module.enablePhysics = window.config.enablePhysics === "true";
   window.config.runFlythrough = window.config.runFlythrough === "true";
-  window.config.enableStepPhyiscs = window.config.enableStepPhyiscs === "true";
+  window.config.enableStepPhysics = window.config.enableStepPhysics === "true";
 
   const fileNoExtension = scene.substr(0, scene.lastIndexOf("."));
 
