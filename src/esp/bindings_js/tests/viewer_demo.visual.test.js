@@ -12,13 +12,13 @@ import { toMatchImageSnapshot } from "jest-image-snapshot";
 expect.extend({ toMatchImageSnapshot });
 
 test("viewer rendering should match the snapshot", async () => {
-  jest.setTimeout(12000);
+  jest.setTimeout(52000);
   const { server, url } = await getServerAndURL(
     "build_js/esp/bindings_js/viewer.html?scene=skokloster-castle.glb&useDefaultEpisode=true"
   );
   const { browser, page } = await getBrowserAndPage(url);
 
-  page.setDefaultTimeout(12000);
+  page.setDefaultTimeout(52000);
 
   await page.waitForFunction(
     'document.querySelector("#status").style.color === "white"'
