@@ -375,12 +375,6 @@ class SimEnv {
     let nearestObjectId = this.getObjectUnderCrosshair();
     // to handle case or multiple reruns incase object is grabbed again within 2s
 
-    // let objIds = this.getExistingObjectIDs();
-    // for (let i = 0; i < objIds.size(); i++) {
-    //   console.log(this.getTranslation(objIds.get(i), 0).toString());
-    //   console.log(this.getObjectFromScene(objIds.get(i))["objectHandle"]);
-    // }
-
     if (this.grippedObjectId != -1) {
       // already gripped, so let it go
       let crossHairPosition = this.getCrosshairPosition();

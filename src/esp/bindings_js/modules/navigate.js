@@ -94,9 +94,7 @@ class NavigateTask {
       { name: "turnRight", key: "d", keyCode: 68 },
       { name: "lookUp", key: "ArrowUp", keyCode: 38 },
       { name: "lookDown", key: "ArrowDown", keyCode: 40 },
-      { name: "grabReleaseObject", key: " ", keyCode: 32 },
-      { name: "addTemplateObject", key: "o", keyCode: 79 },
-      { name: "physicsTest", key: "p", keyCode: 80 }
+      { name: "grabReleaseObject", key: " ", keyCode: 32 }
     ];
   }
 
@@ -224,10 +222,8 @@ class NavigateTask {
         if (datum["event"] === "simReset") {
           _self.reset();
         } else if (datum["event"] == "handleAction") {
-          console.log(datum["data"]["action"] + " " + _self.sim.getWorldTime());
           _self.handleAction(datum["data"]["action"]);
         } else if (datum["event"] == "stepPhysics") {
-          console.log("stepPhysics " + _self.sim.getWorldTime());
           _self.sim.stepWorld(1.0 / 10.0);
           _self.render();
         }
