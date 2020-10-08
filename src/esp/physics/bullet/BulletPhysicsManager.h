@@ -171,6 +171,9 @@ class BulletPhysicsManager : public PhysicsManager {
    */
   bool contactTest(const int physObjectID) override;
 
+  bool preAddContactTest(const std::string& handle,
+                         const Magnum::Vector3& translation) override;
+
   /**
    * @brief Cast a ray into the collision world and return a @ref RaycastResults
    * with hit information.
@@ -233,6 +236,10 @@ class BulletPhysicsManager : public PhysicsManager {
   bool makeAndAddRigidObject(int newObjectID,
                              const std::string& handle,
                              scene::SceneNode* objectNode) override;
+
+  bool makeAndAddContactTestRigidObject(int newObjectID,
+                                        const std::string& handle,
+                                        scene::SceneNode* objectNode) override;
 
   btDbvtBroadphase bBroadphase_;
   btDefaultCollisionConfiguration bCollisionConfig_;

@@ -507,6 +507,18 @@ bool BulletRigidObject::contactTest() {
   return src.bCollision;
 }  // contactTest
 
+bool BulletRigidObject::preAddContactTest(const Magnum::Vector3& translation) {
+  auto transformationMatrix = Magnum::Matrix4::translation(translation);
+  std::unique_ptr<btCollisionObject> colObj =
+      std::make_unique<btCollisionObject>();
+  colObj->setCollisionShape(bObjectRigidBody_->getCollisionShape());
+  colObj->setWorldTransform(btTransform(transformationMatrix));
+
+  SimulationContactResultCallback src;
+  bWorld_->getCollisionWorld()->contactTest(colObj.get(), src);
+  return src.bCollision;
+}
+
 const Magnum::Range3D BulletRigidObject::getCollisionShapeAabb() const {
   if (!bObjectShape_) {
     // e.g. empty scene

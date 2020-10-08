@@ -432,6 +432,8 @@ class BulletRigidObject : public BulletBase,
    */
   bool contactTest();
 
+  bool preAddContactTest(const Magnum::Vector3& translation);
+
   /**
    * @brief Query the Aabb from bullet physics for the root compound shape of
    * the rigid body in its local space. See @ref btCompoundShape::getAabb.

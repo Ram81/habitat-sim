@@ -834,6 +834,16 @@ class Simulator {
       const Magnum::Vector2i& viewSize,
       float distance = 1.0);
 
+  bool preAddContactTest(const std::string& objectLibHandle,
+                         const Magnum::Vector3& translation,
+                         const int sceneID = 0);
+
+  void removeContactTestObject(const std::string& objectLibHandle,
+                               const int sceneID = 0);
+
+  int addContactTestObject(const std::string& objectLibHandle,
+                           const int sceneID = 0);
+
   /**
    * @brief Getter for PRNG.
    *

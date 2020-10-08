@@ -58,6 +58,7 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
   em::register_vector<std::shared_ptr<SemanticCategory>>(
       "VectorSemanticCategories");
   em::register_vector<std::shared_ptr<SemanticObject>>("VectorSemanticObjects");
+  em::register_vector<gfx::LightInfo>("LightSetup");
 
   em::register_map<std::string, float>("MapStringFloat");
   em::register_map<std::string, std::string>("MapStringString");
@@ -103,6 +104,16 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
   em::value_object<RayHitInfo>("RayHitInfo")
       .field("point", &RayHitInfo::point)
       .field("objectId", &RayHitInfo::objectId);
+
+  em::enum_<gfx::LightPositionModel>("LightPositionModel")
+      .value("CAMERA", gfx::LightPositionModel::CAMERA)
+      .value("GLOBAL", gfx::LightPositionModel::GLOBAL)
+      .value("OBJECT", gfx::LightPositionModel::OBJECT);
+
+  em::value_object<gfx::LightInfo>("LightInfo")
+      .field("position", &gfx::LightInfo::position)
+      .field("color", &gfx::LightInfo::color)
+      .field("model", &gfx::LightInfo::model);
 
   em::class_<Magnum::Matrix4>("Matrix4")
       .constructor<Magnum::Matrix4>()
@@ -340,5 +351,7 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
       .function("sampleObjectState", &Simulator::sampleObjectState)
       .function("findFloorPositionUnderCrosshair",
                 &Simulator::findFloorPositionUnderCrosshair)
-      .function("contactTest", &Simulator::contactTest);
+      .function("contactTest", &Simulator::contactTest)
+      .function("preAddContactTest", &Simulator::preAddContactTest)
+      .function("addContactTestObject", &Simulator::addContactTestObject);
 }

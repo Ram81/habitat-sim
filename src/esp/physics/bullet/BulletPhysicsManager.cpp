@@ -16,6 +16,7 @@ BulletPhysicsManager::~BulletPhysicsManager() {
   LOG(INFO) << "Deconstructing BulletPhysicsManager";
 
   existingObjects_.clear();
+  contactTestObjects_.clear();
   staticStageObject_.reset(nullptr);
 }
 
@@ -64,6 +65,19 @@ bool BulletPhysicsManager::makeAndAddRigidObject(int newObjectID,
   bool objSuccess = ptr->initialize(handle);
   if (objSuccess) {
     existingObjects_.emplace(newObjectID, std::move(ptr));
+  }
+  return objSuccess;
+}
+
+bool BulletPhysicsManager::makeAndAddContactTestRigidObject(
+    int newObjectID,
+    const std::string& handle,
+    scene::SceneNode* objectNode) {
+  auto ptr = physics::BulletRigidObject::create_unique(
+      objectNode, newObjectID, bWorld_, collisionObjToObjIds_);
+  bool objSuccess = ptr->initialize(resourceManager_, handle);
+  if (objSuccess) {
+    contactTestObjects_.emplace(handle, std::move(ptr));
   }
   return objSuccess;
 }
@@ -221,6 +235,14 @@ bool BulletPhysicsManager::contactTest(const int physObjectID) {
   return static_cast<BulletRigidObject*>(
              existingObjects_.at(physObjectID).get())
       ->contactTest();
+}
+
+bool BulletPhysicsManager::preAddContactTest(
+    const std::string& handle,
+    const Magnum::Vector3& translation) {
+  bWorld_->getCollisionWorld()->performDiscreteCollisionDetection();
+  return static_cast<BulletRigidObject*>(contactTestObjects_.at(handle).get())
+      ->preAddContactTest(translation);
 }
 
 RaycastResults BulletPhysicsManager::castRay(const esp::geo::Ray& ray,

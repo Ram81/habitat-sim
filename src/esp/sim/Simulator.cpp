@@ -570,6 +570,35 @@ bool Simulator::contactTest(const int objectID, const int sceneID) {
   return false;
 }
 
+bool Simulator::preAddContactTest(const std::string& objectLibHandle,
+                                  const Magnum::Vector3& translation,
+                                  const int sceneID) {
+  if (sceneHasPhysics(sceneID)) {
+    auto successs =
+        physicsManager_->preAddContactTest(objectLibHandle, translation);
+    return successs;
+  }
+  return false;
+}
+
+int Simulator::addContactTestObject(const std::string& objectLibHandle,
+                                    const int sceneID) {
+  if (sceneHasPhysics(sceneID)) {
+    auto& sceneGraph_ = sceneManager_->getSceneGraph(activeSceneID_);
+    auto& drawables = sceneGraph_.getDrawables();
+    return physicsManager_->addContactTestObject(objectLibHandle, nullptr,
+                                                 &drawables, "no_lights");
+  }
+  return ID_UNDEFINED;
+}
+
+void Simulator::removeContactTestObject(const std::string& objectLibHandle,
+                                        const int sceneID) {
+  if (sceneHasPhysics(sceneID)) {
+    return physicsManager_->removeContactTestObject(objectLibHandle);
+  }
+}
+
 esp::physics::RaycastResults Simulator::castRay(const esp::geo::Ray& ray,
                                                 float maxDistance,
                                                 const int sceneID) {

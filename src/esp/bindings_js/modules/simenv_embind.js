@@ -149,6 +149,8 @@ class SimEnv {
 
         let objectId = this.addObjectAtLocation(objectLibHandle, position);
         this.addObjectInScene(objectId, objects[index]);
+        // adding contact test shape for object
+        this.sim.addContactTestObject(objectLibHandle, 0);
       }
       this.recomputeNavMesh();
     }
@@ -216,7 +218,11 @@ class SimEnv {
   removeAllObjects() {
     let existingObjectIds = this.getExistingObjectIDs();
     for (let index = 0; index < existingObjectIds.size(); index++) {
-      this.removeObject(existingObjectIds.get(index));
+      let objectId = existingObjectIds.get(index);
+      let object = this.getObjectFromScene(objectId);
+
+      this.removeObject(objectId);
+      this.sim.removeContactTestObject(object["objectHandle"], 0);
     }
   }
 
@@ -406,17 +412,26 @@ class SimEnv {
 
       let object = this.getObjectFromScene(this.grippedObjectId);
 
-      let newObjectId = this.addObjectByHandle(object["objectHandle"]);
-      this.setTranslation(newObjectPosition, newObjectId, 0);
       // collision check on drop point
-      while (this.sim.contactTest(newObjectId, 0)) {
+      let contact = this.sim.preAddContactTest(
+        object["objectHandle"],
+        newObjectPosition,
+        0
+      );
+      while (contact) {
         newObjectPosition = new Module.Vector3(
           newObjectPosition.x(),
           newObjectPosition.y() + 0.25,
           newObjectPosition.z()
         );
-        this.setTranslation(newObjectPosition, newObjectId, 0);
+        contact = this.sim.preAddContactTest(
+          object["objectHandle"],
+          newObjectPosition,
+          0
+        );
       }
+      let newObjectId = this.addObjectByHandle(object["objectHandle"]);
+      this.setTranslation(newObjectPosition, newObjectId, 0);
 
       this.updateObjectInScene(this.grippedObjectId, newObjectId);
       this.grippedObjectId = -1;

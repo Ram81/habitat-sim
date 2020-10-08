@@ -54,6 +54,77 @@ bool PhysicsManager::addStageFinalize(const std::string& handle) {
   return sceneSuccess;
 }
 
+int PhysicsManager::addContactTestObject(
+    const std::string& configFileHandle,
+    scene::SceneNode* attachmentNode,
+    DrawableGroup* drawables,
+    const Magnum::ResourceKey& lightSetup) {
+  if (contactTestObjects_.count(configFileHandle) > 0) {
+    return ID_UNDEFINED;
+  }
+  //! Make rigid object and add it to existingObjects
+  int nextObjectID_ = 100 + contactTestObjects_.size();
+  scene::SceneNode* objectNode = attachmentNode;
+  if (attachmentNode == nullptr) {
+    objectNode = &staticStageObject_->node().createChild();
+  }
+  // verify whether necessary assets exist, and if not, instantiate them
+  // only make object if asset instantiation succeeds (short circuit)
+  bool objectSuccess =
+      resourceManager_.instantiateAssetsOnDemand(configFileHandle);
+  if (!objectSuccess) {
+    LOG(ERROR) << "PhysicsManager::addObject : "
+                  "ResourceManager::instantiateAssetsOnDemand unsuccessful. "
+                  "Aborting.";
+    return ID_UNDEFINED;
+  }
+
+  objectSuccess = makeAndAddContactTestRigidObject(
+      nextObjectID_, configFileHandle, objectNode);
+
+  if (!objectSuccess) {
+    if (attachmentNode == nullptr) {
+      delete objectNode;
+    }
+    LOG(ERROR) << "PhysicsManager::addContactTestObject : "
+                  "PhysicsManager::makeRigidObject "
+                  "unsuccessful.  Aborting.";
+    return ID_UNDEFINED;
+  }
+
+  contactTestObjects_.at(configFileHandle)
+      ->visualNodes_.push_back(
+          contactTestObjects_.at(configFileHandle)->visualNode_);
+
+  //! Draw object via resource manager
+  //! Render node as child of physics node
+  //! Verify we should make the object drawable
+  if (contactTestObjects_.at(configFileHandle)
+          ->getInitializationAttributes()
+          ->getIsVisible()) {
+    resourceManager_.addObjectToDrawables(
+        configFileHandle, contactTestObjects_.at(configFileHandle)->visualNode_,
+        drawables, contactTestObjects_.at(configFileHandle)->visualNodes_,
+        lightSetup);
+  }
+
+  float zValue = 1.0 + (1.0 * contactTestObjects_.size());
+  Magnum::Vector3 translation = Magnum::Vector3{0.0, -2.0, zValue};
+  contactTestObjects_.at(configFileHandle)->setTranslation(translation);
+  contactTestObjects_.at(configFileHandle)->setMotionType(MotionType::STATIC);
+
+  // finalize rigid object creation
+  objectSuccess = contactTestObjects_.at(configFileHandle)->finalizeObject();
+  if (!objectSuccess) {
+    removeContactTestObject(configFileHandle, true, true);
+    LOG(ERROR) << "PhysicsManager::addContactTestObject : "
+                  "PhysicsManager::finalizeObject "
+                  "unsuccessful.  Aborting.";
+    return ID_UNDEFINED;
+  }
+  return nextObjectID_;
+}
+
 int PhysicsManager::addObject(const int objectLibId,
                               DrawableGroup* drawables,
                               scene::SceneNode* attachmentNode,
@@ -141,6 +212,19 @@ void PhysicsManager::removeObject(const int physObjectID,
   }
 }
 
+void PhysicsManager::removeContactTestObject(const std::string& handle,
+                                             bool deleteObjectNode,
+                                             bool deleteVisualNode) {
+  scene::SceneNode* objectNode = &contactTestObjects_.at(handle)->node();
+  scene::SceneNode* visualNode = contactTestObjects_.at(handle)->visualNode_;
+  contactTestObjects_.erase(handle);
+  if (deleteObjectNode) {
+    delete objectNode;
+  } else if (deleteVisualNode && visualNode) {
+    delete visualNode;
+  }
+}
+
 bool PhysicsManager::setObjectMotionType(const int physObjectID,
                                          MotionType mt) {
   assertIDValidity(physObjectID);
@@ -175,6 +259,18 @@ bool PhysicsManager::makeAndAddRigidObject(int newObjectID,
   bool objSuccess = ptr->initialize(handle);
   if (objSuccess) {
     existingObjects_.emplace(newObjectID, std::move(ptr));
+  }
+  return objSuccess;
+}
+
+bool PhysicsManager::makeAndAddContactTestRigidObject(
+    int newObjectID,
+    const std::string& handle,
+    scene::SceneNode* objectNode) {
+  auto ptr = physics::RigidObject::create_unique(objectNode, newObjectID);
+  bool objSuccess = ptr->initialize(resourceManager_, handle);
+  if (objSuccess) {
+    contactTestObjects_.emplace(handle, std::move(ptr));
   }
   return objSuccess;
 }

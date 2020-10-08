@@ -202,6 +202,13 @@ class PhysicsManager {
                 const std::string& lightSetup =
                     metadata::MetadataMediator::DEFAULT_LIGHTING_KEY);
 
+  int addContactTestObject(
+      const std::string& configFileHandle,
+      scene::SceneNode* attachmentNode = nullptr,
+      DrawableGroup* drawables = nullptr,
+      const Magnum::ResourceKey& lightSetup = Magnum::ResourceKey{
+          assets::ResourceManager::NO_LIGHT_KEY});
+
   /** @brief Remove an object instance from the pysical scene by ID, destroying
    * its scene graph node and removing it from @ref
    * PhysicsManager::existingObjects_.
@@ -216,6 +223,10 @@ class PhysicsManager {
   virtual void removeObject(const int physObjectID,
                             bool deleteObjectNode = true,
                             bool deleteVisualNode = true);
+
+  virtual void removeContactTestObject(const std::string& handle,
+                                       bool deleteObjectNode = true,
+                                       bool deleteVisualNode = true);
 
   /** @brief Get the number of objects mapped in @ref
    * PhysicsManager::existingObjects_.
@@ -871,6 +882,12 @@ class PhysicsManager {
    */
   bool getStageIsCollidable() { return staticStageObject_->getCollidable(); };
 
+  virtual bool preAddContactTest(
+      CORRADE_UNUSED const std::string& handle,
+      CORRADE_UNUSED const Magnum::Vector3& translation) {
+    return false;
+  };
+
   /** @brief Return the library implementation type for the simulator currently
    * in use. Use to check for a particular implementation.
    * @return The implementation type of this simulator.
@@ -1009,6 +1026,10 @@ class PhysicsManager {
                                      const std::string& handle,
                                      scene::SceneNode* objectNode);
 
+  virtual bool makeAndAddContactTestRigidObject(int newObjectID,
+                                                const std::string& handle,
+                                                scene::SceneNode* objectNode);
+
   /** @brief A reference to a @ref esp::assets::ResourceManager which holds
    * assets that can be accessed by this @ref PhysicsManager*/
   assets::ResourceManager& resourceManager_;
@@ -1073,6 +1094,8 @@ class PhysicsManager {
   /** @brief The current simulation time. Tracks the total amount of time
    * simulated with @ref stepPhysics up to this point. */
   double worldTime_ = 0.0;
+
+  std::map<std::string, physics::RigidObject::uptr> contactTestObjects_;
 
   ESP_SMART_POINTERS(PhysicsManager)
 };
