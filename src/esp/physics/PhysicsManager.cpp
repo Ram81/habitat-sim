@@ -215,13 +215,15 @@ void PhysicsManager::removeObject(const int physObjectID,
 void PhysicsManager::removeContactTestObject(const std::string& handle,
                                              bool deleteObjectNode,
                                              bool deleteVisualNode) {
-  scene::SceneNode* objectNode = &contactTestObjects_.at(handle)->node();
-  scene::SceneNode* visualNode = contactTestObjects_.at(handle)->visualNode_;
-  contactTestObjects_.erase(handle);
-  if (deleteObjectNode) {
-    delete objectNode;
-  } else if (deleteVisualNode && visualNode) {
-    delete visualNode;
+  if (contactTestObjects_.count(handle) > 0) {
+    scene::SceneNode* objectNode = &contactTestObjects_.at(handle)->node();
+    scene::SceneNode* visualNode = contactTestObjects_.at(handle)->visualNode_;
+    contactTestObjects_.erase(handle);
+    if (deleteObjectNode) {
+      delete objectNode;
+    } else if (deleteVisualNode && visualNode) {
+      delete visualNode;
+    }
   }
 }
 

@@ -379,7 +379,7 @@ class SimEnv {
    */
   inventoryGrabReleaseObject() {
     let nearestObjectId = this.getObjectUnderCrosshair();
-    // to handle case or multiple reruns incase object is grabbed again within 2s
+    let collision = false;
 
     if (this.grippedObjectId != -1) {
       // already gripped, so let it go
@@ -443,11 +443,9 @@ class SimEnv {
 
       this.removeObject(nearestObjectId, 0);
       this.grippedObjectId = nearestObjectId;
-    } else {
-      return false;
     }
 
-    return false;
+    return collision;
   }
 
   /**
@@ -729,6 +727,27 @@ class SimEnv {
     return distance;
   }
 
+  getObjectStates() {
+    let objectStates = [];
+    let existingObjectIds = this.getExistingObjectIDs();
+
+    for (let index = 0; index < existingObjectIds.size(); index++) {
+      let objectId = existingObjectIds.get(index);
+      let translation = this.getTranslation(objectId, 0);
+      let rotation = this.getRotation(objectId, 0);
+      let motionType = this.getObjectMotionType(objectId, 0).value;
+      let objectState = {
+        objectId: objectId,
+        translation: this.convertVector3ToVec3f(translation),
+        rotation: this.coeffFromQuat(rotation),
+        motionType: motionType
+      };
+      objectStates.push(objectState);
+    }
+
+    return objectStates;
+  }
+
   convertVector3ToVec3f(position) {
     let vec3fPosition = [position.x(), position.y(), position.z()];
     return vec3fPosition;
@@ -741,6 +760,19 @@ class SimEnv {
       position[2]
     );
     return vector3Position;
+  }
+
+  coeffFromQuat(rotation) {
+    let vector = this.convertVector3ToVec3f(rotation.vector());
+    let coeff = vector.slice();
+    coeff.push(rotation.scalar());
+    return coeff;
+  }
+
+  quatFromCoeffs(rotation) {
+    let vector = this.convertVec3fToVector3(rotation.slice(0, 3));
+    let quatRotation = new Module.Quaternion(vector, rotation[3]);
+    return quatRotation;
   }
 
   flipVec2i(position) {

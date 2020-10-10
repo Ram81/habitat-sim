@@ -150,6 +150,16 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
             return out.str();
           }));
 
+  em::class_<Magnum::Quaternion>("Quaternion")
+      .constructor<Magnum::Vector3, float>()
+      .constructor<Magnum::Quaternion>()
+      .function("normalized", &Magnum::Quaternion::normalized)
+      .function("vector", em::select_overload<Magnum::Vector3&()>(
+                              &Magnum::Quaternion::vector))
+      .function("scalar",
+                em::select_overload<float&()>(&Magnum::Quaternion::scalar))
+      .class_function("rotation", &Magnum::Quaternion::rotation);
+
   em::value_object<std::pair<vec3f, vec3f>>("aabb")
       .field("min", &std::pair<vec3f, vec3f>::first)
       .field("max", &std::pair<vec3f, vec3f>::second);
@@ -353,5 +363,6 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
                 &Simulator::findFloorPositionUnderCrosshair)
       .function("contactTest", &Simulator::contactTest)
       .function("preAddContactTest", &Simulator::preAddContactTest)
-      .function("addContactTestObject", &Simulator::addContactTestObject);
+      .function("addContactTestObject", &Simulator::addContactTestObject)
+      .function("removeContactTestObject", &Simulator::removeContactTestObject);
 }

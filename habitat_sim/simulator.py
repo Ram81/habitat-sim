@@ -402,17 +402,17 @@ class Simulator(SimulatorBackend):
         return mn.Vector2([res[1], res[0]])
 
     def add_object_in_scene(self, objectId, data):
-        data["objectId"] = objectId
+        data["object_id"] = objectId
         self._scene_objects.append(data)
 
     def update_object_in_scene(self, prevObjectId, newObjectId):
         for index in range(len(self._scene_objects)):
-            if self._scene_objects[index]["objectId"] == prevObjectId:
-                self._scene_objects[index]["objectId"] = newObjectId
+            if self._scene_objects[index]["object_id"] == prevObjectId:
+                self._scene_objects[index]["object_id"] = newObjectId
 
     def get_object_from_scene(self, objectId):
         for index in range(len(self._scene_objects)):
-            if self._scene_objects[index]["objectId"] == objectId:
+            if self._scene_objects[index]["object_id"] == objectId:
                 return self._scene_objects[index]
         return None
 

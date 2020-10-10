@@ -128,10 +128,12 @@ class NavigateTask {
       console.log("enabled physics step at 100ms interval");
       this.physicsStepFunction = setInterval(() => {
         let stepSize = 1.0 / 10.0;
-        this.psiturk.handleRecordTrialData("TEST", "stepPhysics", {
-          step: stepSize
-        });
         this.sim.stepWorld(stepSize);
+        let objectStates = this.sim.getObjectStates();
+        this.psiturk.handleRecordTrialData("TEST", "stepPhysics", {
+          step: stepSize,
+          objectStates: objectStates
+        });
         this.render();
       }, 100.0);
     }
@@ -224,7 +226,22 @@ class NavigateTask {
         } else if (datum["event"] == "handleAction") {
           _self.handleAction(datum["data"]["action"]);
         } else if (datum["event"] == "stepPhysics") {
-          _self.sim.stepWorld(1.0 / 10.0);
+          //_self.sim.stepWorld(1.0 / 10.0);
+          //console.log(datum["data"]);
+          let objectStates = datum["data"]["objectStates"];
+          for (let i = 0; i < objectStates.length; i++) {
+            let objectId = objectStates[i]["objectId"];
+            let translation = _self.sim.convertVec3fToVector3(
+              objectStates[i]["translation"]
+            );
+            let rotation = _self.sim.quatFromCoeffs(
+              objectStates[i]["rotation"]
+            );
+            // console.log(translation.toString());
+            //console.log(rotation + " " + objectId);
+            _self.sim.setTranslation(translation, objectId, 0);
+            _self.sim.setRotation(rotation, objectId, 0);
+          }
           _self.render();
         }
       }, delay);
@@ -424,8 +441,8 @@ class NavigateTask {
     } else if (action === "removeLastObject") {
       this.sim.removeLastObject();
     } else if (action == "grabReleaseObject") {
-      let isCollision = this.sim.inventoryGrabReleaseObject();
-      this.handleInventoryUpdate(isCollision);
+      let collision = this.sim.inventoryGrabReleaseObject();
+      this.handleInventoryUpdate(collision);
       this.inventory.renderInventory();
       if (this.sim.grippedObjectId === -1 && this.taskValidator.validate()) {
         if (window.finishTrial) {
