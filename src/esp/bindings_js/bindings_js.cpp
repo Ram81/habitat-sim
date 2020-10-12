@@ -120,6 +120,8 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
       .function("inverted", &Magnum::Matrix4::inverted)
       .function("translation", em::select_overload<Magnum::Vector3&()>(
                                    &Magnum::Matrix4::translation))
+      .function("backward", em::select_overload<Magnum::Vector3&()>(
+                                &Magnum::Matrix4::backward))
       .function("transformPoint", &Magnum::Matrix4::transformPoint)
       .function("mul",
                 em::optional_override(
@@ -143,6 +145,24 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
       .class_function("xAxis", &Magnum::Vector3::xAxis)
       .class_function("yAxis", &Magnum::Vector3::yAxis)
       .class_function("zAxis", &Magnum::Vector3::zAxis)
+      .function("mul",
+                em::optional_override(
+                    [](const Magnum::Vector3& self, const float distance) {
+                      return new Magnum::Vector3(self * distance);
+                    }),
+                em::allow_raw_pointers())
+      .function("add",
+                em::optional_override(
+                    [](const Magnum::Vector3& self, const Magnum::Vector3 rhs) {
+                      return new Magnum::Vector3(self + rhs);
+                    }),
+                em::allow_raw_pointers())
+      .function("sub",
+                em::optional_override(
+                    [](const Magnum::Vector3& self, const Magnum::Vector3 rhs) {
+                      return new Magnum::Vector3(self - rhs);
+                    }),
+                em::allow_raw_pointers())
       .function(
           "toString", em::optional_override([](const Magnum::Vector3& self) {
             std::ostringstream out;
@@ -208,8 +228,14 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
       .function("isNavigable", &PathFinder::isNavigable)
       .function("getRandomNavigablePoint", &PathFinder::getRandomNavigablePoint)
       .function("snapPoint", &PathFinder::snapPoint<Magnum::Vector3>)
-      .function("findPath", em::select_overload<bool(ShortestPath&)>(
-                                &PathFinder::findPath));
+      .function("findPath",
+                em::select_overload<bool(ShortestPath&)>(&PathFinder::findPath))
+      .function("tryStep",
+                em::optional_override([](PathFinder& self,
+                                         const Magnum::Vector3& start,
+                                         const Magnum::Vector3& end) {
+                  return self.tryStep(start, end);
+                }));
 
   em::class_<SensorSuite>("SensorSuite")
       .smart_ptr_constructor("SensorSuite", &SensorSuite::create<>)

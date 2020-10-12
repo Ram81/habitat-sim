@@ -142,3 +142,25 @@ export function loadEpisode(episodeConfigPath) {
   }
   return episode;
 }
+
+export function compareObjectStates(gtObjectState, objectState) {
+  let objectId = objectState["objectId"];
+  let actualId = gtObjectState["objectId"];
+  if (objectId == actualId) {
+    let trans = objectState["translation"];
+    let actualTrans = gtObjectState["translation"];
+    if (JSON.stringify(trans) == JSON.stringify(actualTrans)) {
+      let rot = objectState["rotation"];
+      let actualRot = gtObjectState["rotation"];
+
+      if (JSON.stringify(rot) !== JSON.stringify(actualRot)) {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  } else {
+    return false;
+  }
+  return true;
+}

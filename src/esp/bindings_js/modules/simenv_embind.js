@@ -28,13 +28,14 @@ class SimEnv {
     this.pathfinder = this.sim.getPathFinder();
     this.psiturk = new PsiturkEventLogger(window.psiTurk);
 
-    this.setEpisode(episode);
-
     this.resolution = null;
     this.grippedObjectId = -1;
     this.nearestObjectId = -1;
     this.gripOffset = null;
     this.selectedAgentId = agentId;
+    this.agentObjectHandle = primitiveObjectHandles[0];
+
+    this.setEpisode(episode);
     if (window.config.recomputeNavMesh) {
       this.recomputeNavMesh();
     }
@@ -142,6 +143,9 @@ class SimEnv {
 
     if (Object.keys(episode).length > 0) {
       this.initialAgentState = this.createAgentState(episode.startState);
+      // add agent object for collision test
+      this.sim.addContactTestObject(this.agentObjectHandle, 0);
+
       let objects = episode.objects;
       for (let index in objects) {
         let objectLibHandle = objects[index]["objectHandle"];
@@ -232,6 +236,12 @@ class SimEnv {
    */
   step(action) {
     const agent = this.sim.getAgent(this.selectedAgentId);
+    let agentTransform = this.getAgentTransformation(this.selectedAgentId);
+    let data = this.isAgentColliding(action, agentTransform);
+    if (data["collision"]) {
+      //this.addObjectAtLocation(this.agentObjectHandle, data["position"]);
+      return;
+    }
     agent.act(action);
   }
 
@@ -378,10 +388,15 @@ class SimEnv {
    * @returns {number} object ID or -1 if object was unable to be added
    */
   inventoryGrabReleaseObject() {
-    let nearestObjectId = this.getObjectUnderCrosshair();
+    let crossHairdata = this.getObjectUnderCrosshair();
+    let nearestObjectId = crossHairdata["nearestObjectId"];
     let collision = false;
+    let grabAction = false;
+    let releaseAction = false;
+    let data = {};
 
     if (this.grippedObjectId != -1) {
+      releaseAction = false;
       // already gripped, so let it go
       let crossHairPosition = this.getCrosshairPosition();
       let ray = this.unproject(crossHairPosition);
@@ -413,29 +428,32 @@ class SimEnv {
       let object = this.getObjectFromScene(this.grippedObjectId);
 
       // collision check on drop point
-      let contact = this.sim.preAddContactTest(
+      let collision = this.isCollision(
         object["objectHandle"],
-        newObjectPosition,
-        0
+        newObjectPosition
       );
-      while (contact) {
+      while (collision) {
         newObjectPosition = new Module.Vector3(
           newObjectPosition.x(),
           newObjectPosition.y() + 0.25,
           newObjectPosition.z()
         );
-        contact = this.sim.preAddContactTest(
-          object["objectHandle"],
-          newObjectPosition,
-          0
-        );
+        collision = this.isCollision(object["objectHandle"], newObjectPosition);
       }
       let newObjectId = this.addObjectByHandle(object["objectHandle"]);
       this.setTranslation(newObjectPosition, newObjectId, 0);
 
       this.updateObjectInScene(this.grippedObjectId, newObjectId);
       this.grippedObjectId = -1;
+      data = {
+        crosshairPoint: this.convertVector3ToVec3f(crossHairPoint),
+        dropPoint: this.convertVector3ToVec3f(newObjectPosition),
+        newObjectId: newObjectId,
+        objectHandle: object["objectHandle"]
+      };
     } else if (nearestObjectId != -1) {
+      grabAction = true;
+      let objectStates = this.getObjectStates();
       this.grippedObjectTransformation = this.getTransformation(
         nearestObjectId,
         0
@@ -443,9 +461,22 @@ class SimEnv {
 
       this.removeObject(nearestObjectId, 0);
       this.grippedObjectId = nearestObjectId;
+      data = {
+        objectStates: objectStates
+      };
     }
 
-    return collision;
+    data["objectStates"] = this.getObjectStates();
+    data["objectUnderCrosshair"] = crossHairdata;
+
+    return {
+      collision: collision,
+      grabAction: grabAction,
+      releaseAction: releaseAction,
+      objectUnderCrosshair: nearestObjectId,
+      grippedObjectId: this.grippedObjectId,
+      actionData: data
+    };
   }
 
   /**
@@ -642,11 +673,15 @@ class SimEnv {
       refPoint,
       this.resolution
     );
-    return nearestObjectId;
+    return {
+      nearestObjectId: nearestObjectId,
+      crossHairPoint: this.convertVector3ToVec3f(crossHairPoint),
+      refPoint: this.convertVector3ToVec3f(refPoint)
+    };
   }
 
   drawBBAroundNearestObject() {
-    let objectId = this.getObjectUnderCrosshair();
+    let objectId = this.getObjectUnderCrosshair()["nearestObjectId"];
     if (objectId == -1) {
       if (
         this.nearestObjectId != -1 &&
@@ -694,6 +729,50 @@ class SimEnv {
 
   unproject(crossHairPosition) {
     return this.sim.unproject(crossHairPosition);
+  }
+
+  isAgentColliding(action, agentTransform) {
+    let stepSize = 0.25;
+    if (action == "moveForward") {
+      let position = agentTransform.backward().mul(-1 * stepSize);
+      let newPosition = agentTransform.translation().add(position);
+      let filteredPoint = this.pathfinder.tryStep(
+        agentTransform.translation(),
+        newPosition
+      );
+      let filterDiff = filteredPoint.sub(newPosition);
+      // adding buffer of 0.1 y to avoid collision with navmesh
+      let finalPosition = newPosition
+        .add(filterDiff)
+        .add(new Module.Vector3(0.0, 0.1, 0.0));
+      let collision = this.isCollision(this.agentObjectHandle, finalPosition);
+      return {
+        collision: collision,
+        position: finalPosition
+      };
+    } else if (action == "moveBackward") {
+      let position = agentTransform.backward().mul(stepSize);
+      let newPosition = agentTransform.translation().add(position);
+      let filteredPoint = this.pathfinder.tryStep(
+        agentTransform.translation(),
+        newPosition
+      );
+      let filterDiff = filteredPoint.sub(newPosition);
+      // adding buffer of 0.1 y to avoid collision with navmesh
+      let finalPosition = newPosition
+        .add(filterDiff)
+        .add(new Module.Vector3(0.0, 0.1, 0.0));
+      let collision = this.isCollision(this.agentObjectHandle, finalPosition);
+      return {
+        collision: collision,
+        position: finalPosition
+      };
+    }
+    return false;
+  }
+
+  isCollision(objectHandle, point, sceneId = 0) {
+    return this.sim.preAddContactTest(objectHandle, point, sceneId);
   }
 
   /**
