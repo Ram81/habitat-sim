@@ -844,6 +844,8 @@ class Simulator {
   int addContactTestObject(const std::string& objectLibHandle,
                            const int sceneID = 0);
 
+  void enableDebugDraw();
+
   /**
    * @brief Getter for PRNG.
    *

@@ -239,7 +239,6 @@ class SimEnv {
     let agentTransform = this.getAgentTransformation(this.selectedAgentId);
     let data = this.isAgentColliding(action, agentTransform);
     if (data["collision"]) {
-      //this.addObjectAtLocation(this.agentObjectHandle, data["position"]);
       return;
     }
     agent.act(action);
@@ -676,7 +675,8 @@ class SimEnv {
     return {
       nearestObjectId: nearestObjectId,
       crossHairPoint: this.convertVector3ToVec3f(crossHairPoint),
-      refPoint: this.convertVector3ToVec3f(refPoint)
+      refPoint: this.convertVector3ToVec3f(refPoint),
+      crossHairPosition: crossHairPosition
     };
   }
 
@@ -856,6 +856,10 @@ class SimEnv {
 
   flipVec2i(position) {
     return [position[1], position[0]];
+  }
+
+  enableDebugDraw() {
+    this.sim.enableDebugDraw();
   }
 
   /**

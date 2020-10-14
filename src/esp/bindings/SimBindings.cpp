@@ -318,7 +318,9 @@ void initSimBindings(py::module& m) {
            R"(Add collision detection object out of scene)")
       .def("remove_contact_test_object", &Simulator::removeContactTestObject,
            "object_handle"_a, "scene_id"_a = 0,
-           R"(Remove collision detection object out of scene)");
+           R"(Remove collision detection object out of scene)")
+      .def("enable_debug_draw", &Simulator::enableDebugDraw,
+           R"(enable bullet debug)");
 }
 
 }  // namespace sim

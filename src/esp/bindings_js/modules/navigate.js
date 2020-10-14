@@ -129,13 +129,15 @@ class NavigateTask {
       console.log("enabled physics step at 100ms interval");
       this.physicsStepFunction = setInterval(() => {
         let stepSize = 1.0 / 10.0;
+        let startTime = new Date().getTime();
         this.sim.stepWorld(stepSize);
+        this.render();
         let objectStates = this.sim.getObjectStates();
         this.psiturk.handleRecordTrialData("TEST", "stepPhysics", {
           step: stepSize,
-          objectStates: objectStates
+          objectStates: objectStates,
+          totalTime: new Date().getTime() - startTime
         });
-        this.render();
       }, 100.0);
     }
   }
@@ -226,30 +228,10 @@ class NavigateTask {
           _self.reset();
         } else if (datum["event"] == "handleAction") {
           _self.handleAction(datum["data"]["action"]);
-          // let actionData = _self.handleAction(datum["data"]["action"]);
-          // if (Object.keys(actionData).length > 0) {
-          //   if (
-          //     JSON.stringify(actionData["actionData"]) !=
-          //     JSON.stringify(datum["data"]["data"]["actionData"])
-          //   ) {
-          //     console.log("Diff while grab/release");
-          //   }
-
-          //   console.log("replay");
-          //   console.log(JSON.stringify(actionData));
-          //   console.log("actual");
-          //   console.log(JSON.stringify(datum["data"]["data"]));
-          //   console.log("end\n\n");
-          // }
         } else if (datum["event"] == "stepPhysics") {
-          //_self.sim.stepWorld(1.0 / 10.0);
-          // let objectStatesActual = _self.sim.getObjectStates();
           let objectStates = datum["data"]["objectStates"];
           for (let i = 0; i < objectStates.length; i++) {
             let objectId = objectStates[i]["objectId"];
-            // if (!compareObjectStates(objectStates[i], objectStatesActual[i])) {
-            //   console.log("state mismatch: true");
-            // }
             let translation = _self.sim.convertVec3fToVector3(
               objectStates[i]["translation"]
             );
@@ -461,11 +443,6 @@ class NavigateTask {
       this.sim.removeLastObject();
     } else if (action == "grabReleaseObject") {
       let data = this.sim.inventoryGrabReleaseObject();
-      this.psiturk.handleRecordTrialData("TEST", "handleAction", {
-        action: action,
-        data: data
-      });
-
       this.handleInventoryUpdate(data["collision"]);
       this.inventory.renderInventory();
       if (this.sim.grippedObjectId === -1 && this.taskValidator.validate()) {
@@ -480,9 +457,6 @@ class NavigateTask {
     } else {
       this.sim.step(action);
       this.setStatus(action);
-      this.psiturk.handleRecordTrialData("TEST", "handleAction", {
-        action: action
-      });
     }
     this.render();
     return actionData;
@@ -491,6 +465,9 @@ class NavigateTask {
   handleKeypress(key) {
     for (let a of this.actions) {
       if (a.keyCode === key) {
+        this.psiturk.handleRecordTrialData("TEST", "handleAction", {
+          action: a.name
+        });
         this.handleAction(a.name);
         break;
       }

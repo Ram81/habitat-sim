@@ -1109,5 +1109,15 @@ esp::physics::RayHitInfo Simulator::findFloorPositionUnderCrosshair(
   return rayHitInfo;
 }
 
+void Simulator::enableDebugDraw() {
+  scene::SceneGraph& sceneGraph = sceneManager_->getSceneGraph(activeSceneID_);
+  gfx::RenderCamera& renderCamera_ = sceneGraph.getDefaultRenderCamera();
+
+  Magnum::Matrix4 camM(renderCamera_.cameraMatrix());
+  Magnum::Matrix4 projM(renderCamera_.projectionMatrix());
+
+  physicsDebugDraw(projM * camM);
+}
+
 }  // namespace sim
 }  // namespace esp

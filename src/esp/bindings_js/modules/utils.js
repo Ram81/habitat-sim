@@ -149,7 +149,7 @@ export function compareObjectStates(gtObjectState, objectState) {
   if (objectId == actualId) {
     let trans = objectState["translation"];
     let actualTrans = gtObjectState["translation"];
-    if (JSON.stringify(trans) == JSON.stringify(actualTrans)) {
+    if (JSON.stringify(trans) === JSON.stringify(actualTrans)) {
       let rot = objectState["rotation"];
       let actualRot = gtObjectState["rotation"];
 
