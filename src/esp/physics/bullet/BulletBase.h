@@ -57,6 +57,39 @@ struct SimulationContactResultCallback
   }
 };
 
+struct PreAddSimulationContactResultCallback
+    : public btCollisionWorld::ContactResultCallback {
+  /**
+   * @brief Set when a contact is detected.
+   */
+  bool bCollision;
+
+  /**
+   * @brief Constructor.
+   */
+  PreAddSimulationContactResultCallback() { bCollision = false; }
+
+  /**
+   * @brief Called when a contact is detected.
+   *
+   * Sets a collision flag on every detected collision. Can be updated to do
+   * more.
+   * @param cp Contains detailed information about the contact point being
+   * added.
+   */
+  btScalar addSingleResult(
+      CORRADE_UNUSED btManifoldPoint& cp,
+      CORRADE_UNUSED const btCollisionObjectWrapper* colObj0Wrap,
+      CORRADE_UNUSED int partId0,
+      CORRADE_UNUSED int index0,
+      CORRADE_UNUSED const btCollisionObjectWrapper* colObj1Wrap,
+      CORRADE_UNUSED int partId1,
+      CORRADE_UNUSED int index1) override {
+    bCollision = true;
+    return 0;  // not used
+  }
+};
+
 /**
  * @brief This class is intended to implement bullet-specific
  */

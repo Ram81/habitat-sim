@@ -229,6 +229,9 @@ class NavigateTask {
         } else if (datum["event"] == "handleAction") {
           _self.handleAction(datum["data"]["action"]);
         } else if (datum["event"] == "stepPhysics") {
+          // uncomment for stepPhysics replay
+          // _self.sim.stepWorld(1.0 / 10.0);
+          // state based replay
           let objectStates = datum["data"]["objectStates"];
           for (let i = 0; i < objectStates.length; i++) {
             let objectId = objectStates[i]["objectId"];
@@ -239,8 +242,8 @@ class NavigateTask {
               objectStates[i]["rotation"]
             );
 
-            _self.sim.setTranslation(translation, objectId, 0);
             _self.sim.setRotation(rotation, objectId, 0);
+            _self.sim.setTranslation(translation, objectId, 0);
           }
           _self.render();
         }

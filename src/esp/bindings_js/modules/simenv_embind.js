@@ -387,7 +387,7 @@ class SimEnv {
    * @returns {number} object ID or -1 if object was unable to be added
    */
   inventoryGrabReleaseObject() {
-    let crossHairdata = this.getObjectUnderCrosshair();
+    let crossHairdata = this.getObjectUnderCrosshair(true);
     let nearestObjectId = crossHairdata["nearestObjectId"];
     let collision = false;
     let grabAction = false;
@@ -441,6 +441,7 @@ class SimEnv {
       }
       let newObjectId = this.addObjectByHandle(object["objectHandle"]);
       this.setTranslation(newObjectPosition, newObjectId, 0);
+      this.setObjectMotionType(Module.MotionType.DYNAMIC, newObjectId, 0);
 
       this.updateObjectInScene(this.grippedObjectId, newObjectId);
       this.grippedObjectId = -1;
@@ -661,7 +662,7 @@ class SimEnv {
     return center;
   }
 
-  getObjectUnderCrosshair() {
+  getObjectUnderCrosshair(isAction = false) {
     let crossHairPosition = this.getCrosshairPosition();
     let ray = this.unproject(crossHairPosition);
     let crossHairPoint = ray.direction;
@@ -670,7 +671,8 @@ class SimEnv {
     let nearestObjectId = this.findNearestObjectUnderCrosshair(
       crossHairPoint,
       refPoint,
-      this.resolution
+      this.resolution,
+      isAction
     );
     return {
       nearestObjectId: nearestObjectId,
@@ -718,12 +720,18 @@ class SimEnv {
     this.sim.toggleNavMeshVisualization();
   }
 
-  findNearestObjectUnderCrosshair(crossHairPoint, refPoint, windowSize) {
+  findNearestObjectUnderCrosshair(
+    crossHairPoint,
+    refPoint,
+    windowSize,
+    isAction = false
+  ) {
     return this.sim.findNearestObjectUnderCrosshair(
       crossHairPoint,
       refPoint,
       windowSize,
-      1.5
+      1.5,
+      isAction
     );
   }
 

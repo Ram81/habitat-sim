@@ -960,6 +960,12 @@ class PhysicsManager {
 
   virtual int getNumActiveContactPoints() { return -1; }
 
+  virtual int getNumActiveOverlappingPairs() { return -1; }
+
+  virtual std::string getStepCollisionSummary() { return "not implemented"; }
+
+  virtual Magnum::Matrix4 getBulletTransformation(const int physObjectID) const;
+
  protected:
   /** @brief Check that a given object ID is valid (i.e. it refers to an
    * existing object). Terminate the program and report an error if not. This

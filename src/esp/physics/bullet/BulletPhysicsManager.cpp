@@ -307,5 +307,13 @@ void BulletPhysicsManager::setActive(const int physObjectID, bool active) {
       ->setActive();
 }
 
+Magnum::Matrix4 BulletPhysicsManager::getBulletTransformation(
+    const int physObjectID) const {
+  assertIDValidity(physObjectID);
+  return static_cast<BulletRigidObject*>(
+             existingObjects_.at(physObjectID).get())
+      ->getBulletTransform();
+}
+
 }  // namespace physics
 }  // namespace esp

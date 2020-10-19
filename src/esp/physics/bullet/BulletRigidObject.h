@@ -443,6 +443,10 @@ class BulletRigidObject : public BulletBase,
 
   bool isMe(const btCollisionObject* collisionObject);
 
+  std::string getCollisionDebugName();
+
+  Magnum::Matrix4 getBulletTransform();
+
  private:
   /**
    * @brief Finalize initialization of this @ref BulletRigidObject as a @ref

@@ -466,6 +466,12 @@ Magnum::Matrix4 PhysicsManager::getTransformation(
   return existingObjects_.at(physObjectID)->node().transformation();
 }
 
+Magnum::Matrix4 PhysicsManager::getBulletTransformation(
+    const int physObjectID) const {
+  assertIDValidity(physObjectID);
+  return existingObjects_.at(physObjectID)->node().transformation();
+}
+
 esp::core::RigidState PhysicsManager::getRigidState(
     const int physObjectID) const {
   assertIDValidity(physObjectID);

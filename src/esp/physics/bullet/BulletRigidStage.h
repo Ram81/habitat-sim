@@ -102,6 +102,8 @@ class BulletRigidStage : public BulletBase, public RigidStage {
    */
   void setRestitutionCoefficient(const double restitutionCoefficient) override;
 
+  std::string getCollisionDebugName(int subpartId);
+
  private:
   // === Physical stage ===
 

@@ -18,6 +18,7 @@
 #include "BulletDynamics/Featherstone/btMultiBodyConstraintSolver.h"
 #include "BulletDynamics/Featherstone/btMultiBodyDynamicsWorld.h"
 
+#include "BulletDebugManager.h"
 #include "BulletRigidObject.h"
 #include "BulletRigidStage.h"
 #include "esp/physics/PhysicsManager.h"
@@ -240,6 +241,22 @@ class BulletPhysicsManager : public PhysicsManager {
   bool makeAndAddContactTestRigidObject(int newObjectID,
                                         const std::string& handle,
                                         scene::SceneNode* objectNode) override;
+
+  int getNumActiveContactPoints() {
+    return BulletDebugManager::get().getNumActiveContactPoints(bWorld_.get());
+  }
+
+  int getNumActiveOverlappingPairs() {
+    return BulletDebugManager::get().getNumActiveOverlappingPairs(
+        bWorld_.get());
+  }
+
+  std::string getStepCollisionSummary() {
+    return BulletDebugManager::get().getStepCollisionSummary(bWorld_.get());
+  }
+
+  Magnum::Matrix4 getBulletTransformation(
+      const int physObjectID) const override;
 
   btDbvtBroadphase bBroadphase_;
   btDefaultCollisionConfiguration bCollisionConfig_;

@@ -14,6 +14,7 @@
 #include "BulletCollision/CollisionShapes/btConvexTriangleMeshShape.h"
 #include "BulletCollision/Gimpact/btGImpactShape.h"
 #include "BulletCollision/NarrowPhaseCollision/btRaycastCallback.h"
+#include "BulletDebugManager.h"
 #include "BulletRigidObject.h"
 
 //!  A Few considerations in construction
@@ -451,6 +452,11 @@ void BulletRigidObject::constructAndAddRigidBody(MotionType mt) {
   }
 }
 
+std::string BulletRigidObject::getCollisionDebugName() {
+  return "RigidObject, " + initializationAttributes_->getHandle() + ", id " +
+         std::to_string(objectId_);
+}
+
 void BulletRigidObject::activateCollisionIsland() {
   btCollisionObject* thisColObj = bObjectRigidBody_.get();
 
@@ -543,6 +549,10 @@ bool BulletRigidObject::isMe(const btCollisionObject* collisionObject) {
 
   return false;
 }  // isMe
+
+Magnum::Matrix4 BulletRigidObject::getBulletTransform() {
+  return Magnum::Matrix4(bObjectRigidBody_->getWorldTransform());
+}
 
 }  // namespace physics
 }  // namespace esp

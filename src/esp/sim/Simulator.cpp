@@ -21,6 +21,7 @@
 #include "esp/metadata/attributes/AttributesBase.h"
 #include "esp/nav/PathFinder.h"
 #include "esp/physics/PhysicsManager.h"
+#include "esp/physics/bullet/BulletDebugManager.h"
 #include "esp/physics/bullet/BulletPhysicsManager.h"
 #include "esp/scene/ObjectControls.h"
 #include "esp/scene/SemanticScene.h"
@@ -1007,7 +1008,8 @@ void Simulator::setObjectLightSetup(const int objectID,
 int Simulator::findNearestObjectUnderCrosshair(Magnum::Vector3 point,
                                                Magnum::Vector3 refPoint,
                                                const Magnum::Vector2i& viewSize,
-                                               float distance) {
+                                               float distance,
+                                               bool isAction) {
   int nearestObjId = ID_UNDEFINED;
   scene::SceneGraph& sceneGraph = sceneManager_->getSceneGraph(activeSceneID_);
   gfx::RenderCamera& renderCamera_ = sceneGraph.getDefaultRenderCamera();

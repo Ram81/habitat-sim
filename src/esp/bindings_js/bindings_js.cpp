@@ -392,5 +392,7 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
       .function("addContactTestObject", &Simulator::addContactTestObject)
       .function("removeContactTestObject", &Simulator::removeContactTestObject)
       .function("setNavMeshVisualization", &Simulator::setNavMeshVisualization)
-      .function("enableDebugDraw", &Simulator::enableDebugDraw);
+      .function("enableDebugDraw", &Simulator::enableDebugDraw)
+      .function("getPhysicsStepCollisionSummary",
+                &Simulator::getPhysicsStepCollisionSummary);
 }
