@@ -513,16 +513,33 @@ bool BulletRigidObject::contactTest() {
   return src.bCollision;
 }  // contactTest
 
-bool BulletRigidObject::preAddContactTest(const Magnum::Vector3& translation) {
+bool BulletRigidObject::preAddContactTest(
+    const Magnum::Vector3& translation,
+    std::shared_ptr<std::map<const btCollisionObject*, int> >
+        collisionObjToObjIds) {
   auto transformationMatrix = Magnum::Matrix4::translation(translation);
   std::unique_ptr<btCollisionObject> colObj =
       std::make_unique<btCollisionObject>();
   colObj->setCollisionShape(bObjectRigidBody_->getCollisionShape());
   colObj->setWorldTransform(btTransform(transformationMatrix));
 
-  SimulationContactResultCallback src;
+  PreAddSimulationContactResultCallback src;
   bWorld_->getCollisionWorld()->contactTest(colObj.get(), src);
-  return src.bCollision;
+
+  if (src.bCollision) {
+    auto objectCollisionMap = src.collisionObjMap;
+    if (objectCollisionMap.count(colObj.get()) > 0) {
+      auto collidedObj = objectCollisionMap.at(colObj.get());
+
+      if (collisionObjToObjIds_->count(collidedObj) > 0) {
+        auto objId = collisionObjToObjIds_->at(collidedObj);
+        if (objId != -1) {
+          return true;
+        }
+      }
+    }
+  }
+  return false;
 }
 
 const Magnum::Range3D BulletRigidObject::getCollisionShapeAabb() const {

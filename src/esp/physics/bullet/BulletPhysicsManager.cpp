@@ -242,7 +242,7 @@ bool BulletPhysicsManager::preAddContactTest(
     const Magnum::Vector3& translation) {
   bWorld_->getCollisionWorld()->performDiscreteCollisionDetection();
   return static_cast<BulletRigidObject*>(contactTestObjects_.at(handle).get())
-      ->preAddContactTest(translation);
+      ->preAddContactTest(translation, collisionObjToObjIds_);
 }
 
 RaycastResults BulletPhysicsManager::castRay(const esp::geo::Ray& ray,

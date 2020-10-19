@@ -752,7 +752,7 @@ class SimEnv {
       // adding buffer of 0.1 y to avoid collision with navmesh
       let finalPosition = newPosition
         .add(filterDiff)
-        .add(new Module.Vector3(0.0, 0.1, 0.0));
+        .add(new Module.Vector3(0.0, 0.05, 0.0));
       let collision = this.isCollision(this.agentObjectHandle, finalPosition);
       return {
         collision: collision,
@@ -769,7 +769,7 @@ class SimEnv {
       // adding buffer of 0.1 y to avoid collision with navmesh
       let finalPosition = newPosition
         .add(filterDiff)
-        .add(new Module.Vector3(0.0, 0.1, 0.0));
+        .add(new Module.Vector3(0.0, 0.05, 0.0));
       let collision = this.isCollision(this.agentObjectHandle, finalPosition);
       return {
         collision: collision,

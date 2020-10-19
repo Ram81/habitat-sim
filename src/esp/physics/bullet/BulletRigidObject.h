@@ -432,7 +432,10 @@ class BulletRigidObject : public BulletBase,
    */
   bool contactTest();
 
-  bool preAddContactTest(const Magnum::Vector3& translation);
+  bool preAddContactTest(
+      const Magnum::Vector3& translation,
+      std::shared_ptr<std::map<const btCollisionObject*, int>>
+          collisionObjToObjIds);
 
   /**
    * @brief Query the Aabb from bullet physics for the root compound shape of

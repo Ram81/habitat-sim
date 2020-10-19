@@ -63,6 +63,7 @@ struct PreAddSimulationContactResultCallback
    * @brief Set when a contact is detected.
    */
   bool bCollision;
+  std::map<const btCollisionObject*, const btCollisionObject*> collisionObjMap;
 
   /**
    * @brief Constructor.
@@ -85,6 +86,10 @@ struct PreAddSimulationContactResultCallback
       CORRADE_UNUSED const btCollisionObjectWrapper* colObj1Wrap,
       CORRADE_UNUSED int partId1,
       CORRADE_UNUSED int index1) override {
+    collisionObjMap.emplace(colObj0Wrap->getCollisionObject(),
+                            colObj1Wrap->getCollisionObject());
+    collisionObjMap.emplace(colObj1Wrap->getCollisionObject(),
+                            colObj0Wrap->getCollisionObject());
     bCollision = true;
     return 0;  // not used
   }
