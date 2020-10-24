@@ -154,6 +154,10 @@ class WebDemo {
     this.task.init();
     this.task.reset();
   }
+
+  validateTask() {
+    this.task.validateTask();
+  }
 }
 
 export default WebDemo;

@@ -428,6 +428,10 @@ class NavigateTask {
     this.lastInteractedObjectId = objectId;
   }
 
+  validateTask() {
+    return this.taskValidator.validate();
+  }
+
   handleAction(action) {
     let actionData = {};
     let collision = false;
@@ -441,7 +445,7 @@ class NavigateTask {
       let data = this.sim.inventoryGrabReleaseObject();
       this.handleInventoryUpdate(data["collision"]);
       this.inventory.renderInventory();
-      if (this.sim.grippedObjectId === -1 && this.taskValidator.validate()) {
+      if (this.sim.grippedObjectId === -1 && this.validateTask()) {
         if (window.finishTrial) {
           this.setStatus("Task completed!");
           setTimeout(window.finishTrial, 500);

@@ -30,12 +30,12 @@ class TaskValidator {
   }
 
   validateArrangementTask() {
-    let goal = this.task.goal;
-    if (goal === undefined || goal.objectToGoalMap === undefined) {
+    let goal = this.task.goals;
+    if (goal === undefined || goal.objectToReceptacleMap === undefined) {
       return true;
     }
 
-    let objectToGoalMap = goal.objectToGoalMap;
+    let objectToGoalMap = goal.objectToReceptacleMap;
     let objectsInScene = this.sim.getObjectsInScene();
     for (let key in objectToGoalMap) {
       let sourceObjectId = objectsInScene[parseInt(key)]["objectId"];
@@ -48,7 +48,7 @@ class TaskValidator {
           sourceObjectId,
           receptacleObjectId
         );
-        if (distance <= 2.0) {
+        if (distance <= 0.8) {
           success = true;
         }
       }
