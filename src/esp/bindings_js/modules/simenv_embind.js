@@ -40,7 +40,6 @@ class SimEnv {
       this.recomputeNavMesh();
     }
     this.maxDistance = 1.5;
-    this.sim.addContactTestObject(this.agentObjectHandle, 0);
   }
 
   /**
@@ -48,8 +47,6 @@ class SimEnv {
    */
   reset() {
     this.sim.reset();
-    console.log("agent statet");
-    console.log(this.initialAgentState);
     if (this.initialAgentState !== null) {
       const agent = this.sim.getAgent(this.selectedAgentId);
       agent.setState(this.initialAgentState, true);
@@ -59,72 +56,6 @@ class SimEnv {
     this.grippedObjectId = -1;
     this.gripOffset = null;
     this.psiturk.handleRecordTrialData("TEST", "simReset", {});
-  }
-
-  runPhysicsTest() {
-    this.reset();
-    let sphereObjectId = this.addObjectByHandle(
-      "/data/objects/sphere.phys_properties.json"
-    );
-    let spherePosition = this.convertVec3fToVector3([
-      -0.9517786502838135,
-      2.167676642537117,
-      11.343990325927734
-    ]);
-    this.setObjectMotionType(Module.MotionType.DYNAMIC, sphereObjectId, 0);
-    this.setTranslation(spherePosition, sphereObjectId, 0);
-
-    let soccerBallObjectId = this.addObjectByHandle(
-      "/data/objects/mini_soccer_ball.phys_properties.json"
-    );
-    let soccerBallPosition = this.convertVec3fToVector3([
-      -0.9517786502838135,
-      0.467676642537117,
-      11.343990325927734
-    ]);
-    this.setObjectMotionType(Module.MotionType.DYNAMIC, soccerBallObjectId, 0);
-    this.setTranslation(soccerBallPosition, soccerBallObjectId, 0);
-
-    let chairObjectId = this.addObjectByHandle(
-      "/data/objects/chair.phys_properties.json"
-    );
-    let chairPosition = this.convertVec3fToVector3([
-      -0.9517786502838135,
-      1.57676642537117,
-      11.343990325927734
-    ]);
-    this.setObjectMotionType(Module.MotionType.DYNAMIC, chairObjectId, 0);
-    this.setTranslation(chairPosition, chairObjectId, 0);
-
-    let worldTime = this.getWorldTime();
-    let timeline = [];
-    let stepCount = 1;
-    while (worldTime <= 3.0) {
-      this.stepWorld();
-      worldTime = this.getWorldTime();
-
-      let objs = [];
-      let existingObjectIds = this.getExistingObjectIDs();
-      for (let index = 0; index < existingObjectIds.size(); index++) {
-        let obj = {
-          objectId: existingObjectIds.get(index),
-          translation: this.getTranslation(
-            existingObjectIds.get(index),
-            0
-          ).toString(),
-          motionType: this.getObjectMotionType(existingObjectIds.get(index), 0)
-            .value
-        };
-        objs.push(obj);
-      }
-      timeline.push({
-        worldTime: worldTime,
-        stepCount: stepCount,
-        objectStates: objs
-      });
-      stepCount++;
-    }
-    return timeline;
   }
 
   /**
@@ -161,6 +92,9 @@ class SimEnv {
         this.sim.addContactTestObject(objectLibHandle, 0);
       }
       this.recomputeNavMesh();
+    } else {
+      // add agent object for collision test
+      this.sim.addContactTestObject(this.agentObjectHandle, 0);
     }
     this.psiturk.handleRecordTrialData("TEST", "setEpisode", {
       episode: episode
@@ -327,6 +261,10 @@ class SimEnv {
     this.addObjectInScene(
       objectId,
       fileBasedObjects["objects"][fileBasedObjectIdx]
+    );
+    this.sim.addContactTestObject(
+      fileBasedObjects["objects"][fileBasedObjectIdx]["objectHandle"],
+      0
     );
     return objectId;
   }
@@ -831,6 +769,16 @@ class SimEnv {
     }
 
     return objectStates;
+  }
+
+  getObjectPose() {
+    let objectId = this.getObjectUnderCrosshair()["nearestObjectId"];
+    let translation = this.getTranslation(objectId, 0);
+    let rotation = this.getRotation(objectId, 0);
+    console.log(
+      "object translation: " + this.convertVector3ToVec3f(translation)
+    );
+    console.log("object rotation: " + this.coeffFromQuat(rotation));
   }
 
   convertVector3ToVec3f(position) {

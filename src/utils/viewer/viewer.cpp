@@ -357,7 +357,7 @@ Viewer::Viewer(const Arguments& arguments)
       .addBooleanOption("recompute-navmesh")
       .setHelp("recompute-navmesh",
                "Programmatically re-generate the scene navmesh.")
-      .addOption("save-navmesh")
+      .addBooleanOption("save-navmesh")
       .setHelp("save-navmesh", "Programmatically save the scene navmesh.")
       .parse(arguments.argc, arguments.argv);
 

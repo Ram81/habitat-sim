@@ -183,3 +183,6 @@ yarn-debug.log*
 yarn-error.log*
 .npm/
 coverage_js/
+
+# New scene assets
+data/scenes/

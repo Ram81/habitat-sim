@@ -14,8 +14,8 @@ export const defaultAgentConfig = {
 };
 
 export const defaultStartState = {
-  position: [-1.2676633596420288, 0.2047852873802185, 12.595427513122559],
-  rotation: [0, 0.4536385088584658, 0, 0.8911857849408661]
+  position: [-4.94049, -2.63092, -7.57733],
+  rotation: [0, 0.980792, 0, 0.195056]
 };
 
 export const defaultGoal = {

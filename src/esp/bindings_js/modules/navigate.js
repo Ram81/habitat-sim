@@ -94,8 +94,7 @@ class NavigateTask {
       { name: "turnRight", key: "d", keyCode: 68 },
       { name: "lookUp", key: "ArrowUp", keyCode: 38 },
       { name: "lookDown", key: "ArrowDown", keyCode: 40 },
-      { name: "grabReleaseObject", key: " ", keyCode: 32 },
-      { name: "addPrimitiveObject", key: "p", keyCode: 80 }
+      { name: "grabReleaseObject", key: " ", keyCode: 32 }
     ];
   }
 
@@ -449,14 +448,10 @@ class NavigateTask {
         }
       }
       actionData = data;
-    } else if (action == "physicsTest") {
-      this.sim.runPhysicsTest();
     } else {
-      console.log("before error");
       collision = this.sim.step(action);
       this.setStatus(action);
     }
-    console.log("no error");
 
     // record action and action data
     let objectUnderCrosshair = this.sim.getObjectUnderCrosshair()[
