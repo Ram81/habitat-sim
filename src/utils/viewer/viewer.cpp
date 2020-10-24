@@ -357,6 +357,8 @@ Viewer::Viewer(const Arguments& arguments)
       .addBooleanOption("recompute-navmesh")
       .setHelp("recompute-navmesh",
                "Programmatically re-generate the scene navmesh.")
+      .addOption("save-navmesh")
+      .setHelp("save-navmesh", "Programmatically save the scene navmesh.")
       .parse(arguments.argc, arguments.argv);
 
   const auto viewportSize = Mn::GL::defaultFramebuffer.viewport().size();
@@ -428,6 +430,10 @@ Viewer::Viewer(const Arguments& arguments)
     if (Cr::Utility::Directory::exists(navmeshFile)) {
       simulator_->getPathFinder()->loadNavMesh(navmeshFile);
     }
+  }
+
+  if (args.isSet("save-navmesh")) {
+    simulator_->getPathFinder()->saveNavMesh(args.value("scene") + ".navmesh");
   }
 
   // configure and initialize default Agent and Sensor

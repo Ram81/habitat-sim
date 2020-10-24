@@ -814,8 +814,7 @@ class Simulator {
   int findNearestObjectUnderCrosshair(Magnum::Vector3 point,
                                       Magnum::Vector3 refPoint,
                                       const Magnum::Vector2i& viewSize,
-                                      float distance = 1.0,
-                                      bool isAction = false);
+                                      float distance = 1.0);
 
   esp::geo::Ray unproject(const Magnum::Vector2i& crossHairPosition);
 
@@ -858,6 +857,12 @@ class Simulator {
   std::string getPhysicsStepCollisionSummary() {
     return physicsManager_->getStepCollisionSummary();
   }
+
+  Magnum::Quaternion getBulletRotation(const int objectID,
+                                       const int sceneID = 0);
+
+  Magnum::Vector3 getBulletTranslation(const int objectID,
+                                       const int sceneID = 0);
 
   /**
    * @brief Getter for PRNG.

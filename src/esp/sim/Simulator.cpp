@@ -532,6 +532,26 @@ Magnum::Quaternion Simulator::getRotation(const int objectID,
   return Magnum::Quaternion();
 }
 
+Magnum::Quaternion Simulator::getBulletRotation(const int objectID,
+                                                const int sceneID) {
+  if (sceneHasPhysics(sceneID)) {
+    auto rotation =
+        physicsManager_->getBulletTransformation(objectID).rotation();
+    return Magnum::Quaternion::fromMatrix(rotation);
+  }
+  return Magnum::Quaternion();
+}
+
+Magnum::Vector3 Simulator::getBulletTranslation(const int objectID,
+                                                const int sceneID) {
+  if (sceneHasPhysics(sceneID)) {
+    auto translation =
+        physicsManager_->getBulletTransformation(objectID).translation();
+    return translation;
+  }
+  return Magnum::Vector3();
+}
+
 void Simulator::setLinearVelocity(const Magnum::Vector3& linVel,
                                   const int objectID,
                                   const int sceneID) {
@@ -1008,8 +1028,7 @@ void Simulator::setObjectLightSetup(const int objectID,
 int Simulator::findNearestObjectUnderCrosshair(Magnum::Vector3 point,
                                                Magnum::Vector3 refPoint,
                                                const Magnum::Vector2i& viewSize,
-                                               float distance,
-                                               bool isAction) {
+                                               float distance) {
   int nearestObjId = ID_UNDEFINED;
   scene::SceneGraph& sceneGraph = sceneManager_->getSceneGraph(activeSceneID_);
   gfx::RenderCamera& renderCamera_ = sceneGraph.getDefaultRenderCamera();

@@ -130,12 +130,20 @@ class NavigateTask {
       this.physicsStepFunction = setInterval(() => {
         let stepSize = 1.0 / 10.0;
         let startTime = new Date().getTime();
+        // Step world physics
         this.sim.stepWorld(stepSize);
+        // Render observation
         this.render();
+
+        // Log current state for replay
         let objectStates = this.sim.getObjectStates();
+        let objectUnderCrosshair = this.sim.getObjectUnderCrosshair()[
+          "nearestObjectId"
+        ];
         this.psiturk.handleRecordTrialData("TEST", "stepPhysics", {
           step: stepSize,
           objectStates: objectStates,
+          objectUnderCrosshair: objectUnderCrosshair,
           totalTime: new Date().getTime() - startTime
         });
       }, 100.0);
@@ -229,22 +237,7 @@ class NavigateTask {
         } else if (datum["event"] == "handleAction") {
           _self.handleAction(datum["data"]["action"]);
         } else if (datum["event"] == "stepPhysics") {
-          // uncomment for stepPhysics replay
-          // _self.sim.stepWorld(1.0 / 10.0);
-          // state based replay
-          let objectStates = datum["data"]["objectStates"];
-          for (let i = 0; i < objectStates.length; i++) {
-            let objectId = objectStates[i]["objectId"];
-            let translation = _self.sim.convertVec3fToVector3(
-              objectStates[i]["translation"]
-            );
-            let rotation = _self.sim.quatFromCoeffs(
-              objectStates[i]["rotation"]
-            );
-
-            _self.sim.setRotation(rotation, objectId, 0);
-            _self.sim.setTranslation(translation, objectId, 0);
-          }
+          _self.sim.stepWorld(1.0 / 10.0);
           _self.render();
         }
       }, delay);
@@ -438,6 +431,7 @@ class NavigateTask {
 
   handleAction(action) {
     let actionData = {};
+    let collision = false;
     if (action === "addPrimitiveObject") {
       this.sim.addPrimitiveObject();
     } else if (action === "addTemplateObject") {
@@ -458,19 +452,30 @@ class NavigateTask {
     } else if (action == "physicsTest") {
       this.sim.runPhysicsTest();
     } else {
-      this.sim.step(action);
+      console.log("before error");
+      collision = this.sim.step(action);
       this.setStatus(action);
     }
+    console.log("no error");
+
+    // record action and action data
+    let objectUnderCrosshair = this.sim.getObjectUnderCrosshair()[
+      "nearestObjectId"
+    ];
+    this.psiturk.handleRecordTrialData("TEST", "handleAction", {
+      action: action,
+      actionData: actionData,
+      collision: collision,
+      objectUnderCrosshair: objectUnderCrosshair,
+      nearestObjectId: this.sim.nearestObjectId,
+      grippedObjectId: this.sim.grippedObjectId
+    });
     this.render();
-    return actionData;
   }
 
   handleKeypress(key) {
     for (let a of this.actions) {
       if (a.keyCode === key) {
-        this.psiturk.handleRecordTrialData("TEST", "handleAction", {
-          action: a.name
-        });
         this.handleAction(a.name);
         break;
       }

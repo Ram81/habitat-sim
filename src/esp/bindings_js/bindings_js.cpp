@@ -239,7 +239,8 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
 
   em::class_<SensorSuite>("SensorSuite")
       .smart_ptr_constructor("SensorSuite", &SensorSuite::create<>)
-      .function("get", &SensorSuite::get);
+      .function("get", &SensorSuite::get)
+      .function("getSensors", &SensorSuite::getSensors);
 
   em::enum_<SensorType>("SensorType")
       .value("NONE", SensorType::NONE)
@@ -264,8 +265,10 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
       .property("channels", &SensorSpec::channels)
       .property("parameters", &SensorSpec::parameters);
 
-  em::class_<Sensor>("Sensor").function("specification",
-                                        &Sensor::specification);
+  em::class_<Sensor>("Sensor")
+      .smart_ptr<Sensor::ptr>("Sensor::ptr")
+      .function("specification", &Sensor::specification)
+      .function("getObservation", &Sensor::getObservation);
 
   em::class_<SimulatorConfiguration>("SimulatorConfiguration")
       .smart_ptr_constructor("SimulatorConfiguration",
@@ -334,6 +337,15 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
       .value("KINEMATIC", MotionType::KINEMATIC)
       .value("DYNAMIC", MotionType::DYNAMIC);
 
+  em::class_<VelocityControl>("VelocityControl")
+      .smart_ptr<VelocityControl::ptr>("VelocityControl::ptr")
+      .property("linVel", &VelocityControl::linVel)
+      .property("angVel", &VelocityControl::angVel)
+      .property("controllingLinVel", &VelocityControl::controllingLinVel)
+      .property("linVelIsLocal", &VelocityControl::linVelIsLocal)
+      .property("controllingAngVel", &VelocityControl::controllingAngVel)
+      .property("angVelIsLocal", &VelocityControl::angVelIsLocal);
+
   em::class_<Simulator>("Simulator")
       .smart_ptr_constructor("Simulator",
                              &Simulator::create<const SimulatorConfiguration&>)
@@ -391,8 +403,5 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
       .function("preAddContactTest", &Simulator::preAddContactTest)
       .function("addContactTestObject", &Simulator::addContactTestObject)
       .function("removeContactTestObject", &Simulator::removeContactTestObject)
-      .function("setNavMeshVisualization", &Simulator::setNavMeshVisualization)
-      .function("enableDebugDraw", &Simulator::enableDebugDraw)
-      .function("getPhysicsStepCollisionSummary",
-                &Simulator::getPhysicsStepCollisionSummary);
+      .function("setNavMeshVisualization", &Simulator::setNavMeshVisualization);
 }

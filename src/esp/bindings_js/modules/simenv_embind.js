@@ -39,6 +39,8 @@ class SimEnv {
     if (window.config.recomputeNavMesh) {
       this.recomputeNavMesh();
     }
+    this.maxDistance = 1.5;
+    this.sim.addContactTestObject(this.agentObjectHandle, 0);
   }
 
   /**
@@ -46,6 +48,8 @@ class SimEnv {
    */
   reset() {
     this.sim.reset();
+    console.log("agent statet");
+    console.log(this.initialAgentState);
     if (this.initialAgentState !== null) {
       const agent = this.sim.getAgent(this.selectedAgentId);
       agent.setState(this.initialAgentState, true);
@@ -239,9 +243,10 @@ class SimEnv {
     let agentTransform = this.getAgentTransformation(this.selectedAgentId);
     let data = this.isAgentColliding(action, agentTransform);
     if (data["collision"]) {
-      return;
+      return true;
     }
     agent.act(action);
+    return false;
   }
 
   /**
@@ -387,26 +392,26 @@ class SimEnv {
    * @returns {number} object ID or -1 if object was unable to be added
    */
   inventoryGrabReleaseObject() {
-    let crossHairdata = this.getObjectUnderCrosshair(true);
+    let crossHairdata = this.getObjectUnderCrosshair();
     let nearestObjectId = crossHairdata["nearestObjectId"];
-    let collision = false;
     let grabAction = false;
     let releaseAction = false;
-    let data = {};
+    let actionData = {};
 
     if (this.grippedObjectId != -1) {
-      releaseAction = false;
-      // already gripped, so let it go
+      releaseAction = true;
+      // Object already gripped, so let it go
       let crossHairPosition = this.getCrosshairPosition();
       let ray = this.unproject(crossHairPosition);
       let crossHairPoint = ray.direction;
       let refTransform = this.getAgentTransformation(0);
-      // get raycast hit point
+
+      // Get raycast hit point
       let rayHitInfo = this.sim.findFloorPositionUnderCrosshair(
         crossHairPoint,
         refTransform,
         this.resolution,
-        1.5
+        this.maxDistance
       );
       let floorPosition = rayHitInfo.point;
       if (floorPosition == null) {
@@ -426,7 +431,7 @@ class SimEnv {
 
       let object = this.getObjectFromScene(this.grippedObjectId);
 
-      // collision check on drop point
+      // Collision check on drop point
       let collision = this.isCollision(
         object["objectHandle"],
         newObjectPosition
@@ -439,21 +444,24 @@ class SimEnv {
         );
         collision = this.isCollision(object["objectHandle"], newObjectPosition);
       }
+
+      // Drop object at collision free location
       let newObjectId = this.addObjectByHandle(object["objectHandle"]);
       this.setTranslation(newObjectPosition, newObjectId, 0);
       this.setObjectMotionType(Module.MotionType.DYNAMIC, newObjectId, 0);
 
       this.updateObjectInScene(this.grippedObjectId, newObjectId);
-      this.grippedObjectId = -1;
-      data = {
-        crosshairPoint: this.convertVector3ToVec3f(crossHairPoint),
-        dropPoint: this.convertVector3ToVec3f(newObjectPosition),
+      // record action data
+      actionData = {
+        newObjectTranslation: this.convertVector3ToVec3f(newObjectPosition),
         newObjectId: newObjectId,
-        objectHandle: object["objectHandle"]
+        objectHandle: object["objectHandle"],
+        grippedObjectId: this.grippedObjectId
       };
+
+      this.grippedObjectId = -1;
     } else if (nearestObjectId != -1) {
       grabAction = true;
-      let objectStates = this.getObjectStates();
       this.grippedObjectTransformation = this.getTransformation(
         nearestObjectId,
         0
@@ -461,21 +469,18 @@ class SimEnv {
 
       this.removeObject(nearestObjectId, 0);
       this.grippedObjectId = nearestObjectId;
-      data = {
-        objectStates: objectStates
+      actionData = {
+        grippedObjectId: this.grippedObjectId
       };
     }
 
-    data["objectStates"] = this.getObjectStates();
-    data["objectUnderCrosshair"] = crossHairdata;
-
     return {
-      collision: collision,
       grabAction: grabAction,
       releaseAction: releaseAction,
       objectUnderCrosshair: nearestObjectId,
       grippedObjectId: this.grippedObjectId,
-      actionData: data
+      nearestObjectId: this.nearestObjectId,
+      actionMeta: actionData
     };
   }
 
@@ -662,7 +667,7 @@ class SimEnv {
     return center;
   }
 
-  getObjectUnderCrosshair(isAction = false) {
+  getObjectUnderCrosshair() {
     let crossHairPosition = this.getCrosshairPosition();
     let ray = this.unproject(crossHairPosition);
     let crossHairPoint = ray.direction;
@@ -671,8 +676,7 @@ class SimEnv {
     let nearestObjectId = this.findNearestObjectUnderCrosshair(
       crossHairPoint,
       refPoint,
-      this.resolution,
-      isAction
+      this.resolution
     );
     return {
       nearestObjectId: nearestObjectId,
@@ -720,18 +724,12 @@ class SimEnv {
     this.sim.toggleNavMeshVisualization();
   }
 
-  findNearestObjectUnderCrosshair(
-    crossHairPoint,
-    refPoint,
-    windowSize,
-    isAction = false
-  ) {
+  findNearestObjectUnderCrosshair(crossHairPoint, refPoint, windowSize) {
     return this.sim.findNearestObjectUnderCrosshair(
       crossHairPoint,
       refPoint,
       windowSize,
-      1.5,
-      isAction
+      this.maxDistance
     );
   }
 
