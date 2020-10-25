@@ -245,12 +245,12 @@ bool BulletPhysicsManager::contactTest(const int physObjectID) {
       ->contactTest();
 }
 
-bool BulletPhysicsManager::preAddContactTest(
-    const std::string& handle,
-    const Magnum::Vector3& translation) {
+bool BulletPhysicsManager::preAddContactTest(const std::string& handle,
+                                             const Magnum::Vector3& translation,
+                                             const bool isNavigationTest) {
   bWorld_->getCollisionWorld()->performDiscreteCollisionDetection();
   return static_cast<BulletRigidObject*>(contactTestObjects_.at(handle).get())
-      ->preAddContactTest(translation, collisionObjToObjIds_);
+      ->preAddContactTest(translation, collisionObjToObjIds_, isNavigationTest);
 }
 
 RaycastResults BulletPhysicsManager::castRay(const esp::geo::Ray& ray,

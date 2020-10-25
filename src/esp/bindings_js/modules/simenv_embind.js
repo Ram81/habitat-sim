@@ -374,13 +374,15 @@ class SimEnv {
         object["objectHandle"],
         newObjectPosition
       );
-      while (collision) {
+      let count = 0;
+      while (collision && count < 4) {
         newObjectPosition = new Module.Vector3(
           newObjectPosition.x(),
           newObjectPosition.y() + 0.25,
           newObjectPosition.z()
         );
         collision = this.isCollision(object["objectHandle"], newObjectPosition);
+        count += 1;
       }
 
       // Drop object at collision free location
@@ -689,7 +691,11 @@ class SimEnv {
       let finalPosition = newPosition
         .add(filterDiff)
         .add(new Module.Vector3(0.0, 0.05, 0.0));
-      let collision = this.isCollision(this.agentObjectHandle, finalPosition);
+      let collision = this.isCollision(
+        this.agentObjectHandle,
+        finalPosition,
+        true
+      );
       return {
         collision: collision,
         position: finalPosition
@@ -706,7 +712,11 @@ class SimEnv {
       let finalPosition = newPosition
         .add(filterDiff)
         .add(new Module.Vector3(0.0, 0.05, 0.0));
-      let collision = this.isCollision(this.agentObjectHandle, finalPosition);
+      let collision = this.isCollision(
+        this.agentObjectHandle,
+        finalPosition,
+        true
+      );
       return {
         collision: collision,
         position: finalPosition
@@ -715,8 +725,13 @@ class SimEnv {
     return false;
   }
 
-  isCollision(objectHandle, point, sceneId = 0) {
-    return this.sim.preAddContactTest(objectHandle, point, sceneId);
+  isCollision(objectHandle, point, isNavigationTest = false, sceneId = 0) {
+    return this.sim.preAddContactTest(
+      objectHandle,
+      point,
+      isNavigationTest,
+      sceneId
+    );
   }
 
   /**
@@ -769,6 +784,13 @@ class SimEnv {
     }
 
     return objectStates;
+  }
+
+  getAgentPose() {
+    let tfms = this.getAgentTransformation(this.selectedAgentId);
+    console.log("Agent pose:");
+    console.log(tfms.translation().toString());
+    console.log("\n");
   }
 
   getObjectPose() {

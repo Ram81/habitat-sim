@@ -6,9 +6,7 @@
 import {
   defaultAgentConfig,
   defaultEpisode,
-  defaultResolution,
-  flythroughReplayTask,
-  trainingTask
+  defaultResolution
 } from "./defaults";
 import SimEnv from "./simenv_embind";
 import TopDownMap from "./topdown";
@@ -79,11 +77,13 @@ class WebDemo {
     window.config.disableLogging = true;
     window.config.runFlythrough = true;
     window.config.enableStepPhysics = false;
-    let episode = loadEpisode("/data/".concat(flythroughReplayTask.name));
+    let replayEpisode = window.config.taskConfig.flythroughTask.name;
+    let replayFile = window.config.taskConfig.flythroughReplayFile.name;
+    let episode = loadEpisode("/data/".concat(replayEpisode));
     this.setEpisode(episode);
     this.setTaskValidator(episode);
     this.task.reset();
-    this.task.runFlythrough();
+    this.task.runFlythrough(replayFile);
   }
 
   runInit() {
@@ -100,7 +100,8 @@ class WebDemo {
     window.config.disableLogging = true;
     window.config.runFlythrough = false;
     window.config.enableStepPhysics = true;
-    let episode = loadEpisode("/data/".concat(trainingTask.name));
+    let trainingEpisode = window.config.taskConfig.trainingTask.name;
+    let episode = loadEpisode("/data/".concat(trainingEpisode));
     this.setEpisode(episode);
     this.setTaskValidator(episode);
     this.task.reset();

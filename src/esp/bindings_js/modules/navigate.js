@@ -172,7 +172,7 @@ class NavigateTask {
   /**
    * Runs flythrough for a task
    */
-  runFlythrough() {
+  runFlythrough(replayFile) {
     this.setStatus("Initializing...");
     const _self = this;
     this.psiturk.handleRecordTrialData("TEST", "flythroughStart", {});
@@ -183,12 +183,9 @@ class NavigateTask {
     // playback speed
     let speed = 1.0;
 
-    const replayContents = FS.readFile(
-      "/data/".concat(window.config.flythroughFile),
-      {
-        encoding: "utf8"
-      }
-    );
+    const replayContents = FS.readFile("/data/".concat(replayFile), {
+      encoding: "utf8"
+    });
     const replayLines = replayContents.split(/\r?\n/);
 
     let startTimestamp = null;
@@ -452,6 +449,10 @@ class NavigateTask {
         }
       }
       actionData = data;
+    } else if (action == "getObjectPose") {
+      this.sim.getObjectPose();
+    } else if (action == "getAgentPose") {
+      this.sim.getAgentPose();
     } else {
       collision = this.sim.step(action);
       this.setStatus(action);

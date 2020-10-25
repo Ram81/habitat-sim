@@ -80,27 +80,74 @@ export const fileBasedObjects = {
 };
 
 export const flythroughReplayTask = {
-  name: "rtask.json",
-  config: "tasks/rtask.json"
+  name: "replay_task_1.json",
+  config: "tasks/replay_task_1.json"
 };
 
 export const flythroughReplayFile = {
-  name: "flythroughInventory.csv",
-  location: "replays/flythroughInventory.csv"
+  name: "replay_task_1.csv",
+  location: "replays/replay_task_1.csv"
 };
 
 export const taskFiles = {
   tasks: [
     {
-      name: "task.json",
-      config: "tasks/task.json"
+      name: "task_1.json",
+      config: "tasks/task_1.json",
+      scene: "house_with_empty_room.glb",
+      flythroughTask: {
+        name: "replay_task_1.json",
+        config: "tasks/replay_task_1.json"
+      },
+      flythroughReplayFile: {
+        name: "replay_task_1.csv",
+        location: "replays/replay_task_1.csv"
+      },
+      trainingTask: {
+        name: "training_task_1.json",
+        config: "tasks/training_task_1.json"
+      }
+    },
+    {
+      name: "task_2.json",
+      config: "tasks/task_2.json",
+      scene: "empty_house.glb",
+      flythroughTask: {
+        name: "replay_task_2.json",
+        config: "tasks/replay_task_2.json"
+      },
+      flythroughReplayFile: {
+        name: "replay_task_2.csv",
+        location: "replays/replay_task_2.csv"
+      },
+      trainingTask: {
+        name: "training_task_2.json",
+        config: "tasks/training_task_2.json"
+      }
+    },
+    {
+      name: "task_3.json",
+      config: "tasks/task_3.json",
+      scene: "house_with_empty_garage.glb",
+      flythroughTask: {
+        name: "replay_task_3.json",
+        config: "tasks/replay_task_3.json"
+      },
+      flythroughReplayFile: {
+        name: "replay_task_3.csv",
+        location: "replays/replay_task_3.csv"
+      },
+      trainingTask: {
+        name: "training_task_3.json",
+        config: "tasks/training_task_3.json"
+      }
     }
   ]
 };
 
 export const trainingTask = {
-  name: "trainingTask.json",
-  config: "tasks/trainingTask.json"
+  name: "training_task_1.json",
+  config: "tasks/training_task_1.json"
 };
 
 export const inventorySlots = 1;

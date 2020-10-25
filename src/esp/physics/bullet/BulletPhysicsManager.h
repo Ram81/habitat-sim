@@ -173,7 +173,8 @@ class BulletPhysicsManager : public PhysicsManager {
   bool contactTest(const int physObjectID) override;
 
   bool preAddContactTest(const std::string& handle,
-                         const Magnum::Vector3& translation) override;
+                         const Magnum::Vector3& translation,
+                         const bool isNavigationTest = false) override;
 
   /**
    * @brief Cast a ray into the collision world and return a @ref RaycastResults

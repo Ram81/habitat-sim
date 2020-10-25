@@ -1,0 +1,37 @@
+{
+  "episodes": [
+    {
+      "episode_id": "0",
+      "scene_id": "empty_house.glb",
+      "task": {
+        "instruction": "Place the red sphere ball on the colored wood blocks",
+        "type": "arrangement",
+        "goals": {
+          "objectToReceptacleMap": {
+            "0": [1],
+            "1": [0]
+          }
+        }
+      },
+
+      "start_position": [-4.5867, -0.208959, 1.75358],
+      "start_rotation": [0, -0.0654379, 0, -0.997857],
+      "objects": [
+          {
+            "object": "sphere",
+            "objectIcon": "/data/test_assets/objects/sphere.png",
+            "objectHandle": "/data/objects/sphere.phys_properties.json",
+            "position": [-3.345522403717041,-0.14624206721782684,-2.518608808517456],
+            "motionType": "STATIC"
+          },
+          {
+            "object": "colored_wood_blocks",
+            "objectIcon": "/data/test_assets/objects/colored_wood_blocks.png",
+            "objectHandle": "/data/objects/colored_wood_blocks.phys_properties.json",
+            "position": [1.4270246028900146,-0.16419634222984314,-5.193271636962891],
+            "motionType": "STATIC"
+          }
+      ]
+    }
+  ]
+}

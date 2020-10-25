@@ -836,6 +836,7 @@ class Simulator {
 
   bool preAddContactTest(const std::string& objectLibHandle,
                          const Magnum::Vector3& translation,
+                         const bool isNavigationTest = false,
                          const int sceneID = 0);
 
   void removeContactTestObject(const std::string& objectLibHandle,

@@ -14,9 +14,7 @@ import {
   fileBasedObjects,
   taskFiles,
   flythroughReplayFile,
-  flythroughReplayTask,
-  trainingTask,
-  flythroughHome
+  flythroughReplayTask
 } from "./modules/defaults";
 import "./bindings.css";
 import {
@@ -79,53 +77,53 @@ function preloadPhysConfig(url) {
     );
   }
 
-  // load task config
-  var tasks = taskFiles.tasks;
-  for (let index in tasks) {
-    let taskName = tasks[index]["name"];
-    let taskConfig = tasks[index]["config"];
-
-    if (
-      window.config.taskConfig !== undefined &&
-      taskName == window.config.taskConfig.name
-    ) {
-      FS.createPreloadedFile(
-        emDataHome,
-        taskName,
-        dataHome.concat(taskConfig),
-        true,
-        false
-      );
-    }
-  }
-
-  // load training task episode config
-  FS.createPreloadedFile(
-    emDataHome,
-    trainingTask.name,
-    dataHome.concat(trainingTask.config),
-    true,
-    false
-  );
-
   return emDataHome.concat("/".concat(file));
 }
 
-function preloadFlythrough(flythroughReplayFileName) {
+function preloadTask(task) {
+  let emDataHome = "/data";
+  // load task config
+  if (task !== undefined) {
+    let taskName = task["name"];
+    let taskConfig = task["config"];
+
+    FS.createPreloadedFile(
+      emDataHome,
+      taskName,
+      dataHome.concat(taskConfig),
+      true,
+      false
+    );
+
+    // load training task episode config
+    FS.createPreloadedFile(
+      emDataHome,
+      task.trainingTask.name,
+      dataHome.concat(task.trainingTask.config),
+      true,
+      false
+    );
+  }
+}
+
+function preloadFlythrough(
+  flythroughReplayTaskConfig,
+  flythroughReplayFileConfig
+) {
   let emDataHome = "/data";
   // load replay episode config
   FS.createPreloadedFile(
     emDataHome,
-    flythroughReplayTask.name,
-    dataHome.concat(flythroughReplayTask.config),
+    flythroughReplayTaskConfig.name,
+    dataHome.concat(flythroughReplayTaskConfig.config),
     true,
     false
   );
 
   FS.createPreloadedFile(
     emDataHome,
-    flythroughReplayFileName,
-    flythroughHome.concat(flythroughReplayFileName),
+    flythroughReplayFileConfig.name,
+    dataHome.concat(flythroughReplayFileConfig.location),
     true,
     false
   );
@@ -137,7 +135,14 @@ Module.preRun.push(() => {
   buildConfigFromURLParameters(config);
 
   window.config = config;
-  window.config.taskConfig = taskFiles["tasks"][parseInt(window.config.task)];
+  let taskConfig = taskFiles["tasks"][parseInt(window.config.task)];
+  window.config.taskConfig = taskConfig;
+
+  // load scene from task if valid
+  if (taskConfig !== undefined) {
+    config.scene = taskConfig["scene"];
+    window.config.scene = taskConfig["scene"];
+  }
 
   const scene = config.scene;
   Module.scene = preload(scene);
@@ -149,15 +154,17 @@ Module.preRun.push(() => {
   window.config.runFlythrough = window.config.runFlythrough === "true";
   window.config.enableStepPhysics = window.config.enableStepPhysics === "true";
 
-  const fileNoExtension = scene.substr(0, scene.lastIndexOf("."));
-
-  if (
-    window.config.flythroughFile === undefined ||
-    window.config.flythroughFile === null
-  ) {
-    window.config.flythroughFile = flythroughReplayFile.name;
+  preloadTask(taskConfig);
+  if (taskConfig !== undefined && taskConfig !== null) {
+    preloadFlythrough(
+      taskConfig["flythroughTask"],
+      taskConfig["flythroughReplayFile"]
+    );
+  } else {
+    preloadFlythrough(flythroughReplayTask, flythroughReplayFile);
   }
-  preloadFlythrough(window.config.flythroughFile);
+
+  const fileNoExtension = scene.substr(0, scene.lastIndexOf("."));
 
   if (!window.config.recomputeNavMesh) {
     preload(fileNoExtension + ".navmesh");
