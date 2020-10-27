@@ -311,7 +311,8 @@ void initSimBindings(py::module& m) {
            R"(Find object id under the cross hair)")
       .def(
           "pre_add_contact_test", &Simulator::preAddContactTest,
-          "object_handle"_a, "translation"_a, "scene_id"_a = 0,
+          "object_handle"_a, "translation"_a, "isNavigationTest"_a = false,
+          "scene_id"_a = 0,
           R"(Run collision detection and return a binary indicator of penetration between the specified object and any other collision object. Physics must be enabled.)")
       .def("add_contact_test_object", &Simulator::addContactTestObject,
            "object_handle"_a, "scene_id"_a = 0,

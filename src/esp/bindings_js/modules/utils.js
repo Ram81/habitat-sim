@@ -114,15 +114,17 @@ export function readJSON(url, options = { encoding: "utf8" }) {
   return contents;
 }
 
-export function buildEpisodeFromJSON(task = "task.json") {
+export function buildEpisodeFromJSON(task = "task.json", episode_id = "0") {
   let episodeJSON = readJSON(task);
   let episode = {};
   episode.startState = {};
-  episode.startState.position = episodeJSON.episodes["0"].start_position;
-  episode.startState.rotation = episodeJSON.episodes["0"].start_rotation;
-  episode.sceneID = episodeJSON.episodes["0"].scene_id;
-  episode.objects = episodeJSON.episodes["0"].objects;
-  episode.task = episodeJSON.episodes["0"].task;
+  episode.episodeID = episode_id;
+  episode.startState.position = episodeJSON.episodes[episode_id].start_position;
+  episode.startState.rotation = episodeJSON.episodes[episode_id].start_rotation;
+  episode.sceneID = episodeJSON.episodes[episode_id].scene_id;
+  episode.objects = episodeJSON.episodes[episode_id].objects;
+  episode.task = episodeJSON.episodes[episode_id].task;
+  console.log(episode);
   return episode;
 }
 
@@ -133,12 +135,14 @@ export function replaceAll(str, needle, replacement) {
   return str;
 }
 
-export function loadEpisode(episodeConfigPath) {
+export function loadEpisode(episodeConfigPath, episode_id = "0") {
   let episode;
   if (episodeConfigPath === undefined) {
     episode = defaultEpisode;
-  } else {
+  } else if (episode_id === undefined) {
     episode = buildEpisodeFromJSON(episodeConfigPath);
+  } else {
+    episode = buildEpisodeFromJSON(episodeConfigPath, episode_id);
   }
   return episode;
 }

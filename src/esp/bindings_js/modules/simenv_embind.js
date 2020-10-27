@@ -91,7 +91,6 @@ class SimEnv {
         // adding contact test shape for object
         this.sim.addContactTestObject(objectLibHandle, 0);
       }
-      this.recomputeNavMesh();
     } else {
       // add agent object for collision test
       this.sim.addContactTestObject(this.agentObjectHandle, 0);

@@ -47,14 +47,66 @@ export const primitiveObjectHandles = [
 export const fileBasedObjects = {
   objects: [
     {
-      object: "sphere",
-      objectIcon: "/data/test_assets/objects/sphere.png",
-      objectHandle: "/data/objects/sphere.phys_properties.json",
-      physicsProperties: "test_assets/objects/sphere.phys_properties.json",
-      renderMesh: "test_assets/objects/sphere.glb"
+      object: "apple",
+      objectIcon: "/data/test_assets/objects/apple.png",
+      objectHandle: "/data/objects/apple.phys_properties.json",
+      physicsProperties: "test_assets/objects/apple.phys_properties.json",
+      renderMesh: "test_assets/objects/apple.glb"
     },
     {
-      object: "mini_soccer_ball",
+      object: "banana",
+      objectIcon: "/data/test_assets/objects/banana.png",
+      objectHandle: "/data/objects/banana.phys_properties.json",
+      physicsProperties: "test_assets/objects/banana.phys_properties.json",
+      renderMesh: "test_assets/objects/banana.glb"
+    },
+    {
+      object: "bleach cleanser",
+      objectIcon: "/data/test_assets/objects/bleach_cleanser.png",
+      objectHandle: "/data/objects/bleach_cleanser.phys_properties.json",
+      physicsProperties:
+        "test_assets/objects/bleach_cleanser.phys_properties.json",
+      renderMesh: "test_assets/objects/bleach_cleanser.glb"
+    },
+    {
+      object: "cracker box",
+      objectIcon: "/data/test_assets/objects/cracker_box.png",
+      objectHandle: "/data/objects/cracker_box.phys_properties.json",
+      physicsProperties: "test_assets/objects/cracker_box.phys_properties.json",
+      renderMesh: "test_assets/objects/cracker_box.glb"
+    },
+    {
+      object: "colored wood blocks",
+      objectIcon: "/data/test_assets/objects/colored_wood_blocks.png",
+      objectHandle: "/data/objects/colored_wood_blocks.phys_properties.json",
+      physicsProperties:
+        "test_assets/objects/colored_wood_blocks.phys_properties.json",
+      renderMesh: "test_assets/objects/colored_wood_blocks.glb"
+    },
+    {
+      object: "gelatin box",
+      objectIcon: "/data/test_assets/objects/gelatin_box.png",
+      objectHandle: "/data/objects/gelatin_box.phys_properties.json",
+      physicsProperties: "test_assets/objects/gelatin_box.phys_properties.json",
+      renderMesh: "test_assets/objects/gelatin_box.glb"
+    },
+    {
+      object: "hammer",
+      objectIcon: "/data/test_assets/objects/hammer.png",
+      objectHandle: "/data/objects/hammer.phys_properties.json",
+      physicsProperties: "test_assets/objects/hammer.phys_properties.json",
+      renderMesh: "test_assets/objects/hammer.glb"
+    },
+    {
+      object: "master chef can",
+      objectIcon: "/data/test_assets/objects/master_chef_can.png",
+      objectHandle: "/data/objects/master_chef_can.phys_properties.json",
+      physicsProperties:
+        "test_assets/objects/master_chef_can.phys_properties.json",
+      renderMesh: "test_assets/objects/master_chef_can.glb"
+    },
+    {
+      object: "soccer ball",
       objectIcon: "/data/test_assets/objects/mini_soccer_ball.png",
       objectHandle: "/data/objects/mini_soccer_ball.phys_properties.json",
       physicsProperties:
@@ -62,19 +114,70 @@ export const fileBasedObjects = {
       renderMesh: "test_assets/objects/mini_soccer_ball.glb"
     },
     {
-      object: "chair",
-      objectIcon: "/data/test_assets/objects/chair.png",
-      objectHandle: "/data/objects/chair.phys_properties.json",
-      physicsProperties: "test_assets/objects/chair.phys_properties.json",
-      renderMesh: "test_assets/objects/chair.glb"
+      object: "mustard bottle",
+      objectIcon: "/data/test_assets/objects/mustard_bottle.png",
+      objectHandle: "/data/objects/mustard_bottle.phys_properties.json",
+      physicsProperties:
+        "test_assets/objects/mustard_bottle.phys_properties.json",
+      renderMesh: "test_assets/objects/mustard_bottle.glb"
     },
     {
-      object: "colored_wood_blocks",
-      objectIcon: "/data/test_assets/objects/colored_wood_blocks.png",
-      objectHandle: "/data/objects/colored_wood_blocks.phys_properties.json",
+      object: "orange",
+      objectIcon: "/data/test_assets/objects/orange.png",
+      objectHandle: "/data/objects/orange.phys_properties.json",
+      physicsProperties: "test_assets/objects/orange.phys_properties.json",
+      renderMesh: "test_assets/objects/orange.glb"
+    },
+    {
+      object: "red bowl",
+      objectIcon: "/data/test_assets/objects/bowl.png",
+      objectHandle: "/data/objects/bowl.phys_properties.json",
+      physicsProperties: "test_assets/objects/bowl.phys_properties.json",
+      renderMesh: "test_assets/objects/bowl.glb"
+    },
+    {
+      object: "red mug",
+      objectIcon: "/data/test_assets/objects/mug.png",
+      objectHandle: "/data/objects/mug.phys_properties.json",
+      physicsProperties: "test_assets/objects/mug.phys_properties.json",
+      renderMesh: "test_assets/objects/mug.glb"
+    },
+    {
+      object: "red plate",
+      objectIcon: "/data/test_assets/objects/plate.png",
+      objectHandle: "/data/objects/plate.phys_properties.json",
+      physicsProperties: "test_assets/objects/plate.phys_properties.json",
+      renderMesh: "test_assets/objects/plate.glb"
+    },
+    {
+      object: "red sphere",
+      objectIcon: "/data/test_assets/objects/sphere.png",
+      objectHandle: "/data/objects/sphere.phys_properties.json",
+      physicsProperties: "test_assets/objects/sphere.phys_properties.json",
+      renderMesh: "test_assets/objects/sphere.glb"
+    },
+    {
+      object: "tomato soup can",
+      objectIcon: "/data/test_assets/objects/tomato_soup_can.png",
+      objectHandle: "/data/objects/tomato_soup_can.phys_properties.json",
       physicsProperties:
-        "test_assets/objects/colored_wood_blocks.phys_properties.json",
-      renderMesh: "test_assets/objects/colored_wood_blocks.glb"
+        "test_assets/objects/tomato_soup_can.phys_properties.json",
+      renderMesh: "test_assets/objects/tomato_soup_can.glb"
+    },
+    {
+      object: "toy airplane",
+      objectIcon: "/data/test_assets/objects/toy_airplane.png",
+      objectHandle: "/data/objects/toy_airplane.phys_properties.json",
+      physicsProperties:
+        "test_assets/objects/toy_airplane.phys_properties.json",
+      renderMesh: "test_assets/objects/toy_airplane.glb"
+    },
+    {
+      object: "wood block",
+      objectIcon: "/data/test_assets/objects/wood_block.png",
+      objectHandle: "/data/objects/wood_block.phys_properties.json",
+      physicsProperties: "test_assets/objects/wood_block.phys_properties.json",
+      renderMesh: "test_assets/objects/wood_block.glb"
     }
   ]
 };

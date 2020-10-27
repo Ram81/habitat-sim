@@ -194,7 +194,10 @@ Module.onRuntimeInitialized = () => {
   }
 
   if (window.config.taskConfig !== undefined) {
-    let episode = loadEpisode("/data/".concat(window.config.taskConfig.name));
+    let episode = loadEpisode(
+      "/data/".concat(window.config.taskConfig.name),
+      window.config.episodeId
+    );
     demo.display(undefined, episode);
   } else {
     demo.display();

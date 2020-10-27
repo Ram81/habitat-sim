@@ -14,36 +14,22 @@
         }
       },
 
-      "start_position": [-4.5867, -0.208959, 1.75358],
+      "start_position": [1.1258938312530518, -0.2089587301015854, -2.451646566390991],
       "start_rotation": [0, -0.0654379, 0, -0.997857],
       "objects": [
           {
             "object": "mini_soccer_ball",
             "objectIcon": "/data/test_assets/objects/mini_soccer_ball.png",
             "objectHandle": "/data/objects/mini_soccer_ball.phys_properties.json",
-            "position": [-5.783302307128906,0.7680940628051758,-4.312789440155029],
-            "motionType": "STATIC"
-          },
-          {
-            "object": "colored_wood_blocks",
-            "objectIcon": "/data/test_assets/objects/colored_wood_blocks.png",
-            "objectHandle": "/data/objects/colored_wood_blocks.phys_properties.json",
             "position": [-6.81531286239624,-0.13694517314434052,-1.347354531288147],
-            "motionType": "STATIC"
-          },
-          {
-            "object": "sphere",
-            "objectIcon": "/data/test_assets/objects/sphere.png",
-            "objectHandle": "/data/objects/sphere.phys_properties.json",
-            "position": [-3.345522403717041,-0.14624206721782684,-2.518608808517456],
-            "motionType": "STATIC"
+            "motionType": "DYNAMIC"
           },
           {
             "object": "colored_wood_blocks",
             "objectIcon": "/data/test_assets/objects/colored_wood_blocks.png",
             "objectHandle": "/data/objects/colored_wood_blocks.phys_properties.json",
-            "position": [1.4270246028900146,-0.16419634222984314,-5.193271636962891],
-            "motionType": "STATIC"
+            "position": [-7.44828462600708, -0.2089587301015854, -5.672220706939697],
+            "motionType": "DYNAMIC"
           }
       ]
     }

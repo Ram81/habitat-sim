@@ -21,28 +21,28 @@
             "objectIcon": "/data/test_assets/objects/mini_soccer_ball.png",
             "objectHandle": "/data/objects/mini_soccer_ball.phys_properties.json",
             "position": [-16.129423141479492,-2.927676200866699,-5.902671813964844],
-            "motionType": "STATIC"
+            "motionType": "DYNAMIC"
           },
           {
             "object": "colored_wood_blocks",
             "objectIcon": "/data/test_assets/objects/colored_wood_blocks.png",
             "objectHandle": "/data/objects/colored_wood_blocks.phys_properties.json",
             "position": [-10.683283805847168,-2.913529872894287,-5.5758957862854],
-            "motionType": "STATIC"
+            "motionType": "DYNAMIC"
           },
           {
             "object": "sphere",
             "objectIcon": "/data/test_assets/objects/sphere.png",
             "objectHandle": "/data/objects/sphere.phys_properties.json",
             "position": [-16.853002548217773,-2.2184619903564453,-4.310222625732422],
-            "motionType": "STATIC"
+            "motionType": "DYNAMIC"
           },
           {
             "object": "colored_wood_blocks",
             "objectIcon": "/data/test_assets/objects/colored_wood_blocks.png",
             "objectHandle": "/data/objects/colored_wood_blocks.phys_properties.json",
             "position": [-10.879691123962402,-3.791804075241089,-14.2726411819458],
-            "motionType": "STATIC"
+            "motionType": "DYNAMIC"
           }
       ]
     }
