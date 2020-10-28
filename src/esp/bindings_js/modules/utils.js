@@ -124,7 +124,6 @@ export function buildEpisodeFromJSON(task = "task.json", episode_id = "0") {
   episode.sceneID = episodeJSON.episodes[episode_id].scene_id;
   episode.objects = episodeJSON.episodes[episode_id].objects;
   episode.task = episodeJSON.episodes[episode_id].task;
-  console.log(episode);
   return episode;
 }
 
@@ -167,4 +166,28 @@ export function compareObjectStates(gtObjectState, objectState) {
     return false;
   }
   return true;
+}
+
+export function getObjectIconImgTags(episode) {
+  let objects = episode["objects"];
+  let objectImgTags = {};
+  objectImgTags["objects"] = [];
+  objectImgTags["receptacles"] = [];
+  for (let i = 0; i < objects.length; i++) {
+    let object = objects[i];
+    let objectName = object["object"];
+    let item =
+      "<div><img src='" +
+      object["objectIcon"] +
+      "' style='border: 3px solid grey'/><div class='img-caption'>" +
+      objectName +
+      "</div></div>";
+
+    if (object["isReceptacle"]) {
+      objectImgTags["receptacles"].push(item);
+    } else {
+      objectImgTags["objects"].push(item);
+    }
+  }
+  return objectImgTags;
 }

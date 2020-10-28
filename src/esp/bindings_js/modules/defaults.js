@@ -61,14 +61,6 @@ export const fileBasedObjects = {
       renderMesh: "test_assets/objects/banana.glb"
     },
     {
-      object: "bleach cleanser",
-      objectIcon: "/data/test_assets/objects/bleach_cleanser.png",
-      objectHandle: "/data/objects/bleach_cleanser.phys_properties.json",
-      physicsProperties:
-        "test_assets/objects/bleach_cleanser.phys_properties.json",
-      renderMesh: "test_assets/objects/bleach_cleanser.glb"
-    },
-    {
       object: "cracker box",
       objectIcon: "/data/test_assets/objects/cracker_box.png",
       objectHandle: "/data/objects/cracker_box.phys_properties.json",
@@ -243,6 +235,23 @@ export const taskFiles = {
       trainingTask: {
         name: "training_task_3.json",
         config: "tasks/training_task_3.json"
+      }
+    },
+    {
+      name: "task_4.json",
+      config: "tasks/task_4.json",
+      scene: "house.glb",
+      flythroughTask: {
+        name: "replay_task_4.json",
+        config: "tasks/replay_task_4.json"
+      },
+      flythroughReplayFile: {
+        name: "replay_task_4.csv",
+        location: "replays/replay_task_4.csv"
+      },
+      trainingTask: {
+        name: "training_task_4.json",
+        config: "tasks/training_task_4.json"
       }
     }
   ]

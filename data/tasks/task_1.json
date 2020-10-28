@@ -1,72 +1,72 @@
 {
-  "episodes": [
-      {
-          "episode_id": 0,
-          "scene_id": "house_with_empty_room.glb",
-          "start_position": [
-              -3.971503257751465,
-              -2.9887330532073975,
-              4.1370439529418945
-          ],
-          "start_rotation": [
-              0,
-              0.9876084109942155,
-              0,
-              0.15693828893383774
-          ],
-          "task": {
-              "instruction": "Place the soccer ball on the colored wood block",
-              "type": "arrangement",
-              "goals": {
-                  "objectToRecepacleMap": {
-                      "1": [
-                          0
-                      ]
-                  }
-              }
-          },
-          "objects": [
-              {
-                  "object": "soccer ball",
-                  "objectHandle": "/data/objects/mini_soccer_ball.phys_properties.json",
-                  "objectIcon": "/data/test_assets/objects/mini_soccer_ball.png",
-                  "objectId": 0,
-                  "isReceptacle": false,
-                  "position": [
-                      -7.643030166625977,
-                      -2.7887330055236816,
-                      -0.4136505126953125
-                  ],
-                  "rotation": [
-                      0,
-                      0.94589937564694,
-                      0,
-                      0.32446012258940093
-                  ],
-                  "motionType": "DYNAMIC"
-              },
-              {
-                  "object": "colored wood block",
-                  "objectHandle": "/data/objects/colored_wood_blocks.phys_properties.json",
-                  "objectIcon": "/data/test_assets/objects/colored_wood_blocks.png",
-                  "objectId": 1,
-                  "isReceptacle": true,
-                  "position": [
-                      1.5074337720870972,
-                      -2.9887330532073975,
-                      -4.580122470855713
-                  ],
-                  "rotation": [
-                      0,
-                      0.8353583211228808,
-                      0,
-                      0.5497058079834721
-                  ],
-                  "motionType": "DYNAMIC"
-              }
-          ]
-      },
-      {
+    "episodes": [
+        {
+            "episode_id": 0,
+            "scene_id": "house_with_empty_room.glb",
+            "start_position": [
+                9.365243911743164,
+                0.21126699447631836,
+                -29.598800659179688
+            ],
+            "start_rotation": [
+                0,
+                0.9909438128252569,
+                0,
+                0.13427717536253972
+            ],
+            "task": {
+                "instruction": "Place the soccer ball on the colored wood block",
+                "type": "arrangement",
+                "goals": {
+                    "objectToRecepacleMap": {
+                        "1": [
+                            0
+                        ]
+                    }
+                }
+            },
+            "objects": [
+                {
+                    "object": "soccer ball",
+                    "objectHandle": "/data/objects/mini_soccer_ball.phys_properties.json",
+                    "objectIcon": "/data/test_assets/objects/mini_soccer_ball.png",
+                    "objectId": 0,
+                    "isReceptacle": false,
+                    "position": [
+                        13.083189964294434,
+                        0.011266946792602539,
+                        -10.945486068725586
+                    ],
+                    "rotation": [
+                        0,
+                        0.5927244927573995,
+                        0,
+                        0.8054052866014001
+                    ],
+                    "motionType": "DYNAMIC"
+                },
+                {
+                    "object": "colored wood block",
+                    "objectHandle": "/data/objects/colored_wood_blocks.phys_properties.json",
+                    "objectIcon": "/data/test_assets/objects/colored_wood_blocks.png",
+                    "objectId": 1,
+                    "isReceptacle": true,
+                    "position": [
+                        6.772713661193848,
+                        0.011266946792602539,
+                        -10.076753616333008
+                    ],
+                    "rotation": [
+                        0,
+                        0.398738137899741,
+                        0,
+                        -0.9170648272528213
+                    ],
+                    "motionType": "DYNAMIC"
+                }
+            ]
+        },
+        {
           "episode_id": 1,
           "scene_id": "house_with_empty_room.glb",
           "start_position": [

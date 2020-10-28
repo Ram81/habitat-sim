@@ -54,6 +54,7 @@ class SimEnv {
     this.updateCrossHairNode(this.getCrosshairPosition());
 
     this.grippedObjectId = -1;
+    this.nearestObjectId = -1;
     this.gripOffset = null;
     this.psiturk.handleRecordTrialData("TEST", "simReset", {});
   }

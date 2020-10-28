@@ -1,0 +1,70 @@
+{
+    "episodes": [
+        {
+            "episode_id": 0,
+            "scene_id": "house.glb",
+            "start_position": [
+                4.875270366668701,
+                0.08012409508228302,
+                0.2746761441230774
+            ],
+            "start_rotation": [
+                0,
+                0.8999936745173638,
+                0,
+                0.43590295459968315
+            ],
+            "task": {
+                "instruction": "Place the soccer ball on the colored wood block",
+                "type": "arrangement",
+                "goals": {
+                    "objectToRecepacleMap": {
+                        "1": [
+                            0
+                        ]
+                    }
+                }
+            },
+            "objects": [
+                {
+                    "object": "soccer ball",
+                    "objectHandle": "/data/objects/mini_soccer_ball.phys_properties.json",
+                    "objectIcon": "/data/test_assets/objects/mini_soccer_ball.png",
+                    "objectId": 0,
+                    "isReceptacle": false,
+                    "position": [
+                        -2.4811086654663086,
+                        0.08012409508228302,
+                        6.504530906677246
+                    ],
+                    "rotation": [
+                        0,
+                        0.7795590369377533,
+                        0,
+                        0.6263287538734611
+                    ],
+                    "motionType": "DYNAMIC"
+                },
+                {
+                    "object": "colored wood block",
+                    "objectHandle": "/data/objects/colored_wood_blocks.phys_properties.json",
+                    "objectIcon": "/data/test_assets/objects/colored_wood_blocks.png",
+                    "objectId": 1,
+                    "isReceptacle": true,
+                    "position": [
+                        -4.901268005371094,
+                        0.08012409508228302,
+                        1.9974825382232666
+                    ],
+                    "rotation": [
+                        0,
+                        0.7115163572846195,
+                        0,
+                        -0.7026695335052073
+                    ],
+                    "motionType": "DYNAMIC"
+                }
+            ]
+        }
+    ]
+}

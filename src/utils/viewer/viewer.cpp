@@ -422,6 +422,7 @@ Viewer::Viewer(const Arguments& arguments)
     }
   } else if (args.isSet("recompute-navmesh")) {
     esp::nav::NavMeshSettings navMeshSettings;
+    navMeshSettings.agentMaxClimb = 0.5f;
     simulator_->recomputeNavMesh(*simulator_->getPathFinder().get(),
                                  navMeshSettings, true);
   } else if (!args.value("navmesh-file").empty()) {

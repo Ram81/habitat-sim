@@ -11,7 +11,11 @@ import {
 import SimEnv from "./simenv_embind";
 import TopDownMap from "./topdown";
 import NavigateTask from "./navigate";
-import { buildConfigFromURLParameters, loadEpisode } from "./utils";
+import {
+  buildConfigFromURLParameters,
+  loadEpisode,
+  getObjectIconImgTags
+} from "./utils";
 import TaskValidator from "./TaskValidator";
 
 class WebDemo {
@@ -62,9 +66,20 @@ class WebDemo {
 
   setEpisode(episode) {
     let taskInstruction = document.getElementById("task-instruction");
+    let assistance = document.getElementById("text-assistance-1");
     if (taskInstruction !== undefined && taskInstruction !== null) {
       taskInstruction.innerHTML =
         "<hr> <h1>Task: " + episode.task.instruction + "</h1> <hr>";
+    }
+    if (assistance !== undefined && assistance !== null) {
+      let objectIconTags = getObjectIconImgTags(episode);
+      assistance.innerHTML =
+        "<div class='object-type'> Objects: </div> <ul>" +
+        objectIconTags["objects"].join("\n") +
+        "</ul>" +
+        "<br/><div class='object-type'> Receptacles: </div> <ul>" +
+        objectIconTags["receptacles"].join("\n") +
+        "</ul>";
     }
     this.simenv.setEpisode(episode);
   }
@@ -90,7 +105,11 @@ class WebDemo {
     window.config.disableLogging = false;
     window.config.runFlythrough = false;
     window.config.enableStepPhysics = true;
-    let episode = loadEpisode("/data/".concat(window.config.taskConfig.name));
+    let episodeId = window.config.episodeId;
+    let episode = loadEpisode(
+      "/data/".concat(window.config.taskConfig.name),
+      episodeId
+    );
     this.setEpisode(episode);
     this.setTaskValidator(episode);
     this.task.reset();

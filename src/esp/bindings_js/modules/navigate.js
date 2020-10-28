@@ -160,6 +160,7 @@ class NavigateTask {
    * Reset the task.
    */
   reset() {
+    this.lastInteractedObjectId = -1;
     this.disablePhysics();
     this.sim.reset();
     this.inventory.reset();
@@ -426,6 +427,9 @@ class NavigateTask {
   }
 
   validateTask() {
+    if (window.config.runFlythrough) {
+      return false;
+    }
     return this.taskValidator.validate();
   }
 
