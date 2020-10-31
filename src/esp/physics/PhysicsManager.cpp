@@ -253,6 +253,11 @@ int PhysicsManager::deallocateObjectID(int physObjectID) {
   return physObjectID;
 }
 
+void PhysicsManager::clearRecycledObjectIds() {
+  nextObjectID_ = 0;
+  recycledObjectIDs_.clear();
+}
+
 bool PhysicsManager::makeAndAddRigidObject(int newObjectID,
                                            const std::string& handle,
                                            scene::SceneNode* objectNode) {

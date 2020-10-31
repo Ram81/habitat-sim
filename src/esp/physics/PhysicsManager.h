@@ -967,6 +967,8 @@ class PhysicsManager {
 
   virtual Magnum::Matrix4 getBulletTransformation(const int physObjectID) const;
 
+  void clearRecycledObjectIds();
+
  protected:
   /** @brief Check that a given object ID is valid (i.e. it refers to an
    * existing object). Terminate the program and report an error if not. This

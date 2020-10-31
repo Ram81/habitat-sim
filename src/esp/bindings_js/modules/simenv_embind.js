@@ -91,6 +91,10 @@ class SimEnv {
         this.addObjectInScene(objectId, objects[index]);
         // adding contact test shape for object
         this.sim.addContactTestObject(objectLibHandle, 0);
+        episode.objects[index]["simObjectId"] = objectId;
+        episode.objects[index]["prevObjectId"] =
+          episode.objects[index]["objectId"];
+        episode.objects[index]["objectId"] = objectId;
       }
     } else {
       // add agent object for collision test
@@ -159,13 +163,14 @@ class SimEnv {
    */
   removeAllObjects() {
     let existingObjectIds = this.getExistingObjectIDs();
-    for (let index = 0; index < existingObjectIds.size(); index++) {
+    for (let index = existingObjectIds.size() - 1; index >= 0; index--) {
       let objectId = existingObjectIds.get(index);
       let object = this.getObjectFromScene(objectId);
 
       this.removeObject(objectId);
       this.sim.removeContactTestObject(object["objectHandle"], 0);
     }
+    this.sim.clearRecycledObjectIds();
   }
 
   /**
@@ -774,11 +779,13 @@ class SimEnv {
       let translation = this.getTranslation(objectId, 0);
       let rotation = this.getRotation(objectId, 0);
       let motionType = this.getObjectMotionType(objectId, 0).value;
+      let object = this.getObjectFromScene(objectId);
       let objectState = {
         objectId: objectId,
         translation: this.convertVector3ToVec3f(translation),
         rotation: this.coeffFromQuat(rotation),
-        motionType: motionType
+        motionType: motionType,
+        objectHandle: object["objectHandle"]
       };
       objectStates.push(objectState);
     }

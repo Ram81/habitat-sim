@@ -1141,5 +1141,9 @@ void Simulator::enableDebugDraw() {
   physicsDebugDraw(projM * camM);
 }
 
+void Simulator::clearRecycledObjectIds() {
+  physicsManager_->clearRecycledObjectIds();
+}
+
 }  // namespace sim
 }  // namespace esp

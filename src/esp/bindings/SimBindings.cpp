@@ -321,7 +321,9 @@ void initSimBindings(py::module& m) {
            "object_handle"_a, "scene_id"_a = 0,
            R"(Remove collision detection object out of scene)")
       .def("enable_debug_draw", &Simulator::enableDebugDraw,
-           R"(enable bullet debug)");
+           R"(enable bullet debug)")
+      .def("clear_recycled_object_ids", &Simulator::clearRecycledObjectIds,
+           R"(Clear recycled object ids)");
 }
 
 }  // namespace sim

@@ -92,6 +92,7 @@ class WebDemo {
     window.config.disableLogging = true;
     window.config.runFlythrough = true;
     window.config.enableStepPhysics = false;
+    window.config.actualTask = false;
     let replayEpisode = window.config.taskConfig.flythroughTask.name;
     let replayFile = window.config.taskConfig.flythroughReplayFile.name;
     let episode = loadEpisode("/data/".concat(replayEpisode));
@@ -105,6 +106,7 @@ class WebDemo {
     window.config.disableLogging = false;
     window.config.runFlythrough = false;
     window.config.enableStepPhysics = true;
+    window.config.actualTask = true;
     let episodeId = window.config.episodeId;
     let episode = loadEpisode(
       "/data/".concat(window.config.taskConfig.name),
@@ -119,6 +121,7 @@ class WebDemo {
     window.config.disableLogging = true;
     window.config.runFlythrough = false;
     window.config.enableStepPhysics = true;
+    window.config.actualTask = false;
     let trainingEpisode = window.config.taskConfig.trainingTask.name;
     let episode = loadEpisode("/data/".concat(trainingEpisode));
     this.setEpisode(episode);

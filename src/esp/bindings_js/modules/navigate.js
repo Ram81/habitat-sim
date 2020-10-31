@@ -430,6 +430,9 @@ class NavigateTask {
     if (window.config.runFlythrough) {
       return false;
     }
+    if (window.config.actualTask) {
+      return false;
+    }
     return this.taskValidator.validate();
   }
 
