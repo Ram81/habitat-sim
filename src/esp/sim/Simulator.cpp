@@ -603,6 +603,19 @@ bool Simulator::preAddContactTest(const std::string& objectLibHandle,
   return false;
 }
 
+bool Simulator::preAddContactTestRotation(const std::string& objectLibHandle,
+                                          const Magnum::Vector3& translation,
+                                          const Magnum::Quaternion& rotation,
+                                          const bool isNavigationTest,
+                                          const int sceneID) {
+  if (sceneHasPhysics(sceneID)) {
+    auto successs = physicsManager_->preAddContactTestRotation(
+        objectLibHandle, translation, rotation, isNavigationTest);
+    return successs;
+  }
+  return false;
+}
+
 int Simulator::addContactTestObject(const std::string& objectLibHandle,
                                     const int sceneID) {
   if (sceneHasPhysics(sceneID)) {

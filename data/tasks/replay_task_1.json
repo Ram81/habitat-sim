@@ -21,6 +21,7 @@
             "objectIcon": "/data/test_assets/objects/mini_soccer_ball.png",
             "objectHandle": "/data/objects/mini_soccer_ball.phys_properties.json",
             "position": [-7.436279773712158,-2.6889219284057617,2.084512233734131],
+            "rotation": [0.0, 0.0, 0.0, 1.0],
             "isReceptacle": false,
             "motionType": "STATIC"
           },
@@ -29,6 +30,7 @@
             "objectIcon": "/data/test_assets/objects/colored_wood_blocks.png",
             "objectHandle": "/data/objects/colored_wood_blocks.phys_properties.json",
             "position": [-11.041603088378906,-2.677050828933716,-0.6032922267913818],
+            "rotation": [0.0, 0.0, 0.0, 1.0],
             "isReceptacle": true,
             "motionType": "STATIC"
           },
@@ -37,6 +39,7 @@
             "objectIcon": "/data/test_assets/objects/sphere.png",
             "objectHandle": "/data/objects/sphere.phys_properties.json",
             "position": [-7.444296360015869,-2.661651849746704,-2.0470540523529053],
+            "rotation": [0.0, 0.0, 0.0, 1.0],
             "motionType": "STATIC"
           },
           {
@@ -44,6 +47,7 @@
             "objectIcon": "/data/test_assets/objects/colored_wood_blocks.png",
             "objectHandle": "/data/objects/colored_wood_blocks.phys_properties.json",
             "position": [-8.260838508605957,-2.7084693908691406,-7.634191513061523],
+            "rotation": [0.0, 0.0, 0.0, 1.0],
             "isReceptacle": true,
             "motionType": "STATIC"
           }

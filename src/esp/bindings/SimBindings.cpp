@@ -323,7 +323,13 @@ void initSimBindings(py::module& m) {
       .def("enable_debug_draw", &Simulator::enableDebugDraw,
            R"(enable bullet debug)")
       .def("clear_recycled_object_ids", &Simulator::clearRecycledObjectIds,
-           R"(Clear recycled object ids)");
+           R"(Clear recycled object ids)")
+      .def(
+          "pre_add_contact_test_rotation",
+          &Simulator::preAddContactTestRotation, "object_handle"_a,
+          "translation"_a, "rotation"_a, "isNavigationTest"_a = false,
+          "scene_id"_a = 0,
+          R"(Run collision detection and return a binary indicator of penetration between the specified object and any other collision object. Physics must be enabled.)");
 }
 
 }  // namespace sim

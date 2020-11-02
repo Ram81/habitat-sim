@@ -436,7 +436,9 @@ class BulletRigidObject : public BulletBase,
       const Magnum::Vector3& translation,
       std::shared_ptr<std::map<const btCollisionObject*, int>>
           collisionObjToObjIds,
-      const bool isNavigationTest = false);
+      const bool isNavigationTest = false,
+      const Magnum::Quaternion& rotation = Magnum::Quaternion{{0.0, 0.0, 0.0},
+                                                              1.0});
 
   /**
    * @brief Query the Aabb from bullet physics for the root compound shape of

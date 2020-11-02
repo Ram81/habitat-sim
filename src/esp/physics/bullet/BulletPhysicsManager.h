@@ -176,6 +176,11 @@ class BulletPhysicsManager : public PhysicsManager {
                          const Magnum::Vector3& translation,
                          const bool isNavigationTest = false) override;
 
+  bool preAddContactTestRotation(const std::string& handle,
+                                 const Magnum::Vector3& translation,
+                                 const Magnum::Quaternion& rotation,
+                                 const bool isNavigationTest = false) override;
+
   /**
    * @brief Cast a ray into the collision world and return a @ref RaycastResults
    * with hit information.

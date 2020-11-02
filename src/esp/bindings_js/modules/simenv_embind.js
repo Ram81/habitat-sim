@@ -86,8 +86,13 @@ class SimEnv {
       for (let index in objects) {
         let objectLibHandle = objects[index]["objectHandle"];
         let position = this.convertVec3fToVector3(objects[index]["position"]);
+        let rotation = this.quatFromCoeffs(objects[index]["rotation"]);
 
-        let objectId = this.addObjectAtLocation(objectLibHandle, position);
+        let objectId = this.addObjectAtLocation(
+          objectLibHandle,
+          position,
+          rotation
+        );
         this.addObjectInScene(objectId, objects[index]);
         // adding contact test shape for object
         this.sim.addContactTestObject(objectLibHandle, 0);
@@ -150,9 +155,10 @@ class SimEnv {
   /**
    * Adds a dynamic object at specific position in simulation.
    */
-  addObjectAtLocation(objectLibHandle, position) {
+  addObjectAtLocation(objectLibHandle, position, rotation) {
     let objectId = this.addObjectByHandle(objectLibHandle);
     this.setTranslation(position, objectId, 0);
+    this.setRotation(rotation, objectId, 0);
     this.sampleObjectState(objectId, 0);
     this.setObjectMotionType(Module.MotionType.DYNAMIC, objectId, 0);
     return objectId;

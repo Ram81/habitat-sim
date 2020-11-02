@@ -248,9 +248,22 @@ bool BulletPhysicsManager::contactTest(const int physObjectID) {
 bool BulletPhysicsManager::preAddContactTest(const std::string& handle,
                                              const Magnum::Vector3& translation,
                                              const bool isNavigationTest) {
+  Magnum::Quaternion defaultRotation = Magnum::Quaternion{{0.0, 0.0, 0.0}, 1.0};
   bWorld_->getCollisionWorld()->performDiscreteCollisionDetection();
   return static_cast<BulletRigidObject*>(contactTestObjects_.at(handle).get())
-      ->preAddContactTest(translation, collisionObjToObjIds_, isNavigationTest);
+      ->preAddContactTest(translation, collisionObjToObjIds_, isNavigationTest,
+                          defaultRotation);
+}
+
+bool BulletPhysicsManager::preAddContactTestRotation(
+    const std::string& handle,
+    const Magnum::Vector3& translation,
+    const Magnum::Quaternion& rotation,
+    const bool isNavigationTest) {
+  bWorld_->getCollisionWorld()->performDiscreteCollisionDetection();
+  return static_cast<BulletRigidObject*>(contactTestObjects_.at(handle).get())
+      ->preAddContactTest(translation, collisionObjToObjIds_, isNavigationTest,
+                          rotation);
 }
 
 RaycastResults BulletPhysicsManager::castRay(const esp::geo::Ray& ray,

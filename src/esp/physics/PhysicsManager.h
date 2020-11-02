@@ -889,6 +889,14 @@ class PhysicsManager {
     return false;
   };
 
+  virtual bool preAddContactTestRotation(
+      CORRADE_UNUSED const std::string& handle,
+      CORRADE_UNUSED const Magnum::Vector3& translation,
+      CORRADE_UNUSED const Magnum::Quaternion& rotation,
+      CORRADE_UNUSED const bool isNavigationTest = false) {
+    return false;
+  };
+
   /** @brief Return the library implementation type for the simulator currently
    * in use. Use to check for a particular implementation.
    * @return The implementation type of this simulator.

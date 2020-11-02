@@ -523,8 +523,11 @@ bool BulletRigidObject::preAddContactTest(
     const Magnum::Vector3& translation,
     std::shared_ptr<std::map<const btCollisionObject*, int> >
         collisionObjToObjIds,
-    const bool isNavigationTest) {
-  auto transformationMatrix = Magnum::Matrix4::translation(translation);
+    const bool isNavigationTest,
+    const Magnum::Quaternion& rotation) {
+  auto rotationMatrix = rotation.toMatrix();
+  auto transformationMatrix =
+      Magnum::Matrix4::from(rotationMatrix, translation);
   std::unique_ptr<btCollisionObject> colObj =
       std::make_unique<btCollisionObject>();
   colObj->setCollisionShape(bObjectRigidBody_->getCollisionShape());

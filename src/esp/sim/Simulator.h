@@ -839,6 +839,12 @@ class Simulator {
                          const bool isNavigationTest = false,
                          const int sceneID = 0);
 
+  bool preAddContactTestRotation(const std::string& objectLibHandle,
+                                 const Magnum::Vector3& translation,
+                                 const Magnum::Quaternion& rotation,
+                                 const bool isNavigationTest = false,
+                                 const int sceneID = 0);
+
   void removeContactTestObject(const std::string& objectLibHandle,
                                const int sceneID = 0);
 
