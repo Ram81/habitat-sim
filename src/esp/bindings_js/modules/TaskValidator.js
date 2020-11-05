@@ -35,8 +35,33 @@ class TaskValidator {
       return true;
     }
 
+    if (this.sim.grippedObjectId != -1) {
+      return false;
+    }
+
     let objectToGoalMap = goal.objectToReceptacleMap;
     let objectsInScene = this.sim.getObjectsInScene();
+    let episode = this.sim.episode;
+    let taskStarted = false;
+
+    // Check if objects have moved from the initial position
+    let objectsInitialState = episode.objects;
+    for (let index in objectsInitialState) {
+      let objectId = objectsInitialState[index]["objectId"];
+      let objectInitialTranslation = objectsInitialState[index]["position"];
+      let objectTranslation = this.sim.convertVector3ToVec3f(
+        this.sim.getTranslation(objectId, 0)
+      );
+
+      let distance = this.sim.geodesicDistance(
+        objectInitialTranslation,
+        objectTranslation
+      );
+      if (distance > 0) {
+        taskStarted = true;
+      }
+    }
+
     for (let key in objectToGoalMap) {
       let sourceObjectId = objectsInScene[parseInt(key)]["objectId"];
       let receptacles = objectToGoalMap[key];
@@ -48,7 +73,7 @@ class TaskValidator {
           sourceObjectId,
           receptacleObjectId
         );
-        if (distance <= 0.8) {
+        if (distance <= 1.2) {
           success = true;
         }
       }
@@ -56,7 +81,7 @@ class TaskValidator {
         return false;
       }
     }
-    return true;
+    return true && taskStarted;
   }
 
   validateStackingTask() {}

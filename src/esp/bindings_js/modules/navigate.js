@@ -430,9 +430,6 @@ class NavigateTask {
     if (window.config.runFlythrough) {
       return false;
     }
-    if (window.config.actualTask) {
-      return false;
-    }
     return this.taskValidator.validate();
   }
 
@@ -449,12 +446,6 @@ class NavigateTask {
       let data = this.sim.inventoryGrabReleaseObject();
       this.handleInventoryUpdate(data["collision"]);
       this.inventory.renderInventory();
-      if (this.sim.grippedObjectId === -1 && this.validateTask()) {
-        if (window.finishTrial) {
-          this.setStatus("Task completed!");
-          setTimeout(window.finishTrial, 500);
-        }
-      }
       actionData = data;
     } else if (action == "getObjectPose") {
       this.sim.getObjectPose();
