@@ -252,7 +252,7 @@ void Simulator::reconfigure(const SimulatorConfiguration& cfg) {
     crossHairNode_ = &rootNode.createChild();
     resourceManager_->addPrimitiveToDrawables(0, *crossHairNode_,
                                               &sceneGraph.getDrawables());
-    crossHairNode_->setScaling({0.03, 0.03, 0.03});
+    crossHairNode_->setScaling({0.02, 0.02, 0.02});
   }  // if (config_.createRenderer)
 
   semanticScene_ = nullptr;
@@ -1049,17 +1049,21 @@ int Simulator::findNearestObjectUnderCrosshair(Magnum::Vector3 point,
 
   const esp::geo::Ray ray{renderCamera_.node().absoluteTranslation(), point};
   physics::RaycastResults results = castRay(ray);
-  Magnum::Vector3 hitPoint;
+  Magnum::Vector3 nearestHitPoint;
+  double minDistance = __DBL_MAX__;
 
   for (int rayIdx = 0; rayIdx < results.hits.size(); rayIdx++) {
     if (results.hits[rayIdx].objectId != -1) {
-      nearestObjId = results.hits[rayIdx].objectId;
-      hitPoint = results.hits[rayIdx].point;
+      Magnum::Vector3 hitPoint = results.hits[rayIdx].point;
+      double objectDistance = (hitPoint - refPoint).length();
+      if (objectDistance <= distance) {
+        if (objectDistance < minDistance) {
+          nearestHitPoint = hitPoint;
+          nearestObjId = results.hits[rayIdx].objectId;
+          minDistance = objectDistance;
+        }
+      }
     }
-  }
-
-  if ((hitPoint - refPoint).length() > distance) {
-    return -1;
   }
 
   return nearestObjId;
