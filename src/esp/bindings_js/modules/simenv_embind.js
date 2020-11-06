@@ -39,7 +39,7 @@ class SimEnv {
     if (window.config.recomputeNavMesh) {
       this.recomputeNavMesh();
     }
-    this.maxDistance = 1.5;
+    this.maxDistance = 2.0;
   }
 
   /**

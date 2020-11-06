@@ -1049,16 +1049,14 @@ int Simulator::findNearestObjectUnderCrosshair(Magnum::Vector3 point,
 
   const esp::geo::Ray ray{renderCamera_.node().absoluteTranslation(), point};
   physics::RaycastResults results = castRay(ray);
-  Magnum::Vector3 nearestHitPoint;
   double minDistance = __DBL_MAX__;
 
   for (int rayIdx = 0; rayIdx < results.hits.size(); rayIdx++) {
     if (results.hits[rayIdx].objectId != -1) {
       Magnum::Vector3 hitPoint = results.hits[rayIdx].point;
-      double objectDistance = (hitPoint - refPoint).length();
+      double objectDistance = results.hits[rayIdx].rayDistance;
       if (objectDistance <= distance) {
         if (objectDistance < minDistance) {
-          nearestHitPoint = hitPoint;
           nearestObjId = results.hits[rayIdx].objectId;
           minDistance = objectDistance;
         }
@@ -1134,14 +1132,16 @@ esp::physics::RayHitInfo Simulator::findFloorPositionUnderCrosshair(
   physics::RaycastResults results = castRay(ray);
   Magnum::Vector3 refPoint = refTransformation.translation();
 
+  Magnum::Vector3 agentCamPoint = renderCamera_.node().absoluteTranslation();
   for (int rayIdx = 0; rayIdx < results.hits.size(); rayIdx++) {
-    if ((results.hits[rayIdx].point - refPoint).length() <= distance) {
+    double pointDistance = results.hits[rayIdx].rayDistance;
+    if (pointDistance <= distance) {
       return results.hits[rayIdx];
     }
   }
 
   Magnum::Vector3 newPos =
-      refTransformation.transformPoint({0.0f, 1.5f, -1.0f});
+      refTransformation.transformPoint({0.0f, agentCamPoint.y(), -1.0f});
   esp::physics::RayHitInfo rayHitInfo;
   rayHitInfo.point = newPos;
   rayHitInfo.objectId = -1;

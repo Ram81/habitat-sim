@@ -15,15 +15,7 @@
               -0.8899087544907881
           ],
           "task": {
-              "instruction": "Place the soccer ball on the colored wood block",
-              "type": "arrangement",
-              "goals": {
-                  "objectToReceptacleMap": {
-                      "1": [
-                          0
-                      ]
-                  }
-              }
+              "instruction": "Place the soccer ball on the colored wood block"
           },
           "objects": [
               {
@@ -81,15 +73,7 @@
               -0.5080536073458969
           ],
           "task": {
-              "instruction": "Place the cheezit box on the red plate",
-              "type": "arrangement",
-              "goals": {
-                  "objectToReceptacleMap": {
-                      "1": [
-                          0
-                      ]
-                  }
-              }
+              "instruction": "Place the cheezit box on the red plate"
           },
           "objects": [
               {
@@ -147,15 +131,7 @@
               -0.12119484535385315
           ],
           "task": {
-              "instruction": "Place the tomato soup can on the red plate",
-              "type": "arrangement",
-              "goals": {
-                  "objectToReceptacleMap": {
-                      "1": [
-                          0
-                      ]
-                  }
-              }
+              "instruction": "Place the tomato soup can on the red plate"
           },
           "objects": [
               {
@@ -213,15 +189,7 @@
               0.168842656904323
           ],
           "task": {
-              "instruction": "Place the masterchef can on the red plate",
-              "type": "arrangement",
-              "goals": {
-                  "objectToReceptacleMap": {
-                      "1": [
-                          0
-                      ]
-                  }
-              }
+              "instruction": "Place the masterchef can on the red plate"
           },
           "objects": [
               {
@@ -279,15 +247,7 @@
               -0.30028653930910576
           ],
           "task": {
-              "instruction": "Place the toy airplane on the colored wood block",
-              "type": "arrangement",
-              "goals": {
-                  "objectToReceptacleMap": {
-                      "1": [
-                          0
-                      ]
-                  }
-              }
+              "instruction": "Place the toy airplane on the colored wood block"
           },
           "objects": [
               {
@@ -345,15 +305,7 @@
               0.13214387192930885
           ],
           "task": {
-              "instruction": "Place the apple on the red plate",
-              "type": "arrangement",
-              "goals": {
-                  "objectToReceptacleMap": {
-                      "1": [
-                          0
-                      ]
-                  }
-              }
+              "instruction": "Place the apple on the red plate"
           },
           "objects": [
               {
@@ -411,15 +363,7 @@
               -0.24472476065438656
           ],
           "task": {
-              "instruction": "Place the apple on the red bowl",
-              "type": "arrangement",
-              "goals": {
-                  "objectToReceptacleMap": {
-                      "1": [
-                          0
-                      ]
-                  }
-              }
+              "instruction": "Place the apple on the red bowl"
           },
           "objects": [
               {
@@ -477,15 +421,7 @@
               0.31995895844740874
           ],
           "task": {
-              "instruction": "Place the banana on the red plate",
-              "type": "arrangement",
-              "goals": {
-                  "objectToReceptacleMap": {
-                      "1": [
-                          0
-                      ]
-                  }
-              }
+              "instruction": "Place the banana on the red plate"
           },
           "objects": [
               {
@@ -543,15 +479,7 @@
               -0.844273389199196
           ],
           "task": {
-              "instruction": "Place the orange on the red plate",
-              "type": "arrangement",
-              "goals": {
-                  "objectToReceptacleMap": {
-                      "1": [
-                          0
-                      ]
-                  }
-              }
+              "instruction": "Place the orange on the red plate"
           },
           "objects": [
               {
@@ -609,15 +537,7 @@
               0.5638347631135819
           ],
           "task": {
-              "instruction": "Place the orange on the red bowl",
-              "type": "arrangement",
-              "goals": {
-                  "objectToReceptacleMap": {
-                      "1": [
-                          0
-                      ]
-                  }
-              }
+              "instruction": "Place the orange on the red bowl"
           },
           "objects": [
               {
@@ -675,15 +595,7 @@
               -0.7558248169015902
           ],
           "task": {
-              "instruction": "Place the red mug on the red plate",
-              "type": "arrangement",
-              "goals": {
-                  "objectToReceptacleMap": {
-                      "1": [
-                          0
-                      ]
-                  }
-              }
+              "instruction": "Place the red mug on the red plate"
           },
           "objects": [
               {
@@ -741,15 +653,7 @@
               0.4640627360754831
           ],
           "task": {
-              "instruction": "Place the mustard bottle on the red plate",
-              "type": "arrangement",
-              "goals": {
-                  "objectToReceptacleMap": {
-                      "1": [
-                          0
-                      ]
-                  }
-              }
+              "instruction": "Place the mustard bottle on the red plate"
           },
           "objects": [
               {
@@ -807,15 +711,7 @@
               0.9095547943145282
           ],
           "task": {
-              "instruction": "Place the hammer on the wood block",
-              "type": "arrangement",
-              "goals": {
-                  "objectToReceptacleMap": {
-                      "1": [
-                          0
-                      ]
-                  }
-              }
+              "instruction": "Place the hammer on the wood block"
           },
           "objects": [
               {
@@ -873,15 +769,7 @@
               0.9809551476480781
           ],
           "task": {
-              "instruction": "Place the soccer ball on the colored wood block",
-              "type": "arrangement",
-              "goals": {
-                  "objectToReceptacleMap": {
-                      "1": [
-                          0
-                      ]
-                  }
-              }
+              "instruction": "Place the soccer ball on the colored wood block"
           },
           "objects": [
               {
@@ -939,15 +827,7 @@
               -0.456548337449732
           ],
           "task": {
-              "instruction": "Place the cheezit box on the red plate",
-              "type": "arrangement",
-              "goals": {
-                  "objectToReceptacleMap": {
-                      "1": [
-                          0
-                      ]
-                  }
-              }
+              "instruction": "Place the cheezit box on the red plate"
           },
           "objects": [
               {
