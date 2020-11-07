@@ -250,7 +250,7 @@ void Simulator::reconfigure(const SimulatorConfiguration& cfg) {
       }
     }  // if ID has changed - needs to be reset
     crossHairNode_ = &rootNode.createChild();
-    resourceManager_->addPrimitiveToDrawables(0, *crossHairNode_,
+    resourceManager_->addPrimitiveToDrawables(1, *crossHairNode_,
                                               &sceneGraph.getDrawables());
     crossHairNode_->setScaling({0.02, 0.02, 0.02});
   }  // if (config_.createRenderer)

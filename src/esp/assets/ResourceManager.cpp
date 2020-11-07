@@ -67,6 +67,7 @@ namespace Mn = Magnum;
 namespace esp {
 using metadata::attributes::AbstractObjectAttributes;
 using metadata::attributes::CubePrimitiveAttributes;
+using metadata::attributes::IcospherePrimitiveAttributes;
 using metadata::attributes::ObjectAttributes;
 using metadata::attributes::PhysicsManagerAttributes;
 using metadata::attributes::StageAttributes;
@@ -120,6 +121,16 @@ void ResourceManager::initDefaultPrimAttributes() {
   auto wfCube = primitiveImporter_->mesh(cubeMeshName);
   primitive_meshes_[nextPrimitiveMeshId++] =
       std::make_unique<Magnum::GL::Mesh>(Magnum::MeshTools::compile(*wfCube));
+
+  auto sphereMeshName =
+      assetAttributesManager_
+          ->getTemplateCopyByHandle<IcospherePrimitiveAttributes>(
+              "icosphereSolid_subdivs_1")
+          ->getPrimObjClassName();
+
+  auto wfSphere = primitiveImporter_->mesh(sphereMeshName);
+  primitive_meshes_[nextPrimitiveMeshId++] =
+      std::make_unique<Magnum::GL::Mesh>(Magnum::MeshTools::compile(*wfSphere));
 
 }  // initDefaultPrimAttributes
 
