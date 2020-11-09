@@ -202,6 +202,23 @@ export const taskFiles = {
         name: "training_task_1.json",
         config: "tasks/training_task_1.json"
       }
+    },
+    {
+      name: "task_2.json",
+      config: "tasks/task_2.json",
+      scene: "empty_house.glb",
+      flythroughTask: {
+        name: "replay_task_2.json",
+        config: "tasks/replay_task_2.json"
+      },
+      flythroughReplayFile: {
+        name: "replay_task_2.csv",
+        location: "replays/replay_task_2.csv"
+      },
+      trainingTask: {
+        name: "training_task_2.json",
+        config: "tasks/training_task_2.json"
+      }
     }
   ]
 };

@@ -68,18 +68,25 @@ class WebDemo {
     let taskInstruction = document.getElementById("task-instruction");
     let assistance = document.getElementById("text-assistance-1");
     if (taskInstruction !== undefined && taskInstruction !== null) {
-      taskInstruction.innerHTML =
-        "<hr> <h1>Task: " + episode.task.instruction + "</h1> <hr>";
+      if (window.config.runFlythrough !== true) {
+        taskInstruction.innerHTML =
+          "<hr> <h1>Task: " + episode.task.instruction + "</h1> <hr>";
+      }
     }
     if (assistance !== undefined && assistance !== null) {
       let objectIconTags = getObjectIconImgTags(episode);
-      assistance.innerHTML =
-        "<div class='object-type'> Objects: </div> <ul>" +
-        objectIconTags["objects"].join("\n") +
-        "</ul>" +
-        "<br/><div class='object-type'> Receptacles: </div> <ul>" +
-        objectIconTags["receptacles"].join("\n") +
-        "</ul>";
+      if (
+        objectIconTags["objects"].length > 0 &&
+        objectIconTags["receptacles"].length > 0
+      ) {
+        assistance.innerHTML =
+          "<div class='object-type'> Objects: </div> <ul>" +
+          objectIconTags["objects"].join("\n") +
+          "</ul>" +
+          "<br/><div class='object-type'> Receptacles: </div> <ul>" +
+          objectIconTags["receptacles"].join("\n") +
+          "</ul>";
+      }
     }
     this.simenv.setEpisode(episode);
   }

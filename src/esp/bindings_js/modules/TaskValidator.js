@@ -73,7 +73,7 @@ class TaskValidator {
           sourceObjectId,
           receptacleObjectId
         );
-        if (distance <= 1.2) {
+        if (distance <= 1.5) {
           success = true;
         }
       }
