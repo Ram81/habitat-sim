@@ -253,6 +253,11 @@ void Simulator::reconfigure(const SimulatorConfiguration& cfg) {
     resourceManager_->addPrimitiveToDrawables(1, *crossHairNode_,
                                               &sceneGraph.getDrawables());
     crossHairNode_->setScaling({0.02, 0.02, 0.02});
+
+    dropPointNode_ = &rootNode.createChild();
+    resourceManager_->addPrimitiveToDrawables(0, *dropPointNode_,
+                                              &sceneGraph.getDrawables());
+    dropPointNode_->setScaling({0.03, 0.01, 0.03});
   }  // if (config_.createRenderer)
 
   semanticScene_ = nullptr;
@@ -1160,6 +1165,10 @@ void Simulator::enableDebugDraw() {
 
 void Simulator::clearRecycledObjectIds() {
   physicsManager_->clearRecycledObjectIds();
+}
+
+void Simulator::updateDropPointNode(Magnum::Vector3 position) {
+  dropPointNode_->setTranslation(position);
 }
 
 }  // namespace sim

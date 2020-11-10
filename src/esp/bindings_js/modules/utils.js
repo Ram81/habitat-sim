@@ -176,6 +176,7 @@ export function getObjectIconImgTags(episode) {
   for (let i = 0; i < objects.length; i++) {
     let object = objects[i];
     let objectName = object["object"];
+    objectName = objectName.charAt(0).toUpperCase() + objectName.slice(1);
     let item =
       "<div><img src='" +
       object["objectIcon"] +

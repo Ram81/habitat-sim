@@ -329,7 +329,9 @@ void initSimBindings(py::module& m) {
           &Simulator::preAddContactTestRotation, "object_handle"_a,
           "translation"_a, "rotation"_a, "isNavigationTest"_a = false,
           "scene_id"_a = 0,
-          R"(Run collision detection and return a binary indicator of penetration between the specified object and any other collision object. Physics must be enabled.)");
+          R"(Run collision detection and return a binary indicator of penetration between the specified object and any other collision object. Physics must be enabled.)")
+      .def("update_drop_point_node", &Simulator::updateDropPointNode,
+           "position"_a, R"(Update drop point node)");
 }
 
 }  // namespace sim

@@ -404,5 +404,6 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
       .function("addContactTestObject", &Simulator::addContactTestObject)
       .function("removeContactTestObject", &Simulator::removeContactTestObject)
       .function("setNavMeshVisualization", &Simulator::setNavMeshVisualization)
-      .function("clearRecycledObjectIds", &Simulator::clearRecycledObjectIds);
+      .function("clearRecycledObjectIds", &Simulator::clearRecycledObjectIds)
+      .function("updateDropPointNode", &Simulator::updateDropPointNode);
 }

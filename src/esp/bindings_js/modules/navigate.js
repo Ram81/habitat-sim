@@ -387,6 +387,7 @@ class NavigateTask {
 
     this.sim.updateCrossHairNode(this.sim.getCrosshairPosition());
     this.sim.drawBBAroundNearestObject();
+    this.sim.showDropPoint();
 
     this.renderImage();
     this.renderSemanticImage();
@@ -430,6 +431,7 @@ class NavigateTask {
     if (window.config.runFlythrough) {
       return false;
     }
+
     return this.taskValidator.validate();
   }
 

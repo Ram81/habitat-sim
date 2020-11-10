@@ -349,35 +349,8 @@ class SimEnv {
 
     if (this.grippedObjectId != -1) {
       releaseAction = true;
-      // Object already gripped, so let it go
-      let crossHairPosition = this.getCrosshairPosition();
-      let ray = this.unproject(crossHairPosition);
-      let crossHairPoint = ray.direction;
-      let refTransform = this.getAgentTransformation(0);
 
-      // Get raycast hit point
-      let rayHitInfo = this.sim.findFloorPositionUnderCrosshair(
-        crossHairPoint,
-        refTransform,
-        this.resolution,
-        this.maxDistance
-      );
-      let floorPosition = rayHitInfo.point;
-      if (floorPosition == null) {
-        return true;
-      }
-
-      // use original Y value to keep object on the floor if crosshair is pointing on ground
-      let yValue = floorPosition.y();
-      if (this.grippedObjectTransformation.translation().y() >= yValue) {
-        yValue = this.grippedObjectTransformation.translation().y();
-      }
-      let newObjectPosition = new Module.Vector3(
-        floorPosition.x(),
-        yValue,
-        floorPosition.z()
-      );
-
+      let newObjectPosition = this.findObjectFloorPositionUnderCrosshair();
       let object = this.getObjectFromScene(this.grippedObjectId);
 
       // Collision check on drop point
@@ -386,7 +359,7 @@ class SimEnv {
         newObjectPosition
       );
       let count = 0;
-      while (collision && count < 4) {
+      while (collision && count < 5) {
         newObjectPosition = new Module.Vector3(
           newObjectPosition.x(),
           newObjectPosition.y() + 0.25,
@@ -417,9 +390,12 @@ class SimEnv {
         nearestObjectId,
         0
       );
-
-      this.removeObject(nearestObjectId, 0);
-      this.grippedObjectId = nearestObjectId;
+      // Check if object is not a receptacle to grab
+      let object = this.getObjectFromScene(nearestObjectId);
+      if (object["isReceptacle"] !== true) {
+        this.removeObject(nearestObjectId, 0);
+        this.grippedObjectId = nearestObjectId;
+      }
       actionData = {
         grippedObjectId: this.grippedObjectId
       };
@@ -660,6 +636,92 @@ class SimEnv {
         this.setObjectBBDraw(true, this.nearestObjectId, 0);
       }
     }
+  }
+
+  showDropPoint() {
+    if (this.grippedObjectId === -1) {
+      let position = this.getAgentAbsoluteTranslation(0);
+      position = new Module.Vector3(
+        position.x(),
+        position.y() - 0.5,
+        position.z()
+      );
+      this.updateDropPointNode(position);
+    } else {
+      let newObjectPosition = this.findObjectFloorPositionUnderCrosshair();
+      let object = this.getObjectFromScene(this.grippedObjectId);
+
+      // Add 0.25 to make sure point is above ground
+      newObjectPosition = new Module.Vector3(
+        newObjectPosition.x(),
+        newObjectPosition.y() + 0.25,
+        newObjectPosition.z()
+      );
+
+      // Collision check on drop point
+      let collision = this.isCollision(
+        object["objectHandle"],
+        newObjectPosition
+      );
+
+      let isObjectInAir = false;
+      if (
+        Math.abs(
+          newObjectPosition.y() -
+            this.grippedObjectTransformation.translation().y()
+        ) >= 0.35
+      ) {
+        isObjectInAir = true;
+      }
+
+      if (collision === false && isObjectInAir === false) {
+        this.updateDropPointNode(newObjectPosition);
+      } else {
+        let position = this.getAgentAbsoluteTranslation(0);
+        position = new Module.Vector3(
+          position.x(),
+          position.y() - 0.5,
+          position.z()
+        );
+        this.updateDropPointNode(position);
+      }
+    }
+  }
+
+  updateDropPointNode(position) {
+    this.sim.updateDropPointNode(position);
+  }
+
+  findObjectFloorPositionUnderCrosshair() {
+    // Object already gripped, so let it go
+    let crossHairPosition = this.getCrosshairPosition();
+    let ray = this.unproject(crossHairPosition);
+    let crossHairPoint = ray.direction;
+    let refTransform = this.getAgentTransformation(0);
+
+    // Get raycast hit point
+    let rayHitInfo = this.sim.findFloorPositionUnderCrosshair(
+      crossHairPoint,
+      refTransform,
+      this.resolution,
+      this.maxDistance
+    );
+    let floorPosition = rayHitInfo.point;
+    if (floorPosition == null) {
+      return true;
+    }
+
+    // use original Y value to keep object on the floor if crosshair is pointing on ground
+    let yValue = floorPosition.y();
+    if (this.grippedObjectTransformation.translation().y() >= yValue) {
+      yValue = this.grippedObjectTransformation.translation().y();
+    }
+    let newObjectPosition = new Module.Vector3(
+      floorPosition.x(),
+      yValue,
+      floorPosition.z()
+    );
+    return newObjectPosition;
   }
 
   sampleObjectState(objectID, sceneID) {

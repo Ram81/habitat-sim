@@ -68,10 +68,8 @@ class WebDemo {
     let taskInstruction = document.getElementById("task-instruction");
     let assistance = document.getElementById("text-assistance-1");
     if (taskInstruction !== undefined && taskInstruction !== null) {
-      if (window.config.runFlythrough !== true) {
-        taskInstruction.innerHTML =
-          "<hr> <h1>Task: " + episode.task.instruction + "</h1> <hr>";
-      }
+      taskInstruction.innerHTML =
+        "<hr> <h1>Task: " + episode.task.instruction + "</h1> <hr>";
     }
     if (assistance !== undefined && assistance !== null) {
       let objectIconTags = getObjectIconImgTags(episode);
@@ -80,10 +78,10 @@ class WebDemo {
         objectIconTags["receptacles"].length > 0
       ) {
         assistance.innerHTML =
-          "<div class='object-type'> Objects: </div> <ul>" +
+          "<div class='object-type'> Object: </div> <ul>" +
           objectIconTags["objects"].join("\n") +
           "</ul>" +
-          "<br/><div class='object-type'> Receptacles: </div> <ul>" +
+          "<br/><div class='object-type'> Receptacle: </div> <ul>" +
           objectIconTags["receptacles"].join("\n") +
           "</ul>";
       }
