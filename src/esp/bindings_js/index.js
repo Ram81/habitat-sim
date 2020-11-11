@@ -130,6 +130,22 @@ function preloadFlythrough(
 }
 
 Module.preRun.push(() => {
+  const args = decodeURIComponent(window.location.search.substr(1))
+    .trim()
+    .split("&");
+  for (let i = 0; i != args.length; ++i) {
+    let j = args[i].indexOf("=");
+    /* Key + value */
+    if (j != -1) {
+      Module.arguments.push("--" + args[i].substring(0, j));
+      Module.arguments.push(args[i].substring(j + 1));
+
+      /* Just key */
+    } else {
+      Module.arguments.push("--" + args[i]);
+    }
+  }
+
   let config = {};
   config.scene = defaultScene;
   buildConfigFromURLParameters(config);

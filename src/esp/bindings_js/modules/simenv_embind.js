@@ -353,22 +353,6 @@ class SimEnv {
       let newObjectPosition = this.findObjectFloorPositionUnderCrosshair();
       let object = this.getObjectFromScene(this.grippedObjectId);
 
-      // Collision check on drop point
-      let collision = this.isCollision(
-        object["objectHandle"],
-        newObjectPosition
-      );
-      let count = 0;
-      while (collision && count < 5) {
-        newObjectPosition = new Module.Vector3(
-          newObjectPosition.x(),
-          newObjectPosition.y() + 0.25,
-          newObjectPosition.z()
-        );
-        collision = this.isCollision(object["objectHandle"], newObjectPosition);
-        count += 1;
-      }
-
       // Drop object at collision free location
       let newObjectId = this.addObjectByHandle(object["objectHandle"]);
       this.setTranslation(newObjectPosition, newObjectId, 0);
@@ -624,6 +608,12 @@ class SimEnv {
         this.nearestObjectId = objectId;
       }
     } else {
+      // Don't draw bb around receptacles
+      let object = this.getObjectFromScene(objectId);
+      if (object["isReceptacle"] === true) {
+        return;
+      }
+
       if (
         this.nearestObjectId != -1 &&
         this.grippedObjectId != this.nearestObjectId
@@ -649,42 +639,7 @@ class SimEnv {
       this.updateDropPointNode(position);
     } else {
       let newObjectPosition = this.findObjectFloorPositionUnderCrosshair();
-      let object = this.getObjectFromScene(this.grippedObjectId);
-
-      // Add 0.25 to make sure point is above ground
-      newObjectPosition = new Module.Vector3(
-        newObjectPosition.x(),
-        newObjectPosition.y() + 0.25,
-        newObjectPosition.z()
-      );
-
-      // Collision check on drop point
-      let collision = this.isCollision(
-        object["objectHandle"],
-        newObjectPosition
-      );
-
-      let isObjectInAir = false;
-      if (
-        Math.abs(
-          newObjectPosition.y() -
-            this.grippedObjectTransformation.translation().y()
-        ) >= 0.35
-      ) {
-        isObjectInAir = true;
-      }
-
-      if (collision === false && isObjectInAir === false) {
-        this.updateDropPointNode(newObjectPosition);
-      } else {
-        let position = this.getAgentAbsoluteTranslation(0);
-        position = new Module.Vector3(
-          position.x(),
-          position.y() - 0.5,
-          position.z()
-        );
-        this.updateDropPointNode(position);
-      }
+      this.updateDropPointNode(newObjectPosition);
     }
   }
 
@@ -721,6 +676,21 @@ class SimEnv {
       yValue,
       floorPosition.z()
     );
+
+    let object = this.getObjectFromScene(this.grippedObjectId);
+
+    // Collision check on drop point
+    let collision = this.isCollision(object["objectHandle"], newObjectPosition);
+    let count = 0;
+    while (collision && count < 5) {
+      newObjectPosition = new Module.Vector3(
+        newObjectPosition.x(),
+        newObjectPosition.y() + 0.25,
+        newObjectPosition.z()
+      );
+      collision = this.isCollision(object["objectHandle"], newObjectPosition);
+      count += 1;
+    }
     return newObjectPosition;
   }
 

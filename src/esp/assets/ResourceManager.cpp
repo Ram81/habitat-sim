@@ -1117,17 +1117,17 @@ bool ResourceManager::loadRenderAssetGeneral(const AssetInfo& info) {
       LOG(INFO) << "Importing Basis files as ASTC 4x4";
       metadata->configuration().setValue("format", "Astc4x4RGBA");
     }
-#ifdef MAGNUM_TARGET_GLES
-    else if (context.isExtensionSupported<
-                 Mn::GL::Extensions::EXT::texture_compression_bptc>())
-#else
-    else if (context.isExtensionSupported<
-                 Mn::GL::Extensions::ARB::texture_compression_bptc>())
-#endif
-    {
-      LOG(INFO) << "Importing Basis files as BC7";
-      metadata->configuration().setValue("format", "Bc7RGBA");
-    }
+// #ifdef MAGNUM_TARGET_GLES
+//     else if (context.isExtensionSupported<
+//                  Mn::GL::Extensions::EXT::texture_compression_bptc>())
+// #else
+//     else if (context.isExtensionSupported<
+//                  Mn::GL::Extensions::ARB::texture_compression_bptc>())
+// #endif
+//     {
+//       LOG(INFO) << "Importing Basis files as BC7";
+//       metadata->configuration().setValue("format", "Bc7RGBA");
+//     }
 #ifdef MAGNUM_TARGET_WEBGL
     else if (context.isExtensionSupported<
                  Mn::GL::Extensions::WEBGL::compressed_texture_s3tc>())
