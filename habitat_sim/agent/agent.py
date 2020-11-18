@@ -232,8 +232,23 @@ class Agent(object):
                 self.sim.remove_object(nearest_object_id)
                 self.gripped_object_id = nearest_object_id
         else:
+            # print("not body action: " + action.name)
             for _, v in self._sensors.items():
                 habitat_sim.errors.assert_obj_valid(v)
+                max_x_up_rotation = mn.Quaternion.rotation(
+                    mn.Deg(90), mn.Vector3(1.0, 0.0, 0)
+                )
+                max_x_down_rotation = mn.Quaternion.rotation(
+                    mn.Deg(-90), mn.Vector3(1.0, 0.0, 0)
+                )
+                sensor_rotation = v.object.rotation
+                if action.name == "look_up" and sensor_rotation == max_x_up_rotation:
+                    continue
+                elif (
+                    action.name == "look_down"
+                    and sensor_rotation == max_x_down_rotation
+                ):
+                    continue
                 self.controls.action(
                     v.object, action.name, action.actuation, apply_filter=False
                 )

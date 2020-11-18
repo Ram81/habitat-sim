@@ -1,49 +1,70 @@
 {
   "episodes": [
     {
-      "episode_id": "0",
-      "scene_id": "house_with_empty_garage.glb",
-      "task": {
-        "instruction": "Place the soccer ball on the colored wood blocks",
-        "type": "arrangement",
-        "goals": {
-          "objectToReceptacleMap": {
-            "0": [1],
-            "1": [0]
-          }
-        }
-      },
-      "start_position": [-11.3673, -3.26423, -8.80651],
-      "start_rotation": [0, 0.932021, 0, 0.362406],
-      "objects": [
-          {
-            "object": "mini_soccer_ball",
-            "objectIcon": "/data/test_assets/objects/mini_soccer_ball.png",
-            "objectHandle": "/data/objects/mini_soccer_ball.phys_properties.json",
-            "position": [-16.129423141479492,-2.927676200866699,-5.902671813964844],
-            "rotation": [0.0, 0.0, 0.0, 1.0],
-            "isReceptacle": false,
-            "motionType": "STATIC"
-          },
-          {
-            "object": "sphere",
-            "objectIcon": "/data/test_assets/objects/sphere.png",
-            "objectHandle": "/data/objects/sphere.phys_properties.json",
-            "position": [-16.853002548217773,-2.2184619903564453,-4.310222625732422],
-            "rotation": [0.0, 0.0, 0.0, 1.0],
-            "isReceptacle": false,
-            "motionType": "STATIC"
-          },
-          {
-            "object": "colored_wood_blocks",
-            "objectIcon": "/data/test_assets/objects/colored_wood_blocks.png",
-            "objectHandle": "/data/objects/colored_wood_blocks.phys_properties.json",
-            "position": [-10.879691123962402,-3.791804075241089,-14.2726411819458],
-            "rotation": [0.0, 0.0, 0.0, 1.0],
-            "isReceptacle": true,
-            "motionType": "STATIC"
-          }
-      ]
+      "episode_id": 21,
+            "scene_id": "empty_house.glb",
+            "start_position": [
+                -3.20127534866333,
+                0.2556071877479553,
+                2.2942442893981934
+            ],
+            "start_rotation": [
+                0,
+                0.8335522246689695,
+                0,
+                -0.5524406653654417
+            ],
+            "task": {
+                "instruction": "Place the orange on the red plate",
+                "type": "arrangement",
+                "goals": {
+                    "objectToReceptacleMap": {
+                        "1": [
+                            0
+                        ]
+                    }
+                }
+            },
+            "objects": [
+                {
+                    "object": "orange",
+                    "objectHandle": "/data/objects/orange.phys_properties.json",
+                    "objectIcon": "/data/test_assets/objects/orange.png",
+                    "objectId": 0,
+                    "isReceptacle": false,
+                    "position": [
+                        -0.6160899996757507,
+                        -0.2089587301015854,
+                        -3.8847639560699463
+                    ],
+                    "rotation": [
+                        0,
+                        0.3978668126646402,
+                        0,
+                        -0.9174431859140271
+                    ],
+                    "motionType": "DYNAMIC"
+                },
+                {
+                    "object": "red plate",
+                    "objectHandle": "/data/objects/plate.phys_properties.json",
+                    "objectIcon": "/data/test_assets/objects/plate.png",
+                    "objectId": 1,
+                    "isReceptacle": true,
+                    "position": [
+                        -0.5415989756584167,
+                        -0.2089587301015854,
+                        -0.29881930351257324
+                    ],
+                    "rotation": [
+                        0,
+                        0.7831022971267534,
+                        0,
+                        -0.6218929105841311
+                    ],
+                    "motionType": "DYNAMIC"
+                }
+            ]
     }
   ]
 }

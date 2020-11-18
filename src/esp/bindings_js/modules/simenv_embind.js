@@ -72,6 +72,7 @@ class SimEnv {
    * @param {Object} episode - episode config
    */
   setEpisode(episode = {}) {
+    console.log(episode);
     this.removeAllObjects();
     this.episode = episode;
     this.initialAgentState = null;
@@ -82,7 +83,21 @@ class SimEnv {
       // add agent object for collision test
       this.sim.addContactTestObject(this.agentObjectHandle, 0);
 
-      let objects = episode.objects;
+      let objects = JSON.parse(JSON.stringify(episode.objects));
+
+      objects.sort(function(a, b) {
+        var keyA = a["objectId"];
+        var keyB = b["objectId"];
+
+        if (keyA < keyB) {
+          return -1;
+        }
+        if (keyA > keyB) {
+          return 1;
+        }
+        return 0;
+      });
+
       for (let index in objects) {
         let objectLibHandle = objects[index]["objectHandle"];
         let position = this.convertVec3fToVector3(objects[index]["position"]);
@@ -608,18 +623,17 @@ class SimEnv {
         this.nearestObjectId = objectId;
       }
     } else {
-      // Don't draw bb around receptacles
-      let object = this.getObjectFromScene(objectId);
-      if (object["isReceptacle"] === true) {
-        return;
-      }
-
       if (
         this.nearestObjectId != -1 &&
         this.grippedObjectId != this.nearestObjectId
       ) {
         this.setObjectBBDraw(false, this.nearestObjectId, 0);
         this.nearestObjectId = -1;
+      }
+      // Don't draw bb around receptacles
+      let object = this.getObjectFromScene(objectId);
+      if (object["isReceptacle"] === true) {
+        return;
       }
       if (this.nearestObjectId != objectId) {
         this.nearestObjectId = objectId;
@@ -806,6 +820,10 @@ class SimEnv {
       this.convertVector3ToVec3f(destinationPosition)
     );
     return distance;
+  }
+
+  getObjectBBYCoord(objectId) {
+    return this.sim.getObjectBBYCoord(objectId);
   }
 
   getObjectStates() {

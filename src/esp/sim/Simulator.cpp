@@ -1171,5 +1171,13 @@ void Simulator::updateDropPointNode(Magnum::Vector3 position) {
   dropPointNode_->setTranslation(position);
 }
 
+float Simulator::getObjectBBYCoord(int objectId) {
+  if (objectId != -1) {
+    auto objectSceneNode = getObjectSceneNode(objectId, 0);
+    return objectSceneNode->getCumulativeBB().sizeY() / 2.0;
+  }
+  return 0.0f;
+}
+
 }  // namespace sim
 }  // namespace esp

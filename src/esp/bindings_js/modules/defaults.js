@@ -187,37 +187,20 @@ export const flythroughReplayFile = {
 export const taskFiles = {
   tasks: [
     {
-      name: "task_1.json",
-      config: "tasks/task_1.json",
+      name: "task_3.json",
+      config: "tasks/task_3.json",
       scene: "empty_house.glb",
       flythroughTask: {
-        name: "replay_task_1.json",
-        config: "tasks/replay_task_1.json"
+        name: "replay_task_3.json",
+        config: "tasks/replay_task_3.json"
       },
       flythroughReplayFile: {
-        name: "replay_task_1.csv",
-        location: "replays/replay_task_1.csv"
+        name: "replay_task_3.csv",
+        location: "replays/replay_task_3.csv"
       },
       trainingTask: {
-        name: "training_task_1.json",
-        config: "tasks/training_task_1.json"
-      }
-    },
-    {
-      name: "task_2.json",
-      config: "tasks/task_2.json",
-      scene: "empty_house.glb",
-      flythroughTask: {
-        name: "replay_task_2.json",
-        config: "tasks/replay_task_2.json"
-      },
-      flythroughReplayFile: {
-        name: "replay_task_2.csv",
-        location: "replays/replay_task_2.csv"
-      },
-      trainingTask: {
-        name: "training_task_2.json",
-        config: "tasks/training_task_2.json"
+        name: "training_task_3.json",
+        config: "tasks/training_task_3.json"
       }
     }
   ]

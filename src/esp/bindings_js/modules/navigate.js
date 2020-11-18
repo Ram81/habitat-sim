@@ -194,6 +194,7 @@ class NavigateTask {
     let startReplay = false;
 
     this.replayTimeouts = [];
+    //var count = 0;
     for (let iLine = 0; iLine < replayLines.length; ++iLine) {
       const line = replayLines[iLine];
       // Skip empty lines
@@ -226,6 +227,9 @@ class NavigateTask {
       if (!startTimestamp) {
         startTimestamp = timestamp;
       }
+      // if (datum["event"] == "handleAction") {
+      //   count += 1;
+      // }
 
       const delay = (timestamp - startTimestamp) / speed;
       const replayTimeout = window.setTimeout(function() {
@@ -431,7 +435,6 @@ class NavigateTask {
     if (window.config.runFlythrough) {
       return false;
     }
-
     return this.taskValidator.validate();
   }
 

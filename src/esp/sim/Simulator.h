@@ -875,6 +875,8 @@ class Simulator {
 
   void updateDropPointNode(Magnum::Vector3 position);
 
+  float getObjectBBYCoord(int objectId);
+
   /**
    * @brief Getter for PRNG.
    *

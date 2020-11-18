@@ -64,16 +64,26 @@ class TaskValidator {
 
     for (let key in objectToGoalMap) {
       let sourceObjectId = objectsInScene[parseInt(key)]["objectId"];
+      let sourcePosition = this.sim.convertVector3ToVec3f(
+        this.sim.getTranslation(sourceObjectId, 0)
+      );
       let receptacles = objectToGoalMap[key];
 
       let success = false;
       for (let i = 0; i < receptacles.length; i++) {
         let receptacleObjectId = objectsInScene[receptacles[i]]["objectId"];
-        let distance = this.sim.getDistanceBetweenObjects(
-          sourceObjectId,
-          receptacleObjectId
+        let receptaclePosition = this.sim.convertVector3ToVec3f(
+          this.sim.getTranslation(receptacleObjectId, 0)
         );
-        if (distance <= 1.5) {
+
+        let distance = this.sim.geodesicDistance(
+          sourcePosition,
+          receptaclePosition
+        );
+        let receptacleY =
+          receptaclePosition[1] +
+          this.sim.getObjectBBYCoord(receptacleObjectId);
+        if (distance <= 1.5 && sourcePosition[1] > receptacleY) {
           success = true;
         }
       }
