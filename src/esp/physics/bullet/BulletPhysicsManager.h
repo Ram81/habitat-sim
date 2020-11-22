@@ -201,15 +201,6 @@ class BulletPhysicsManager : public PhysicsManager {
   // in the current scene.
   int getNumActiveContactPoints() override;
 
-  /**
-   * @brief 
-   *
-   * @param physObjectID The object ID and key identifying the object in @ref
-   * PhysicsManager::existingObjects_.
-   * @param active boolean flag to set active status
-   */
-  virtual void setActive(const int physObjectID, bool active) override;
-
  protected:
   //============ Initialization =============
   /**
@@ -247,10 +238,6 @@ class BulletPhysicsManager : public PhysicsManager {
   bool makeAndAddContactTestRigidObject(int newObjectID,
                                         const std::string& handle,
                                         scene::SceneNode* objectNode) override;
-
-  int getNumActiveContactPoints() {
-    return BulletDebugManager::get().getNumActiveContactPoints(bWorld_.get());
-  }
 
   int getNumActiveOverlappingPairs() {
     return BulletDebugManager::get().getNumActiveOverlappingPairs(

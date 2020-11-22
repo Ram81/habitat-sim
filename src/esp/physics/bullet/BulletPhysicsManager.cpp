@@ -74,8 +74,9 @@ bool BulletPhysicsManager::makeAndAddContactTestRigidObject(
     const std::string& handle,
     scene::SceneNode* objectNode) {
   auto ptr = physics::BulletRigidObject::create_unique(
-      objectNode, newObjectID, bWorld_, collisionObjToObjIds_);
-  bool objSuccess = ptr->initialize(resourceManager_, handle);
+      objectNode, newObjectID, resourceManager_, bWorld_,
+      collisionObjToObjIds_);
+  bool objSuccess = ptr->initialize(handle);
   if (objSuccess) {
     contactTestObjects_.emplace(handle, std::move(ptr));
   }
@@ -320,12 +321,6 @@ int BulletPhysicsManager::getNumActiveContactPoints() {
     }
   }
   return pointCount;
-}
-
-void BulletPhysicsManager::setActive(const int physObjectID, bool active) {
-  assertIDValidity(physObjectID);
-  static_cast<BulletRigidObject*>(existingObjects_.at(physObjectID).get())
-      ->setActive();
 }
 
 Magnum::Matrix4 BulletPhysicsManager::getBulletTransformation(
