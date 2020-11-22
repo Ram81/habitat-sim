@@ -274,8 +274,9 @@ bool PhysicsManager::makeAndAddContactTestRigidObject(
     int newObjectID,
     const std::string& handle,
     scene::SceneNode* objectNode) {
-  auto ptr = physics::RigidObject::create_unique(objectNode, newObjectID);
-  bool objSuccess = ptr->initialize(resourceManager_, handle);
+  auto ptr = physics::RigidObject::create_unique(objectNode, newObjectID,
+                                                 resourceManager_);
+  bool objSuccess = ptr->initialize(handle);
   if (objSuccess) {
     contactTestObjects_.emplace(handle, std::move(ptr));
   }
