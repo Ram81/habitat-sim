@@ -111,7 +111,7 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
       .value("OBJECT", gfx::LightPositionModel::OBJECT);
 
   em::value_object<gfx::LightInfo>("LightInfo")
-      .field("position", &gfx::LightInfo::position)
+      .field("position", &gfx::LightInfo::vector)
       .field("color", &gfx::LightInfo::color)
       .field("model", &gfx::LightInfo::model);
 
@@ -332,7 +332,7 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
                 &SceneNode::setSemanticId);
 
   em::enum_<MotionType>("MotionType")
-      .value("ERROR_MOTIONTYPE", MotionType::ERROR_MOTIONTYPE)
+      .value("UNDEFINED", MotionType::UNDEFINED)
       .value("STATIC", MotionType::STATIC)
       .value("KINEMATIC", MotionType::KINEMATIC)
       .value("DYNAMIC", MotionType::DYNAMIC);

@@ -1,1 +1,862 @@
-{"episodes": [{"episode_id": 0, "scene_id": "empty_house.glb", "start_position": [0.11940827965736389, -0.2089587301015854, -4.367576599121094], "start_rotation": [0, 0.5881682034078047, 0, -0.8087386255769136], "task": {"instruction": "Place the soccer ball on the colored wood block", "type": "arrangement", "goals": {"objectToReceptacleMap": {"0": [1]}}}, "objects": [{"object": "soccer ball", "objectHandle": "/data/objects/mini_soccer_ball.phys_properties.json", "objectIcon": "/data/test_assets/objects/mini_soccer_ball.png", "objectId": 0, "isReceptacle": false, "position": [-1.748628854751587, -0.2089587301015854, -8.721595764160156], "rotation": [0, 0.5076967582670391, 0, -0.8615358388628644], "motionType": "DYNAMIC"}, {"object": "colored wood block", "objectHandle": "/data/objects/colored_wood_blocks.phys_properties.json", "objectIcon": "/data/test_assets/objects/colored_wood_blocks.png", "objectId": 1, "isReceptacle": true, "position": [-3.54640531539917, -0.2089587301015854, -6.2800188064575195], "rotation": [0, 0.23497494447302888, 0, -0.9720014277098038], "motionType": "DYNAMIC"}]}, {"episode_id": 1, "scene_id": "empty_house.glb", "start_position": [1.079850673675537, -0.2089587301015854, -6.615890979766846], "start_rotation": [0, 0.7678212558692523, 0, -0.6406641234183198], "task": {"instruction": "Place the cheezit box on the red plate", "type": "arrangement", "goals": {"objectToReceptacleMap": {"0": [1]}}}, "objects": [{"object": "cheezit box", "objectHandle": "/data/objects/cracker_box.phys_properties.json", "objectIcon": "/data/test_assets/objects/cracker_box.png", "objectId": 0, "isReceptacle": false, "position": [0.5735054016113281, -0.2089587301015854, -0.267477810382843], "rotation": [0, 0.33417183630699143, 0, 0.9425121664038154], "motionType": "DYNAMIC"}, {"object": "red plate", "objectHandle": "/data/objects/plate.phys_properties.json", "objectIcon": "/data/test_assets/objects/plate.png", "objectId": 1, "isReceptacle": true, "position": [-0.05296366661787033, -0.2089587301015854, -1.7418235540390015], "rotation": [0, 0.8483447891242859, 0, 0.5294441601960218], "motionType": "DYNAMIC"}]}, {"episode_id": 2, "scene_id": "empty_house.glb", "start_position": [0.7361730337142944, -0.2089587301015854, -2.1774697303771973], "start_rotation": [0, 0.653904475181171, 0, -0.7565771192271395], "task": {"instruction": "Place the tomato soup can on the red plate", "type": "arrangement", "goals": {"objectToReceptacleMap": {"0": [1]}}}, "objects": [{"object": "tomato soup can", "objectHandle": "/data/objects/tomato_soup_can.phys_properties.json", "objectIcon": "/data/test_assets/objects/tomato_soup_can.png", "objectId": 0, "isReceptacle": false, "position": [-0.02069321647286415, -0.2089587301015854, -0.5561367869377136], "rotation": [0, 0.9742968543979147, 0, -0.2252679282772596], "motionType": "DYNAMIC"}, {"object": "red plate", "objectHandle": "/data/objects/plate.phys_properties.json", "objectIcon": "/data/test_assets/objects/plate.png", "objectId": 1, "isReceptacle": true, "position": [1.8440160751342773, -0.2089587301015854, -5.060064315795898], "rotation": [0, 0.9647822878894614, 0, 0.26304968537289], "motionType": "DYNAMIC"}]}, {"episode_id": 3, "scene_id": "empty_house.glb", "start_position": [-3.460669994354248, -0.2089587301015854, -5.33884334564209], "start_rotation": [0, 0.9456322622489272, 0, -0.3252377969947164], "task": {"instruction": "Place the masterchef can on the red plate", "type": "arrangement", "goals": {"objectToReceptacleMap": {"0": [1]}}}, "objects": [{"object": "masterchef can", "objectHandle": "/data/objects/master_chef_can.phys_properties.json", "objectIcon": "/data/test_assets/objects/master_chef_can.png", "objectId": 0, "isReceptacle": false, "position": [-0.9081753492355347, -0.2089587301015854, -5.328302383422852], "rotation": [0, 0.8254369328472552, 0, 0.5644943488572016], "motionType": "DYNAMIC"}, {"object": "red plate", "objectHandle": "/data/objects/plate.phys_properties.json", "objectIcon": "/data/test_assets/objects/plate.png", "objectId": 1, "isReceptacle": true, "position": [-5.791017055511475, -0.2089587301015854, -3.687103271484375], "rotation": [0, 0.9783540906640816, 0, 0.20693784883596825], "motionType": "DYNAMIC"}]}, {"episode_id": 4, "scene_id": "empty_house.glb", "start_position": [1.1995192766189575, -0.2089587301015854, -4.488183498382568], "start_rotation": [0, 0.9508371791083313, 0, 0.30969123143109994], "task": {"instruction": "Place the toy airplane on the colored wood block", "type": "arrangement", "goals": {"objectToReceptacleMap": {"0": [1]}}}, "objects": [{"object": "toy airplane", "objectHandle": "/data/objects/toy_airplane.phys_properties.json", "objectIcon": "/data/test_assets/objects/toy_airplane.png", "objectId": 0, "isReceptacle": false, "position": [-0.7134274244308472, -0.2089587301015854, -7.481851100921631], "rotation": [0, 0.9997166989624973, 0, 0.023801718751542165], "motionType": "DYNAMIC"}, {"object": "colored wood block", "objectHandle": "/data/objects/colored_wood_blocks.phys_properties.json", "objectIcon": "/data/test_assets/objects/colored_wood_blocks.png", "objectId": 1, "isReceptacle": true, "position": [1.563303828239441, -0.2089587301015854, -2.3333561420440674], "rotation": [0, 0.5791125799603115, 0, -0.8152475818619224], "motionType": "DYNAMIC"}]}, {"episode_id": 5, "scene_id": "empty_house.glb", "start_position": [-1.637902021408081, -0.2089587301015854, -6.63114595413208], "start_rotation": [0, 0.9988685844558135, 0, -0.04755576712912179], "task": {"instruction": "Place the apple on the red plate", "type": "arrangement", "goals": {"objectToReceptacleMap": {"0": [1]}}}, "objects": [{"object": "apple", "objectHandle": "/data/objects/apple.phys_properties.json", "objectIcon": "/data/test_assets/objects/apple.png", "objectId": 0, "isReceptacle": false, "position": [1.9577006101608276, -0.2089587301015854, -5.461087703704834], "rotation": [0, 0.8508748113335772, 0, -0.525368494904338], "motionType": "DYNAMIC"}, {"object": "red plate", "objectHandle": "/data/objects/plate.phys_properties.json", "objectIcon": "/data/test_assets/objects/plate.png", "objectId": 1, "isReceptacle": true, "position": [2.025787591934204, -0.2089587301015854, -1.509331464767456], "rotation": [0, 0.8393223674781274, 0, -0.5436340344854351], "motionType": "DYNAMIC"}]}, {"episode_id": 6, "scene_id": "empty_house.glb", "start_position": [-1.1240237951278687, -0.2089587301015854, -1.6044063568115234], "start_rotation": [0, 0.926949626556956, 0, -0.37518580706887067], "task": {"instruction": "Place the apple on the red bowl", "type": "arrangement", "goals": {"objectToReceptacleMap": {"0": [1]}}}, "objects": [{"object": "apple", "objectHandle": "/data/objects/apple.phys_properties.json", "objectIcon": "/data/test_assets/objects/apple.png", "objectId": 0, "isReceptacle": false, "position": [1.4006943702697754, -0.2089587301015854, -4.019855976104736], "rotation": [0, 0.7691398350627485, 0, -0.6390805224067214], "motionType": "DYNAMIC"}, {"object": "red bowl", "objectHandle": "/data/objects/bowl.phys_properties.json", "objectIcon": "/data/test_assets/objects/bowl.png", "objectId": 1, "isReceptacle": true, "position": [0.5112041234970093, -0.2089587301015854, -2.290581703186035], "rotation": [0, 0.5705912140773709, 0, 0.8212342335885128], "motionType": "DYNAMIC"}]}, {"episode_id": 7, "scene_id": "empty_house.glb", "start_position": [0.31289905309677124, -0.2089587301015854, -2.5146701335906982], "start_rotation": [0, 0.16774114877569277, 0, 0.9858310742756139], "task": {"instruction": "Place the banana on the red plate", "type": "arrangement", "goals": {"objectToReceptacleMap": {"0": [1]}}}, "objects": [{"object": "banana", "objectHandle": "/data/objects/banana.phys_properties.json", "objectIcon": "/data/test_assets/objects/banana.png", "objectId": 0, "isReceptacle": false, "position": [-0.3388980031013489, -0.2089587301015854, 0.3222258687019348], "rotation": [0, 0.10477311599783566, 0, 0.9944961509046196], "motionType": "DYNAMIC"}, {"object": "red plate", "objectHandle": "/data/objects/plate.phys_properties.json", "objectIcon": "/data/test_assets/objects/plate.png", "objectId": 1, "isReceptacle": true, "position": [0.868793785572052, -0.2089587301015854, -5.714116096496582], "rotation": [0, 0.786262688035294, 0, -0.617892373640842], "motionType": "DYNAMIC"}]}, {"episode_id": 8, "scene_id": "empty_house.glb", "start_position": [-1.8750686645507812, -0.2089587301015854, -5.065003871917725], "start_rotation": [0, 0.056998255403925946, 0, -0.9983742779543696], "task": {"instruction": "Place the orange on the red plate", "type": "arrangement", "goals": {"objectToReceptacleMap": {"0": [1]}}}, "objects": [{"object": "orange", "objectHandle": "/data/objects/orange.phys_properties.json", "objectIcon": "/data/test_assets/objects/orange.png", "objectId": 0, "isReceptacle": false, "position": [-0.07369018346071243, -0.2089587301015854, -2.7746052742004395], "rotation": [0, 0.3240949315617746, 0, 0.9460245638121499], "motionType": "DYNAMIC"}, {"object": "red plate", "objectHandle": "/data/objects/plate.phys_properties.json", "objectIcon": "/data/test_assets/objects/plate.png", "objectId": 1, "isReceptacle": true, "position": [1.2345513105392456, -0.2089587301015854, -5.128818511962891], "rotation": [0, 0.8320429976349326, 0, -0.5547111411236262], "motionType": "DYNAMIC"}]}, {"episode_id": 9, "scene_id": "empty_house.glb", "start_position": [1.5194286108016968, -0.2089587301015854, -5.94008207321167], "start_rotation": [0, 0.7043946080563268, 0, -0.7098085911998908], "task": {"instruction": "Place the orange on the red bowl", "type": "arrangement", "goals": {"objectToReceptacleMap": {"0": [1]}}}, "objects": [{"object": "orange", "objectHandle": "/data/objects/orange.phys_properties.json", "objectIcon": "/data/test_assets/objects/orange.png", "objectId": 0, "isReceptacle": false, "position": [-4.4341654777526855, -0.2089587301015854, -5.958678245544434], "rotation": [0, 0.5245404175673283, 0, 0.8513855474098047], "motionType": "DYNAMIC"}, {"object": "red bowl", "objectHandle": "/data/objects/bowl.phys_properties.json", "objectIcon": "/data/test_assets/objects/bowl.png", "objectId": 1, "isReceptacle": true, "position": [-0.18241393566131592, -0.2089587301015854, -7.104233264923096], "rotation": [0, 0.9999784308085959, 0, 0.006567946222236305], "motionType": "DYNAMIC"}]}, {"episode_id": 10, "scene_id": "empty_house.glb", "start_position": [0.05896151065826416, -0.2089587301015854, -5.832406997680664], "start_rotation": [0, 0.6950210526627588, 0, -0.718989385426204], "task": {"instruction": "Place the red mug on the red plate", "type": "arrangement", "goals": {"objectToReceptacleMap": {"0": [1]}}}, "objects": [{"object": "red mug", "objectHandle": "/data/objects/mug.phys_properties.json", "objectIcon": "/data/test_assets/objects/mug.png", "objectId": 0, "isReceptacle": false, "position": [0.017938125878572464, -0.2089587301015854, -0.017308294773101807], "rotation": [0, 0.7739301393670901, 0, -0.6332709841602064], "motionType": "DYNAMIC"}, {"object": "red plate", "objectHandle": "/data/objects/plate.phys_properties.json", "objectIcon": "/data/test_assets/objects/plate.png", "objectId": 1, "isReceptacle": true, "position": [-0.3918169140815735, -0.2089587301015854, -2.367544651031494], "rotation": [0, 0.728745536208978, 0, 0.6847845963918064], "motionType": "DYNAMIC"}]}, {"episode_id": 11, "scene_id": "empty_house.glb", "start_position": [-4.638582706451416, -0.2089587301015854, -7.046221733093262], "start_rotation": [0, 0.2550780982099237, 0, 0.9669204537156139], "task": {"instruction": "Place the mustard bottle on the red plate", "type": "arrangement", "goals": {"objectToReceptacleMap": {"0": [1]}}}, "objects": [{"object": "mustard bottle", "objectHandle": "/data/objects/mustard_bottle.phys_properties.json", "objectIcon": "/data/test_assets/objects/mustard_bottle.png", "objectId": 0, "isReceptacle": false, "position": [-2.118685722351074, -0.2089587301015854, -6.355055809020996], "rotation": [0, 0.0826256240530818, 0, 0.9965806571722325], "motionType": "DYNAMIC"}, {"object": "red plate", "objectHandle": "/data/objects/plate.phys_properties.json", "objectIcon": "/data/test_assets/objects/plate.png", "objectId": 1, "isReceptacle": true, "position": [0.32617658376693726, -0.2089587301015854, -5.997129440307617], "rotation": [0, 0.6358376993976649, 0, 0.7718227905579653], "motionType": "DYNAMIC"}]}, {"episode_id": 12, "scene_id": "empty_house.glb", "start_position": [2.1700406074523926, -0.2089587301015854, -1.280232548713684], "start_rotation": [0, 0.9990164327813158, 0, 0.04434148207823841], "task": {"instruction": "Place the hammer on the wood block", "type": "arrangement", "goals": {"objectToReceptacleMap": {"0": [1]}}}, "objects": [{"object": "hammer", "objectHandle": "/data/objects/hammer.phys_properties.json", "objectIcon": "/data/test_assets/objects/hammer.png", "objectId": 0, "isReceptacle": false, "position": [-0.7834087610244751, -0.2089587301015854, -6.839974403381348], "rotation": [0, 0.953584365373175, 0, -0.30112598379389166], "motionType": "DYNAMIC"}, {"object": "wood block", "objectHandle": "/data/objects/wood_block.phys_properties.json", "objectIcon": "/data/test_assets/objects/wood_block.png", "objectId": 1, "isReceptacle": true, "position": [0.9114474058151245, -0.2089587301015854, -5.2142791748046875], "rotation": [0, 0.970889501041386, 0, 0.23952782044599408], "motionType": "DYNAMIC"}]}]}
+{
+    "episodes": [
+        {
+            "episode_id": 0,
+            "scene_id": "empty_house.glb",
+            "start_position": [
+                0.11940827965736389,
+                -0.2089587301015854,
+                -4.367576599121094
+            ],
+            "start_rotation": [
+                0,
+                0.5881682034078047,
+                0,
+                -0.8087386255769136
+            ],
+            "task": {
+                "instruction": "Place the soccer ball on the colored wood block",
+                "type": "arrangement",
+                "goals": {
+                    "objectToReceptacleMap": {
+                        "0": [
+                            1
+                        ]
+                    }
+                }
+            },
+            "objects": [
+                {
+                    "object": "soccer ball",
+                    "objectHandle": "/data/objects/mini_soccer_ball.object_config.json",
+                    "objectIcon": "/data/test_assets/objects/mini_soccer_ball.png",
+                    "objectId": 0,
+                    "isReceptacle": false,
+                    "position": [
+                        -1.748628854751587,
+                        -0.2089587301015854,
+                        -8.721595764160156
+                    ],
+                    "rotation": [
+                        0,
+                        0.5076967582670391,
+                        0,
+                        -0.8615358388628644
+                    ],
+                    "motionType": "DYNAMIC"
+                },
+                {
+                    "object": "colored wood block",
+                    "objectHandle": "/data/objects/colored_wood_blocks.object_config.json",
+                    "objectIcon": "/data/test_assets/objects/colored_wood_blocks.png",
+                    "objectId": 1,
+                    "isReceptacle": true,
+                    "position": [
+                        -3.54640531539917,
+                        -0.2089587301015854,
+                        -6.2800188064575195
+                    ],
+                    "rotation": [
+                        0,
+                        0.23497494447302888,
+                        0,
+                        -0.9720014277098038
+                    ],
+                    "motionType": "DYNAMIC"
+                }
+            ]
+        },
+        {
+            "episode_id": 1,
+            "scene_id": "empty_house.glb",
+            "start_position": [
+                1.079850673675537,
+                -0.2089587301015854,
+                -6.615890979766846
+            ],
+            "start_rotation": [
+                0,
+                0.7678212558692523,
+                0,
+                -0.6406641234183198
+            ],
+            "task": {
+                "instruction": "Place the cheezit box on the red plate",
+                "type": "arrangement",
+                "goals": {
+                    "objectToReceptacleMap": {
+                        "0": [
+                            1
+                        ]
+                    }
+                }
+            },
+            "objects": [
+                {
+                    "object": "cheezit box",
+                    "objectHandle": "/data/objects/cracker_box.object_config.json",
+                    "objectIcon": "/data/test_assets/objects/cracker_box.png",
+                    "objectId": 0,
+                    "isReceptacle": false,
+                    "position": [
+                        0.5735054016113281,
+                        -0.2089587301015854,
+                        -0.267477810382843
+                    ],
+                    "rotation": [
+                        0,
+                        0.33417183630699143,
+                        0,
+                        0.9425121664038154
+                    ],
+                    "motionType": "DYNAMIC"
+                },
+                {
+                    "object": "red plate",
+                    "objectHandle": "/data/objects/plate.object_config.json",
+                    "objectIcon": "/data/test_assets/objects/plate.png",
+                    "objectId": 1,
+                    "isReceptacle": true,
+                    "position": [
+                        -0.05296366661787033,
+                        -0.2089587301015854,
+                        -1.7418235540390015
+                    ],
+                    "rotation": [
+                        0,
+                        0.8483447891242859,
+                        0,
+                        0.5294441601960218
+                    ],
+                    "motionType": "DYNAMIC"
+                }
+            ]
+        },
+        {
+            "episode_id": 2,
+            "scene_id": "empty_house.glb",
+            "start_position": [
+                0.7361730337142944,
+                -0.2089587301015854,
+                -2.1774697303771973
+            ],
+            "start_rotation": [
+                0,
+                0.653904475181171,
+                0,
+                -0.7565771192271395
+            ],
+            "task": {
+                "instruction": "Place the tomato soup can on the red plate",
+                "type": "arrangement",
+                "goals": {
+                    "objectToReceptacleMap": {
+                        "0": [
+                            1
+                        ]
+                    }
+                }
+            },
+            "objects": [
+                {
+                    "object": "tomato soup can",
+                    "objectHandle": "/data/objects/tomato_soup_can.object_config.json",
+                    "objectIcon": "/data/test_assets/objects/tomato_soup_can.png",
+                    "objectId": 0,
+                    "isReceptacle": false,
+                    "position": [
+                        -0.02069321647286415,
+                        -0.2089587301015854,
+                        -0.5561367869377136
+                    ],
+                    "rotation": [
+                        0,
+                        0.9742968543979147,
+                        0,
+                        -0.2252679282772596
+                    ],
+                    "motionType": "DYNAMIC"
+                },
+                {
+                    "object": "red plate",
+                    "objectHandle": "/data/objects/plate.object_config.json",
+                    "objectIcon": "/data/test_assets/objects/plate.png",
+                    "objectId": 1,
+                    "isReceptacle": true,
+                    "position": [
+                        1.8440160751342773,
+                        -0.2089587301015854,
+                        -5.060064315795898
+                    ],
+                    "rotation": [
+                        0,
+                        0.9647822878894614,
+                        0,
+                        0.26304968537289
+                    ],
+                    "motionType": "DYNAMIC"
+                }
+            ]
+        },
+        {
+            "episode_id": 3,
+            "scene_id": "empty_house.glb",
+            "start_position": [
+                -3.460669994354248,
+                -0.2089587301015854,
+                -5.33884334564209
+            ],
+            "start_rotation": [
+                0,
+                0.9456322622489272,
+                0,
+                -0.3252377969947164
+            ],
+            "task": {
+                "instruction": "Place the masterchef can on the red plate",
+                "type": "arrangement",
+                "goals": {
+                    "objectToReceptacleMap": {
+                        "0": [
+                            1
+                        ]
+                    }
+                }
+            },
+            "objects": [
+                {
+                    "object": "masterchef can",
+                    "objectHandle": "/data/objects/master_chef_can.object_config.json",
+                    "objectIcon": "/data/test_assets/objects/master_chef_can.png",
+                    "objectId": 0,
+                    "isReceptacle": false,
+                    "position": [
+                        -0.9081753492355347,
+                        -0.2089587301015854,
+                        -5.328302383422852
+                    ],
+                    "rotation": [
+                        0,
+                        0.8254369328472552,
+                        0,
+                        0.5644943488572016
+                    ],
+                    "motionType": "DYNAMIC"
+                },
+                {
+                    "object": "red plate",
+                    "objectHandle": "/data/objects/plate.object_config.json",
+                    "objectIcon": "/data/test_assets/objects/plate.png",
+                    "objectId": 1,
+                    "isReceptacle": true,
+                    "position": [
+                        -5.791017055511475,
+                        -0.2089587301015854,
+                        -3.687103271484375
+                    ],
+                    "rotation": [
+                        0,
+                        0.9783540906640816,
+                        0,
+                        0.20693784883596825
+                    ],
+                    "motionType": "DYNAMIC"
+                }
+            ]
+        },
+        {
+            "episode_id": 4,
+            "scene_id": "empty_house.glb",
+            "start_position": [
+                1.1995192766189575,
+                -0.2089587301015854,
+                -4.488183498382568
+            ],
+            "start_rotation": [
+                0,
+                0.9508371791083313,
+                0,
+                0.30969123143109994
+            ],
+            "task": {
+                "instruction": "Place the toy airplane on the colored wood block",
+                "type": "arrangement",
+                "goals": {
+                    "objectToReceptacleMap": {
+                        "0": [
+                            1
+                        ]
+                    }
+                }
+            },
+            "objects": [
+                {
+                    "object": "toy airplane",
+                    "objectHandle": "/data/objects/toy_airplane.object_config.json",
+                    "objectIcon": "/data/test_assets/objects/toy_airplane.png",
+                    "objectId": 0,
+                    "isReceptacle": false,
+                    "position": [
+                        -0.7134274244308472,
+                        -0.2089587301015854,
+                        -7.481851100921631
+                    ],
+                    "rotation": [
+                        0,
+                        0.9997166989624973,
+                        0,
+                        0.023801718751542165
+                    ],
+                    "motionType": "DYNAMIC"
+                },
+                {
+                    "object": "colored wood block",
+                    "objectHandle": "/data/objects/colored_wood_blocks.object_config.json",
+                    "objectIcon": "/data/test_assets/objects/colored_wood_blocks.png",
+                    "objectId": 1,
+                    "isReceptacle": true,
+                    "position": [
+                        1.563303828239441,
+                        -0.2089587301015854,
+                        -2.3333561420440674
+                    ],
+                    "rotation": [
+                        0,
+                        0.5791125799603115,
+                        0,
+                        -0.8152475818619224
+                    ],
+                    "motionType": "DYNAMIC"
+                }
+            ]
+        },
+        {
+            "episode_id": 5,
+            "scene_id": "empty_house.glb",
+            "start_position": [
+                -1.637902021408081,
+                -0.2089587301015854,
+                -6.63114595413208
+            ],
+            "start_rotation": [
+                0,
+                0.9988685844558135,
+                0,
+                -0.04755576712912179
+            ],
+            "task": {
+                "instruction": "Place the apple on the red plate",
+                "type": "arrangement",
+                "goals": {
+                    "objectToReceptacleMap": {
+                        "0": [
+                            1
+                        ]
+                    }
+                }
+            },
+            "objects": [
+                {
+                    "object": "apple",
+                    "objectHandle": "/data/objects/apple.object_config.json",
+                    "objectIcon": "/data/test_assets/objects/apple.png",
+                    "objectId": 0,
+                    "isReceptacle": false,
+                    "position": [
+                        1.9577006101608276,
+                        -0.2089587301015854,
+                        -5.461087703704834
+                    ],
+                    "rotation": [
+                        0,
+                        0.8508748113335772,
+                        0,
+                        -0.525368494904338
+                    ],
+                    "motionType": "DYNAMIC"
+                },
+                {
+                    "object": "red plate",
+                    "objectHandle": "/data/objects/plate.object_config.json",
+                    "objectIcon": "/data/test_assets/objects/plate.png",
+                    "objectId": 1,
+                    "isReceptacle": true,
+                    "position": [
+                        2.025787591934204,
+                        -0.2089587301015854,
+                        -1.509331464767456
+                    ],
+                    "rotation": [
+                        0,
+                        0.8393223674781274,
+                        0,
+                        -0.5436340344854351
+                    ],
+                    "motionType": "DYNAMIC"
+                }
+            ]
+        },
+        {
+            "episode_id": 6,
+            "scene_id": "empty_house.glb",
+            "start_position": [
+                -1.1240237951278687,
+                -0.2089587301015854,
+                -1.6044063568115234
+            ],
+            "start_rotation": [
+                0,
+                0.926949626556956,
+                0,
+                -0.37518580706887067
+            ],
+            "task": {
+                "instruction": "Place the apple on the red bowl",
+                "type": "arrangement",
+                "goals": {
+                    "objectToReceptacleMap": {
+                        "0": [
+                            1
+                        ]
+                    }
+                }
+            },
+            "objects": [
+                {
+                    "object": "apple",
+                    "objectHandle": "/data/objects/apple.object_config.json",
+                    "objectIcon": "/data/test_assets/objects/apple.png",
+                    "objectId": 0,
+                    "isReceptacle": false,
+                    "position": [
+                        1.4006943702697754,
+                        -0.2089587301015854,
+                        -4.019855976104736
+                    ],
+                    "rotation": [
+                        0,
+                        0.7691398350627485,
+                        0,
+                        -0.6390805224067214
+                    ],
+                    "motionType": "DYNAMIC"
+                },
+                {
+                    "object": "red bowl",
+                    "objectHandle": "/data/objects/bowl.object_config.json",
+                    "objectIcon": "/data/test_assets/objects/bowl.png",
+                    "objectId": 1,
+                    "isReceptacle": true,
+                    "position": [
+                        0.5112041234970093,
+                        -0.2089587301015854,
+                        -2.290581703186035
+                    ],
+                    "rotation": [
+                        0,
+                        0.5705912140773709,
+                        0,
+                        0.8212342335885128
+                    ],
+                    "motionType": "DYNAMIC"
+                }
+            ]
+        },
+        {
+            "episode_id": 7,
+            "scene_id": "empty_house.glb",
+            "start_position": [
+                0.31289905309677124,
+                -0.2089587301015854,
+                -2.5146701335906982
+            ],
+            "start_rotation": [
+                0,
+                0.16774114877569277,
+                0,
+                0.9858310742756139
+            ],
+            "task": {
+                "instruction": "Place the banana on the red plate",
+                "type": "arrangement",
+                "goals": {
+                    "objectToReceptacleMap": {
+                        "0": [
+                            1
+                        ]
+                    }
+                }
+            },
+            "objects": [
+                {
+                    "object": "banana",
+                    "objectHandle": "/data/objects/banana.object_config.json",
+                    "objectIcon": "/data/test_assets/objects/banana.png",
+                    "objectId": 0,
+                    "isReceptacle": false,
+                    "position": [
+                        -0.3388980031013489,
+                        -0.2089587301015854,
+                        0.3222258687019348
+                    ],
+                    "rotation": [
+                        0,
+                        0.10477311599783566,
+                        0,
+                        0.9944961509046196
+                    ],
+                    "motionType": "DYNAMIC"
+                },
+                {
+                    "object": "red plate",
+                    "objectHandle": "/data/objects/plate.object_config.json",
+                    "objectIcon": "/data/test_assets/objects/plate.png",
+                    "objectId": 1,
+                    "isReceptacle": true,
+                    "position": [
+                        0.868793785572052,
+                        -0.2089587301015854,
+                        -5.714116096496582
+                    ],
+                    "rotation": [
+                        0,
+                        0.786262688035294,
+                        0,
+                        -0.617892373640842
+                    ],
+                    "motionType": "DYNAMIC"
+                }
+            ]
+        },
+        {
+            "episode_id": 8,
+            "scene_id": "empty_house.glb",
+            "start_position": [
+                -1.8750686645507812,
+                -0.2089587301015854,
+                -5.065003871917725
+            ],
+            "start_rotation": [
+                0,
+                0.056998255403925946,
+                0,
+                -0.9983742779543696
+            ],
+            "task": {
+                "instruction": "Place the orange on the red plate",
+                "type": "arrangement",
+                "goals": {
+                    "objectToReceptacleMap": {
+                        "0": [
+                            1
+                        ]
+                    }
+                }
+            },
+            "objects": [
+                {
+                    "object": "orange",
+                    "objectHandle": "/data/objects/orange.object_config.json",
+                    "objectIcon": "/data/test_assets/objects/orange.png",
+                    "objectId": 0,
+                    "isReceptacle": false,
+                    "position": [
+                        -0.07369018346071243,
+                        -0.2089587301015854,
+                        -2.7746052742004395
+                    ],
+                    "rotation": [
+                        0,
+                        0.3240949315617746,
+                        0,
+                        0.9460245638121499
+                    ],
+                    "motionType": "DYNAMIC"
+                },
+                {
+                    "object": "red plate",
+                    "objectHandle": "/data/objects/plate.object_config.json",
+                    "objectIcon": "/data/test_assets/objects/plate.png",
+                    "objectId": 1,
+                    "isReceptacle": true,
+                    "position": [
+                        1.2345513105392456,
+                        -0.2089587301015854,
+                        -5.128818511962891
+                    ],
+                    "rotation": [
+                        0,
+                        0.8320429976349326,
+                        0,
+                        -0.5547111411236262
+                    ],
+                    "motionType": "DYNAMIC"
+                }
+            ]
+        },
+        {
+            "episode_id": 9,
+            "scene_id": "empty_house.glb",
+            "start_position": [
+                1.5194286108016968,
+                -0.2089587301015854,
+                -5.94008207321167
+            ],
+            "start_rotation": [
+                0,
+                0.7043946080563268,
+                0,
+                -0.7098085911998908
+            ],
+            "task": {
+                "instruction": "Place the orange on the red bowl",
+                "type": "arrangement",
+                "goals": {
+                    "objectToReceptacleMap": {
+                        "0": [
+                            1
+                        ]
+                    }
+                }
+            },
+            "objects": [
+                {
+                    "object": "orange",
+                    "objectHandle": "/data/objects/orange.object_config.json",
+                    "objectIcon": "/data/test_assets/objects/orange.png",
+                    "objectId": 0,
+                    "isReceptacle": false,
+                    "position": [
+                        -4.4341654777526855,
+                        -0.2089587301015854,
+                        -5.958678245544434
+                    ],
+                    "rotation": [
+                        0,
+                        0.5245404175673283,
+                        0,
+                        0.8513855474098047
+                    ],
+                    "motionType": "DYNAMIC"
+                },
+                {
+                    "object": "red bowl",
+                    "objectHandle": "/data/objects/bowl.object_config.json",
+                    "objectIcon": "/data/test_assets/objects/bowl.png",
+                    "objectId": 1,
+                    "isReceptacle": true,
+                    "position": [
+                        -0.18241393566131592,
+                        -0.2089587301015854,
+                        -7.104233264923096
+                    ],
+                    "rotation": [
+                        0,
+                        0.9999784308085959,
+                        0,
+                        0.006567946222236305
+                    ],
+                    "motionType": "DYNAMIC"
+                }
+            ]
+        },
+        {
+            "episode_id": 10,
+            "scene_id": "empty_house.glb",
+            "start_position": [
+                0.05896151065826416,
+                -0.2089587301015854,
+                -5.832406997680664
+            ],
+            "start_rotation": [
+                0,
+                0.6950210526627588,
+                0,
+                -0.718989385426204
+            ],
+            "task": {
+                "instruction": "Place the red mug on the red plate",
+                "type": "arrangement",
+                "goals": {
+                    "objectToReceptacleMap": {
+                        "0": [
+                            1
+                        ]
+                    }
+                }
+            },
+            "objects": [
+                {
+                    "object": "red mug",
+                    "objectHandle": "/data/objects/mug.object_config.json",
+                    "objectIcon": "/data/test_assets/objects/mug.png",
+                    "objectId": 0,
+                    "isReceptacle": false,
+                    "position": [
+                        0.017938125878572464,
+                        -0.2089587301015854,
+                        -0.017308294773101807
+                    ],
+                    "rotation": [
+                        0,
+                        0.7739301393670901,
+                        0,
+                        -0.6332709841602064
+                    ],
+                    "motionType": "DYNAMIC"
+                },
+                {
+                    "object": "red plate",
+                    "objectHandle": "/data/objects/plate.object_config.json",
+                    "objectIcon": "/data/test_assets/objects/plate.png",
+                    "objectId": 1,
+                    "isReceptacle": true,
+                    "position": [
+                        -0.3918169140815735,
+                        -0.2089587301015854,
+                        -2.367544651031494
+                    ],
+                    "rotation": [
+                        0,
+                        0.728745536208978,
+                        0,
+                        0.6847845963918064
+                    ],
+                    "motionType": "DYNAMIC"
+                }
+            ]
+        },
+        {
+            "episode_id": 11,
+            "scene_id": "empty_house.glb",
+            "start_position": [
+                -4.638582706451416,
+                -0.2089587301015854,
+                -7.046221733093262
+            ],
+            "start_rotation": [
+                0,
+                0.2550780982099237,
+                0,
+                0.9669204537156139
+            ],
+            "task": {
+                "instruction": "Place the mustard bottle on the red plate",
+                "type": "arrangement",
+                "goals": {
+                    "objectToReceptacleMap": {
+                        "0": [
+                            1
+                        ]
+                    }
+                }
+            },
+            "objects": [
+                {
+                    "object": "mustard bottle",
+                    "objectHandle": "/data/objects/mustard_bottle.object_config.json",
+                    "objectIcon": "/data/test_assets/objects/mustard_bottle.png",
+                    "objectId": 0,
+                    "isReceptacle": false,
+                    "position": [
+                        -2.118685722351074,
+                        -0.2089587301015854,
+                        -6.355055809020996
+                    ],
+                    "rotation": [
+                        0,
+                        0.0826256240530818,
+                        0,
+                        0.9965806571722325
+                    ],
+                    "motionType": "DYNAMIC"
+                },
+                {
+                    "object": "red plate",
+                    "objectHandle": "/data/objects/plate.object_config.json",
+                    "objectIcon": "/data/test_assets/objects/plate.png",
+                    "objectId": 1,
+                    "isReceptacle": true,
+                    "position": [
+                        0.32617658376693726,
+                        -0.2089587301015854,
+                        -5.997129440307617
+                    ],
+                    "rotation": [
+                        0,
+                        0.6358376993976649,
+                        0,
+                        0.7718227905579653
+                    ],
+                    "motionType": "DYNAMIC"
+                }
+            ]
+        },
+        {
+            "episode_id": 12,
+            "scene_id": "empty_house.glb",
+            "start_position": [
+                2.1700406074523926,
+                -0.2089587301015854,
+                -1.280232548713684
+            ],
+            "start_rotation": [
+                0,
+                0.9990164327813158,
+                0,
+                0.04434148207823841
+            ],
+            "task": {
+                "instruction": "Place the hammer on the wood block",
+                "type": "arrangement",
+                "goals": {
+                    "objectToReceptacleMap": {
+                        "0": [
+                            1
+                        ]
+                    }
+                }
+            },
+            "objects": [
+                {
+                    "object": "hammer",
+                    "objectHandle": "/data/objects/hammer.object_config.json",
+                    "objectIcon": "/data/test_assets/objects/hammer.png",
+                    "objectId": 0,
+                    "isReceptacle": false,
+                    "position": [
+                        -0.7834087610244751,
+                        -0.2089587301015854,
+                        -6.839974403381348
+                    ],
+                    "rotation": [
+                        0,
+                        0.953584365373175,
+                        0,
+                        -0.30112598379389166
+                    ],
+                    "motionType": "DYNAMIC"
+                },
+                {
+                    "object": "wood block",
+                    "objectHandle": "/data/objects/wood_block.object_config.json",
+                    "objectIcon": "/data/test_assets/objects/wood_block.png",
+                    "objectId": 1,
+                    "isReceptacle": true,
+                    "position": [
+                        0.9114474058151245,
+                        -0.2089587301015854,
+                        -5.2142791748046875
+                    ],
+                    "rotation": [
+                        0,
+                        0.970889501041386,
+                        0,
+                        0.23952782044599408
+                    ],
+                    "motionType": "DYNAMIC"
+                }
+            ]
+        }
+    ]
+}

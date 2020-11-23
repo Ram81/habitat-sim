@@ -12,7 +12,7 @@ while [[ "$#" -gt 0 ]]; do
     esac
     shift
 done
-git submodule update --init --recursive
+# git submodule update --init --recursive
 
 mkdir -p build_corrade-rc
 pushd build_corrade-rc

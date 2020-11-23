@@ -1,7 +1,0 @@
-{
-    "render mesh": "mini_soccer_ball.glb",
-    "collision mesh": "uvSphereSolid_rings_8_segments_16_useTexCoords_false_useTangents_false",
-    "collision asset size": [0.065, 0.065, 0.065],
-    "scale": [3.0, 3.0, 3.0],
-    "margin": 0
-}

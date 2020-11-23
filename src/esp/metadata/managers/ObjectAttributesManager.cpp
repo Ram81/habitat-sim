@@ -172,6 +172,7 @@ int ObjectAttributesManager::registerObjectFinalize(
     ObjectAttributes::ptr objectTemplate,
     const std::string& objectTemplateHandle,
     bool forceRegistration) {
+  LOG(WARNING) << "object template: " << objectTemplate->getRenderAssetHandle();
   if (objectTemplate->getRenderAssetHandle() == "") {
     LOG(ERROR)
         << "ObjectAttributesManager::registerObjectFinalize : "

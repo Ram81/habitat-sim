@@ -21,8 +21,6 @@
 #include "esp/metadata/attributes/AttributesBase.h"
 #include "esp/nav/PathFinder.h"
 #include "esp/physics/PhysicsManager.h"
-#include "esp/physics/bullet/BulletDebugManager.h"
-#include "esp/physics/bullet/BulletPhysicsManager.h"
 #include "esp/scene/ObjectControls.h"
 #include "esp/scene/SemanticScene.h"
 #include "esp/sensor/CameraSensor.h"
@@ -140,11 +138,16 @@ void Simulator::reconfigure(const SimulatorConfiguration& cfg) {
   // Build scene file name based on config specification
   std::string stageFilename = config_.activeSceneID;
 
+  LOG(WARNING) << "stage filename" << stageFilename;
+
   // Create scene attributes with values based on sceneFilename
   auto stageAttributes = stageAttributesMgr->createObject(stageFilename, true);
 
   std::string navmeshFilename = stageAttributes->getNavmeshAssetHandle();
   std::string houseFilename = stageAttributes->getHouseFilename();
+
+  LOG(WARNING) << "stage nav, house : " << navmeshFilename << " - "
+               << houseFilename;
 
   esp::assets::AssetType stageType = static_cast<esp::assets::AssetType>(
       stageAttributes->getRenderAssetType());

@@ -1097,6 +1097,9 @@ bool ResourceManager::loadRenderAssetGeneral(const AssetInfo& info) {
   const std::string& filename = info.filepath;
   CHECK(resourceDict_.count(filename) == 0);
 
+  LOG(WARNING) << "RM file loaded: " << filename << " -- " << fileIsLoaded
+               << " -- " << drawData;
+
   // Preferred plugins, Basis target GPU format
   importerManager_.setPreferredPlugins("GltfImporter", {"TinyGltfImporter"});
 #ifdef ESP_BUILD_ASSIMP_SUPPORT

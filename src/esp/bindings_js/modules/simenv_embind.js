@@ -79,7 +79,7 @@ class SimEnv {
     this.objectsInScene = [];
 
     if (Object.keys(episode).length > 0) {
-      this.initialAgentState = this.createAgentState(episode.startState);
+      //his.initialAgentState = this.createAgentState(episode.startState);
       // add agent object for collision test
       this.sim.addContactTestObject(this.agentObjectHandle, 0);
 
@@ -97,25 +97,29 @@ class SimEnv {
         }
         return 0;
       });
+      console.log(episode);
+      console.log(episode.objects);
+      // for (let index in objects) {
+      //   let objectLibHandle = objects[index]["objectHandle"];
+      //   let position = this.convertVec3fToVector3(objects[index]["position"]);
+      //   let rotation = this.quatFromCoeffs(objects[index]["rotation"]);
 
-      for (let index in objects) {
-        let objectLibHandle = objects[index]["objectHandle"];
-        let position = this.convertVec3fToVector3(objects[index]["position"]);
-        let rotation = this.quatFromCoeffs(objects[index]["rotation"]);
-
-        let objectId = this.addObjectAtLocation(
-          objectLibHandle,
-          position,
-          rotation
-        );
-        this.addObjectInScene(objectId, objects[index]);
-        // adding contact test shape for object
-        this.sim.addContactTestObject(objectLibHandle, 0);
-        episode.objects[index]["simObjectId"] = objectId;
-        episode.objects[index]["prevObjectId"] =
-          episode.objects[index]["objectId"];
-        episode.objects[index]["objectId"] = objectId;
-      }
+      //   console.log("adding " + objectLibHandle);
+      //   let objectId = this.addObjectAtLocation(
+      //     objectLibHandle,
+      //     position,
+      //     rotation
+      //   );
+      //   console.log("added obj: " + objectLibHandle);
+      //   this.addObjectInScene(objectId, objects[index]);
+      //   console.log("adding ct obj: " + objectLibHandle);
+      //   // adding contact test shape for object
+      //   this.sim.addContactTestObject(objectLibHandle, 0);
+      //   episode.objects[index]["simObjectId"] = objectId;
+      //   episode.objects[index]["prevObjectId"] =
+      //     episode.objects[index]["objectId"];
+      //   episode.objects[index]["objectId"] = objectId;
+      // }
     } else {
       // add agent object for collision test
       this.sim.addContactTestObject(this.agentObjectHandle, 0);
