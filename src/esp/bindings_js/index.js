@@ -184,7 +184,7 @@ Module.preRun.push(() => {
 
   if (!window.config.recomputeNavMesh) {
     preload(fileNoExtension + ".navmesh");
-    //preload(fileNoExtension + ".stage_config.json");
+    preload(fileNoExtension + ".stage_config.json");
   }
   if (config.semantic === "mp3d") {
     preload(fileNoExtension + ".house");

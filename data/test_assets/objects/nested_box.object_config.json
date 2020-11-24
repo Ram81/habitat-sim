@@ -1,4 +1,5 @@
 {
     "render_asset": "nested_box.glb",
-    "join_collision_meshes": true
+    "join_collision_meshes": true,
+    "requires_lighting": true
 }

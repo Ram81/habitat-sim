@@ -104,7 +104,7 @@ class ObjectControls(object):
         if move_fn_dict is None:
             return result["collided"]
         result.update(move_fn_dict)
-        return result
+        return result["collided"]
 
     def __call__(
         self,
