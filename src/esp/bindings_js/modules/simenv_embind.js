@@ -577,6 +577,14 @@ class SimEnv {
     return this.sim.getAgentAbsoluteTranslation(agentId);
   }
 
+  getAgentRotation(agentId) {
+    return this.sim.getAgentRotation(agentId);
+  }
+
+  getAgentSensorSuite(agentId) {
+    return this.sim.getAgentSensorSuite(agentId);
+  }
+
   getAgentState() {
     let state = new Module.AgentState();
     const agent = this.sim.getAgent(this.selectedAgentId);
@@ -849,9 +857,23 @@ class SimEnv {
 
   getAgentPose() {
     let tfms = this.getAgentTransformation(this.selectedAgentId);
-    console.log("Agent pose:");
-    console.log(tfms.translation().toString());
-    console.log("\n");
+    let agentPosition = tfms.translation();
+    let agentRotation = this.getAgentRotation(this.selectedAgentId);
+    let sensors = this.getAgentSensorSuite(this.selectedAgentId);
+    let sensorKeys = sensors.keys();
+    let sensorData = {};
+    for (let i = 0; i < sensorKeys.size(); i++) {
+      let key = sensorKeys.get(i);
+      let rotation = sensors.get(key).rotation();
+      sensorData[key] = {
+        rotation: this.coeffFromQuat(rotation)
+      };
+    }
+    return {
+      position: this.convertVector3ToVec3f(agentPosition),
+      rotation: this.coeffFromQuat(agentRotation),
+      sensorData: sensorData
+    };
   }
 
   getObjectPose() {

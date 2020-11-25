@@ -179,7 +179,6 @@ class Agent(object):
                 self.scene_node, action.name, action.actuation, apply_filter=True
             )
         else:
-            # print("not body action: " + action.name)
             for _, v in self._sensors.items():
                 habitat_sim.errors.assert_obj_valid(v)
                 max_x_up_rotation = mn.Quaternion.rotation(

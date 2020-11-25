@@ -877,6 +877,10 @@ class Simulator {
 
   float getObjectBBYCoord(int objectId);
 
+  Magnum::Quaternion getAgentRotation(int agentId);
+
+  std::map<std::string, sensor::Sensor::ptr> getAgentSensorSuite(int agentId);
+
   /**
    * @brief Getter for PRNG.
    *

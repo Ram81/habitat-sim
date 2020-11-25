@@ -178,7 +178,8 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
                               &Magnum::Quaternion::vector))
       .function("scalar",
                 em::select_overload<float&()>(&Magnum::Quaternion::scalar))
-      .class_function("rotation", &Magnum::Quaternion::rotation);
+      .class_function("rotation", &Magnum::Quaternion::rotation)
+      .class_function("fromMatrix", &Magnum::Quaternion::fromMatrix);
 
   em::value_object<std::pair<vec3f, vec3f>>("aabb")
       .field("min", &std::pair<vec3f, vec3f>::first)
@@ -268,7 +269,8 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
   em::class_<Sensor>("Sensor")
       .smart_ptr<Sensor::ptr>("Sensor::ptr")
       .function("specification", &Sensor::specification)
-      .function("getObservation", &Sensor::getObservation);
+      .function("getObservation", &Sensor::getObservation)
+      .function("rotation", &Sensor::getRotation);
 
   em::class_<SimulatorConfiguration>("SimulatorConfiguration")
       .smart_ptr_constructor("SimulatorConfiguration",
@@ -406,5 +408,7 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
       .function("setNavMeshVisualization", &Simulator::setNavMeshVisualization)
       .function("clearRecycledObjectIds", &Simulator::clearRecycledObjectIds)
       .function("updateDropPointNode", &Simulator::updateDropPointNode)
-      .function("getObjectBBYCoord", &Simulator::getObjectBBYCoord);
+      .function("getObjectBBYCoord", &Simulator::getObjectBBYCoord)
+      .function("getAgentRotation", &Simulator::getAgentRotation)
+      .function("getAgentSensorSuite", &Simulator::getAgentSensorSuite);
 }

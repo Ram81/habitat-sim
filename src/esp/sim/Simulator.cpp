@@ -910,6 +910,17 @@ Magnum::Matrix4 Simulator::getAgentTransformation(int agentId) {
   return agentBodyNode->transformation();
 }
 
+Magnum::Quaternion Simulator::getAgentRotation(int agentId) {
+  auto agentBodyNode = &getAgent(agentId)->node();
+  return agentBodyNode->rotation();
+}
+
+std::map<std::string, sensor::Sensor::ptr> Simulator::getAgentSensorSuite(
+    int agentId) {
+  auto sensorSuite = getAgent(agentId)->getSensorSuite().getSensors();
+  return sensorSuite;
+}
+
 Magnum::Vector3 Simulator::getAgentAbsoluteTranslation(int agentId) {
   auto agentBodyNode = &getAgent(agentId)->node();
   return agentBodyNode->absoluteTranslation();

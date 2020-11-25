@@ -94,7 +94,8 @@ class NavigateTask {
       { name: "turnRight", key: "d", keyCode: 68 },
       { name: "lookUp", key: "ArrowUp", keyCode: 38 },
       { name: "lookDown", key: "ArrowDown", keyCode: 40 },
-      { name: "grabReleaseObject", key: " ", keyCode: 32 }
+      { name: "grabReleaseObject", key: " ", keyCode: 32 },
+      { name: "agentPose", key: "o", keyCode: 79 }
     ];
   }
 
@@ -135,14 +136,22 @@ class NavigateTask {
         this.render();
 
         // Log current state for replay
+        let agentState = this.sim.getAgentPose();
         let objectStates = this.sim.getObjectStates();
         let objectUnderCrosshair = this.sim.getObjectUnderCrosshair()[
           "nearestObjectId"
         ];
+        let objectDropPoint = [];
+        if (this.sim.grippedObjectId != -1) {
+          objectDropPoint = this.sim.findObjectFloorPositionUnderCrosshair();
+          objectDropPoint = this.sim.convertVector3ToVec3f(objectDropPoint);
+        }
         this.psiturk.handleRecordTrialData("TEST", "stepPhysics", {
           step: stepSize,
+          agentState: agentState,
           objectStates: objectStates,
           objectUnderCrosshair: objectUnderCrosshair,
+          objectDropPoint: objectDropPoint,
           totalTime: new Date().getTime() - startTime
         });
       }, 100.0);
@@ -452,9 +461,7 @@ class NavigateTask {
       this.handleInventoryUpdate(data["collision"]);
       this.inventory.renderInventory();
       actionData = data;
-    } else if (action == "getObjectPose") {
-      this.sim.getObjectPose();
-    } else if (action == "getAgentPose") {
+    } else if (action == "agentPose") {
       this.sim.getAgentPose();
     } else {
       collision = this.sim.step(action);
@@ -462,16 +469,26 @@ class NavigateTask {
     }
 
     // record action and action data
+    let agentState = this.sim.getAgentPose();
+    let objectStates = this.sim.getObjectStates();
     let objectUnderCrosshair = this.sim.getObjectUnderCrosshair()[
       "nearestObjectId"
     ];
+    let objectDropPoint = [];
+    if (this.sim.grippedObjectId != -1) {
+      objectDropPoint = this.sim.findObjectFloorPositionUnderCrosshair();
+      objectDropPoint = this.sim.convertVector3ToVec3f(objectDropPoint);
+    }
     this.psiturk.handleRecordTrialData("TEST", "handleAction", {
       action: action,
       actionData: actionData,
       collision: collision,
       objectUnderCrosshair: objectUnderCrosshair,
       nearestObjectId: this.sim.nearestObjectId,
-      grippedObjectId: this.sim.grippedObjectId
+      grippedObjectId: this.sim.grippedObjectId,
+      objectDropPoint: objectDropPoint,
+      agentState: agentState,
+      objectStates: objectStates
     });
     this.render();
   }
