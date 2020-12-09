@@ -331,7 +331,9 @@ void initSimBindings(py::module& m) {
           "scene_id"_a = 0,
           R"(Run collision detection and return a binary indicator of penetration between the specified object and any other collision object. Physics must be enabled.)")
       .def("update_drop_point_node", &Simulator::updateDropPointNode,
-           "position"_a, R"(Update drop point node)");
+           "position"_a, R"(Update drop point node)")
+      .def("get_object_bb_y_coord", &Simulator::getObjectBBYCoord,
+           "object_id"_a, R"(Get object bounding box y value)");
 }
 
 }  // namespace sim

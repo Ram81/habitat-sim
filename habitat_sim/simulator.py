@@ -333,7 +333,7 @@ class Simulator(SimulatorBackend):
         ...
 
     def get_sensor_observations(
-        self, agent_ids: Union[int, List[int]] = 0
+        self, agent_ids: Union[int, List[int]] = 0, draw_crosshair=False
     ) -> Union[
         Dict[str, Union[ndarray, "Tensor"]],
         Dict[int, Dict[str, Union[ndarray, "Tensor"]]],
@@ -346,6 +346,10 @@ class Simulator(SimulatorBackend):
 
         for agent_id in agent_ids:
             agent_sensorsuite = self.__sensors[agent_id]
+            if draw_crosshair:
+                for _sensor_uuid, sensor in agent_sensorsuite.items():
+                    sensor.draw_observation(self.render_to_ui)
+                self.update_cross_hair()
             for _sensor_uuid, sensor in agent_sensorsuite.items():
                 sensor.draw_observation(self.render_to_ui)
 

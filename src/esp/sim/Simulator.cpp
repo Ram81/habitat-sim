@@ -247,16 +247,7 @@ void Simulator::reconfigure(const SimulatorConfiguration& cfg) {
         }
       }
     }  // if ID has changed - needs to be reset
-    crossHairNode_ = &rootNode.createChild();
-    resourceManager_->addPrimitiveToDrawables(1, *crossHairNode_,
-                                              &sceneGraph.getDrawables());
-    crossHairNode_->setScaling({0.02, 0.02, 0.02});
-
-    dropPointNode_ = &rootNode.createChild();
-    resourceManager_->addPrimitiveToDrawables(0, *dropPointNode_,
-                                              &sceneGraph.getDrawables());
-    dropPointNode_->setScaling({0.03, 0.01, 0.03});
-  }  // if (config_.createRenderer)
+  }    // if (config_.createRenderer)
 
   semanticScene_ = nullptr;
   semanticScene_ = scene::SemanticScene::create();
@@ -1092,6 +1083,14 @@ void Simulator::updateCrossHairNode(Magnum::Vector2i crossHairPosition) {
   scene::SceneGraph& sceneGraph = sceneManager_->getSceneGraph(activeSceneID_);
   gfx::RenderCamera& renderCamera_ = sceneGraph.getDefaultRenderCamera();
 
+  if (crossHairNode_ == nullptr) {
+    auto& rootNode = sceneGraph.getRootNode();
+    crossHairNode_ = &rootNode.createChild();
+    resourceManager_->addPrimitiveToDrawables(1, *crossHairNode_,
+                                              &sceneGraph.getDrawables());
+    crossHairNode_->setScaling({0.02, 0.02, 0.02});
+  }
+
   esp::geo::Ray ray = unproject(crossHairPosition);
   Magnum::Vector3 point = ray.direction;
   crossHairNode_->setTranslation(renderCamera_.node().absoluteTranslation() +
@@ -1177,6 +1176,15 @@ void Simulator::clearRecycledObjectIds() {
 }
 
 void Simulator::updateDropPointNode(Magnum::Vector3 position) {
+  if (dropPointNode_ == nullptr) {
+    scene::SceneGraph& sceneGraph =
+        sceneManager_->getSceneGraph(activeSceneID_);
+    auto& rootNode = sceneGraph.getRootNode();
+    dropPointNode_ = &rootNode.createChild();
+    resourceManager_->addPrimitiveToDrawables(0, *dropPointNode_,
+                                              &sceneGraph.getDrawables());
+    dropPointNode_->setScaling({0.03, 0.01, 0.03});
+  }
   dropPointNode_->setTranslation(position);
 }
 

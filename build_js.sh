@@ -57,4 +57,4 @@ echo "http://0.0.0.0:8000/build_js/utils/viewer/viewer.html?scene=skokloster-cas
 echo "Or:"
 echo "http://0.0.0.0:8000/build_js/esp/bindings_js/bindings.html?scene=skokloster-castle.glb"
 echo "Run with physics enabled:"
-echo "http://0.0.0.0:8000/build_js/esp/bindings_js/bindings.html?scene=skokloster-castle.glb&enablePhysics=true&defaultPhysConfig=default.phys_scene_config.json"
+echo "http://0.0.0.0:8000/build_js/esp/bindings_js/bindings.html?scene=skokloster-castle.glb&enablePhysics=true&defaultPhysConfig=default.physics_config.json&task=0&enableStepPhysics=true"
