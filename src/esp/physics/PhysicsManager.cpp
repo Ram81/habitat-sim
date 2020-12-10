@@ -54,11 +54,10 @@ bool PhysicsManager::addStageFinalize(const std::string& handle) {
   return sceneSuccess;
 }
 
-int PhysicsManager::addContactTestObject(
-    const std::string& configFileHandle,
-    scene::SceneNode* attachmentNode,
-    DrawableGroup* drawables,
-    const Magnum::ResourceKey& lightSetup) {
+int PhysicsManager::addContactTestObject(const std::string& configFileHandle,
+                                         scene::SceneNode* attachmentNode,
+                                         DrawableGroup* drawables,
+                                         const std::string& lightSetup) {
   if (contactTestObjects_.count(configFileHandle) > 0) {
     return ID_UNDEFINED;
   }

@@ -206,8 +206,7 @@ class PhysicsManager {
       const std::string& configFileHandle,
       scene::SceneNode* attachmentNode = nullptr,
       DrawableGroup* drawables = nullptr,
-      const Magnum::ResourceKey& lightSetup = Magnum::ResourceKey{
-          assets::ResourceManager::NO_LIGHT_KEY});
+      const std::string& lightSetup = metadata::MetadataMediator::NO_LIGHT_KEY);
 
   /** @brief Remove an object instance from the pysical scene by ID, destroying
    * its scene graph node and removing it from @ref
