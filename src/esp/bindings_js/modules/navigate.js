@@ -68,6 +68,7 @@ class NavigateTask {
       components.canvas.onmousedown = e => {
         this.handleMouseDown(e);
       };
+      this.eventQueue = [];
     }
 
     if (this.components.radar) {
@@ -128,6 +129,11 @@ class NavigateTask {
     ) {
       console.log("enabled physics step at 100ms interval");
       this.physicsStepFunction = setInterval(() => {
+        let action = this.popAction();
+        if (action != "noOp") {
+          // step action from the queue
+          this.handleAction(action);
+        }
         let stepSize = 1.0 / 10.0;
         let startTime = new Date().getTime();
         // Step world physics
@@ -447,6 +453,19 @@ class NavigateTask {
     return this.taskValidator.validate();
   }
 
+  pushAction(action) {
+    if (this.eventQueue.length < 2) {
+      this.eventQueue.push(action);
+    }
+  }
+
+  popAction() {
+    if (this.eventQueue.length > 0) {
+      return this.eventQueue.shift();
+    }
+    return "noOp";
+  }
+
   handleAction(action) {
     let actionData = {};
     let collision = false;
@@ -496,7 +515,8 @@ class NavigateTask {
   handleKeypress(key) {
     for (let a of this.actions) {
       if (a.keyCode === key) {
-        this.handleAction(a.name);
+        //this.handleAction(a.name);
+        this.pushAction(a.name);
         break;
       }
     }
