@@ -172,7 +172,6 @@ class SimEnv {
     let objectId = this.addObjectByHandle(objectLibHandle);
     this.setTranslation(position, objectId, 0);
     this.setRotation(rotation, objectId, 0);
-    this.sampleObjectState(objectId, 0);
     this.setObjectMotionType(Module.MotionType.DYNAMIC, objectId, 0);
     return objectId;
   }
@@ -565,6 +564,10 @@ class SimEnv {
     return this.sim.getSemanticScene();
   }
 
+  contactTest(objectId) {
+    return this.sim.contactTest(objectId, 0);
+  }
+
   getAgent(agentId) {
     return this.sim.getAgent(agentId);
   }
@@ -724,7 +727,7 @@ class SimEnv {
   }
 
   toggleNavMeshVisualization() {
-    this.sim.toggleNavMeshVisualization();
+    this.sim.setNavMeshVisualization(true);
   }
 
   findNearestObjectUnderCrosshair(crossHairPoint, refPoint, windowSize) {
@@ -830,6 +833,10 @@ class SimEnv {
 
   getObjectBBYCoord(objectId) {
     return this.sim.getObjectBBYCoord(objectId);
+  }
+
+  getNumActiveContactPoints() {
+    return this.sim.getNumActiveContactPoints();
   }
 
   getObjectStates() {

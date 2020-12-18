@@ -1117,13 +1117,12 @@ void Simulator::syncGrippedObject(int grippedObjectId) {
 
 bool Simulator::sampleObjectState(int objectID, int sceneID) {
   scene::SceneNode* object_node = getObjectSceneNode(objectID, sceneID);
-  auto sceneAttributesMgr = resourceManager_->getStageAttributesManager();
-  double scene_collision_margin = 0.0;  // sceneAttributesMgr->getMargin();
+  double sceneCollisionMargin = 0.0;
   Magnum::Range3D xform_bb = esp::geo::getTransformedBB(
       object_node->getCumulativeBB(), object_node->transformation());
   // also account for collision margin of the scene
   Magnum::Vector3 y_translation =
-      Magnum::Vector3(0, xform_bb.sizeY() / 2.0 + scene_collision_margin, 0);
+      Magnum::Vector3(0, xform_bb.sizeY() / 2.0 + sceneCollisionMargin, 0);
   setTranslation(y_translation + getTranslation(objectID), objectID);
   // test for penetration with the environment
   if (!contactTest(objectID)) {

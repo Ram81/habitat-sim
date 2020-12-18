@@ -410,5 +410,7 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
       .function("updateDropPointNode", &Simulator::updateDropPointNode)
       .function("getObjectBBYCoord", &Simulator::getObjectBBYCoord)
       .function("getAgentRotation", &Simulator::getAgentRotation)
-      .function("getAgentSensorSuite", &Simulator::getAgentSensorSuite);
+      .function("getAgentSensorSuite", &Simulator::getAgentSensorSuite)
+      .function("getNumActiveContactPoints",
+                &Simulator::getNumActiveContactPoints);
 }

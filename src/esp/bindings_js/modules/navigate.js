@@ -95,8 +95,7 @@ class NavigateTask {
       { name: "turnRight", key: "d", keyCode: 68 },
       { name: "lookUp", key: "ArrowUp", keyCode: 38 },
       { name: "lookDown", key: "ArrowDown", keyCode: 40 },
-      { name: "grabReleaseObject", key: " ", keyCode: 32 },
-      { name: "agentPose", key: "o", keyCode: 79 }
+      { name: "grabReleaseObject", key: " ", keyCode: 32 }
     ];
   }
 
@@ -482,6 +481,8 @@ class NavigateTask {
       actionData = data;
     } else if (action == "agentPose") {
       this.sim.getAgentPose();
+    } else if (action == "stepWorld") {
+      this.sim.stepWorld(1.0 / 10.0);
     } else {
       collision = this.sim.step(action);
       this.setStatus(action);
@@ -515,7 +516,6 @@ class NavigateTask {
   handleKeypress(key) {
     for (let a of this.actions) {
       if (a.keyCode === key) {
-        //this.handleAction(a.name);
         this.pushAction(a.name);
         break;
       }
