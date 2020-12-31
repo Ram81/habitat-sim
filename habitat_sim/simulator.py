@@ -391,6 +391,7 @@ class Simulator(SimulatorBackend):
         if agent_id is None:
             agent_id = self._default_agent_id
         return self.__last_state[agent_id]
+
     def get_crosshair_position(self):
         resolution = (
             self._default_agent.agent_config.sensor_specifications[0].resolution * 0.5

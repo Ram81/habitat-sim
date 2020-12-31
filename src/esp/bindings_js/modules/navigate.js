@@ -96,6 +96,7 @@ class NavigateTask {
       { name: "lookUp", key: "ArrowUp", keyCode: 38 },
       { name: "lookDown", key: "ArrowDown", keyCode: 40 },
       { name: "grabReleaseObject", key: " ", keyCode: 32 }
+      //{ name: "agentPose", key: "p", keyCode: 80 }
     ];
   }
 
@@ -121,6 +122,8 @@ class NavigateTask {
   }
 
   initPhysics() {
+    this.activeActions = [];
+    this.activeActionIdx = 0;
     if (
       Module.enablePhysics &&
       window.config.runFlythrough !== true &&
@@ -133,7 +136,7 @@ class NavigateTask {
           // step action from the queue
           this.handleAction(action);
         }
-        let stepSize = 1.0 / 10.0;
+        let stepSize = 1.0 / 15.0;
         let startTime = new Date().getTime();
         // Step world physics
         this.sim.stepWorld(stepSize);
@@ -159,7 +162,7 @@ class NavigateTask {
           objectDropPoint: objectDropPoint,
           totalTime: new Date().getTime() - startTime
         });
-      }, 100.0);
+      }, 1000.0 / 20.0);
     }
   }
 
@@ -453,14 +456,19 @@ class NavigateTask {
   }
 
   pushAction(action) {
-    if (this.eventQueue.length < 2) {
-      this.eventQueue.push(action);
+    if (this.activeActions.length == 0) {
+      this.activeActions.push(action);
     }
   }
 
   popAction() {
-    if (this.eventQueue.length > 0) {
-      return this.eventQueue.shift();
+    if (this.activeActions.length > 0) {
+      this.activeActionIdx = 0;
+      let action = this.activeActions[this.activeActionIdx];
+      if (action == "grabReleaseObject") {
+        this.removeActiveAction(action);
+      }
+      return action;
     }
     return "noOp";
   }
@@ -480,7 +488,7 @@ class NavigateTask {
       this.inventory.renderInventory();
       actionData = data;
     } else if (action == "agentPose") {
-      this.sim.getAgentPose();
+      console.log(this.sim.getAgentPose());
     } else if (action == "stepWorld") {
       this.sim.stepWorld(1.0 / 10.0);
     } else {
@@ -510,7 +518,23 @@ class NavigateTask {
       agentState: agentState,
       objectStates: objectStates
     });
-    this.render();
+    // this.render();
+  }
+
+  removeActiveAction(action) {
+    const index = this.activeActions.indexOf(action);
+    if (index > -1) {
+      this.activeActions.splice(index, 1);
+    }
+  }
+
+  handleKeypressUp(key) {
+    for (let a of this.actions) {
+      if (a.keyCode === key) {
+        this.removeActiveAction(a.name);
+        break;
+      }
+    }
   }
 
   handleKeypress(key) {
@@ -533,12 +557,21 @@ class NavigateTask {
       _self.handleKeypress(event.keyCode);
     };
     document.addEventListener("keydown", _self.keyBindListener, true);
+
+    _self.keyBindListener2 = function(event) {
+      event.preventDefault();
+      _self.handleKeypressUp(event.keyCode);
+    };
+    document.addEventListener("keyup", _self.keyBindListener2, true);
   }
 
   unbindKeys() {
     if (this.keyBindListener) {
       document.removeEventListener("keydown", this.keyBindListener, true);
       this.keyBindListener = null;
+
+      document.removeEventListener("keyup", this.keyBindListener2, true);
+      this.keyBindListener2 = null;
     }
   }
 }

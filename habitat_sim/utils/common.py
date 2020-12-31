@@ -13,6 +13,7 @@ from zipfile import ZipFile
 import magnum as mn
 import numpy as np
 import quaternion
+import torch
 
 
 def quat_from_coeffs(coeffs: Sequence[float]) -> np.quaternion:
@@ -271,3 +272,15 @@ d3_40_colors_hex: List[str] = [
     "0xde9ed6",
 ]
 # [/d3_40_colors_hex]
+
+
+def get_distance(gt_pos, pred_pos, dist_type):
+    if dist_type == "l2":
+        gt_pos = torch.Tensor(gt_pos)
+        pred_pos = torch.Tensor(pred_pos)
+        return torch.dist(gt_pos, pred_pos).item()
+    elif dist_type == "quat":
+        gt_pos = quat_to_magnum(quat_from_coeffs(gt_pos))
+        pred_pos = quat_to_magnum(quat_from_coeffs(pred_pos))
+        return (gt_pos - pred_pos).length()
+    return -1

@@ -104,6 +104,8 @@ class Sensor : public Magnum::SceneGraph::AbstractFeature3D {
 
   Magnum::Quaternion getRotation() { return object().rotation(); }
 
+  Magnum::Vector3 getPosition() { return object().translation(); }
+
   // can be called ONLY when it is attached to a scene node
   virtual void setTransformationFromSpec();
 

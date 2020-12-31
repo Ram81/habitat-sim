@@ -872,8 +872,10 @@ class SimEnv {
     for (let i = 0; i < sensorKeys.size(); i++) {
       let key = sensorKeys.get(i);
       let rotation = sensors.get(key).rotation();
+      let position = sensors.get(key).translation();
       sensorData[key] = {
-        rotation: this.coeffFromQuat(rotation)
+        rotation: this.coeffFromQuat(rotation),
+        position: this.convertVector3ToVec3f(position)
       };
     }
     return {

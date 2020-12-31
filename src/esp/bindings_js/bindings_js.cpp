@@ -270,7 +270,8 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
       .smart_ptr<Sensor::ptr>("Sensor::ptr")
       .function("specification", &Sensor::specification)
       .function("getObservation", &Sensor::getObservation)
-      .function("rotation", &Sensor::getRotation);
+      .function("rotation", &Sensor::getRotation)
+      .function("translation", &Sensor::getPosition);
 
   em::class_<SimulatorConfiguration>("SimulatorConfiguration")
       .smart_ptr_constructor("SimulatorConfiguration",
