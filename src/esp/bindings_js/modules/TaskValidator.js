@@ -83,7 +83,7 @@ class TaskValidator {
         let receptacleY =
           receptaclePosition[1] +
           this.sim.getObjectBBYCoord(receptacleObjectId);
-        if (distance <= 1.5 && sourcePosition[1] > receptacleY) {
+        if (distance <= 0.7 && sourcePosition[1] > receptacleY) {
           success = true;
         }
       }

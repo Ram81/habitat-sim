@@ -413,5 +413,6 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
       .function("getAgentRotation", &Simulator::getAgentRotation)
       .function("getAgentSensorSuite", &Simulator::getAgentSensorSuite)
       .function("getNumActiveContactPoints",
-                &Simulator::getNumActiveContactPoints);
+                &Simulator::getNumActiveContactPoints)
+      .function("getGravity", &Simulator::getGravity);
 }

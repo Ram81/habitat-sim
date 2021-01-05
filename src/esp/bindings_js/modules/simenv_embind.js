@@ -930,6 +930,16 @@ class SimEnv {
     this.sim.enableDebugDraw();
   }
 
+  dropObjectFromFloor2() {
+    this.removeObject(0);
+    let objectId = this.addObjectByHandle(
+      "/data/objects/mini_soccer_ball.object_config.json"
+    );
+    let position = [-4.871857929229736, 4.0, -2.203164792060852];
+    position = this.convertVec3fToVector3(position);
+    this.setTranslation(position, objectId, 0);
+  }
+
   /**
    * Get the distance to goal in polar coordinates.
    * @returns {Array} [magnitude, clockwise-angle (in radians)]

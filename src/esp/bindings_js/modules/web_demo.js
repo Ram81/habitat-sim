@@ -60,6 +60,7 @@ class WebDemo {
       radar: document.getElementById("radar"),
       scope: document.getElementById("scope"),
       status: document.getElementById("status"),
+      fps: document.getElementById("fps"),
       taskValidator: this.taskValidator
     });
   }

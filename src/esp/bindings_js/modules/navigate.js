@@ -68,7 +68,6 @@ class NavigateTask {
       components.canvas.onmousedown = e => {
         this.handleMouseDown(e);
       };
-      this.eventQueue = [];
     }
 
     if (this.components.radar) {
@@ -96,7 +95,8 @@ class NavigateTask {
       { name: "lookUp", key: "ArrowUp", keyCode: 38 },
       { name: "lookDown", key: "ArrowDown", keyCode: 40 },
       { name: "grabReleaseObject", key: " ", keyCode: 32 }
-      //{ name: "agentPose", key: "p", keyCode: 80 }
+      // { name: "agentPose", key: "p", keyCode: 80 },
+      // { name: "dropObject", key: "o", keyCode: 79 }
     ];
   }
 
@@ -124,6 +124,7 @@ class NavigateTask {
   initPhysics() {
     this.activeActions = [];
     this.activeActionIdx = 0;
+    this.frameCounter = 0;
     if (
       Module.enablePhysics &&
       window.config.runFlythrough !== true &&
@@ -136,7 +137,7 @@ class NavigateTask {
           // step action from the queue
           this.handleAction(action);
         }
-        let stepSize = 1.0 / 15.0;
+        let stepSize = 1.0 / 20.0;
         let startTime = new Date().getTime();
         // Step world physics
         this.sim.stepWorld(stepSize);
@@ -162,6 +163,7 @@ class NavigateTask {
           objectDropPoint: objectDropPoint,
           totalTime: new Date().getTime() - startTime
         });
+        this.frameCounter += 1;
       }, 1000.0 / 20.0);
     }
   }
@@ -244,9 +246,6 @@ class NavigateTask {
       if (!startTimestamp) {
         startTimestamp = timestamp;
       }
-      // if (datum["event"] == "handleAction") {
-      //   count += 1;
-      // }
 
       const delay = (timestamp - startTimestamp) / speed;
       const replayTimeout = window.setTimeout(function() {
@@ -413,6 +412,8 @@ class NavigateTask {
     this.renderImage();
     this.renderSemanticImage();
     this.renderTopDown(options);
+
+    this.numRendersSinceLastUpdate += 1;
   }
 
   handleInventoryUpdate(isCollision) {
@@ -491,6 +492,9 @@ class NavigateTask {
       console.log(this.sim.getAgentPose());
     } else if (action == "stepWorld") {
       this.sim.stepWorld(1.0 / 10.0);
+    } else if (action == "dropObject") {
+      this.sim.dropObjectFromFloor2();
+      this.dropCalled = true;
     } else {
       collision = this.sim.step(action);
       this.setStatus(action);
