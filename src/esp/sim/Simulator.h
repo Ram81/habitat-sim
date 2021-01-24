@@ -851,6 +851,8 @@ class Simulator {
   int addContactTestObject(const std::string& objectLibHandle,
                            const int sceneID = 0);
 
+  bool setActiveState(const int physObjectID, const int sceneID = 0);
+
   void enableDebugDraw();
 
   int getPhysicsNumActiveContactPoints() {

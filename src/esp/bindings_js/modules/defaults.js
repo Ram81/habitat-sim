@@ -169,6 +169,243 @@ export const fileBasedObjects = {
       objectHandle: "/data/objects/wood_block.object_config.json",
       physicsProperties: "test_assets/objects/wood_block.object_config.json",
       renderMesh: "test_assets/objects/wood_block.glb"
+    },
+    {
+      object: "large clamp",
+      objectIcon: "/data/test_assets/objects/large_clamp.png",
+      objectHandle: "/data/objects/large_clamp.object_config.json",
+      physicsProperties: "test_assets/objects/large_clamp.object_config.json",
+      renderMesh: "test_assets/objects/large_clamp.glb"
+    },
+    {
+      object: "blue cup",
+      objectIcon: "/data/test_assets/objects/b_cups.png",
+      objectHandle: "/data/objects/b_cups.object_config.json",
+      physicsProperties: "test_assets/objects/b_cups.object_config.json",
+      renderMesh: "test_assets/objects/b_cups.glb"
+    },
+    {
+      object: "green cup",
+      objectIcon: "/data/test_assets/objects/c_cups.png",
+      objectHandle: "/data/objects/c_cups.object_config.json",
+      physicsProperties: "test_assets/objects/c_cups.object_config.json",
+      renderMesh: "test_assets/objects/c_cups.glb"
+    },
+    {
+      object: "baseball",
+      objectIcon: "/data/test_assets/objects/baseball.png",
+      objectHandle: "/data/objects/baseball.object_config.json",
+      physicsProperties: "test_assets/objects/baseball.object_config.json",
+      renderMesh: "test_assets/objects/baseball.glb"
+    },
+    {
+      object: "tennis ball",
+      objectIcon: "/data/test_assets/objects/tennis_ball.png",
+      objectHandle: "/data/objects/tennis_ball.object_config.json",
+      physicsProperties: "test_assets/objects/tennis_ball.object_config.json",
+      renderMesh: "test_assets/objects/tennis_ball.glb"
+    },
+    {
+      object: "blue jug",
+      objectIcon: "/data/test_assets/objects/pitcher_base.png",
+      objectHandle: "/data/objects/pitcher_base.object_config.json",
+      physicsProperties: "test_assets/objects/pitcher_base.object_config.json",
+      renderMesh: "test_assets/objects/pitcher_base.glb"
+    },
+    {
+      object: "potted meat can",
+      objectIcon: "/data/test_assets/objects/potted_meat_can.png",
+      objectHandle: "/data/objects/potted_meat_can.object_config.json",
+      physicsProperties:
+        "test_assets/objects/potted_meat_can.object_config.json",
+      renderMesh: "test_assets/objects/potted_meat_can.glb"
+    },
+    {
+      object: "sugar box",
+      objectIcon: "/data/test_assets/objects/sugar_box.png",
+      objectHandle: "/data/objects/sugar_box.object_config.json",
+      physicsProperties: "test_assets/objects/sugar_box.object_config.json",
+      renderMesh: "test_assets/objects/sugar_box.glb"
+    },
+    {
+      object: "rubiks cube",
+      objectIcon: "/data/test_assets/objects/rubiks_cube.png",
+      objectHandle: "/data/objects/rubiks_cube.object_config.json",
+      physicsProperties: "test_assets/objects/rubiks_cube.object_config.json",
+      renderMesh: "test_assets/objects/rubiks_cube.glb"
+    },
+    {
+      object: "softball",
+      objectIcon: "/data/test_assets/objects/softball.png",
+      objectHandle: "/data/objects/softball.object_config.json",
+      physicsProperties: "test_assets/objects/softball.object_config.json",
+      renderMesh: "test_assets/objects/softball.glb"
+    },
+    {
+      object: "plum",
+      objectIcon: "/data/test_assets/objects/plum.png",
+      objectHandle: "/data/objects/plum.object_config.json",
+      physicsProperties: "test_assets/objects/plum.object_config.json",
+      renderMesh: "test_assets/objects/plum.glb"
+    },
+    {
+      object: "spoon",
+      objectIcon: "/data/test_assets/objects/spoon.png",
+      objectHandle: "/data/objects/spoon.object_config.json",
+      physicsProperties: "test_assets/objects/spoon.object_config.json",
+      renderMesh: "test_assets/objects/spoon.glb"
+    },
+    {
+      object: "blue wood block",
+      objectIcon: "/data/test_assets/objects/b_colored_wood_blocks.png",
+      objectHandle: "/data/objects/b_colored_wood_blocks.object_config.json",
+      physicsProperties:
+        "test_assets/objects/b_colored_wood_blocks.object_config.json",
+      renderMesh: "test_assets/objects/b_colored_wood_blocks.glb"
+    },
+    {
+      object: "fork",
+      objectIcon: "/data/test_assets/objects/fork.png",
+      objectHandle: "/data/objects/fork.object_config.json",
+      physicsProperties: "test_assets/objects/fork.object_config.json",
+      renderMesh: "test_assets/objects/fork.glb"
+    },
+    {
+      object: "knife",
+      objectIcon: "/data/test_assets/objects/knife.png",
+      objectHandle: "/data/objects/knife.object_config.json",
+      physicsProperties: "test_assets/objects/knife.object_config.json",
+      renderMesh: "test_assets/objects/knife.glb"
+    },
+    {
+      object: "red cup",
+      objectIcon: "/data/test_assets/objects/e_cups.png",
+      objectHandle: "/data/objects/e_cups.object_config.json",
+      physicsProperties: "test_assets/objects/e_cups.object_config.json",
+      renderMesh: "test_assets/objects/e_cups.glb"
+    },
+    {
+      object: "yellow cup",
+      objectIcon: "/data/test_assets/objects/d_cups.png",
+      objectHandle: "/data/objects/d_cups.object_config.json",
+      physicsProperties: "test_assets/objects/d_cups.object_config.json",
+      renderMesh: "test_assets/objects/d_cups.glb"
+    },
+    {
+      object: "toy gun",
+      objectIcon: "/data/test_assets/objects/b_toy_airplane.png",
+      objectHandle: "/data/objects/b_toy_airplane.object_config.json",
+      physicsProperties:
+        "test_assets/objects/b_toy_airplane.object_config.json",
+      renderMesh: "test_assets/objects/b_toy_airplane.glb"
+    },
+    {
+      object: "screwdriver",
+      objectIcon: "/data/test_assets/objects/phillips_screwdriver.png",
+      objectHandle: "/data/objects/phillips_screwdriver.object_config.json",
+      physicsProperties:
+        "test_assets/objects/phillips_screwdriver.object_config.json",
+      renderMesh: "test_assets/objects/phillips_screwdriver.glb"
+    },
+    {
+      object: "brown box",
+      objectIcon: "/data/test_assets/objects/foam_brick.png",
+      objectHandle: "/data/objects/foam_brick.object_config.json",
+      physicsProperties: "test_assets/objects/foam_brick.object_config.json",
+      renderMesh: "test_assets/objects/foam_brick.glb"
+    },
+    {
+      object: "purple lego",
+      objectIcon: "/data/test_assets/objects/b_lego_duplo.png",
+      objectHandle: "/data/objects/b_lego_duplo.object_config.json",
+      physicsProperties: "test_assets/objects/b_lego_duplo.object_config.json",
+      renderMesh: "test_assets/objects/b_lego_duplo.glb"
+    },
+    {
+      object: "blue lego",
+      objectIcon: "/data/test_assets/objects/e_lego_duplo.png",
+      objectHandle: "/data/objects/e_lego_duplo.object_config.json",
+      physicsProperties: "test_assets/objects/e_lego_duplo.object_config.json",
+      renderMesh: "test_assets/objects/e_lego_duplo.glb"
+    },
+    {
+      object: "spatula",
+      objectIcon: "/data/test_assets/objects/spatula.png",
+      objectHandle: "/data/objects/spatula.object_config.json",
+      physicsProperties: "test_assets/objects/spatula.object_config.json",
+      renderMesh: "test_assets/objects/spatula.glb"
+    },
+    {
+      object: "wrench",
+      objectIcon: "/data/test_assets/objects/adjustable_wrench.png",
+      objectHandle: "/data/objects/adjustable_wrench.object_config.json",
+      physicsProperties:
+        "test_assets/objects/adjustable_wrench.object_config.json",
+      renderMesh: "test_assets/objects/adjustable_wrench.glb"
+    },
+    {
+      object: "orange cup",
+      objectIcon: "/data/test_assets/objects/a_cups.png",
+      objectHandle: "/data/objects/a_cups.object_config.json",
+      physicsProperties: "test_assets/objects/a_cups.object_config.json",
+      renderMesh: "test_assets/objects/a_cups.glb"
+    },
+    {
+      object: "tuna fish can",
+      objectIcon: "/data/test_assets/objects/tuna_fish_can.png",
+      objectHandle: "/data/objects/tuna_fish_can.object_config.json",
+      physicsProperties: "test_assets/objects/tuna_fish_can.object_config.json",
+      renderMesh: "test_assets/objects/tuna_fish_can.glb"
+    },
+    {
+      object: "power drill",
+      objectIcon: "/data/test_assets/objects/power_drill.png",
+      objectHandle: "/data/objects/power_drill.object_config.json",
+      physicsProperties: "test_assets/objects/power_drill.object_config.json",
+      renderMesh: "test_assets/objects/power_drill.glb"
+    },
+    {
+      object: "green lego",
+      objectIcon: "/data/test_assets/objects/a_lego_duplo.png",
+      objectHandle: "/data/objects/a_lego_duplo.object_config.json",
+      physicsProperties: "test_assets/objects/a_lego_duplo.object_config.json",
+      renderMesh: "test_assets/objects/a_lego_duplo.glb"
+    },
+    {
+      object: "purple cup",
+      objectIcon: "/data/test_assets/objects/f_cups.png",
+      objectHandle: "/data/objects/f_cups.object_config.json",
+      physicsProperties: "test_assets/objects/f_cups.object_config.json",
+      renderMesh: "test_assets/objects/f_cups.glb"
+    },
+    {
+      object: "pear",
+      objectIcon: "/data/test_assets/objects/pear.png",
+      objectHandle: "/data/objects/pear.object_config.json",
+      physicsProperties: "test_assets/objects/pear.object_config.json",
+      renderMesh: "test_assets/objects/pear.glb"
+    },
+    {
+      object: "racquetball",
+      objectIcon: "/data/test_assets/objects/racquetball.png",
+      objectHandle: "/data/objects/racquetball.object_config.json",
+      physicsProperties: "test_assets/objects/racquetball.object_config.json",
+      renderMesh: "test_assets/objects/racquetball.glb"
+    },
+    {
+      object: "scissors",
+      objectIcon: "/data/test_assets/objects/scissors.png",
+      objectHandle: "/data/objects/scissors.object_config.json",
+      physicsProperties: "test_assets/objects/scissors.object_config.json",
+      renderMesh: "test_assets/objects/scissors.glb"
+    },
+    {
+      object: "white bottle",
+      objectIcon: "/data/test_assets/objects/bleach_cleanser.png",
+      objectHandle: "/data/objects/bleach_cleanser.object_config.json",
+      physicsProperties:
+        "test_assets/objects/bleach_cleanser.object_config.json",
+      renderMesh: "test_assets/objects/bleach_cleanser.glb"
     }
   ]
 };
@@ -200,6 +437,74 @@ export const taskFiles = {
       trainingTask: {
         name: "training_task_3.json",
         config: "tasks/training_task_3.json"
+      }
+    },
+    {
+      name: "task_4.json",
+      config: "tasks/task_4.json",
+      scene: "empty_house.glb",
+      flythroughTask: {
+        name: "replay_task_3.json",
+        config: "tasks/replay_task_3.json"
+      },
+      flythroughReplayFile: {
+        name: "replay_task_3.csv",
+        location: "replays/replay_task_3.csv"
+      },
+      trainingTask: {
+        name: "training_task_3.json",
+        config: "tasks/training_task_3.json"
+      }
+    },
+    {
+      name: "task_5.json",
+      config: "tasks/task_5.json",
+      scene: "big_house.glb",
+      flythroughTask: {
+        name: "replay_task_3.json",
+        config: "tasks/replay_task_3.json"
+      },
+      flythroughReplayFile: {
+        name: "replay_task_3.csv",
+        location: "replays/replay_task_3.csv"
+      },
+      trainingTask: {
+        name: "training_task_5.json",
+        config: "tasks/training_task_5.json"
+      }
+    },
+    {
+      name: "task_7.json",
+      config: "tasks/task_7.json",
+      scene: "big_house_2.glb",
+      flythroughTask: {
+        name: "replay_task_3.json",
+        config: "tasks/replay_task_3.json"
+      },
+      flythroughReplayFile: {
+        name: "replay_task_3.csv",
+        location: "replays/replay_task_3.csv"
+      },
+      trainingTask: {
+        name: "training_task_7.json",
+        config: "tasks/training_task_7.json"
+      }
+    },
+    {
+      name: "task_8.json",
+      config: "tasks/task_8.json",
+      scene: "house_3.glb",
+      flythroughTask: {
+        name: "replay_task_3.json",
+        config: "tasks/replay_task_3.json"
+      },
+      flythroughReplayFile: {
+        name: "replay_task_3.csv",
+        location: "replays/replay_task_3.csv"
+      },
+      trainingTask: {
+        name: "training_task_8.json",
+        config: "tasks/training_task_8.json"
       }
     }
   ]

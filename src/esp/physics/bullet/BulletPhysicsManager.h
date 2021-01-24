@@ -251,6 +251,8 @@ class BulletPhysicsManager : public PhysicsManager {
   Magnum::Matrix4 getBulletTransformation(
       const int physObjectID) const override;
 
+  void setActiveState(const int physObjectID) const;
+
   btDbvtBroadphase bBroadphase_;
   btDefaultCollisionConfiguration bCollisionConfig_;
 

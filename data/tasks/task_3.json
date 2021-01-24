@@ -1,72 +1,6 @@
 {
     "episodes": [
         {
-            "episode_id": 0,
-            "scene_id": "empty_house.glb",
-            "start_position": [
-                0.26330190896987915,
-                -0.2089587301015854,
-                -5.888158321380615
-            ],
-            "start_rotation": [
-                0,
-                0.26684510489205326,
-                0,
-                0.9637394305491236
-            ],
-            "task": {
-                "instruction": "Place the soccer ball on the colored wood block",
-                "type": "arrangement",
-                "goals": {
-                    "objectToReceptacleMap": {
-                        "0": [
-                            1
-                        ]
-                    }
-                }
-            },
-            "objects": [
-                {
-                    "object": "soccer ball",
-                    "objectHandle": "/data/objects/mini_soccer_ball.object_config.json",
-                    "objectIcon": "/data/test_assets/objects/mini_soccer_ball.png",
-                    "objectId": 0,
-                    "isReceptacle": false,
-                    "position": [
-                        -0.2118922919034958,
-                        -0.15833339095115662,
-                        -2.541438102722168
-                    ],
-                    "rotation": [
-                        -0.03208978846669197,
-                        -0.004433728288859129,
-                        -0.656595766544342,
-                        0.7535467147827148
-                    ],
-                    "motionType": "DYNAMIC"
-                },
-                {
-                    "object": "colored wood block",
-                    "objectHandle": "/data/objects/colored_wood_blocks.object_config.json",
-                    "objectIcon": "/data/test_assets/objects/colored_wood_blocks.png",
-                    "objectId": 1,
-                    "isReceptacle": true,
-                    "position": [
-                        -2.450237512588501,
-                        -0.07923463732004166,
-                        -8.09166431427002
-                    ],
-                    "rotation": [
-                        0.011967667378485203,
-                        -0.0034576060716062784,
-                        -0.003785276785492897,
-                        0.9999152421951294
-                    ],
-                    "motionType": "DYNAMIC"
-                }
-            ]
-        },
-        {
             "episode_id": 1,
             "scene_id": "empty_house.glb",
             "start_position": [
@@ -411,7 +345,7 @@
                 -0.28912804527934816
             ],
             "task": {
-                "instruction": "Place the apple on the red bowl",
+                "instruction": "Place the apple in the red bowl",
                 "type": "arrangement",
                 "goals": {
                     "objectToReceptacleMap": {
@@ -609,7 +543,7 @@
                 -0.827667224189079
             ],
             "task": {
-                "instruction": "Place the orange on the red bowl",
+                "instruction": "Place the orange in the red bowl",
                 "type": "arrangement",
                 "goals": {
                     "objectToReceptacleMap": {

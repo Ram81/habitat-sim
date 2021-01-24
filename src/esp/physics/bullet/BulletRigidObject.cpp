@@ -589,5 +589,12 @@ Magnum::Matrix4 BulletRigidObject::getBulletTransform() {
   return Magnum::Matrix4(bObjectRigidBody_->getWorldTransform());
 }
 
+void BulletRigidObject::setActiveState() {
+  // btTransform transform;
+  // bObjectRigidBody_->getMotionState()->getWorldTransform(transform);
+  // return Magnum::Matrix4(bObjectRigidBody_->getWorldTransform());
+  setActive();
+}
+
 }  // namespace physics
 }  // namespace esp

@@ -94,8 +94,8 @@ class NavigateTask {
       { name: "turnRight", key: "d", keyCode: 68 },
       { name: "lookUp", key: "ArrowUp", keyCode: 38 },
       { name: "lookDown", key: "ArrowDown", keyCode: 40 },
-      { name: "grabReleaseObject", key: " ", keyCode: 32 }
-      // { name: "agentPose", key: "p", keyCode: 80 },
+      { name: "grabReleaseObject", key: " ", keyCode: 32 },
+      { name: "agentPose", key: "p", keyCode: 80 }
       // { name: "dropObject", key: "o", keyCode: 79 }
     ];
   }

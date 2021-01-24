@@ -1,5 +1,6 @@
 {
 "render_asset": "gelatin_box.glb",
 "use_bounding_box_for_collision": true,
-"requires_lighting": true
+"requires_lighting": true,
+"scale": [3.0, 3.0, 3.0]
 }

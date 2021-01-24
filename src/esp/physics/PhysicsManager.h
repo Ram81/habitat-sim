@@ -974,6 +974,8 @@ class PhysicsManager {
 
   virtual Magnum::Matrix4 getBulletTransformation(const int physObjectID) const;
 
+  virtual void setActiveState(const int physObjectID){};
+
   void clearRecycledObjectIds();
 
  protected:

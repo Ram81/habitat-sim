@@ -453,6 +453,8 @@ class BulletRigidObject : public BulletBase,
 
   Magnum::Matrix4 getBulletTransform();
 
+  void setActiveState();
+
  private:
   /**
    * @brief Finalize initialization of this @ref BulletRigidObject as a @ref

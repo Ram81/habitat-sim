@@ -1,5 +1,6 @@
 {
 "render_asset": "bleach_cleanser.glb",
 "use_bounding_box_for_collision": true,
-"requires_lighting": true
+"requires_lighting": true,
+"scale": [1.5, 1.5, 1.5]
 }

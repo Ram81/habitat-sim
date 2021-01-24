@@ -597,6 +597,14 @@ bool Simulator::preAddContactTest(const std::string& objectLibHandle,
   return false;
 }
 
+bool Simulator::setActiveState(const int physObjectID, const int sceneID) {
+  if (sceneHasPhysics(sceneID)) {
+    physicsManager_->setActiveState(physObjectID);
+    return true;
+  }
+  return false;
+}
+
 bool Simulator::preAddContactTestRotation(const std::string& objectLibHandle,
                                           const Magnum::Vector3& translation,
                                           const Magnum::Quaternion& rotation,
@@ -1144,7 +1152,6 @@ esp::physics::RayHitInfo Simulator::findFloorPositionUnderCrosshair(
   physics::RaycastResults results = castRay(ray);
   Magnum::Vector3 refPoint = refTransformation.translation();
 
-  Magnum::Vector3 agentCamPoint = renderCamera_.node().absoluteTranslation();
   for (int rayIdx = 0; rayIdx < results.hits.size(); rayIdx++) {
     double pointDistance = results.hits[rayIdx].rayDistance;
     if (pointDistance <= distance) {
@@ -1153,7 +1160,7 @@ esp::physics::RayHitInfo Simulator::findFloorPositionUnderCrosshair(
   }
 
   Magnum::Vector3 newPos =
-      refTransformation.transformPoint({0.0f, agentCamPoint.y(), -1.0f});
+      refTransformation.transformPoint({0.0f, 1.5f, -1.0f});
   esp::physics::RayHitInfo rayHitInfo;
   rayHitInfo.point = newPos;
   rayHitInfo.objectId = -1;

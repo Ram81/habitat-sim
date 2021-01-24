@@ -165,7 +165,7 @@ class Simulator(SimulatorBackend):
         super().reset()
         for i in range(len(self.agents)):
             self.reset_agent(i)
-        self.update_cross_hair()
+        # self.update_cross_hair()
 
         if agent_ids is None:
             agent_ids = [self._default_agent_id]
@@ -349,7 +349,7 @@ class Simulator(SimulatorBackend):
             if draw_crosshair:
                 for _sensor_uuid, sensor in agent_sensorsuite.items():
                     sensor.draw_observation(self.render_to_ui)
-                self.update_cross_hair()
+                # self.update_cross_hair()
             for _sensor_uuid, sensor in agent_sensorsuite.items():
                 sensor.draw_observation(self.render_to_ui)
 
