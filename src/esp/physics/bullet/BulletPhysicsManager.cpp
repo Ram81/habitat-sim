@@ -248,12 +248,15 @@ bool BulletPhysicsManager::contactTest(const int physObjectID) {
 
 bool BulletPhysicsManager::preAddContactTest(const std::string& handle,
                                              const Magnum::Vector3& translation,
-                                             const bool isNavigationTest) {
+                                             const bool isNavigationTest,
+                                             int collisionFilterGroup,
+                                             int collisionFilterMask) {
   Magnum::Quaternion defaultRotation = Magnum::Quaternion{{0.0, 0.0, 0.0}, 1.0};
   bWorld_->getCollisionWorld()->performDiscreteCollisionDetection();
   return static_cast<BulletRigidObject*>(contactTestObjects_.at(handle).get())
       ->preAddContactTest(translation, collisionObjToObjIds_, isNavigationTest,
-                          defaultRotation);
+                          defaultRotation, collisionFilterGroup,
+                          collisionFilterMask);
 }
 
 bool BulletPhysicsManager::preAddContactTestRotation(

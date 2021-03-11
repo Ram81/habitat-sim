@@ -36,10 +36,8 @@ class SimEnv {
     this.agentObjectHandle = primitiveObjectHandles[0];
 
     this.setEpisode(episode);
-    if (window.config.recomputeNavMesh) {
-      this.recomputeNavMesh();
-    }
     this.maxDistance = 2.0;
+    this.objectIndexx = 108;
   }
 
   /**
@@ -272,15 +270,17 @@ class SimEnv {
    * @returns {number} object ID or -1 if object was unable to be added
    */
   addTemplateObject() {
-    let fileBasedObjectIdx = getRandomInt(fileBasedObjects["objects"].length);
+    let fileBasedObjectIdx = this.objectIndexx; // getRandomInt(fileBasedObjects["objects"].length);
     let objectLibHandle =
       fileBasedObjects["objects"][fileBasedObjectIdx]["objectHandle"];
+    console.log(this.objectIndexx + "---" + objectLibHandle);
     let objectId = this.addObjectByHandle(objectLibHandle);
     let agentTransform = this.getAgentTransformation(0);
     let position = agentTransform.transformPoint(
       new Module.Vector3(0.1, 1.5, -1.5)
     );
     this.setTranslation(position, objectId, 0);
+    fileBasedObjects["objects"][fileBasedObjectIdx]["isReceptacle"] = false;
     this.addObjectInScene(
       objectId,
       fileBasedObjects["objects"][fileBasedObjectIdx]
@@ -289,6 +289,7 @@ class SimEnv {
       fileBasedObjects["objects"][fileBasedObjectIdx]["objectHandle"],
       0
     );
+    this.objectIndexx += 1;
     return objectId;
   }
 
@@ -298,7 +299,9 @@ class SimEnv {
    */
   removeLastObject() {
     let existingObjectIds = this.getExistingObjectIDs();
-    this.removeObject(existingObjectIds.get(existingObjectIds.size() - 1));
+    if (existingObjectIds.size() > 0) {
+      this.removeObject(existingObjectIds.get(existingObjectIds.size() - 1));
+    }
   }
 
   /**
@@ -690,13 +693,9 @@ class SimEnv {
     }
 
     // use original Y value to keep object on the floor if crosshair is pointing on ground
-    let yValue = floorPosition.y();
-    if (this.grippedObjectTransformation.translation().y() >= yValue) {
-      yValue = this.grippedObjectTransformation.translation().y();
-    }
     let newObjectPosition = new Module.Vector3(
       floorPosition.x(),
-      yValue,
+      floorPosition.y(),
       floorPosition.z()
     );
 
@@ -744,7 +743,7 @@ class SimEnv {
   }
 
   isAgentColliding(action, agentTransform) {
-    let stepSize = 0.25;
+    let stepSize = 0.15;
     if (action == "moveForward") {
       let position = agentTransform.backward().mul(-1 * stepSize);
       let newPosition = agentTransform.translation().add(position);
@@ -754,17 +753,24 @@ class SimEnv {
       );
       let filterDiff = filteredPoint.sub(newPosition);
       // adding buffer of 0.1 y to avoid collision with navmesh
-      let finalPosition = newPosition
-        .add(filterDiff)
-        .add(new Module.Vector3(0.0, 0.05, 0.0));
-      let collision = this.isCollision(
-        this.agentObjectHandle,
-        finalPosition,
-        true
-      );
+      let isColliding = false;
+      let offsets = [0, 0.05, -0.05, 0.1, -0.1, -0.2];
+      for (let idx in offsets) {
+        let offset = offsets[idx];
+        let finalPosition = newPosition
+          .add(filterDiff)
+          .add(new Module.Vector3(0.0, offset, 0.0));
+        let collision = this.isCollision(
+          this.agentObjectHandle,
+          finalPosition,
+          true
+        );
+        if (collision) {
+          isColliding = true;
+        }
+      }
       return {
-        collision: collision,
-        position: finalPosition
+        collision: isColliding
       };
     } else if (action == "moveBackward") {
       let position = agentTransform.backward().mul(stepSize);
@@ -775,27 +781,41 @@ class SimEnv {
       );
       let filterDiff = filteredPoint.sub(newPosition);
       // adding buffer of 0.1 y to avoid collision with navmesh
-      let finalPosition = newPosition
-        .add(filterDiff)
-        .add(new Module.Vector3(0.0, 0.05, 0.0));
-      let collision = this.isCollision(
-        this.agentObjectHandle,
-        finalPosition,
-        true
-      );
+      let isColliding = false;
+      let offsets = [0, 0.05, -0.05, 0.1, -0.1, -0.2];
+      for (let idx in offsets) {
+        let offset = offsets[idx];
+        let finalPosition = newPosition
+          .add(filterDiff)
+          .add(new Module.Vector3(0.0, offset, 0.0));
+        let collision = this.isCollision(
+          this.agentObjectHandle,
+          finalPosition,
+          true
+        );
+        if (collision) {
+          isColliding = true;
+        }
+      }
       return {
-        collision: collision,
-        position: finalPosition
+        collision: isColliding
       };
     }
     return false;
   }
 
   isCollision(objectHandle, point, isNavigationTest = false, sceneId = 0) {
+    let collisionGroup = 1;
+    let collisionMask = -1;
+    if (isNavigationTest) {
+      collisionMask = 1;
+    }
     return this.sim.preAddContactTest(
       objectHandle,
       point,
       isNavigationTest,
+      collisionGroup,
+      collisionMask,
       sceneId
     );
   }

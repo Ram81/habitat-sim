@@ -524,7 +524,9 @@ bool BulletRigidObject::preAddContactTest(
     std::shared_ptr<std::map<const btCollisionObject*, int> >
         collisionObjToObjIds,
     const bool isNavigationTest,
-    const Magnum::Quaternion& rotation) {
+    const Magnum::Quaternion& rotation,
+    int collisionFilterGroup,
+    int collisionFilterMask) {
   auto rotationMatrix = rotation.toMatrix();
   auto transformationMatrix =
       Magnum::Matrix4::from(rotationMatrix, translation);
@@ -534,28 +536,10 @@ bool BulletRigidObject::preAddContactTest(
   colObj->setWorldTransform(btTransform(transformationMatrix));
 
   PreAddSimulationContactResultCallback src;
+  src.m_collisionFilterGroup = collisionFilterGroup;
+  src.m_collisionFilterMask = collisionFilterMask;
   bWorld_->getCollisionWorld()->contactTest(colObj.get(), src);
-
-  if (src.bCollision) {
-    auto objectCollisionMap = src.collisionObjMap;
-    if (objectCollisionMap.count(colObj.get()) > 0) {
-      auto collidedObj = objectCollisionMap.at(colObj.get());
-
-      if (collisionObjToObjIds_->count(collidedObj) > 0) {
-        auto objId = collisionObjToObjIds_->at(collidedObj);
-        if (isNavigationTest) {
-          if (objId != -1) {
-            return true;
-          }
-        } else {
-          // TODO: figure out a way to detect contact with navmesh and static
-          // object
-          return true;
-        }
-      }
-    }
-  }
-  return false;
+  return src.bCollision;
 }
 
 const Magnum::Range3D BulletRigidObject::getCollisionShapeAabb() const {
@@ -590,9 +574,6 @@ Magnum::Matrix4 BulletRigidObject::getBulletTransform() {
 }
 
 void BulletRigidObject::setActiveState() {
-  // btTransform transform;
-  // bObjectRigidBody_->getMotionState()->getWorldTransform(transform);
-  // return Magnum::Matrix4(bObjectRigidBody_->getWorldTransform());
   setActive();
 }
 

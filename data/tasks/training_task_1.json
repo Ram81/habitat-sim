@@ -14,26 +14,46 @@
         }
       },
 
-      "start_position": [-4.5867, -0.208959, 1.75358],
-      "start_rotation": [0, -0.0654379, 0, -0.997857],
+      "start_position": [
+        -1.5340545177459717,
+        -0.13310332596302032,
+        -0.6734017133712769
+    ],
+    "start_rotation": [
+        0,
+        0.8350900065673779,
+        0,
+        0.5501133346241452
+    ],
       "objects": [
-          {
-            "object": "sphere",
-            "objectIcon": "/data/test_assets/objects/sphere.png",
-            "objectHandle": "/data/objects/sphere.phys_properties.json",
-            "position": [-3.345522403717041,-0.14624206721782684,-2.518608808517456],
-            "rotation": [0.0, 0.0, 0.0, 1.0],
+        {
+            "object": "hammer",
+            "objectHandle": "/data/objects/hammer.object_config.json",
+            "objectIcon": "/data/test_assets/objects/hammer.png",
+            "objectId": 0,
             "isReceptacle": false,
-            "motionType": "STATIC"
+            "position": [
+                2.200103521347046,
+                -0.12472091615200043,
+                -1.7800090312957764
+            ],
+            "rotation": [
+                0.0006495296838693321,
+                0.0019116986077278852,
+                0.0028846575878560543,
+                0.9999938011169434
+            ],
+            "motionType": "DYNAMIC"
           },
           {
-            "object": "colored_wood_blocks",
-            "objectIcon": "/data/test_assets/objects/colored_wood_blocks.png",
-            "objectHandle": "/data/objects/colored_wood_blocks.phys_properties.json",
-            "position": [1.4270246028900146,-0.16419634222984314,-5.193271636962891],
-            "rotation": [0.0, 0.0, 0.0, 1.0],
+            "object": "wood block",
+            "objectHandle": "/data/objects/wood_block.object_config.json",
+            "objectIcon": "/data/test_assets/objects/wood_block.png",
+            "objectId": 1,
             "isReceptacle": true,
-            "motionType": "STATIC"
+            "position": [-4.504838943481445, -0.03920986130833626, -7.4217963218688965],
+            "rotation": [0.19469381868839264, -0.06778942048549652, 0.00936032459139824, 0.978473961353302],
+            "motionType": "DYNAMIC"
           }
       ]
     }

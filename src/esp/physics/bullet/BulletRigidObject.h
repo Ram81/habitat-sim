@@ -438,7 +438,9 @@ class BulletRigidObject : public BulletBase,
           collisionObjToObjIds,
       const bool isNavigationTest = false,
       const Magnum::Quaternion& rotation = Magnum::Quaternion{{0.0, 0.0, 0.0},
-                                                              1.0});
+                                                              1.0},
+      int collisionFilterGroup = 1,
+      int collisionFilterMask = -1);
 
   /**
    * @brief Query the Aabb from bullet physics for the root compound shape of

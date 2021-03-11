@@ -588,10 +588,13 @@ bool Simulator::contactTest(const int objectID, const int sceneID) {
 bool Simulator::preAddContactTest(const std::string& objectLibHandle,
                                   const Magnum::Vector3& translation,
                                   const bool isNavigationTest,
+                                  int collisionFilterGroup,
+                                  int collisionFilterMask,
                                   const int sceneID) {
   if (sceneHasPhysics(sceneID)) {
     auto successs = physicsManager_->preAddContactTest(
-        objectLibHandle, translation, isNavigationTest);
+        objectLibHandle, translation, isNavigationTest, collisionFilterGroup,
+        collisionFilterMask);
     return successs;
   }
   return false;

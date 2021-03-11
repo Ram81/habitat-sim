@@ -28,8 +28,8 @@
             "objects": [
                 {
                     "object": "cheezit box",
-                    "objectHandle": "/data/objects/cracker_box.object_config.json",
-                    "objectIcon": "/data/test_assets/objects/cracker_box.png",
+                    "objectHandle": "/data/objects/Thomas_Friends_Wooden_Railway_Talking_Thomas_z7yi7UFHJRj.object_config.json",
+                    "objectIcon": "/data/test_assets/objects/Thomas_Friends_Wooden_Railway_Talking_Thomas_z7yi7UFHJRj.png",
                     "objectId": 0,
                     "isReceptacle": false,
                     "position": [
@@ -314,7 +314,7 @@
                     "objectHandle": "/data/objects/plate.object_config.json",
                     "objectIcon": "/data/test_assets/objects/plate.png",
                     "objectId": 1,
-                    "isReceptacle": true,
+                    "isReceptacle": false,
                     "position": [
                         -0.30555370450019836,
                         -0.2357339709997177,
@@ -423,21 +423,116 @@
             },
             "objects": [
                 {
-                    "object": "banana",
-                    "objectHandle": "/data/objects/banana.object_config.json",
-                    "objectIcon": "/data/test_assets/objects/banana.png",
+                    "object": "yellow cup",
+                    "objectHandle": "/data/objects/d_cups.object_config.json",
+                    "objectIcon": "/data/test_assets/objects/d_cups.png",
                     "objectId": 0,
                     "isReceptacle": false,
                     "position": [
-                        -1.7642637491226196,
-                        -0.19974374771118164,
-                        -5.674705505371094
+                        -3.1953318119049072,
+                        -0.12538351118564606,
+                        -1.206960916519165
                     ],
                     "rotation": [
-                        -0.0003753184573724866,
-                        0.03426183760166168,
-                        -0.0003013874520547688,
-                        0.9994127750396729
+                        0.32594043016433716,
+                        0.017975933849811554,
+                        0.007112287916243076,
+                        0.9451926350593567
+                    ],
+                    "motionType": "DYNAMIC"
+                },
+                {
+                    "object": "red cup",
+                    "objectHandle": "/data/objects/e_cups.object_config.json",
+                    "objectIcon": "/data/test_assets/objects/e_cups.png",
+                    "objectId": 0,
+                    "isReceptacle": false,
+                    "position": [
+                        0.4804604649543762,
+                        -0.1973162144422531,
+                        0.18488791584968567
+                    ],
+                    "rotation": [
+                        -0.009684916585683823,
+                        0.03344635292887688,
+                        0.0073471106588840485,
+                        0.9993665814399719
+                    ],
+                    "motionType": "DYNAMIC"
+                },
+                {
+                    "object": "orange cup",
+                    "objectHandle": "/data/objects/a_cups.object_config.json",
+                    "objectIcon": "/data/test_assets/objects/a_cups.png",
+                    "objectId": 0,
+                    "isReceptacle": false,
+                    "position": [
+                        -1.2476506233215332,
+                        -0.2305913120508194,
+                        -7.00161600112915
+                    ],
+                    "rotation": [
+                        -0.00926432479172945,
+                        0.011840720660984516,
+                        0.001024881610646844,
+                        0.9998864531517029
+                    ],
+                    "motionType": "DYNAMIC"
+                },
+                {
+                    "object": "green cup",
+                    "objectHandle": "/data/objects/c_cups.object_config.json",
+                    "objectIcon": "/data/test_assets/objects/c_cups.png",
+                    "objectId": 0,
+                    "isReceptacle": false,
+                    "position": [
+                        -7.255551815032959,
+                        -0.20121482014656067,
+                        -4.77775239944458
+                    ],
+                    "rotation": [
+                        -0.001413728459738195,
+                        0.002352961106225848,
+                        -0.006222347728908062,
+                        0.9999768733978271
+                    ],
+                    "motionType": "DYNAMIC"
+                },
+                {
+                    "object": "blue cup",
+                    "objectHandle": "/data/objects/b_cups.object_config.json",
+                    "objectIcon": "/data/test_assets/objects/b_cups.png",
+                    "objectId": 0,
+                    "isReceptacle": false,
+                    "position": [
+                        1.5560832023620605,
+                        -0.22570878267288208,
+                        -2.3966898918151855
+                    ],
+                    "rotation": [
+                        -0.0012510131346061826,
+                        -0.013974376022815704,
+                        -0.011147906072437763,
+                        0.9998394250869751
+                    ],
+                    "motionType": "DYNAMIC"
+                },
+                {
+                    "object": "purple cup",
+                    "objectHandle": "/data/objects/f_cups.object_config.json",
+                    "objectIcon": "/data/test_assets/objects/f_cups.png",
+                    "objectId": 0,
+                    "isReceptacle": false,
+                    "position": [
+                        -1.1908433437347412,
+                        -0.22146542370319366,
+                        -8.291526794433594
+                    ],
+                    "rotation": [
+                        0.006568347103893757,
+                        -0.007982379756867886,
+                        -0.0019085071980953217,
+                        0.9999447464942932
                     ],
                     "motionType": "DYNAMIC"
                 },
@@ -776,7 +871,7 @@
                     "objectHandle": "/data/objects/wood_block.object_config.json",
                     "objectIcon": "/data/test_assets/objects/wood_block.png",
                     "objectId": 1,
-                    "isReceptacle": true,
+                    "isReceptacle": false,
                     "position": [
                         -4.471735954284668,
                         -0.11739623546600342,
@@ -787,6 +882,138 @@
                         0.008734107948839664,
                         -0.001920035108923912,
                         0.9999596476554871
+                    ],
+                    "motionType": "DYNAMIC"
+                }
+            ]
+        },
+        {
+            "episode_id": 0,
+            "scene_id": "empty_house.glb",
+            "start_position": [
+                -1.637902021408081,
+                -0.2089587301015854,
+                -6.63114595413208
+            ],
+            "start_rotation": [
+                0,
+                0.3922248341187028,
+                0,
+                0.9198693817605607
+            ],
+            "task": {
+                "instruction": "Place the tomato soup can on the red plate",
+                "type": "arrangement",
+                "goals": {
+                    "objectToReceptacleMap": {
+                        "0": [
+                            1
+                        ]
+                    }
+                }
+            },
+            "objects": [
+                {
+                    "object": "tomato soup can",
+                    "objectHandle": "/data/objects/tomato_soup_can.object_config.json",
+                    "objectIcon": "/data/test_assets/objects/tomato_soup_can.png",
+                    "objectId": 0,
+                    "isReceptacle": false,
+                    "position": [
+                        2.025787591934204,
+                        -0.03948509693145752,
+                        -1.509331464767456
+                    ],
+                    "rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "motionType": "DYNAMIC"
+                },
+                {
+                    "object": "red plate",
+                    "objectHandle": "/data/objects/plate.object_config.json",
+                    "objectIcon": "/data/test_assets/objects/plate.png",
+                    "objectId": 1,
+                    "isReceptacle": true,
+                    "position": [
+                        1.9577006101608276,
+                        -0.10023940354585648,
+                        -5.461087703704834
+                    ],
+                    "rotation": [
+                        0,
+                        0,
+                        0,
+                        1
+                    ],
+                    "motionType": "DYNAMIC"
+                }
+            ]
+        },
+        {
+            "episode_id": 0,
+            "scene_id": "empty_house.glb",
+            "start_position": [
+                1.5099369287490845,
+                -0.2089587301015854,
+                -1.7479742765426636
+            ],
+            "start_rotation": [
+                0,
+                0.9814902000856565,
+                0,
+                -0.1915123681014309
+            ],
+            "task": {
+                "instruction": "Place the tomato soup can on the red plate",
+                "type": "arrangement",
+                "goals": {
+                    "objectToReceptacleMap": {
+                        "0": [
+                            1
+                        ]
+                    }
+                }
+            },
+            "objects": [
+                {
+                    "object": "tomato soup can",
+                    "objectHandle": "/data/objects/tomato_soup_can.object_config.json",
+                    "objectIcon": "/data/test_assets/objects/tomato_soup_can.png",
+                    "objectId": 0,
+                    "isReceptacle": false,
+                    "position": [
+                        -0.691880464553833,
+                        -0.20117361843585968,
+                        -7.896161079406738
+                    ],
+                    "rotation": [
+                        0.0031628988217562437,
+                        -0.05498703569173813,
+                        0.0011007358552888036,
+                        0.9984814524650574
+                    ],
+                    "motionType": "DYNAMIC"
+                },
+                {
+                    "object": "red plate",
+                    "objectHandle": "/data/objects/plate.object_config.json",
+                    "objectIcon": "/data/test_assets/objects/plate.png",
+                    "objectId": 1,
+                    "isReceptacle": true,
+                    "position": [
+                        1.4103056192398071,
+                        -0.2538534104824066,
+                        -4.3165669441223145
+                    ],
+                    "rotation": [
+                        -0.0009766732109710574,
+                        0.014093765988945961,
+                        -0.0007444880902767181,
+                        0.9998999238014221
                     ],
                     "motionType": "DYNAMIC"
                 }

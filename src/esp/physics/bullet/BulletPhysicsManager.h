@@ -174,7 +174,9 @@ class BulletPhysicsManager : public PhysicsManager {
 
   bool preAddContactTest(const std::string& handle,
                          const Magnum::Vector3& translation,
-                         const bool isNavigationTest = false) override;
+                         const bool isNavigationTest = false,
+                         int collisionFilterGroup = 1,
+                         int collisionFilterMask = -1) override;
 
   bool preAddContactTestRotation(const std::string& handle,
                                  const Magnum::Vector3& translation,

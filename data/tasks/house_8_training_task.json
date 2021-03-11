@@ -1,0 +1,70 @@
+{
+    "episodes": [
+        {
+            "episode_id": 0,
+            "scene_id": "house_8.glb",
+            "start_position": [
+                -15.41663932800293,
+                0.21507850289344788,
+                10.179450035095215
+            ],
+            "start_rotation": [
+                0,
+                0.9554334387336441,
+                0,
+                -0.29520661264545545
+            ],
+            "task": {
+                "instruction": "Place the tomato soup can on the red plate",
+                "type": "arrangement",
+                "goals": {
+                    "objectToReceptacleMap": {
+                        "0": [
+                            1
+                        ]
+                    }
+                }
+            },
+            "objects": [
+                {
+                    "object": "tomato soup can",
+                    "objectHandle": "/data/objects/tomato_soup_can.object_config.json",
+                    "objectIcon": "/data/test_assets/objects/tomato_soup_can.png",
+                    "objectId": 0,
+                    "isReceptacle": false,
+                    "position": [
+                        -17.286731719970703,
+                        0.14909972250461578,
+                        2.752809524536133
+                    ],
+                    "rotation": [
+                        0.00011844868276966736,
+                        0.007691544480621815,
+                        0.0002687898522708565,
+                        0.9999703764915466
+                    ],
+                    "motionType": "DYNAMIC"
+                },
+                {
+                    "object": "red plate",
+                    "objectHandle": "/data/objects/plate.object_config.json",
+                    "objectIcon": "/data/test_assets/objects/plate.png",
+                    "objectId": 1,
+                    "isReceptacle": true,
+                    "position": [
+                        -14.914620399475098,
+                        0.10789375752210617,
+                        -10.104510307312012
+                    ],
+                    "rotation": [
+                        -0.0040739793330430984,
+                        0.0007779878797009587,
+                        -0.000823854876216501,
+                        0.9999910593032837
+                    ],
+                    "motionType": "DYNAMIC"
+                }
+            ]
+        }
+    ]
+}

@@ -14,7 +14,8 @@ import {
   fileBasedObjects,
   taskFiles,
   flythroughReplayFile,
-  flythroughReplayTask
+  flythroughReplayTask,
+  episodeIdObjectReceptacleMap
 } from "./modules/defaults";
 import "./bindings.css";
 import {
@@ -35,7 +36,7 @@ function preload(url) {
   return file;
 }
 
-function preloadPhysConfig(url) {
+function preloadPhysConfig(url, episodeId) {
   let emDataHome = "/data";
   FS.mkdir(emDataHome);
 
@@ -50,8 +51,34 @@ function preloadPhysConfig(url) {
   FS.mkdir(emObjHome);
 
   // TODO Need to loop through the objects directory on the server (`phys/objects/*`) and put all of the glbs onto the client
+  let objectList = episodeIdObjectReceptacleMap["object_list"];
+  let objectToLoadList = objectList[episodeId % objectList.length];
+  console.log(objectToLoadList);
+  let trainingTaskObjects = [
+    "mustard_bottle",
+    "colored_wood_blocks",
+    "tomato_soup_can",
+    "plate"
+  ];
   var objects = fileBasedObjects["objects"];
   for (let objectIdx in objects) {
+    let is_present = false;
+    for (let ii in objectToLoadList) {
+      let objectLoadName = objectToLoadList[ii];
+      if (objects[objectIdx]["objectHandle"].includes(objectLoadName)) {
+        is_present = true;
+      }
+    }
+    for (let ii in trainingTaskObjects) {
+      let objectLoadName = trainingTaskObjects[ii];
+      if (objects[objectIdx]["objectHandle"].includes(objectLoadName)) {
+        is_present = true;
+      }
+    }
+    if (is_present == false) {
+      continue;
+    }
+    console.log(objects[objectIdx]["objectHandle"]);
     let physicsProperties = objects[objectIdx]["physicsProperties"];
     let physicsPropertyName = physicsProperties.split("/")[
       physicsProperties.split("/").length - 1
@@ -153,6 +180,7 @@ Module.preRun.push(() => {
   window.config = config;
   let taskConfig = taskFiles["tasks"][parseInt(window.config.task)];
   window.config.taskConfig = taskConfig;
+  let episodeId = config.episodeId;
 
   // load scene from task if valid
   if (taskConfig !== undefined) {
@@ -164,7 +192,7 @@ Module.preRun.push(() => {
   Module.scene = preload(scene);
 
   const physicsConfigFile = window.config.defaultPhysConfig;
-  Module.physicsConfigFile = preloadPhysConfig(physicsConfigFile);
+  Module.physicsConfigFile = preloadPhysConfig(physicsConfigFile, episodeId);
 
   Module.enablePhysics = window.config.enablePhysics === "true";
   window.config.runFlythrough = window.config.runFlythrough === "true";

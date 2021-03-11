@@ -837,6 +837,8 @@ class Simulator {
   bool preAddContactTest(const std::string& objectLibHandle,
                          const Magnum::Vector3& translation,
                          const bool isNavigationTest = false,
+                         int collisionFilterGroup = 1,
+                         int collisionFilterMask = -1,
                          const int sceneID = 0);
 
   bool preAddContactTestRotation(const std::string& objectLibHandle,

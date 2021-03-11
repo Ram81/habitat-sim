@@ -884,7 +884,9 @@ class PhysicsManager {
   virtual bool preAddContactTest(
       CORRADE_UNUSED const std::string& handle,
       CORRADE_UNUSED const Magnum::Vector3& translation,
-      CORRADE_UNUSED const bool isNavigationTest = false) {
+      CORRADE_UNUSED const bool isNavigationTest = false,
+      int collisionFilterGroup = 1,
+      int collisionFilterMask = -1) {
     return false;
   };
 

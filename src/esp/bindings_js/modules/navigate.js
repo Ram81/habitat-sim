@@ -94,8 +94,9 @@ class NavigateTask {
       { name: "turnRight", key: "d", keyCode: 68 },
       { name: "lookUp", key: "ArrowUp", keyCode: 38 },
       { name: "lookDown", key: "ArrowDown", keyCode: 40 },
-      { name: "grabReleaseObject", key: " ", keyCode: 32 },
-      { name: "agentPose", key: "p", keyCode: 80 }
+      { name: "grabReleaseObject", key: " ", keyCode: 32 }
+      // { name: "agentPose", key: "p", keyCode: 80 },
+      // { name: "removeLastObject", key: "u", keyCode: 85 }
       // { name: "dropObject", key: "o", keyCode: 79 }
     ];
   }
@@ -489,7 +490,11 @@ class NavigateTask {
       this.inventory.renderInventory();
       actionData = data;
     } else if (action == "agentPose") {
-      console.log(this.sim.getAgentPose());
+      // console.log(this.sim.getObjectStates());
+      //this.sim.toggleNavMeshVisualization();
+      // this.sim.addTemplateObject();
+      // let stepSize = 1.0 / 20.0;
+      // this.sim.stepWorld(stepSize);
     } else if (action == "stepWorld") {
       this.sim.stepWorld(1.0 / 10.0);
     } else if (action == "dropObject") {
