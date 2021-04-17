@@ -86,6 +86,31 @@ std::tuple<dtStatus, dtPolyRef, vec3f> projectToPoly(
 }
 }  // namespace
 
+namespace {
+template <typename T>
+std::tuple<dtStatus, dtPolyRef, vec3f> projectToPolyCustom(
+    const T& pt,
+    const dtNavMeshQuery* navQuery,
+    const dtQueryFilter* filter) {
+  // Defines size of the bounding box to search in for the nearest polygon.  If
+  // there is no polygon inside the bounding box, the status is set to failure
+  // and polyRef == 0
+  constexpr float polyPickExt[3] = {0.03, 2, 0.03};  // [2 * dx, 2 * dy, 2 * dz]
+  dtPolyRef polyRef;
+  // Initialize with all NANs at dtStatusSucceed(status) == true does NOT mean
+  // that it found a point to project to..........
+  vec3f polyXYZ{NAN, NAN, NAN};
+  dtStatus status = navQuery->findNearestPoly(pt.data(), polyPickExt, filter,
+                                              &polyRef, polyXYZ.data());
+
+  // So let's call it a failure if it didn't actually find a point....
+  if (std::isnan(polyXYZ[0]))
+    status = DT_FAILURE;
+
+  return std::make_tuple(status, polyRef, polyXYZ);
+}
+}  // namespace
+
 namespace impl {
 
 // Runs connected component analysis on the navmesh to figure out which polygons
@@ -688,7 +713,13 @@ bool PathFinder::Impl::build(const NavMeshSettings& bs,
   for (int i = 0; i < numIndices; i++) {
     indices[i] = static_cast<int>(mesh.ibo[i]);
   }
-
+  LOG(WARNING) << "Building naavmesh before << " << bs.navMeshBBMax << " -- "
+               << bmax;
+  if (bs.navMeshBBMax != -1.0f) {
+    bmax[1] = bs.navMeshBBMax;
+  }
+  LOG(WARNING) << "Building naavmesh  after << " << bs.navMeshBBMax << " -- "
+               << bmax;
   const bool success = build(bs, mesh.vbo[0].data(), numVerts, indices,
                              numIndices / 3, bmin.data(), bmax.data());
   delete[] indices;

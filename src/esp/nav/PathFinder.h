@@ -130,6 +130,8 @@ struct NavMeshSettings {
   vec3f navMeshBMin;
   vec3f navMeshBMax;
 
+  float navMeshBBMax;
+
   bool filterLowHangingObstacles;
   bool filterLedgeSpans;
   bool filterWalkableLowHeightSpans;
@@ -151,6 +153,7 @@ struct NavMeshSettings {
     filterLowHangingObstacles = true;
     filterLedgeSpans = true;
     filterWalkableLowHeightSpans = true;
+    navMeshBBMax = -1.0f;
   }
 
   NavMeshSettings() { setDefaults(); }

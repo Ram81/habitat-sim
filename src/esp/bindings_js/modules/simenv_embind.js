@@ -38,6 +38,7 @@ class SimEnv {
     this.setEpisode(episode);
     this.maxDistance = 2.0;
     this.objectIndexx = 108;
+    this.islandRadiusLimit = 1.8;
   }
 
   /**
@@ -80,42 +81,80 @@ class SimEnv {
       // add agent object for collision test
       this.sim.addContactTestObject(this.agentObjectHandle, 0);
 
-      let objects = JSON.parse(JSON.stringify(episode.objects));
+      if (episode.objects !== undefined) {
+        let objects = JSON.parse(JSON.stringify(episode.objects));
 
-      objects.sort(function(a, b) {
-        var keyA = a["objectId"];
-        var keyB = b["objectId"];
+        objects.sort(function(a, b) {
+          var keyA = a["objectId"];
+          var keyB = b["objectId"];
 
-        if (keyA < keyB) {
-          return -1;
+          if (keyA < keyB) {
+            return -1;
+          }
+          if (keyA > keyB) {
+            return 1;
+          }
+          return 0;
+        });
+        for (let index in objects) {
+          let objectLibHandle = objects[index]["objectHandle"];
+          let position = this.convertVec3fToVector3(objects[index]["position"]);
+          let rotation = this.quatFromCoeffs(objects[index]["rotation"]);
+
+          let objectId = this.addObjectAtLocation(
+            objectLibHandle,
+            position,
+            rotation
+          );
+          this.addObjectInScene(objectId, objects[index]);
+          // adding contact test shape for object
+          this.sim.addContactTestObject(objectLibHandle, 0);
+          this.sim.setObjectSemanticId(12445 + objectId, objectId, 0);
+          episode.objects[index]["simObjectId"] = objectId;
+          episode.objects[index]["prevObjectId"] =
+            episode.objects[index]["objectId"];
+          episode.objects[index]["objectId"] = objectId;
         }
-        if (keyA > keyB) {
-          return 1;
-        }
-        return 0;
-      });
-      for (let index in objects) {
-        let objectLibHandle = objects[index]["objectHandle"];
-        let position = this.convertVec3fToVector3(objects[index]["position"]);
-        let rotation = this.quatFromCoeffs(objects[index]["rotation"]);
-
-        let objectId = this.addObjectAtLocation(
-          objectLibHandle,
-          position,
-          rotation
-        );
-        this.addObjectInScene(objectId, objects[index]);
-        // adding contact test shape for object
-        this.sim.addContactTestObject(objectLibHandle, 0);
-        episode.objects[index]["simObjectId"] = objectId;
-        episode.objects[index]["prevObjectId"] =
-          episode.objects[index]["objectId"];
-        episode.objects[index]["objectId"] = objectId;
+      }
+      if (episode.task.type == "objectnav") {
+        // for (let goal in episode.goals) {
+        //   let objectLibHandle =
+        //     "/data/objects/b_colored_wood_blocks.object_config.json";
+        //   let position = this.convertVec3fToVector3(
+        //     episode.goals[goal]["position"]
+        //   );
+        //   let rotation = this.quatFromCoeffs([0, 0, 0, 1]);
+        //   let objectId = this.addObjectAtLocation(
+        //     objectLibHandle,
+        //     position,
+        //     rotation
+        //   );
+        //   let object = {
+        //     object: "blue wood block",
+        //     objectHandle:
+        //       "/data/objects/b_colored_wood_blocks.object_config.json",
+        //     objectIcon: "/data/test_assets/objects/b_colored_wood_blocks.png",
+        //     objectId: objectId,
+        //     isReceptacle: false,
+        //     position: [
+        //       -9.966957092285156,
+        //       0.14796799421310425,
+        //       5.7232489585876465
+        //     ],
+        //     rotation: [0.0009765623253770173, 0, 0, 0.9999995231628418],
+        //     motionType: "DYNAMIC"
+        //   };
+        //   this.addObjectInScene(objectId, object);
+        //   // adding contact test shape for object
+        //   this.sim.addContactTestObject(objectLibHandle, 0);
+        //   console.log(objectId);
+        // }
       }
     } else {
       // add agent object for collision test
       this.sim.addContactTestObject(this.agentObjectHandle, 0);
     }
+    console.log("done set episode");
     this.psiturk.handleRecordTrialData("TEST", "setEpisode", {
       episode: episode
     });
@@ -273,7 +312,6 @@ class SimEnv {
     let fileBasedObjectIdx = this.objectIndexx; // getRandomInt(fileBasedObjects["objects"].length);
     let objectLibHandle =
       fileBasedObjects["objects"][fileBasedObjectIdx]["objectHandle"];
-    console.log(this.objectIndexx + "---" + objectLibHandle);
     let objectId = this.addObjectByHandle(objectLibHandle);
     let agentTransform = this.getAgentTransformation(0);
     let position = agentTransform.transformPoint(
@@ -365,7 +403,15 @@ class SimEnv {
     if (this.grippedObjectId != -1) {
       releaseAction = true;
 
-      let newObjectPosition = this.findObjectFloorPositionUnderCrosshair();
+      let data = this.findObjectFloorPositionUnderCrosshair();
+      let newObjectPosition = data["newObjectPosition"];
+      let invalidDropPoint = data["collision"];
+
+      if (invalidDropPoint) {
+        return {
+          actionFailed: true
+        };
+      }
       let object = this.getObjectFromScene(this.grippedObjectId);
 
       // Drop object at collision free location
@@ -664,7 +710,8 @@ class SimEnv {
       );
       this.updateDropPointNode(position);
     } else {
-      let newObjectPosition = this.findObjectFloorPositionUnderCrosshair();
+      let data = this.findObjectFloorPositionUnderCrosshair();
+      let newObjectPosition = data["newObjectPosition"];
       this.updateDropPointNode(newObjectPosition);
     }
   }
@@ -704,7 +751,7 @@ class SimEnv {
     // Collision check on drop point
     let collision = this.isCollision(object["objectHandle"], newObjectPosition);
     let count = 0;
-    while (collision && count < 5) {
+    while (collision && count < 2) {
       newObjectPosition = new Module.Vector3(
         newObjectPosition.x(),
         newObjectPosition.y() + 0.25,
@@ -713,7 +760,19 @@ class SimEnv {
       collision = this.isCollision(object["objectHandle"], newObjectPosition);
       count += 1;
     }
-    return newObjectPosition;
+    let snappedPoint = this.pathfinder.snapPoint(newObjectPosition);
+    snappedPoint = this.convertVector3ToVec3f(snappedPoint);
+    let isOnSeparateIsland =
+      this.pathfinder.islandRadius(snappedPoint) < this.islandRadiusLimit;
+
+    let y_diff = Math.abs(
+      refTransform.translation().y() - newObjectPosition.y()
+    );
+    let isDroppedOnIncorrectFloor = y_diff > 1.6;
+    return {
+      newObjectPosition: newObjectPosition,
+      collision: collision || isOnSeparateIsland || isDroppedOnIncorrectFloor
+    };
   }
 
   sampleObjectState(objectID, sceneID) {
@@ -857,6 +916,10 @@ class SimEnv {
 
   getNumActiveContactPoints() {
     return this.sim.getNumActiveContactPoints();
+  }
+
+  getSceneBB() {
+    return this.sim.getSceneBB();
   }
 
   getObjectStates() {

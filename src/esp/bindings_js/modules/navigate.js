@@ -27,7 +27,7 @@ class NavigateTask {
     this.sim = sim;
     this.components = components;
     this.topdown = components.topdown;
-    this.semanticsEnabled = false;
+    this.semanticsEnabled = true;
     this.radarEnabled = false;
     this.keyBindListener = null;
     this.lastInteractedObjectId = -1;
@@ -94,8 +94,8 @@ class NavigateTask {
       { name: "turnRight", key: "d", keyCode: 68 },
       { name: "lookUp", key: "ArrowUp", keyCode: 38 },
       { name: "lookDown", key: "ArrowDown", keyCode: 40 },
-      { name: "grabReleaseObject", key: " ", keyCode: 32 }
-      // { name: "agentPose", key: "p", keyCode: 80 },
+      { name: "grabReleaseObject", key: " ", keyCode: 32 },
+      { name: "agentPose", key: "p", keyCode: 80 }
       // { name: "removeLastObject", key: "u", keyCode: 85 }
       // { name: "dropObject", key: "o", keyCode: 79 }
     ];
@@ -126,6 +126,7 @@ class NavigateTask {
     this.activeActions = [];
     this.activeActionIdx = 0;
     this.frameCounter = 0;
+    this.numRendersSinceLastUpdate = 0;
     if (
       Module.enablePhysics &&
       window.config.runFlythrough !== true &&
@@ -141,7 +142,7 @@ class NavigateTask {
         let stepSize = 1.0 / 20.0;
         let startTime = new Date().getTime();
         // Step world physics
-        this.sim.stepWorld(stepSize);
+        // this.sim.stepWorld(stepSize);
         // Render observation
         this.render();
 
@@ -153,7 +154,9 @@ class NavigateTask {
         ];
         let objectDropPoint = [];
         if (this.sim.grippedObjectId != -1) {
-          objectDropPoint = this.sim.findObjectFloorPositionUnderCrosshair();
+          objectDropPoint = this.sim.findObjectFloorPositionUnderCrosshair()[
+            "newObjectPosition"
+          ];
           objectDropPoint = this.sim.convertVector3ToVec3f(objectDropPoint);
         }
         this.psiturk.handleRecordTrialData("TEST", "stepPhysics", {
@@ -414,7 +417,7 @@ class NavigateTask {
     this.renderSemanticImage();
     this.renderTopDown(options);
 
-    this.numRendersSinceLastUpdate += 1;
+    //this.numRendersSinceLastUpdate += 1;
   }
 
   handleInventoryUpdate(isCollision) {
@@ -489,12 +492,28 @@ class NavigateTask {
       this.handleInventoryUpdate(data["collision"]);
       this.inventory.renderInventory();
       actionData = data;
+      if (actionData["actionFailed"] == true) {
+        this.setErrorStatus("Release action failed");
+        return;
+      }
     } else if (action == "agentPose") {
-      // console.log(this.sim.getObjectStates());
-      //this.sim.toggleNavMeshVisualization();
-      // this.sim.addTemplateObject();
-      // let stepSize = 1.0 / 20.0;
-      // this.sim.stepWorld(stepSize);
+      // this.sim.toggleNavMeshVisualization();
+      // let states = this.sim.getObjectStates();
+      // let agentPose = this.sim.getAgentPose();
+      // for (let obj in states) {
+      //   let state = states[obj];
+      //   // let sceneBB = this.sim.getSceneBB();
+      //   let point = this.sim.convertVec3fToVector3(state["translation"]);
+      //   let snappedPoint = this.sim.pathfinder.snapPoint(point);
+      //   console.log(
+      //     "Geo dis: " +
+      //       this.sim.geodesicDistance(
+      //         agentPose["position"],
+      //         this.sim.convertVector3ToVec3f(snappedPoint)
+      //       )
+      //   );
+      // }
+      console.log("val check: " + this.taskValidator.validate());
     } else if (action == "stepWorld") {
       this.sim.stepWorld(1.0 / 10.0);
     } else if (action == "dropObject") {
@@ -502,7 +521,7 @@ class NavigateTask {
       this.dropCalled = true;
     } else {
       collision = this.sim.step(action);
-      this.setStatus(action);
+      // this.setStatus(action);
     }
 
     // record action and action data
@@ -513,7 +532,9 @@ class NavigateTask {
     ];
     let objectDropPoint = [];
     if (this.sim.grippedObjectId != -1) {
-      objectDropPoint = this.sim.findObjectFloorPositionUnderCrosshair();
+      objectDropPoint = this.sim.findObjectFloorPositionUnderCrosshair()[
+        "newObjectPosition"
+      ];
       objectDropPoint = this.sim.convertVector3ToVec3f(objectDropPoint);
     }
     this.psiturk.handleRecordTrialData("TEST", "handleAction", {

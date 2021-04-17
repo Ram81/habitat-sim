@@ -108,7 +108,7 @@ int PhysicsManager::addContactTestObject(const std::string& configFileHandle,
   }
 
   float zValue = 1.0 + (1.0 * contactTestObjects_.size());
-  Magnum::Vector3 translation = Magnum::Vector3{0.0, -5.0, zValue};
+  Magnum::Vector3 translation = Magnum::Vector3{-6.0, -5.0, zValue};
   contactTestObjects_.at(configFileHandle)->setTranslation(translation);
   contactTestObjects_.at(configFileHandle)->setMotionType(MotionType::STATIC);
 

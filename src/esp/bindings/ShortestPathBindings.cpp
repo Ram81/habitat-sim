@@ -61,6 +61,7 @@ void initShortestPathBindings(py::module& m) {
       .def_readwrite("edge_max_error", &NavMeshSettings::edgeMaxError)
       .def_readwrite("verts_per_poly", &NavMeshSettings::vertsPerPoly)
       .def_readwrite("detail_sample_dist", &NavMeshSettings::detailSampleDist)
+      .def_readwrite("navmesh_bb_max", &NavMeshSettings::navMeshBBMax)
       .def_readwrite("detail_sample_max_error",
                      &NavMeshSettings::detailSampleMaxError)
       .def_readwrite("filter_low_hanging_obstacles",

@@ -114,16 +114,43 @@ export function readJSON(url, options = { encoding: "utf8" }) {
   return contents;
 }
 
-export function buildEpisodeFromJSON(task = "task.json", episode_id = "0") {
+export function buildEpisodeFromJSON(
+  task = "task.json",
+  episode_id = "0",
+  dataset = "pick_and_place"
+) {
   let episodeJSON = readJSON(task);
   let episode = {};
   episode.startState = {};
-  episode.episodeID = episode_id;
-  episode.startState.position = episodeJSON.episodes[episode_id].start_position;
-  episode.startState.rotation = episodeJSON.episodes[episode_id].start_rotation;
-  episode.sceneID = episodeJSON.episodes[episode_id].scene_id;
-  episode.objects = episodeJSON.episodes[episode_id].objects;
-  episode.task = episodeJSON.episodes[episode_id].task;
+  if (dataset == "pick_and_place") {
+    episode.episodeID = episode_id;
+    episode.startState.position =
+      episodeJSON.episodes[episode_id].start_position;
+    episode.startState.rotation =
+      episodeJSON.episodes[episode_id].start_rotation;
+    episode.sceneID = episodeJSON.episodes[episode_id].scene_id;
+    episode.objects = episodeJSON.episodes[episode_id].objects;
+    episode.task = episodeJSON.episodes[episode_id].task;
+  } else {
+    let scenePath = episodeJSON.episodes[episode_id].scene_id.split("/");
+    episode.episode_id = parseInt(episodeJSON.episodes[episode_id].episode_id);
+    episode.startState.position =
+      episodeJSON.episodes[episode_id].start_position;
+    episode.startState.rotation =
+      episodeJSON.episodes[episode_id].start_rotation;
+    episode.scene_id = scenePath[scenePath.length - 1];
+    episode.object_category = episodeJSON.episodes[episode_id].object_category;
+    let goal_id =
+      scenePath[scenePath.length - 1] + "_" + episode.object_category;
+    episode.goals = episodeJSON.goals_by_category[goal_id];
+    episode.info = episodeJSON.episodes[episode_id].info;
+    episode.start_room = episodeJSON.episodes[episode_id].start_room;
+    episode.shortest_paths = episodeJSON.episodes[episode_id].shortest_paths;
+    episode.task = {
+      instruction: "Find " + episode.object_category,
+      type: "objectnav"
+    };
+  }
   return episode;
 }
 
@@ -134,14 +161,18 @@ export function replaceAll(str, needle, replacement) {
   return str;
 }
 
-export function loadEpisode(episodeConfigPath, episode_id = "0") {
+export function loadEpisode(
+  episodeConfigPath,
+  episode_id = "0",
+  dataset = "pick_and_place"
+) {
   let episode;
   if (episodeConfigPath === undefined) {
     episode = defaultEpisode;
   } else if (episode_id === undefined) {
     episode = buildEpisodeFromJSON(episodeConfigPath);
   } else {
-    episode = buildEpisodeFromJSON(episodeConfigPath, episode_id);
+    episode = buildEpisodeFromJSON(episodeConfigPath, episode_id, dataset);
   }
   return episode;
 }
@@ -173,6 +204,7 @@ export function getObjectIconImgTags(episode) {
   let objectImgTags = {};
   objectImgTags["objects"] = [];
   objectImgTags["receptacles"] = [];
+  console.log(objects);
   for (let i = 0; i < objects.length; i++) {
     let object = objects[i];
     let objectName = object["object"];
@@ -190,5 +222,8 @@ export function getObjectIconImgTags(episode) {
       objectImgTags["objects"].push(item);
     }
   }
+  console.log("icons");
+  console.log(objectImgTags);
+  console.log("done");
   return objectImgTags;
 }

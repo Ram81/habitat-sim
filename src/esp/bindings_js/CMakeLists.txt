@@ -14,22 +14,26 @@ target_link_libraries(
 
 #set_target_properties(hsim_bindings PROPERTIES LINK_FLAGS "--bind")
 
-set_target_properties(hsim_bindings PROPERTIES
-  LINK_FLAGS "--bind"
-  # Override the Magnum-set default which is in $<CONFIG>/bin or $<CONFIG>/lib
-  RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-  LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-  ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
+set_target_properties(
+  hsim_bindings
+  PROPERTIES
+    LINK_FLAGS "--bind"
+    # Override the Magnum-set default which is in $<CONFIG>/bin or $<CONFIG>/lib
+    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    LIBRARY_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+    ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+)
 
 # copy JS/HTML/CSS resources for WebGL build
-set(resources
-    ${SCENE_DATASETS}/habitat-test-scenes/skokloster-castle.glb
-    ${SCENE_DATASETS}/habitat-test-scenes/skokloster-castle.navmesh
-    ${SCENE_DATASETS}/habitat-test-scenes/van-gogh-room.glb
-    ${SCENE_DATASETS}/habitat-test-scenes/van-gogh-room.navmesh
-    ${MAGNUM_WINDOWLESSEMSCRIPTENAPPLICATION_JS}
-    ${MAGNUM_WEBAPPLICATION_CSS}
-    ${DATASETS}
+set(
+  resources
+  ${SCENE_DATASETS}/habitat-test-scenes/skokloster-castle.glb
+  ${SCENE_DATASETS}/habitat-test-scenes/skokloster-castle.navmesh
+  ${SCENE_DATASETS}/habitat-test-scenes/van-gogh-room.glb
+  ${SCENE_DATASETS}/habitat-test-scenes/van-gogh-room.navmesh
+  ${MAGNUM_WINDOWLESSEMSCRIPTENAPPLICATION_JS}
+  ${MAGNUM_WEBAPPLICATION_CSS}
+  ${DATASETS}
 )
 
 foreach(resource ${resources})
@@ -68,6 +72,8 @@ set(
   modules/web_demo.js
   modules/viewer_demo.js
   modules/defaults.js
+  modules/object_maps.js
+  modules/TaskValidator.js
   modules/vr_demo.js
   modules/utils.js
 )

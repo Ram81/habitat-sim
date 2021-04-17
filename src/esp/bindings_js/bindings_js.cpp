@@ -50,6 +50,28 @@ std::map<std::string, ObservationSpace> Simulator_getAgentObservationSpaces(
   return spaces;
 }
 
+bool Range3D_contains(Magnum::Range3D bb, Magnum::Vector3 point) {
+  int size_x = bb.sizeX();
+  int size_y = bb.sizeY();
+  int size_z = bb.sizeZ();
+  bool is_x_in_range = bb.x().min() <= point.x() && point.x() <= bb.x().max();
+  bool is_y_in_range = bb.y().min() <= point.y() && point.y() <= bb.y().max();
+  bool is_z_in_range = bb.z().min() <= point.z() && point.z() <= bb.z().max();
+  LOG(WARNING) << "bx min " << bb.x().min() << " -- " << bb.x().max() << " -- "
+               << point.x() << " -- " << (bb.x().min() <= point.x()) << "--"
+               << (point.x() <= bb.x().max());
+  LOG(WARNING) << "by min " << bb.y().min() << " -- " << bb.y().max() << " -- "
+               << point.y() << " -- " << (bb.y().min() <= point.y()) << "--"
+               << (point.y() <= bb.y().max());
+  LOG(WARNING) << "bz min " << bb.z().min() << " -- " << bb.z().max() << " -- "
+               << point.z() << " -- " << (bb.z().min() <= point.z()) << "--"
+               << (point.z() <= bb.z().max());
+  LOG(WARNING) << "res " << is_x_in_range << " -- " << is_y_in_range << " -- "
+               << is_z_in_range << " -- "
+               << (is_x_in_range && is_y_in_range && is_z_in_range);
+  return (is_x_in_range && is_y_in_range && is_z_in_range);
+}
+
 EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
   em::register_vector<SensorSpec::ptr>("VectorSensorSpec");
   em::register_vector<size_t>("VectorSizeT");
@@ -58,6 +80,8 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
   em::register_vector<std::shared_ptr<SemanticCategory>>(
       "VectorSemanticCategories");
   em::register_vector<std::shared_ptr<SemanticObject>>("VectorSemanticObjects");
+  em::register_vector<std::shared_ptr<SemanticRegion>>("VectorSemanticRegions");
+  em::register_vector<std::shared_ptr<SemanticLevel>>("VectorSemanticLevels");
   em::register_vector<gfx::LightInfo>("LightSetup");
 
   em::register_map<std::string, float>("MapStringFloat");
@@ -115,6 +139,13 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
       .field("color", &gfx::LightInfo::color)
       .field("model", &gfx::LightInfo::model);
 
+  em::class_<esp::box3f>("box3f")
+      .constructor<esp::box3f>()
+      .function("minn", em::optional_override(
+                            [](const esp::box3f& self) { return self.min(); }))
+      .function("maxx", em::optional_override(
+                            [](const esp::box3f& self) { return self.max(); }));
+
   em::class_<Magnum::Matrix4>("Matrix4")
       .constructor<Magnum::Matrix4>()
       .function("inverted", &Magnum::Matrix4::inverted)
@@ -170,6 +201,10 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
             return out.str();
           }));
 
+  em::class_<Magnum::Range3D>("Range3D")
+      .constructor<Magnum::Range3D>()
+      .class_function("contains", &Range3D_contains);
+
   em::class_<Magnum::Quaternion>("Quaternion")
       .constructor<Magnum::Vector3, float>()
       .constructor<Magnum::Quaternion>()
@@ -192,6 +227,7 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
   em::class_<NavMeshSettings>("NavMeshSettings")
       .smart_ptr_constructor("NavMeshSettings", &NavMeshSettings::create<>)
       .property("agentRadius", &NavMeshSettings::agentRadius)
+      .property("navMeshBBMax", &NavMeshSettings::navMeshBBMax)
       .function("setDefaults", &NavMeshSettings::setDefaults);
 
   em::class_<AgentConfiguration>("AgentConfiguration")
@@ -229,6 +265,8 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
       .function("isNavigable", &PathFinder::isNavigable)
       .function("getRandomNavigablePoint", &PathFinder::getRandomNavigablePoint)
       .function("snapPoint", &PathFinder::snapPoint<Magnum::Vector3>)
+      .function("islandRadius", em::select_overload<float(const vec3f&) const>(
+                                    &PathFinder::islandRadius))
       .function("findPath",
                 em::select_overload<bool(ShortestPath&)>(&PathFinder::findPath))
       .function("tryStep",
@@ -320,6 +358,19 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
       .function("getIndex", &SemanticCategory::index)
       .function("getName", &SemanticCategory::name);
 
+  em::class_<SemanticRegion>("SemanticRegion")
+      .smart_ptr<SemanticRegion::ptr>("SemanticRegion::ptr")
+      .property("id", &SemanticRegion::id)
+      .property("aabb", &SemanticRegion::aabb)
+      .property("objects", &SemanticRegion::objects)
+      .property("category", &SemanticRegion::category);
+
+  em::class_<SemanticLevel>("SemanticLevel")
+      .smart_ptr<SemanticLevel::ptr>("SemanticLevel::ptr")
+      .property("aabb", &SemanticLevel::aabb)
+      .property("objects", &SemanticLevel::objects)
+      .property("regions", &SemanticLevel::regions);
+
   em::class_<SemanticObject>("SemanticObject")
       .smart_ptr<SemanticObject::ptr>("SemanticObject::ptr")
       .property("category", &SemanticObject::category);
@@ -327,7 +378,9 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
   em::class_<SemanticScene>("SemanticScene")
       .smart_ptr<SemanticScene::ptr>("SemanticScene::ptr")
       .property("categories", &SemanticScene::categories)
-      .property("objects", &SemanticScene::objects);
+      .property("objects", &SemanticScene::objects)
+      .property("regions", &SemanticScene::regions)
+      .property("levels", &SemanticScene::levels);
 
   em::class_<SceneNode>("SceneNode")
       .property("id", &SceneNode::getId, &SceneNode::setId)
@@ -415,5 +468,7 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
       .function("getNumActiveContactPoints",
                 &Simulator::getNumActiveContactPoints)
       .function("getGravity", &Simulator::getGravity)
-      .function("setActiveState", &Simulator::setActiveState);
+      .function("setActiveState", &Simulator::setActiveState)
+      .function("setObjectSemanticId", &Simulator::setObjectSemanticId)
+      .function("getSceneBB", &Simulator::getSceneBB);
 }

@@ -1205,5 +1205,11 @@ float Simulator::getObjectBBYCoord(int objectId) {
   return 0.0f;
 }
 
+Magnum::Range3D Simulator::getSceneBB() {
+  const Magnum::Range3D& sceneBB =
+      getActiveSceneGraph().getRootNode().getCumulativeBB();
+  return sceneBB;
+}
+
 }  // namespace sim
 }  // namespace esp

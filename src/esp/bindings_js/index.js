@@ -13,10 +13,9 @@ import {
   sceneHome,
   fileBasedObjects,
   taskFiles,
-  flythroughReplayFile,
-  flythroughReplayTask,
   episodeIdObjectReceptacleMap
 } from "./modules/defaults";
+import { cleaningTaskEpObjectsMap } from "./modules/object_maps";
 import "./bindings.css";
 import {
   checkWebAssemblySupport,
@@ -49,16 +48,40 @@ function preloadPhysConfig(url, episodeId) {
 
   let emObjHome = emDataHome.concat("/objects");
   FS.mkdir(emObjHome);
+  // Do not load object assets for object nav task
+  // if (window.config.dataset == "objectnav") {
+  //   return emDataHome.concat("/".concat(file));
+  // }
 
   // TODO Need to loop through the objects directory on the server (`phys/objects/*`) and put all of the glbs onto the client
+  // TODO Fix hacky loading of selected objects for each episode
   let objectList = episodeIdObjectReceptacleMap["object_list"];
+  if (window.config.task == 0 || window.config.task >= 15) {
+    objectList = cleaningTaskEpObjectsMap;
+  }
+  if (window.config.task >= 20) {
+    objectList = [];
+  }
   let objectToLoadList = objectList[episodeId % objectList.length];
-  console.log(objectToLoadList);
   let trainingTaskObjects = [
     "mustard_bottle",
     "colored_wood_blocks",
     "tomato_soup_can",
-    "plate"
+    "plate",
+    "Down_To_Earth_Ceramic_Orchid_Pot_Asst_Blue",
+    "SpiderMan_Titan_Hero_12Inch_Action_Figure_5Hnn4mtkFsP",
+    "banana",
+    "ACE_Coffee_Mug_Kristen_16_oz_cup",
+    "Threshold_Porcelain_Pitcher_White",
+    "b_colored_wood_blocks",
+    "HeavyDuty_Flashlight",
+    "Shark",
+    "Closetmaid_Premium_Fabric_Cube_Red",
+    "orange",
+    "bowl",
+    "Threshold_Dinner_Plate_Square_Rim_White_Porcelain",
+    "bleach_cleanser",
+    "Threshold_Porcelain_Teapot_White"
   ];
   var objects = fileBasedObjects["objects"];
   for (let objectIdx in objects) {
@@ -133,29 +156,6 @@ function preloadTask(task) {
   }
 }
 
-function preloadFlythrough(
-  flythroughReplayTaskConfig,
-  flythroughReplayFileConfig
-) {
-  let emDataHome = "/data";
-  // load replay episode config
-  FS.createPreloadedFile(
-    emDataHome,
-    flythroughReplayTaskConfig.name,
-    dataHome.concat(flythroughReplayTaskConfig.config),
-    true,
-    false
-  );
-
-  FS.createPreloadedFile(
-    emDataHome,
-    flythroughReplayFileConfig.name,
-    dataHome.concat(flythroughReplayFileConfig.location),
-    true,
-    false
-  );
-}
-
 Module.preRun.push(() => {
   const args = decodeURIComponent(window.location.search.substr(1))
     .trim()
@@ -199,14 +199,6 @@ Module.preRun.push(() => {
   window.config.enableStepPhysics = window.config.enableStepPhysics === "true";
 
   preloadTask(taskConfig);
-  if (taskConfig !== undefined && taskConfig !== null) {
-    preloadFlythrough(
-      taskConfig["flythroughTask"],
-      taskConfig["flythroughReplayFile"]
-    );
-  } else {
-    preloadFlythrough(flythroughReplayTask, flythroughReplayFile);
-  }
 
   const fileNoExtension = scene.substr(0, scene.lastIndexOf("."));
 
@@ -241,7 +233,8 @@ Module.onRuntimeInitialized = () => {
   if (window.config.taskConfig !== undefined) {
     let episode = loadEpisode(
       "/data/".concat(window.config.taskConfig.name),
-      window.config.episodeId
+      window.config.episodeId,
+      window.config.dataset
     );
     demo.display(undefined, episode);
   } else {

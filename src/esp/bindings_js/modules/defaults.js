@@ -37,7 +37,7 @@ export const defaultScene =
 export const infoSemanticFileName = "info_semantic.json";
 
 export const dataHome = "data/";
-export const taskHome = "data/tasks/";
+export const taskHome = "data/tasks/pick_and_place/";
 export const sceneHome = "data/scenes/";
 export const flythroughHome = "data/replays/";
 export const primitiveObjectHandles = [
@@ -1067,7 +1067,7 @@ export const fileBasedObjects = {
 
 export const flythroughReplayTask = {
   name: "replay_task_1.json",
-  config: "tasks/replay_task_1.json"
+  config: "tasks/pick_and_place/replay_task_1.json"
 };
 
 export const flythroughReplayFile = {
@@ -1078,190 +1078,192 @@ export const flythroughReplayFile = {
 export const taskFiles = {
   tasks: [
     {
-      name: "task_3.json",
-      config: "tasks/task_3.json",
-      scene: "empty_house.glb",
-      flythroughTask: {
-        name: "replay_task_3.json",
-        config: "tasks/replay_task_3.json"
-      },
-      flythroughReplayFile: {
-        name: "replay_task_3.csv",
-        location: "replays/replay_task_3.csv"
-      },
+      name: "remake_v0_JustBigStuff_00.json",
+      config: "tasks/clean_floor/remake_v0_JustBigStuff_00.json",
+      scene: "remake_v0_JustBigStuff_00.glb",
       trainingTask: {
         name: "training_task_3.json",
-        config: "tasks/training_task_3.json"
+        config: "tasks/pick_and_place/training_task_3.json"
       }
     },
     {
       name: "task_4.json",
-      config: "tasks/task_4.json",
+      config: "tasks/pick_and_place/task_4.json",
       scene: "empty_house.glb",
-      flythroughTask: {
-        name: "replay_task_3.json",
-        config: "tasks/replay_task_3.json"
-      },
-      flythroughReplayFile: {
-        name: "replay_task_3.csv",
-        location: "replays/replay_task_3.csv"
-      },
       trainingTask: {
         name: "training_task_3.json",
-        config: "tasks/training_task_3.json"
+        config: "tasks/pick_and_place/training_task_3.json"
       }
     },
     {
       name: "task_5.json",
-      config: "tasks/task_5.json",
+      config: "tasks/pick_and_place/task_5.json",
       scene: "big_house.glb",
-      flythroughTask: {
-        name: "replay_task_3.json",
-        config: "tasks/replay_task_3.json"
-      },
-      flythroughReplayFile: {
-        name: "replay_task_3.csv",
-        location: "replays/replay_task_3.csv"
-      },
       trainingTask: {
         name: "training_task_5.json",
-        config: "tasks/training_task_5.json"
+        config: "tasks/pick_and_place/training_task_5.json"
       }
     },
     {
       name: "task_6.json",
-      config: "tasks/task_6.json",
+      config: "tasks/pick_and_place/task_6.json",
       scene: "house.glb",
-      flythroughTask: {
-        name: "replay_task_3.json",
-        config: "tasks/replay_task_3.json"
-      },
-      flythroughReplayFile: {
-        name: "replay_task_3.csv",
-        location: "replays/replay_task_3.csv"
-      },
       trainingTask: {
         name: "training_task_6.json",
-        config: "tasks/training_task_6.json"
+        config: "tasks/pick_and_place/training_task_6.json"
       }
     },
     {
       name: "task_7.json",
-      config: "tasks/task_7.json",
+      config: "tasks/pick_and_place/task_7.json",
       scene: "big_house_2.glb",
-      flythroughTask: {
-        name: "replay_task_3.json",
-        config: "tasks/replay_task_3.json"
-      },
-      flythroughReplayFile: {
-        name: "replay_task_3.csv",
-        location: "replays/replay_task_3.csv"
-      },
       trainingTask: {
         name: "training_task_7.json",
-        config: "tasks/training_task_7.json"
+        config: "tasks/pick_and_place/training_task_7.json"
       }
     },
     {
       name: "task_9.json",
-      config: "tasks/task_9.json",
+      config: "tasks/pick_and_place/task_9.json",
       scene: "bigger_house.glb",
-      flythroughTask: {
-        name: "replay_task_3.json",
-        config: "tasks/replay_task_3.json"
-      },
-      flythroughReplayFile: {
-        name: "replay_task_3.csv",
-        location: "replays/replay_task_3.csv"
-      },
       trainingTask: {
         name: "training_task_9.json",
-        config: "tasks/training_task_9.json"
+        config: "tasks/pick_and_place/training_task_9.json"
       }
     },
     {
       name: "house_4.json",
-      config: "tasks/house_4.json",
+      config: "tasks/pick_and_place/house_4.json",
       scene: "house_4.glb",
-      flythroughTask: {
-        name: "replay_task_3.json",
-        config: "tasks/replay_task_3.json"
-      },
-      flythroughReplayFile: {
-        name: "replay_task_3.csv",
-        location: "replays/replay_task_3.csv"
-      },
       trainingTask: {
         name: "house_4_training_task.json",
-        config: "tasks/house_4_training_task.json"
+        config: "tasks/pick_and_place/house_4_training_task.json"
       }
     },
     {
       name: "house_5.json",
-      config: "tasks/house_5.json",
+      config: "tasks/pick_and_place/house_5.json",
       scene: "house_5.glb",
-      flythroughTask: {
-        name: "replay_task_3.json",
-        config: "tasks/replay_task_3.json"
-      },
-      flythroughReplayFile: {
-        name: "replay_task_3.csv",
-        location: "replays/replay_task_3.csv"
-      },
       trainingTask: {
         name: "house_5_training_task.json",
-        config: "tasks/house_5_training_task.json"
+        config: "tasks/pick_and_place/house_5_training_task.json"
       }
     },
     {
       name: "house_6.json",
-      config: "tasks/house_6.json",
+      config: "tasks/pick_and_place/house_6.json",
       scene: "house_6.glb",
-      flythroughTask: {
-        name: "replay_task_3.json",
-        config: "tasks/replay_task_3.json"
-      },
-      flythroughReplayFile: {
-        name: "replay_task_3.csv",
-        location: "replays/replay_task_3.csv"
-      },
       trainingTask: {
         name: "house_6_training_task.json",
-        config: "tasks/house_6_training_task.json"
+        config: "tasks/pick_and_place/house_6_training_task.json"
       }
     },
     {
       name: "house_8.json",
-      config: "tasks/house_8.json",
+      config: "tasks/pick_and_place/house_8.json",
       scene: "house_8.glb",
-      flythroughTask: {
-        name: "replay_task_3.json",
-        config: "tasks/replay_task_3.json"
-      },
-      flythroughReplayFile: {
-        name: "replay_task_3.csv",
-        location: "replays/replay_task_3.csv"
-      },
       trainingTask: {
         name: "house_8_training_task.json",
-        config: "tasks/house_8_training_task.json"
+        config: "tasks/pick_and_place/house_8_training_task.json"
       }
     },
     {
-      name: "house_9.json",
-      config: "tasks/house_9.json",
-      scene: "house_9.glb",
-      flythroughTask: {
-        name: "replay_task_3.json",
-        config: "tasks/replay_task_3.json"
-      },
-      flythroughReplayFile: {
-        name: "replay_task_3.csv",
-        location: "replays/replay_task_3.csv"
-      },
+      name: "empty_house_v2.json",
+      config: "tasks/pick_and_place/empty_house_v2.json",
+      scene: "empty_house.glb",
       trainingTask: {
-        name: "house_9_training_task.json",
-        config: "tasks/house_9_training_task.json"
+        name: "training_task_3.json",
+        config: "tasks/pick_and_place/training_task_3.json"
+      }
+    },
+    {
+      name: "big_house_v2.json",
+      config: "tasks/pick_and_place/big_house_v2.json",
+      scene: "big_house.glb",
+      trainingTask: {
+        name: "training_task_5.json",
+        config: "tasks/pick_and_place/training_task_5.json"
+      }
+    },
+    {
+      name: "house_v2.json",
+      config: "tasks/pick_and_place/house_v2.json",
+      scene: "house.glb",
+      trainingTask: {
+        name: "training_task_6.json",
+        config: "tasks/pick_and_place/training_task_6.json"
+      }
+    },
+    {
+      name: "big_house_2_v2.json",
+      config: "tasks/pick_and_place/big_house_2_v2.json",
+      scene: "big_house_2.glb",
+      trainingTask: {
+        name: "training_task_7.json",
+        config: "tasks/pick_and_place/training_task_7.json"
+      }
+    },
+    {
+      name: "bigger_house_v2.json",
+      config: "tasks/pick_and_place/bigger_house_v2.json",
+      scene: "bigger_house.glb",
+      trainingTask: {
+        name: "training_task_9.json",
+        config: "tasks/pick_and_place/training_task_9.json"
+      }
+    },
+    {
+      name: "remake_v0_JustBigStuff_00.json",
+      config: "tasks/clean_floor/remake_v0_JustBigStuff_00.json",
+      scene: "remake_v0_JustBigStuff_00.glb",
+      trainingTask: {
+        name: "remake_v0_JustBigStuff_00_train_task.json",
+        config: "tasks/clean_floor/remake_v0_JustBigStuff_00_train_task.json"
+      }
+    },
+    {
+      name: "remake_v0_v3_sc4_staging_17.json",
+      config: "tasks/clean_floor/remake_v0_v3_sc4_staging_17.json",
+      scene: "remake_v0_v3_sc4_staging_17.glb",
+      trainingTask: {
+        name: "remake_v0_v3_sc4_staging_17_train_task.json",
+        config: "tasks/clean_floor/remake_v0_v3_sc4_staging_17_train_task.json"
+      }
+    },
+    {
+      name: "remake_v0_v3_sc4_staging_18.json",
+      config: "tasks/clean_floor/remake_v0_v3_sc4_staging_18.json",
+      scene: "remake_v0_v3_sc4_staging_18.glb",
+      trainingTask: {
+        name: "remake_v0_v3_sc4_staging_18_train_task.json",
+        config: "tasks/clean_floor/remake_v0_v3_sc4_staging_18_train_task.json"
+      }
+    },
+    {
+      name: "remake_v0_v3_sc4_staging_19.json",
+      config: "tasks/clean_floor/remake_v0_v3_sc4_staging_19.json",
+      scene: "remake_v0_v3_sc4_staging_19.glb",
+      trainingTask: {
+        name: "remake_v0_v3_sc4_staging_19_train_task.json",
+        config: "tasks/clean_floor/remake_v0_v3_sc4_staging_19_train_task.json"
+      }
+    },
+    {
+      name: "remake_v0_v3_sc4_staging_20.json",
+      config: "tasks/clean_floor/remake_v0_v3_sc4_staging_20.json",
+      scene: "remake_v0_v3_sc4_staging_20.glb",
+      trainingTask: {
+        name: "remake_v0_v3_sc4_staging_20_train_task.json",
+        config: "tasks/clean_floor/remake_v0_v3_sc4_staging_20_train_task.json"
+      }
+    },
+    {
+      name: "i5noydFURQK.json",
+      config: "tasks/objectnav/i5noydFURQK.json",
+      scene: "i5noydFURQK.glb",
+      trainingTask: {
+        name: "i5noydFURQK_train.json",
+        config: "tasks/objectnav/i5noydFURQK_train.json"
       }
     }
   ]
@@ -1269,130 +1271,13 @@ export const taskFiles = {
 
 export const trainingTask = {
   name: "training_task_1.json",
-  config: "tasks/training_task_1.json"
+  config: "tasks/pick_and_place/training_task_1.json"
 };
 
 export const inventorySlots = 1;
 
 export const episodeIdObjectReceptacleMap = {
   object_list: [
-    ["tomato_soup_can", "plate"],
-    ["master_chef_can", "plate"],
-    ["tuna_fish_can", "plate"],
-    ["potted_meat_can", "plate"],
-    ["gelatin_box", "plate"],
-    ["apple", "plate"],
-    ["apple", "bowl"],
-    ["banana", "plate"],
-    ["banana", "bowl"],
-    ["orange", "plate"],
-    ["orange", "bowl"],
-    ["plum", "bowl"],
-    ["plum", "plate"],
-    ["pear", "plate"],
-    ["pear", "bowl"],
-    ["cracker_box", "b_colored_wood_blocks"],
-    ["cracker_box", "plate"],
-    ["cracker_box", "foam_brick"],
-    ["sugar_box", "b_colored_wood_blocks"],
-    ["sugar_box", "plate"],
-    ["sugar_box", "foam_brick"],
-    ["mustard_bottle", "plate"],
-    ["mustard_bottle", "b_colored_wood_blocks"],
-    ["mustard_bottle", "foam_brick"],
-    ["bleach_cleanser", "plate"],
-    ["bleach_cleanser", "b_colored_wood_blocks"],
-    ["bleach_cleanser", "foam_brick"],
-    ["spoon", "plate"],
-    ["fork", "plate"],
-    ["knife", "plate"],
-    ["spatula", "plate"],
-    ["b_cups", "wood_block"],
-    ["b_cups", "b_colored_wood_blocks"],
-    ["b_cups", "plate"],
-    ["b_cups", "foam_brick"],
-    ["c_cups", "wood_block"],
-    ["c_cups", "b_colored_wood_blocks"],
-    ["c_cups", "plate"],
-    ["c_cups", "foam_brick"],
-    ["e_cups", "wood_block"],
-    ["e_cups", "b_colored_wood_blocks"],
-    ["e_cups", "plate"],
-    ["e_cups", "foam_brick"],
-    ["d_cups", "wood_block"],
-    ["d_cups", "b_colored_wood_blocks"],
-    ["d_cups", "plate"],
-    ["d_cups", "foam_brick"],
-    ["a_cups", "wood_block"],
-    ["a_cups", "b_colored_wood_blocks"],
-    ["a_cups", "plate"],
-    ["a_cups", "foam_brick"],
-    ["f_cups", "wood_block"],
-    ["f_cups", "b_colored_wood_blocks"],
-    ["f_cups", "plate"],
-    ["f_cups", "foam_brick"],
-    ["mug", "plate"],
-    ["mug", "b_colored_wood_blocks"],
-    ["mug", "wood_block"],
-    ["mug", "foam_brick"],
-    ["bowl", "plate"],
-    ["bowl", "b_colored_wood_blocks"],
-    ["bowl", "wood_block"],
-    ["bowl", "foam_brick"],
-    ["plate", "b_colored_wood_blocks"],
-    ["plate", "wood_block"],
-    ["plate", "foam_brick"],
-    ["pitcher_base", "wood_block"],
-    ["pitcher_base", "b_colored_wood_blocks"],
-    ["pitcher_base", "foam_brick"],
-    ["rubiks_cube", "colored_wood_blocks"],
-    ["rubiks_cube", "b_colored_wood_blocks"],
-    ["rubiks_cube", "foam_brick"],
-    ["toy_airplane", "colored_wood_blocks"],
-    ["toy_airplane", "b_colored_wood_blocks"],
-    ["toy_airplane", "foam_brick"],
-    ["b_lego_duplo", "colored_wood_blocks"],
-    ["b_lego_duplo", "b_colored_wood_blocks"],
-    ["b_lego_duplo", "foam_brick"],
-    ["e_lego_duplo", "colored_wood_blocks"],
-    ["e_lego_duplo", "b_colored_wood_blocks"],
-    ["e_lego_duplo", "foam_brick"],
-    ["a_lego_duplo", "colored_wood_blocks"],
-    ["a_lego_duplo", "b_colored_wood_blocks"],
-    ["a_lego_duplo", "foam_brick"],
-    ["b_toy_airplane", "colored_wood_blocks"],
-    ["b_toy_airplane", "b_colored_wood_blocks"],
-    ["b_toy_airplane", "foam_brick"],
-    ["baseball", "colored_wood_blocks"],
-    ["baseball", "b_colored_wood_blocks"],
-    ["baseball", "foam_brick"],
-    ["tennis_ball", "colored_wood_blocks"],
-    ["tennis_ball", "b_colored_wood_blocks"],
-    ["tennis_ball", "foam_brick"],
-    ["softball", "colored_wood_blocks"],
-    ["softball", "b_colored_wood_blocks"],
-    ["softball", "foam_brick"],
-    ["racquetball", "colored_wood_blocks"],
-    ["racquetball", "b_colored_wood_blocks"],
-    ["racquetball", "foam_brick"],
-    ["hammer", "b_colored_wood_blocks"],
-    ["hammer", "wood_block"],
-    ["hammer", "foam_brick"],
-    ["adjustable_wrench", "b_colored_wood_blocks"],
-    ["adjustable_wrench", "wood_block"],
-    ["adjustable_wrench", "foam_brick"],
-    ["power_drill", "b_colored_wood_blocks"],
-    ["power_drill", "wood_block"],
-    ["power_drill", "foam_brick"],
-    ["phillips_screwdriver", "b_colored_wood_blocks"],
-    ["phillips_screwdriver", "wood_block"],
-    ["phillips_screwdriver", "foam_brick"],
-    ["large_clamp", "b_colored_wood_blocks"],
-    ["large_clamp", "wood_block"],
-    ["large_clamp", "foam_brick"],
-    ["scissors", "b_colored_wood_blocks"],
-    ["scissors", "wood_block"],
-    ["scissors", "foam_brick"],
     ["tomato_soup_can", "Threshold_Dinner_Plate_Square_Rim_White_Porcelain"],
     ["tomato_soup_can", "Threshold_Bistro_Ceramic_Dinner_Plate_Ruby_Ring"],
     ["master_chef_can", "Threshold_Dinner_Plate_Square_Rim_White_Porcelain"],

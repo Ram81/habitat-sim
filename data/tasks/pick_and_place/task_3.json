@@ -28,8 +28,8 @@
             "objects": [
                 {
                     "object": "cheezit box",
-                    "objectHandle": "/data/objects/Thomas_Friends_Wooden_Railway_Talking_Thomas_z7yi7UFHJRj.object_config.json",
-                    "objectIcon": "/data/test_assets/objects/Thomas_Friends_Wooden_Railway_Talking_Thomas_z7yi7UFHJRj.png",
+                    "objectHandle": "/data/objects/cheezit_box.object_config.json",
+                    "objectIcon": "/data/test_assets/objects/cheezit_box.png",
                     "objectId": 0,
                     "isReceptacle": false,
                     "position": [

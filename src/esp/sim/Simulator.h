@@ -857,6 +857,8 @@ class Simulator {
 
   void enableDebugDraw();
 
+  Magnum::Range3D getSceneBB();
+
   int getPhysicsNumActiveContactPoints() {
     return physicsManager_->getNumActiveContactPoints();
   }

@@ -34,6 +34,7 @@ class WebDemo {
     this.config.physicsConfigFile = Module.physicsConfigFile;
 
     this.simenv = new SimEnv(this.config, episode, 0);
+    this.task_type = episode["task"]["type"];
 
     agentConfig = this.updateAgentConfigWithSensors({ ...agentConfig });
 
@@ -63,6 +64,7 @@ class WebDemo {
       fps: document.getElementById("fps"),
       taskValidator: this.taskValidator
     });
+    console.log("tasl created");
   }
 
   setEpisode(episode) {
@@ -70,13 +72,15 @@ class WebDemo {
     let assistance = document.getElementById("text-assistance-1");
     if (taskInstruction !== undefined && taskInstruction !== null) {
       taskInstruction.innerHTML =
-        "<hr> <h1>Task: " + episode.task.instruction + "</h1> <hr>";
+        "<hr> <h4>Task: Pick up everything scattered on the floor and put them at their right locations (e.g. shoes in the shoerack, etc.). Note that the appropriate locations might not be the ones nearest to the object." +
+        "</h4> <hr>";
     }
     if (assistance !== undefined && assistance !== null) {
       let objectIconTags = getObjectIconImgTags(episode);
       if (
         objectIconTags["objects"].length > 0 &&
-        objectIconTags["receptacles"].length > 0
+        objectIconTags["receptacles"].length > 0 &&
+        episode["task"]["type"] == "arrangement"
       ) {
         assistance.innerHTML =
           "<div class='object-type'> Object: </div> <ul>" +
@@ -84,6 +88,16 @@ class WebDemo {
           "</ul>" +
           "<br/><div class='object-type'> Receptacle: </div> <ul>" +
           objectIconTags["receptacles"].join("\n") +
+          "</ul>";
+      }
+      // Render only objects for cleaning task
+      if (
+        objectIconTags["objects"].length > 0 &&
+        episode["task"]["type"] == "cleaning"
+      ) {
+        assistance.innerHTML =
+          "<div class='object-type'> Objects: </div> <ul>" +
+          objectIconTags["objects"].join("\n") +
           "</ul>";
       }
     }

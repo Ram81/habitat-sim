@@ -50,6 +50,7 @@
 
 #include "ObjectPickingHelper.h"
 #include "esp/physics/configure.h"
+#include "esp/scene/SemanticScene.h"
 
 constexpr float moveSensitivity = 0.1f;
 constexpr float lookSensitivity = 11.25f;
@@ -125,6 +126,7 @@ class Viewer : public Mn::Platform::Application {
   void removeLastObject();
   void wiggleLastObject();
   void invertGravity();
+  void visualizeRegions();
   /**
    * @brief Toggle between ortho and perspective camera
    */
@@ -422,7 +424,7 @@ Viewer::Viewer(const Arguments& arguments)
     }
   } else if (args.isSet("recompute-navmesh")) {
     esp::nav::NavMeshSettings navMeshSettings;
-    navMeshSettings.agentMaxClimb = 0.5f;
+    // navMeshSettings.navMeshBBMax = 1.6f;
     simulator_->recomputeNavMesh(*simulator_->getPathFinder().get(),
                                  navMeshSettings, true);
   } else if (!args.value("navmesh-file").empty()) {
@@ -496,7 +498,7 @@ Viewer::Viewer(const Arguments& arguments)
 
   objectPickingHelper_ = std::make_unique<ObjectPickingHelper>(viewportSize);
   timeline_.start();
-
+  visualizeRegions();
   printHelpText();
 }  // end Viewer::Viewer
 
@@ -513,6 +515,38 @@ void Viewer::switchCameraType() {
       cam.setCameraType(esp::sensor::SensorSubType::Pinhole);
       return;
     }
+  }
+}
+
+void Viewer::visualizeRegions() {
+  const auto& ss = simulator_->getSemanticScene();
+  int i = 0;
+  for (const auto& region : ss->regions()) {
+    // const auto& b = region->aabb();
+    const auto& b =
+        simulator_->getActiveSceneGraph().getRootNode().getCumulativeBB();
+    LOG(INFO) << "region " << region->category()->name("") << "[" << b.min().x()
+              << ", " << b.min().y() << ", " << b.min().z() << "]["
+              << b.max().x() << ", " << b.max().y() << ", " << b.max().z()
+              << "]";
+
+    std::vector<Magnum::Vector3> positions{
+        Magnum::Vector3(b.min().x(), b.min().y(), b.min().z()),
+        Magnum::Vector3(b.max().x(), b.min().y(), b.min().z()),
+        Magnum::Vector3(b.max().x(), b.max().y(), b.min().z()),
+        Magnum::Vector3(b.min().x(), b.max().y(), b.min().z()),
+        Magnum::Vector3(b.min().x(), b.min().y(), b.min().z()),
+        Magnum::Vector3(b.min().x(), b.min().y(), b.max().z()),
+        Magnum::Vector3(b.max().x(), b.min().y(), b.max().z()),
+        Magnum::Vector3(b.max().x(), b.max().y(), b.max().z()),
+        Magnum::Vector3(b.min().x(), b.max().y(), b.max().z()),
+        Magnum::Vector3(b.min().x(), b.min().y(), b.max().z())};
+    Mn::Color4 color{randomDirection(), 1.0f};
+
+    int trajObjID = simulator_->addTrajectoryObject(
+        "regionViz" + std::to_string(i++), positions, positions.size() - 1,
+        0.05, color, false, 10);
+    break;
   }
 }
 
