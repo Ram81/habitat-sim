@@ -320,6 +320,7 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
       .property("gpuDeviceId", &SimulatorConfiguration::gpuDeviceId)
       .property("compressTextures", &SimulatorConfiguration::compressTextures)
       .property("enablePhysics", &SimulatorConfiguration::enablePhysics)
+      .property("allowSliding", &SimulatorConfiguration::allowSliding)
       .property("physicsConfigFile",
                 &SimulatorConfiguration::physicsConfigFile);
 

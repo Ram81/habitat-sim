@@ -138,7 +138,7 @@ export function buildEpisodeFromJSON(
       episodeJSON.episodes[episode_id].start_position;
     episode.startState.rotation =
       episodeJSON.episodes[episode_id].start_rotation;
-    episode.scene_id = scenePath[scenePath.length - 1];
+    episode.scene_id = episodeJSON.episodes[episode_id].scene_id;
     episode.object_category = episodeJSON.episodes[episode_id].object_category;
     let goal_id =
       scenePath[scenePath.length - 1] + "_" + episode.object_category;
@@ -147,7 +147,7 @@ export function buildEpisodeFromJSON(
     episode.start_room = episodeJSON.episodes[episode_id].start_room;
     episode.shortest_paths = episodeJSON.episodes[episode_id].shortest_paths;
     episode.task = {
-      instruction: "Find " + episode.object_category,
+      instruction: "Find and go to " + episode.object_category,
       type: "objectnav"
     };
   }
@@ -200,6 +200,12 @@ export function compareObjectStates(gtObjectState, objectState) {
 }
 
 export function getObjectIconImgTags(episode) {
+  if (episode.objects == undefined) {
+    return {
+      objects: [],
+      receptacles: []
+    };
+  }
   let objects = episode["objects"];
   let objectImgTags = {};
   objectImgTags["objects"] = [];

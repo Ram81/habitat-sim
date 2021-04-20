@@ -3,8 +3,8 @@
 // LICENSE file in the root directory of this source tree.
 
 export const defaultAgentConfig = {
-  height: 1.5,
-  radius: 0.1,
+  height: 0.88,
+  radius: 0.18,
   mass: 32.0,
   linearAcceleration: 20.0,
   angularAcceleration: 4 * Math.PI,

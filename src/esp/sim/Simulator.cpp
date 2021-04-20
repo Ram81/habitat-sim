@@ -92,6 +92,7 @@ void Simulator::reconfigure(const SimulatorConfiguration& cfg) {
   if (!sceneManager_) {
     sceneManager_ = scene::SceneManager::create_unique();
   }
+  LOG(WARNING) << "\n\nAllow sldidinginsads" << cfg.allowSliding;
 
   // if configuration is unchanged, just reset and return
   if (cfg == config_) {
@@ -888,10 +889,17 @@ agent::Agent::ptr Simulator::addAgent(
   agents_.push_back(ag);
   // TODO: just do this once
   if (pathfinder_->isLoaded()) {
-    ag->getControls()->setMoveFilterFunction(
-        [&](const vec3f& start, const vec3f& end) {
-          return pathfinder_->tryStep(start, end);
-        });
+    if (config_.allowSliding) {
+      ag->getControls()->setMoveFilterFunction(
+          [&](const vec3f& start, const vec3f& end) {
+            return pathfinder_->tryStep(start, end);
+          });
+    } else {
+      ag->getControls()->setMoveFilterFunction(
+          [&](const vec3f& start, const vec3f& end) {
+            return pathfinder_->tryStepNoSliding(start, end);
+          });
+    }
   }
 
   return ag;

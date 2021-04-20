@@ -75,7 +75,7 @@ class NavigateTask {
       this.radarCtx = components.radar.getContext("2d");
     }
 
-    if (this.components.inventory) {
+    if (this.components.inventory && window.config.dataset != "objectnav") {
       this.inventory.initInventory(components.inventory);
     }
 
@@ -87,15 +87,15 @@ class NavigateTask {
 
     this.actions = [
       { name: "moveForward", key: "w", keyCode: 87 },
-      { name: "moveBackward", key: "s", keyCode: 83 },
+      //{ name: "moveBackward", key: "s", keyCode: 83 },
       { name: "turnLeft", key: "ArrowLeft", keyCode: 37 },
       { name: "turnRight", key: "ArrowRight", keyCode: 39 },
       { name: "turnLeft", key: "a", keyCode: 65 },
       { name: "turnRight", key: "d", keyCode: 68 },
       { name: "lookUp", key: "ArrowUp", keyCode: 38 },
-      { name: "lookDown", key: "ArrowDown", keyCode: 40 },
-      { name: "grabReleaseObject", key: " ", keyCode: 32 },
-      { name: "agentPose", key: "p", keyCode: 80 }
+      { name: "lookDown", key: "ArrowDown", keyCode: 40 }
+      //{ name: "grabReleaseObject", key: " ", keyCode: 32 },
+      //{ name: "agentPose", key: "p", keyCode: 80 }
       // { name: "removeLastObject", key: "u", keyCode: 85 }
       // { name: "dropObject", key: "o", keyCode: 79 }
     ];
@@ -139,36 +139,36 @@ class NavigateTask {
           // step action from the queue
           this.handleAction(action);
         }
-        let stepSize = 1.0 / 20.0;
-        let startTime = new Date().getTime();
+        // let stepSize = 1.0 / 20.0;
+        // let startTime = new Date().getTime();
         // Step world physics
         // this.sim.stepWorld(stepSize);
         // Render observation
         this.render();
 
         // Log current state for replay
-        let agentState = this.sim.getAgentPose();
-        let objectStates = this.sim.getObjectStates();
-        let objectUnderCrosshair = this.sim.getObjectUnderCrosshair()[
-          "nearestObjectId"
-        ];
-        let objectDropPoint = [];
-        if (this.sim.grippedObjectId != -1) {
-          objectDropPoint = this.sim.findObjectFloorPositionUnderCrosshair()[
-            "newObjectPosition"
-          ];
-          objectDropPoint = this.sim.convertVector3ToVec3f(objectDropPoint);
-        }
-        this.psiturk.handleRecordTrialData("TEST", "stepPhysics", {
-          step: stepSize,
-          agentState: agentState,
-          objectStates: objectStates,
-          objectUnderCrosshair: objectUnderCrosshair,
-          objectDropPoint: objectDropPoint,
-          totalTime: new Date().getTime() - startTime
-        });
+        // let agentState = this.sim.getAgentPose();
+        // let objectStates = this.sim.getObjectStates();
+        // let objectUnderCrosshair = this.sim.getObjectUnderCrosshair()[
+        //   "nearestObjectId"
+        // ];
+        // let objectDropPoint = [];
+        // if (this.sim.grippedObjectId != -1) {
+        //   objectDropPoint = this.sim.findObjectFloorPositionUnderCrosshair()[
+        //     "newObjectPosition"
+        //   ];
+        //   objectDropPoint = this.sim.convertVector3ToVec3f(objectDropPoint);
+        // }
+        // this.psiturk.handleRecordTrialData("TEST", "stepPhysics", {
+        //   step: stepSize,
+        //   agentState: agentState,
+        //   objectStates: objectStates,
+        //   objectUnderCrosshair: objectUnderCrosshair,
+        //   objectDropPoint: objectDropPoint,
+        //   totalTime: new Date().getTime() - startTime
+        // });
         this.frameCounter += 1;
-      }, 1000.0 / 20.0);
+      }, 1000.0 / 7.0);
     }
   }
 
@@ -409,7 +409,7 @@ class NavigateTask {
   render(options = { renderTopDown: true }) {
     this.renderImage();
 
-    this.sim.updateCrossHairNode(this.sim.getCrosshairPosition());
+    // this.sim.updateCrossHairNode(this.sim.getCrosshairPosition());
     this.sim.drawBBAroundNearestObject();
     this.sim.showDropPoint();
 
@@ -526,27 +526,27 @@ class NavigateTask {
 
     // record action and action data
     let agentState = this.sim.getAgentPose();
-    let objectStates = this.sim.getObjectStates();
-    let objectUnderCrosshair = this.sim.getObjectUnderCrosshair()[
-      "nearestObjectId"
-    ];
-    let objectDropPoint = [];
-    if (this.sim.grippedObjectId != -1) {
-      objectDropPoint = this.sim.findObjectFloorPositionUnderCrosshair()[
-        "newObjectPosition"
-      ];
-      objectDropPoint = this.sim.convertVector3ToVec3f(objectDropPoint);
-    }
+    // let objectStates = this.sim.getObjectStates();
+    // let objectUnderCrosshair = this.sim.getObjectUnderCrosshair()[
+    //   "nearestObjectId"
+    // ];
+    // let objectDropPoint = [];
+    // if (this.sim.grippedObjectId != -1) {
+    //   objectDropPoint = this.sim.findObjectFloorPositionUnderCrosshair()[
+    //     "newObjectPosition"
+    //   ];
+    //   objectDropPoint = this.sim.convertVector3ToVec3f(objectDropPoint);
+    // }
     this.psiturk.handleRecordTrialData("TEST", "handleAction", {
       action: action,
-      actionData: actionData,
+      // actionData: actionData,
       collision: collision,
-      objectUnderCrosshair: objectUnderCrosshair,
-      nearestObjectId: this.sim.nearestObjectId,
-      grippedObjectId: this.sim.grippedObjectId,
-      objectDropPoint: objectDropPoint,
-      agentState: agentState,
-      objectStates: objectStates
+      // objectUnderCrosshair: objectUnderCrosshair,
+      // nearestObjectId: this.sim.nearestObjectId,
+      // grippedObjectId: this.sim.grippedObjectId,
+      // objectDropPoint: objectDropPoint,
+      agentState: agentState
+      // objectStates: objectStates
     });
     // this.render();
   }
@@ -571,6 +571,8 @@ class NavigateTask {
     for (let a of this.actions) {
       if (a.keyCode === key) {
         this.pushAction(a.name);
+        //console.log(a.name);
+        //this.handleAction(a.name);
         break;
       }
     }

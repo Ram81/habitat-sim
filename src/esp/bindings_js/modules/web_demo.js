@@ -29,6 +29,7 @@ class WebDemo {
     initializeTopDown = false
   ) {
     this.config = new Module.SimulatorConfiguration();
+    this.config.allowSliding = false;
     this.config.scene_id = Module.scene;
     this.config.enablePhysics = Module.enablePhysics;
     this.config.physicsConfigFile = Module.physicsConfigFile;
@@ -64,7 +65,6 @@ class WebDemo {
       fps: document.getElementById("fps"),
       taskValidator: this.taskValidator
     });
-    console.log("tasl created");
   }
 
   setEpisode(episode) {
@@ -72,8 +72,7 @@ class WebDemo {
     let assistance = document.getElementById("text-assistance-1");
     if (taskInstruction !== undefined && taskInstruction !== null) {
       taskInstruction.innerHTML =
-        "<hr> <h4>Task: Pick up everything scattered on the floor and put them at their right locations (e.g. shoes in the shoerack, etc.). Note that the appropriate locations might not be the ones nearest to the object." +
-        "</h4> <hr>";
+        "<hr> <h4>Task: " + episode.task.instruction + "</h4> <hr>";
     }
     if (assistance !== undefined && assistance !== null) {
       let objectIconTags = getObjectIconImgTags(episode);
@@ -113,13 +112,13 @@ class WebDemo {
     window.config.runFlythrough = true;
     window.config.enableStepPhysics = false;
     window.config.actualTask = false;
-    let replayEpisode = window.config.taskConfig.flythroughTask.name;
-    let replayFile = window.config.taskConfig.flythroughReplayFile.name;
-    let episode = loadEpisode("/data/".concat(replayEpisode));
-    this.setEpisode(episode);
-    this.setTaskValidator(episode);
+    // let replayEpisode = window.config.taskConfig.flythroughTask.name;
+    // let replayFile = window.config.taskConfig.flythroughReplayFile.name;
+    // let episode = loadEpisode("/data/".concat(replayEpisode));
+    // this.setEpisode(episode);
+    // this.setTaskValidator(episode);
     this.task.reset();
-    this.task.runFlythrough(replayFile);
+    // this.task.runFlythrough(replayFile);
   }
 
   runInit() {
@@ -130,7 +129,8 @@ class WebDemo {
     let episodeId = window.config.episodeId;
     let episode = loadEpisode(
       "/data/".concat(window.config.taskConfig.name),
-      episodeId
+      episodeId,
+      window.config.dataset
     );
     this.setEpisode(episode);
     this.setTaskValidator(episode);
@@ -143,7 +143,11 @@ class WebDemo {
     window.config.enableStepPhysics = true;
     window.config.actualTask = false;
     let trainingEpisode = window.config.taskConfig.trainingTask.name;
-    let episode = loadEpisode("/data/".concat(trainingEpisode));
+    let episode = loadEpisode(
+      "/data/".concat(trainingEpisode),
+      0,
+      window.config.dataset
+    );
     this.setEpisode(episode);
     this.setTaskValidator(episode);
     this.task.reset();
@@ -154,12 +158,16 @@ class WebDemo {
       {
         uuid: "rgb",
         sensorType: Module.SensorType.COLOR,
+        position: [0, 0.88, 0],
+        hfov: 79,
         resolution: [480, 640]
       },
       {
         uuid: "semantic",
         sensorType: Module.SensorType.SEMANTIC,
         resolution: [480, 640],
+        position: [0, 0.88, 0],
+        hfov: 79,
         channels: 1
       }
     ];

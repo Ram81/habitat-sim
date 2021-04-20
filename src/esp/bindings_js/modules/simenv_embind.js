@@ -50,7 +50,7 @@ class SimEnv {
       const agent = this.sim.getAgent(this.selectedAgentId);
       agent.setState(this.initialAgentState, true);
     }
-    this.updateCrossHairNode(this.getCrosshairPosition());
+    //this.updateCrossHairNode(this.getCrosshairPosition());
 
     this.grippedObjectId = -1;
     this.nearestObjectId = -1;
@@ -154,9 +154,12 @@ class SimEnv {
       // add agent object for collision test
       this.sim.addContactTestObject(this.agentObjectHandle, 0);
     }
-    console.log("done set episode");
+    let episodeCopy = JSON.parse(JSON.stringify(episode));
+    if (window.config.dataset == "objectnav") {
+      episodeCopy.goals = [];
+    }
     this.psiturk.handleRecordTrialData("TEST", "setEpisode", {
-      episode: episode
+      episode: episodeCopy
     });
   }
 
@@ -1007,6 +1010,12 @@ class SimEnv {
 
   flipVec2i(position) {
     return [position[1], position[0]];
+  }
+
+  euclideanDistance(positionA, positionB) {
+    return Math.sqrt(
+      (positionA[0] - positionB[0]) ** 2 + (positionA[2] - positionB[2]) ** 2
+    );
   }
 
   enableDebugDraw() {

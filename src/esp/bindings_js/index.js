@@ -31,6 +31,9 @@ function preload(url) {
     const splits = url.split("/");
     file = splits[splits.length - 1];
   }
+  if (window.config.dataset == "objectnav") {
+    url = url.split(".")[0] + "/" + url;
+  }
   FS.createPreloadedFile("/", file, sceneHome.concat(url), true, false);
   return file;
 }
@@ -49,9 +52,9 @@ function preloadPhysConfig(url, episodeId) {
   let emObjHome = emDataHome.concat("/objects");
   FS.mkdir(emObjHome);
   // Do not load object assets for object nav task
-  // if (window.config.dataset == "objectnav") {
-  //   return emDataHome.concat("/".concat(file));
-  // }
+  if (window.config.dataset == "objectnav") {
+    return emDataHome.concat("/".concat(file));
+  }
 
   // TODO Need to loop through the objects directory on the server (`phys/objects/*`) and put all of the glbs onto the client
   // TODO Fix hacky loading of selected objects for each episode

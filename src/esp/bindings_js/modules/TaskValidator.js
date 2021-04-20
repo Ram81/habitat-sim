@@ -112,21 +112,11 @@ class TaskValidator {
       let agentPosition = this.sim.convertVector3ToVec3f(
         agentTransform.translation()
       );
-      console.log(", pos: " + agentPosition + ", poss: " + position);
 
       let dist = this.sim.geodesicDistance(agentPosition, position);
-      console.log(
-        "goal: " +
-          goal +
-          ", dist: " +
-          dist +
-          ", pos: " +
-          agentPosition +
-          ", poss: " +
-          position
-      );
+      // let euDist = this.sim.euclideanDistance(agentPosition, position);
 
-      if (dist <= 0.5) {
+      if (dist <= 1.0) {
         taskSuccess = true;
       }
     }
