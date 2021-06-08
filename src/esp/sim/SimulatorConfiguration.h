@@ -30,6 +30,7 @@ struct SimulatorConfiguration {
    * simulation, if a suitable library (i.e. Bullet) has been installed.
    */
   bool enablePhysics = false;
+  int textureDownsampleFactor = 0;
   /**
    * @brief Whether or not to load the semantic mesh
    */

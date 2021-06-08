@@ -88,11 +88,13 @@ void Simulator::reconfigure(const SimulatorConfiguration& cfg) {
   } else {
     resourceManager_->setMetadataMediator(metadataMediator_);
   }
+  LOG(WARNING) << "Downsampling by : " << cfg.textureDownsampleFactor;
+
+  resourceManager_->mipLevelsToSkip = cfg.textureDownsampleFactor;
 
   if (!sceneManager_) {
     sceneManager_ = scene::SceneManager::create_unique();
   }
-  LOG(WARNING) << "\n\nAllow sldidinginsads" << cfg.allowSliding;
 
   // if configuration is unchanged, just reset and return
   if (cfg == config_) {

@@ -94,8 +94,8 @@ class NavigateTask {
       { name: "turnRight", key: "d", keyCode: 68 },
       { name: "lookUp", key: "ArrowUp", keyCode: 38 },
       { name: "lookDown", key: "ArrowDown", keyCode: 40 }
-      //{ name: "grabReleaseObject", key: " ", keyCode: 32 },
-      //{ name: "agentPose", key: "p", keyCode: 80 }
+      // { name: "grabReleaseObject", key: " ", keyCode: 32 },
+      // { name: "agentPose", key: "p", keyCode: 80 }
       // { name: "removeLastObject", key: "u", keyCode: 85 }
       // { name: "dropObject", key: "o", keyCode: 79 }
     ];
@@ -497,7 +497,7 @@ class NavigateTask {
         return;
       }
     } else if (action == "agentPose") {
-      // this.sim.toggleNavMeshVisualization();
+      this.sim.toggleNavMeshVisualization();
       // let states = this.sim.getObjectStates();
       // let agentPose = this.sim.getAgentPose();
       // for (let obj in states) {
@@ -514,8 +514,6 @@ class NavigateTask {
       //   );
       // }
       console.log("val check: " + this.taskValidator.validate());
-    } else if (action == "stepWorld") {
-      this.sim.stepWorld(1.0 / 10.0);
     } else if (action == "dropObject") {
       this.sim.dropObjectFromFloor2();
       this.dropCalled = true;

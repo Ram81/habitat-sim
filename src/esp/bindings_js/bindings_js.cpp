@@ -227,6 +227,7 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
   em::class_<NavMeshSettings>("NavMeshSettings")
       .smart_ptr_constructor("NavMeshSettings", &NavMeshSettings::create<>)
       .property("agentRadius", &NavMeshSettings::agentRadius)
+      .property("agentHeight", &NavMeshSettings::agentHeight)
       .property("navMeshBBMax", &NavMeshSettings::navMeshBBMax)
       .function("setDefaults", &NavMeshSettings::setDefaults);
 
@@ -321,6 +322,8 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
       .property("compressTextures", &SimulatorConfiguration::compressTextures)
       .property("enablePhysics", &SimulatorConfiguration::enablePhysics)
       .property("allowSliding", &SimulatorConfiguration::allowSliding)
+      .property("textureDownsampleFactor",
+                &SimulatorConfiguration::textureDownsampleFactor)
       .property("physicsConfigFile",
                 &SimulatorConfiguration::physicsConfigFile);
 

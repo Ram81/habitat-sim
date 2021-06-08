@@ -39,6 +39,10 @@ void initSimBindings(py::module& m) {
       .def_readwrite("create_renderer", &SimulatorConfiguration::createRenderer)
       .def_readwrite("frustum_culling", &SimulatorConfiguration::frustumCulling)
       .def_readwrite("enable_physics", &SimulatorConfiguration::enablePhysics)
+      .def_readwrite(
+          "texture_downsample_factor",
+          &SimulatorConfiguration::textureDownsampleFactor,
+          R"(Set to 0 by default. Set to 1 to get 2x downsampled textures. 2 for 4x, etc.)")
       .def_readwrite("physics_config_file",
                      &SimulatorConfiguration::physicsConfigFile)
       .def_readwrite("scene_light_setup",

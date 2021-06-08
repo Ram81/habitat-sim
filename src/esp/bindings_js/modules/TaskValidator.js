@@ -104,20 +104,25 @@ class TaskValidator {
 
     let taskSuccess = false;
     for (let goal in goals) {
-      let position = this.episode.goals[goal]["position"];
+      let objectGoal = this.episode.goals[goal];
 
-      let agentTransform = this.sim.getAgentTransformation(
-        this.sim.selectedAgentId
-      );
-      let agentPosition = this.sim.convertVector3ToVec3f(
-        agentTransform.translation()
-      );
+      for (let viewPointt in objectGoal.view_points) {
+        let viewPoint = objectGoal.view_points[viewPointt];
+        let position = viewPoint.agent_state.position;
 
-      let dist = this.sim.geodesicDistance(agentPosition, position);
-      // let euDist = this.sim.euclideanDistance(agentPosition, position);
+        let agentTransform = this.sim.getAgentTransformation(
+          this.sim.selectedAgentId
+        );
+        let agentPosition = this.sim.convertVector3ToVec3f(
+          agentTransform.translation()
+        );
 
-      if (dist <= 1.0) {
-        taskSuccess = true;
+        let dist = this.sim.geodesicDistance(agentPosition, position);
+        //let euDist = this.sim.euclideanDistance(agentPosition, position);
+
+        if (dist < 0.1) {
+          taskSuccess = true;
+        }
       }
     }
     return taskSuccess;

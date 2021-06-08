@@ -4,7 +4,12 @@
 
 /*global Module */
 
-import { primitiveObjectHandles, fileBasedObjects } from "./defaults";
+import {
+  primitiveObjectHandles,
+  fileBasedObjects,
+  largeScenes,
+  defaultAgentConfig
+} from "./defaults";
 import { getRandomInt } from "./utils";
 import PsiturkEventLogger from "./event_logger";
 
@@ -24,6 +29,9 @@ class SimEnv {
    * @param {number} agentId - default agent id
    */
   constructor(config, episode = {}, agentId = 0) {
+    if (largeScenes.includes(config.scene_id)) {
+      config.textureDownsampleFactor = 1;
+    }
     this.sim = new Module.Simulator(config);
     this.pathfinder = this.sim.getPathFinder();
     this.psiturk = new PsiturkEventLogger(window.psiTurk);
@@ -39,6 +47,7 @@ class SimEnv {
     this.maxDistance = 2.0;
     this.objectIndexx = 108;
     this.islandRadiusLimit = 1.8;
+    this.recomputeNavMesh();
   }
 
   /**
@@ -115,40 +124,6 @@ class SimEnv {
             episode.objects[index]["objectId"];
           episode.objects[index]["objectId"] = objectId;
         }
-      }
-      if (episode.task.type == "objectnav") {
-        // for (let goal in episode.goals) {
-        //   let objectLibHandle =
-        //     "/data/objects/b_colored_wood_blocks.object_config.json";
-        //   let position = this.convertVec3fToVector3(
-        //     episode.goals[goal]["position"]
-        //   );
-        //   let rotation = this.quatFromCoeffs([0, 0, 0, 1]);
-        //   let objectId = this.addObjectAtLocation(
-        //     objectLibHandle,
-        //     position,
-        //     rotation
-        //   );
-        //   let object = {
-        //     object: "blue wood block",
-        //     objectHandle:
-        //       "/data/objects/b_colored_wood_blocks.object_config.json",
-        //     objectIcon: "/data/test_assets/objects/b_colored_wood_blocks.png",
-        //     objectId: objectId,
-        //     isReceptacle: false,
-        //     position: [
-        //       -9.966957092285156,
-        //       0.14796799421310425,
-        //       5.7232489585876465
-        //     ],
-        //     rotation: [0.0009765623253770173, 0, 0, 0.9999995231628418],
-        //     motionType: "DYNAMIC"
-        //   };
-        //   this.addObjectInScene(objectId, object);
-        //   // adding contact test shape for object
-        //   this.sim.addContactTestObject(objectLibHandle, 0);
-        //   console.log(objectId);
-        // }
       }
     } else {
       // add agent object for collision test
@@ -784,6 +759,8 @@ class SimEnv {
 
   recomputeNavMesh() {
     let navMeshSettings = new Module.NavMeshSettings();
+    navMeshSettings.agentRadius = defaultAgentConfig.radius;
+    navMeshSettings.agentHeight = defaultAgentConfig.height;
     this.sim.recomputeNavMesh(this.getPathFinder(), navMeshSettings, true);
   }
 
