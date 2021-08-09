@@ -89,6 +89,46 @@ class SimEnv {
       this.initialAgentState = this.createAgentState(episode.startState);
       // add agent object for collision test
       this.sim.addContactTestObject(this.agentObjectHandle, 0);
+      console.log(episode.goals);
+
+      for (let goal_idx in episode.goals) {
+        let goal = episode.goals[goal_idx];
+
+        for (let idx in goal.view_points) {
+          let view_point = this.convertVec3fToVector3(
+            goal.view_points[idx].agent_state.position
+          );
+          let objectLibHandle =
+            "/data/objects/mustard_bottle.object_config.json";
+          let rotation = this.quatFromCoeffs([0, 0, 0, 1]);
+          let objectId = this.addObjectAtLocation(
+            objectLibHandle,
+            view_point,
+            rotation
+          );
+          this.addObjectInScene(objectId, {});
+          if (idx == 5) {
+            console.log("add obj");
+            break;
+          }
+        }
+      }
+      console.log("added objects");
+
+      let sem_objects = this.sim.getSemanticScene().objects;
+      console.log(sem_objects.size());
+      for (let idx = 0; idx < sem_objects.size(); idx++) {
+        if (idx < 1) {
+          continue;
+        }
+        if (
+          episode.goals[0].object_category ==
+          sem_objects.get(idx).category.getName("")
+        ) {
+          console.log(sem_objects.get(idx).category.getName(""));
+        }
+      }
+      console.log("sem annotat objects");
 
       if (episode.objects !== undefined) {
         let objects = JSON.parse(JSON.stringify(episode.objects));
@@ -107,7 +147,7 @@ class SimEnv {
         });
         for (let index in objects) {
           let objectLibHandle = objects[index]["objectHandle"];
-          let position = this.convertVec3fToVector3(objects[index]["position"]);
+          let position = this.c(objects[index]["position"]);
           let rotation = this.quatFromCoeffs(objects[index]["rotation"]);
 
           let objectId = this.addObjectAtLocation(
@@ -124,6 +164,28 @@ class SimEnv {
             episode.objects[index]["objectId"];
           episode.objects[index]["objectId"] = objectId;
         }
+        // for (let i = 0; i < 20; i++) {
+        //   let objectLibHandle = objects[0]["objectHandle"];
+        //   let position = this.convertVec3fToVector3(objects[0]["position"]);
+        //   let rotation = this.quatFromCoeffs(objects[0]["rotation"]);
+        //   let objectId = this.addObjectAtLocation(
+        //     objectLibHandle,
+        //     position,
+        //     rotation
+        //   );
+        //   this.addObjectInScene(objectId, objects[0]);
+        // }
+        // for (let i = 0; i < 20; i++) {
+        //   let objectLibHandle = objects[1]["objectHandle"];
+        //   let position = this.convertVec3fToVector3(objects[1]["position"]);
+        //   let rotation = this.quatFromCoeffs(objects[1]["rotation"]);
+        //   let objectId = this.addObjectAtLocation(
+        //     objectLibHandle,
+        //     position,
+        //     rotation
+        //   );
+        //   this.addObjectInScene(objectId, objects[1]);
+        // }
       }
     } else {
       // add agent object for collision test

@@ -873,6 +873,8 @@ agent::Agent::ptr Simulator::addAgent(
   // transformation of the sensor w.r.t. the agent (done internally in the
   // constructor of Agent)
 
+  // LOG(WARNING) << "config: " << agentConfig;
+
   auto& agentNode = agentParentNode.createChild();
   agent::Agent::ptr ag = agent::Agent::create(agentNode, agentConfig);
 

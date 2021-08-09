@@ -2393,3 +2393,35 @@ export const largeScenes = [
   "E9uDoFAP3SH.glb",
   "vyrNrziPKCB.glb"
 ];
+
+export const taskConfigs = {
+  objectnav: {
+    sensorConfig: {
+      position: [0, 0.88, 0]
+    },
+    actions: ["moveForward", "turnLeft", "turnRight", "lookUp", "lookDown"],
+    sliding: false,
+    actuationSpec: {
+      move: 0.25,
+      turn: 30.0
+    }
+  },
+  rearrangement: {
+    sensorConfig: {
+      position: [0, 1.5, 0]
+    },
+    actions: [
+      "moveForward",
+      "turnLeft",
+      "turnRight",
+      "lookUp",
+      "lookDown",
+      "moveBackward"
+    ],
+    sliding: true,
+    actuationSpec: {
+      move: 0.15,
+      turn: 5.0
+    }
+  }
+};

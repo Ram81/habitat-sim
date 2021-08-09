@@ -210,7 +210,6 @@ export function getObjectIconImgTags(episode) {
   let objectImgTags = {};
   objectImgTags["objects"] = [];
   objectImgTags["receptacles"] = [];
-  console.log(objects);
   for (let i = 0; i < objects.length; i++) {
     let object = objects[i];
     let objectName = object["object"];
@@ -228,8 +227,5 @@ export function getObjectIconImgTags(episode) {
       objectImgTags["objects"].push(item);
     }
   }
-  console.log("icons");
-  console.log(objectImgTags);
-  console.log("done");
   return objectImgTags;
 }

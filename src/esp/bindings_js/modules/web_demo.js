@@ -6,7 +6,8 @@
 import {
   defaultAgentConfig,
   defaultEpisode,
-  defaultResolution
+  defaultResolution,
+  taskConfigs
 } from "./defaults";
 import SimEnv from "./simenv_embind";
 import TopDownMap from "./topdown";
@@ -30,6 +31,9 @@ class WebDemo {
   ) {
     this.config = new Module.SimulatorConfiguration();
     this.config.allowSliding = false;
+    if (window.config.dataset != "objectnav") {
+      this.config.allowSliding = true;
+    }
     this.config.scene_id = Module.scene;
     this.config.enablePhysics = Module.enablePhysics;
     this.config.physicsConfigFile = Module.physicsConfigFile;
@@ -154,11 +158,15 @@ class WebDemo {
   }
 
   updateAgentConfigWithSensors(agentConfig = defaultAgentConfig) {
+    let taskConfig = taskConfigs["rearrangement"];
+    if (window.config.dataset == "objectnav") {
+      taskConfig = taskConfigs[window.config.dataset];
+    }
     const sensorConfigs = [
       {
         uuid: "rgb",
         sensorType: Module.SensorType.COLOR,
-        position: [0, 0.88, 0],
+        position: taskConfig["sensorConfig"]["position"],
         hfov: 79,
         resolution: [480, 640]
       },
@@ -166,13 +174,34 @@ class WebDemo {
         uuid: "semantic",
         sensorType: Module.SensorType.SEMANTIC,
         resolution: [480, 640],
-        position: [0, 0.88, 0],
+        position: taskConfig["sensorConfig"]["position"],
         hfov: 79,
         channels: 1
       }
     ];
+    const actionSpace = new Module.ActionSpace();
+    const moveActuationSpec = new Module.MapStringFloat();
+    moveActuationSpec.set("amount", taskConfig["actuationSpec"]["move"]);
+    const turnActuationSpec = new Module.MapStringFloat();
+    turnActuationSpec.set("amount", taskConfig["actuationSpec"]["turn"]);
+    const actions = taskConfig["actions"];
+    for (let action in actions) {
+      action = actions[action];
+      if (action.includes("move")) {
+        actionSpace.set(
+          action,
+          new Module.ActionSpec(action, moveActuationSpec)
+        );
+      } else {
+        actionSpace.set(
+          action,
+          new Module.ActionSpec(action, turnActuationSpec)
+        );
+      }
+    }
 
     agentConfig.sensorSpecifications = sensorConfigs;
+    agentConfig.actionSpace = actionSpace;
     agentConfig = this.updateAgentConfigWithResolution(agentConfig);
 
     return agentConfig;

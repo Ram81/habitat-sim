@@ -144,7 +144,8 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
       .function("minn", em::optional_override(
                             [](const esp::box3f& self) { return self.min(); }))
       .function("maxx", em::optional_override(
-                            [](const esp::box3f& self) { return self.max(); }));
+                            [](const esp::box3f& self) { return self.max(); }))
+      .function("centerr", &esp::box3f::center);
 
   em::class_<Magnum::Matrix4>("Matrix4")
       .constructor<Magnum::Matrix4>()
@@ -244,7 +245,8 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
       .property("coefficientOfRestitution",
                 &AgentConfiguration::coefficientOfRestitution)
       .property("sensorSpecifications",
-                &AgentConfiguration::sensorSpecifications);
+                &AgentConfiguration::sensorSpecifications)
+      .property("actionSpace", &AgentConfiguration::actionSpace);
 
   em::class_<ActionSpec>("ActionSpec")
       .smart_ptr_constructor(
@@ -377,7 +379,8 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
 
   em::class_<SemanticObject>("SemanticObject")
       .smart_ptr<SemanticObject::ptr>("SemanticObject::ptr")
-      .property("category", &SemanticObject::category);
+      .property("category", &SemanticObject::category)
+      .function("aabb", &SemanticObject::aabb);
 
   em::class_<SemanticScene>("SemanticScene")
       .smart_ptr<SemanticScene::ptr>("SemanticScene::ptr")

@@ -55,7 +55,7 @@ void DebugRender::flushLines() {
   } else {
     glDisable(GL_LINE_SMOOTH);
   }
-  static float lineWidth = 4.5;
+  static float lineWidth = 20.5f;
   glLineWidth(lineWidth);
 
 #if 0

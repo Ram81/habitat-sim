@@ -64,16 +64,17 @@ struct AgentConfiguration {
   };
   ActionSpace actionSpace = {  // default ActionSpace
       {"moveForward",
-       ActionSpec::create("moveForward", ActuationMap{{"amount", 0.25f}})},
-      {"moveBackward",
-       ActionSpec::create("moveBackward", ActuationMap{{"amount", 0.25f}})},
-      {"lookUp", ActionSpec::create("lookUp", ActuationMap{{"amount", 30.0f}})},
-      {"lookDown",
-       ActionSpec::create("lookDown", ActuationMap{{"amount", 30.0f}})},
+       ActionSpec::create("moveForward", ActuationMap{{"amount", 0.15f}})},
+      // {"moveBackward",
+      //  ActionSpec::create("moveBackward", ActuationMap{{"amount", 0.15f}})},
+      // {"lookUp", ActionSpec::create("lookUp",
+      // ActuationMap{{"amount", 5.0f}})},
+      // {"lookDown",
+      //  ActionSpec::create("lookDown", ActuationMap{{"amount", 5.0f}})},
       {"turnLeft",
-       ActionSpec::create("turnLeft", ActuationMap{{"amount", 30.0f}})},
+       ActionSpec::create("turnLeft", ActuationMap{{"amount", 5.0f}})},
       {"turnRight",
-       ActionSpec::create("turnRight", ActuationMap{{"amount", 30.0f}})}};
+       ActionSpec::create("turnRight", ActuationMap{{"amount", 5.0f}})}};
   std::string bodyType = "cylinder";
 
   ESP_SMART_POINTERS(AgentConfiguration)
