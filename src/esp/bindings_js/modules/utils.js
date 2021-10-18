@@ -142,7 +142,15 @@ export function buildEpisodeFromJSON(
     episode.object_category = episodeJSON.episodes[episode_id].object_category;
     let goal_id =
       scenePath[scenePath.length - 1] + "_" + episode.object_category;
-    episode.goals = episodeJSON.goals_by_category[goal_id];
+
+    if (!Object.keys(episodeJSON.goals_by_category).includes(goal_id)) {
+      episode.is_thda = true;
+      episode.goals = episodeJSON.episodes[episode_id].goals;
+      episode.scene_state = episodeJSON.episodes[episode_id].scene_state;
+      episodeJSON.goals_by_category = null;
+    } else {
+      episode.goals = episodeJSON.goals_by_category[goal_id];
+    }
     episode.info = episodeJSON.episodes[episode_id].info;
     episode.start_room = episodeJSON.episodes[episode_id].start_room;
     episode.shortest_paths = episodeJSON.episodes[episode_id].shortest_paths;
@@ -228,4 +236,52 @@ export function getObjectIconImgTags(episode) {
     }
   }
   return objectImgTags;
+}
+
+export function getEpisodeMeta(scene_config, episodeId) {
+  //return new Promise((resolve, object) => {
+  // read text from URL location
+  let url = "https://habitatonweb.cloudcv.org:8000/data/" + scene_config;
+  var request = new XMLHttpRequest();
+  request.open("GET", url, false);
+  request.send(null);
+
+  if (request.status == 200) {
+    let response = JSON.parse(request.response);
+    let episode = response.episodes[episodeId];
+    console.log(episode);
+    if (episode == undefined) {
+      episode = response.episodes[0];
+    }
+    return episode;
+  }
+  return null;
+}
+
+export function getObjects(episode, trainingEpisode, dataset) {
+  let objects = [];
+  if (dataset == "objectnav") {
+    let scene_state = episode.scene_state;
+    if (scene_state == undefined) {
+      return [];
+    }
+    for (let idx in scene_state.objects) {
+      let object = scene_state.objects[idx];
+      let objectTemplate = object["object_template"];
+      let objectTemplateSplit = objectTemplate.split("/");
+      let objectName = objectTemplateSplit[objectTemplateSplit.length - 1];
+
+      objects.push(objectName);
+    }
+    scene_state = trainingEpisode.scene_state;
+    for (let idx in scene_state.objects) {
+      let object = scene_state.objects[idx];
+      let objectTemplate = object["object_template"];
+      let objectTemplateSplit = objectTemplate.split("/");
+      let objectName = objectTemplateSplit[objectTemplateSplit.length - 1];
+
+      objects.push(objectName);
+    }
+  }
+  return objects;
 }

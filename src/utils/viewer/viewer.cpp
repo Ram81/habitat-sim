@@ -522,13 +522,13 @@ void Viewer::visualizeRegions() {
   const auto& ss = simulator_->getSemanticScene();
   int i = 0;
   for (const auto& region : ss->regions()) {
-    // const auto& b = region->aabb();
-    const auto& b =
-        simulator_->getActiveSceneGraph().getRootNode().getCumulativeBB();
+    const auto& b = region->aabb();
+    // const auto& b =
+    //     simulator_->getActiveSceneGraph().getRootNode().getCumulativeBB();
     LOG(INFO) << "region " << region->category()->name("") << "[" << b.min().x()
               << ", " << b.min().y() << ", " << b.min().z() << "]["
               << b.max().x() << ", " << b.max().y() << ", " << b.max().z()
-              << "]";
+              << "]" << "[" << b.center().x() << ", " << b.center().y() << ", " << b.center().z();
 
     std::vector<Magnum::Vector3> positions{
         Magnum::Vector3(b.min().x(), b.min().y(), b.min().z()),
@@ -546,7 +546,6 @@ void Viewer::visualizeRegions() {
     int trajObjID = simulator_->addTrajectoryObject(
         "regionViz" + std::to_string(i++), positions, positions.size() - 1,
         0.05, color, false, 10);
-    break;
   }
 }
 

@@ -27,6 +27,9 @@ class TaskValidator {
     } else if (this.task.type === "cleaning") {
       return this.validateCleaningTask();
     } else if (this.task.type == "objectnav") {
+      if (this.episode.is_thda == true) {
+        return this.validateObjectNavTHDATask();
+      }
       return this.validateObjectNavTask();
     }
   }
@@ -123,6 +126,37 @@ class TaskValidator {
         if (dist < 0.1) {
           taskSuccess = true;
         }
+      }
+    }
+    return taskSuccess;
+  }
+
+  validateObjectNavTHDATask() {
+    let goals = this.episode.goals;
+    if (goals === undefined) {
+      return true;
+    }
+
+    let taskSuccess = false;
+    for (let goal in goals) {
+      let objectGoal = this.episode.goals[goal];
+      // THDA uses goal object center
+      // for (let viewPointt in objectGoal.view_points) {
+      // let viewPoint = objectGoal.view_points[viewPointt];
+      let position = objectGoal.position;
+
+      let agentTransform = this.sim.getAgentTransformation(
+        this.sim.selectedAgentId
+      );
+      let agentPosition = this.sim.convertVector3ToVec3f(
+        agentTransform.translation()
+      );
+
+      // let dist = this.sim.geodesicDistance(agentPosition, position);
+      // THDA uses Euclidean distance
+      let euDist = this.sim.euclideanDistance(agentPosition, position);
+      if (euDist < 1.0) {
+        taskSuccess = true;
       }
     }
     return taskSuccess;

@@ -1259,506 +1259,605 @@ export const taskFiles = {
     },
     {
       name: "sT4fr6TAbpF.json",
-      config: "tasks/objectnav_v2/sT4fr6TAbpF.json",
+      config: "tasks/objectnav_thda_v2/sT4fr6TAbpF.json",
       scene: "sT4fr6TAbpF.glb",
       trainingTask: {
         name: "sT4fr6TAbpF_train.json",
-        config: "tasks/objectnav_v2/sT4fr6TAbpF_train.json"
+        config: "tasks/objectnav_thda_v2/sT4fr6TAbpF_train.json"
       }
     },
     {
       name: "E9uDoFAP3SH.json",
-      config: "tasks/objectnav_v2/E9uDoFAP3SH.json",
+      config: "tasks/objectnav_thda_v2/E9uDoFAP3SH.json",
       scene: "E9uDoFAP3SH.glb",
       trainingTask: {
         name: "E9uDoFAP3SH_train.json",
-        config: "tasks/objectnav_v2/E9uDoFAP3SH_train.json"
+        config: "tasks/objectnav_thda_v2/E9uDoFAP3SH_train.json"
       }
     },
     {
       name: "29hnd4uzFmX.json",
-      config: "tasks/objectnav_v2/29hnd4uzFmX.json",
+      config: "tasks/objectnav_thda_v2/29hnd4uzFmX.json",
       scene: "29hnd4uzFmX.glb",
       trainingTask: {
         name: "29hnd4uzFmX_train.json",
-        config: "tasks/objectnav_v2/29hnd4uzFmX_train.json"
+        config: "tasks/objectnav_thda_v2/29hnd4uzFmX_train.json"
       }
     },
     {
       name: "ac26ZMwG7aT.json",
-      config: "tasks/objectnav_v2/ac26ZMwG7aT.json",
+      config: "tasks/objectnav_thda_v2/ac26ZMwG7aT.json",
       scene: "ac26ZMwG7aT.glb",
       trainingTask: {
         name: "ac26ZMwG7aT_train.json",
-        config: "tasks/objectnav_v2/ac26ZMwG7aT_train.json"
+        config: "tasks/objectnav_thda_v2/ac26ZMwG7aT_train.json"
       }
     },
     {
       name: "i5noydFURQK.json",
-      config: "tasks/objectnav_v2/i5noydFURQK.json",
+      config: "tasks/objectnav_thda_v2/i5noydFURQK.json",
       scene: "i5noydFURQK.glb",
       trainingTask: {
         name: "i5noydFURQK_train.json",
-        config: "tasks/objectnav_v2/i5noydFURQK_train.json"
+        config: "tasks/objectnav_thda_v2/i5noydFURQK_train.json"
       }
     },
     {
       name: "s8pcmisQ38h.json",
-      config: "tasks/objectnav_v2/s8pcmisQ38h.json",
+      config: "tasks/objectnav_thda_v2/s8pcmisQ38h.json",
       scene: "s8pcmisQ38h.glb",
       trainingTask: {
         name: "s8pcmisQ38h_train.json",
-        config: "tasks/objectnav_v2/s8pcmisQ38h_train.json"
+        config: "tasks/objectnav_thda_v2/s8pcmisQ38h_train.json"
       }
     },
     {
       name: "rPc6DW4iMge.json",
-      config: "tasks/objectnav_v2/rPc6DW4iMge.json",
+      config: "tasks/objectnav_thda_v2/rPc6DW4iMge.json",
       scene: "rPc6DW4iMge.glb",
       trainingTask: {
         name: "rPc6DW4iMge_train.json",
-        config: "tasks/objectnav_v2/rPc6DW4iMge_train.json"
+        config: "tasks/objectnav_thda_v2/rPc6DW4iMge_train.json"
       }
     },
     {
       name: "EDJbREhghzL.json",
-      config: "tasks/objectnav_v2/EDJbREhghzL.json",
+      config: "tasks/objectnav_thda_v2/EDJbREhghzL.json",
       scene: "EDJbREhghzL.glb",
       trainingTask: {
         name: "EDJbREhghzL_train.json",
-        config: "tasks/objectnav_v2/EDJbREhghzL_train.json"
+        config: "tasks/objectnav_thda_v2/EDJbREhghzL_train.json"
       }
     },
     {
       name: "mJXqzFtmKg4.json",
-      config: "tasks/objectnav_v2/mJXqzFtmKg4.json",
+      config: "tasks/objectnav_thda_v2/mJXqzFtmKg4.json",
       scene: "mJXqzFtmKg4.glb",
       trainingTask: {
         name: "mJXqzFtmKg4_train.json",
-        config: "tasks/objectnav_v2/mJXqzFtmKg4_train.json"
+        config: "tasks/objectnav_thda_v2/mJXqzFtmKg4_train.json"
       }
     },
     {
       name: "JeFG25nYj2p.json",
-      config: "tasks/objectnav_v2/JeFG25nYj2p.json",
+      config: "tasks/objectnav_thda_v2/JeFG25nYj2p.json",
       scene: "JeFG25nYj2p.glb",
       trainingTask: {
         name: "JeFG25nYj2p_train.json",
-        config: "tasks/objectnav_v2/JeFG25nYj2p_train.json"
+        config: "tasks/objectnav_thda_v2/JeFG25nYj2p_train.json"
       }
     },
     {
       name: "82sE5b5pLXE.json",
-      config: "tasks/objectnav_v2/82sE5b5pLXE.json",
+      config: "tasks/objectnav_thda_v2/82sE5b5pLXE.json",
       scene: "82sE5b5pLXE.glb",
       trainingTask: {
         name: "82sE5b5pLXE_train.json",
-        config: "tasks/objectnav_v2/82sE5b5pLXE_train.json"
+        config: "tasks/objectnav_thda_v2/82sE5b5pLXE_train.json"
       }
     },
     {
       name: "D7N2EKCX4Sj.json",
-      config: "tasks/objectnav_v2/D7N2EKCX4Sj.json",
+      config: "tasks/objectnav_thda_v2/D7N2EKCX4Sj.json",
       scene: "D7N2EKCX4Sj.glb",
       trainingTask: {
         name: "D7N2EKCX4Sj_train.json",
-        config: "tasks/objectnav_v2/D7N2EKCX4Sj_train.json"
+        config: "tasks/objectnav_thda_v2/D7N2EKCX4Sj_train.json"
       }
     },
     {
       name: "7y3sRwLe3Va.json",
-      config: "tasks/objectnav_v2/7y3sRwLe3Va.json",
+      config: "tasks/objectnav_thda_v2/7y3sRwLe3Va.json",
       scene: "7y3sRwLe3Va.glb",
       trainingTask: {
         name: "7y3sRwLe3Va_train.json",
-        config: "tasks/objectnav_v2/7y3sRwLe3Va_train.json"
+        config: "tasks/objectnav_thda_v2/7y3sRwLe3Va_train.json"
       }
     },
     {
       name: "HxpKQynjfin.json",
-      config: "tasks/objectnav_v2/HxpKQynjfin.json",
+      config: "tasks/objectnav_thda_v2/HxpKQynjfin.json",
       scene: "HxpKQynjfin.glb",
       trainingTask: {
         name: "HxpKQynjfin_train.json",
-        config: "tasks/objectnav_v2/HxpKQynjfin_train.json"
+        config: "tasks/objectnav_thda_v2/HxpKQynjfin_train.json"
       }
     },
     {
       name: "5LpN3gDmAk7.json",
-      config: "tasks/objectnav_v2/5LpN3gDmAk7.json",
+      config: "tasks/objectnav_thda_v2/5LpN3gDmAk7.json",
       scene: "5LpN3gDmAk7.glb",
       trainingTask: {
         name: "5LpN3gDmAk7_train.json",
-        config: "tasks/objectnav_v2/5LpN3gDmAk7_train.json"
+        config: "tasks/objectnav_thda_v2/5LpN3gDmAk7_train.json"
       }
     },
     {
       name: "gZ6f7yhEvPG.json",
-      config: "tasks/objectnav_v2/gZ6f7yhEvPG.json",
+      config: "tasks/objectnav_thda_v2/gZ6f7yhEvPG.json",
       scene: "gZ6f7yhEvPG.glb",
       trainingTask: {
         name: "gZ6f7yhEvPG_train.json",
-        config: "tasks/objectnav_v2/gZ6f7yhEvPG_train.json"
+        config: "tasks/objectnav_thda_v2/gZ6f7yhEvPG_train.json"
       }
     },
     {
       name: "ur6pFq6Qu1A.json",
-      config: "tasks/objectnav_v2/ur6pFq6Qu1A.json",
+      config: "tasks/objectnav_thda_v2/ur6pFq6Qu1A.json",
       scene: "ur6pFq6Qu1A.glb",
       trainingTask: {
         name: "ur6pFq6Qu1A_train.json",
-        config: "tasks/objectnav_v2/ur6pFq6Qu1A_train.json"
+        config: "tasks/objectnav_thda_v2/ur6pFq6Qu1A_train.json"
       }
     },
     {
       name: "qoiz87JEwZ2.json",
-      config: "tasks/objectnav_v2/qoiz87JEwZ2.json",
+      config: "tasks/objectnav_thda_v2/qoiz87JEwZ2.json",
       scene: "qoiz87JEwZ2.glb",
       trainingTask: {
         name: "qoiz87JEwZ2_train.json",
-        config: "tasks/objectnav_v2/qoiz87JEwZ2_train.json"
+        config: "tasks/objectnav_thda_v2/qoiz87JEwZ2_train.json"
       }
     },
     {
       name: "PuKPg4mmafe.json",
-      config: "tasks/objectnav_v2/PuKPg4mmafe.json",
+      config: "tasks/objectnav_thda_v2/PuKPg4mmafe.json",
       scene: "PuKPg4mmafe.glb",
       trainingTask: {
         name: "PuKPg4mmafe_train.json",
-        config: "tasks/objectnav_v2/PuKPg4mmafe_train.json"
+        config: "tasks/objectnav_thda_v2/PuKPg4mmafe_train.json"
       }
     },
     {
       name: "VLzqgDo317F.json",
-      config: "tasks/objectnav_v2/VLzqgDo317F.json",
+      config: "tasks/objectnav_thda_v2/VLzqgDo317F.json",
       scene: "VLzqgDo317F.glb",
       trainingTask: {
         name: "VLzqgDo317F_train.json",
-        config: "tasks/objectnav_v2/VLzqgDo317F_train.json"
+        config: "tasks/objectnav_thda_v2/VLzqgDo317F_train.json"
       }
     },
     {
       name: "aayBHfsNo7d.json",
-      config: "tasks/objectnav_v2/aayBHfsNo7d.json",
+      config: "tasks/objectnav_thda_v2/aayBHfsNo7d.json",
       scene: "aayBHfsNo7d.glb",
       trainingTask: {
         name: "aayBHfsNo7d_train.json",
-        config: "tasks/objectnav_v2/aayBHfsNo7d_train.json"
+        config: "tasks/objectnav_thda_v2/aayBHfsNo7d_train.json"
       }
     },
     {
       name: "XcA2TqTSSAj.json",
-      config: "tasks/objectnav_v2/XcA2TqTSSAj.json",
+      config: "tasks/objectnav_thda_v2/XcA2TqTSSAj.json",
       scene: "XcA2TqTSSAj.glb",
       trainingTask: {
         name: "XcA2TqTSSAj_train.json",
-        config: "tasks/objectnav_v2/XcA2TqTSSAj_train.json"
+        config: "tasks/objectnav_thda_v2/XcA2TqTSSAj_train.json"
       }
     },
     {
       name: "8WUmhLawc2A.json",
-      config: "tasks/objectnav_v2/8WUmhLawc2A.json",
+      config: "tasks/objectnav_thda_v2/8WUmhLawc2A.json",
       scene: "8WUmhLawc2A.glb",
       trainingTask: {
         name: "8WUmhLawc2A_train.json",
-        config: "tasks/objectnav_v2/8WUmhLawc2A_train.json"
+        config: "tasks/objectnav_thda_v2/8WUmhLawc2A_train.json"
       }
     },
     {
       name: "sKLMLpTHeUy.json",
-      config: "tasks/objectnav_v2/sKLMLpTHeUy.json",
+      config: "tasks/objectnav_thda_v2/sKLMLpTHeUy.json",
       scene: "sKLMLpTHeUy.glb",
       trainingTask: {
         name: "sKLMLpTHeUy_train.json",
-        config: "tasks/objectnav_v2/sKLMLpTHeUy_train.json"
+        config: "tasks/objectnav_thda_v2/sKLMLpTHeUy_train.json"
       }
     },
     {
       name: "r47D5H71a5s.json",
-      config: "tasks/objectnav_v2/r47D5H71a5s.json",
+      config: "tasks/objectnav_thda_v2/r47D5H71a5s.json",
       scene: "r47D5H71a5s.glb",
       trainingTask: {
         name: "r47D5H71a5s_train.json",
-        config: "tasks/objectnav_v2/r47D5H71a5s_train.json"
+        config: "tasks/objectnav_thda_v2/r47D5H71a5s_train.json"
       }
     },
     {
       name: "Uxmj2M2itWa.json",
-      config: "tasks/objectnav_v2/Uxmj2M2itWa.json",
+      config: "tasks/objectnav_thda_v2/Uxmj2M2itWa.json",
       scene: "Uxmj2M2itWa.glb",
       trainingTask: {
         name: "Uxmj2M2itWa_train.json",
-        config: "tasks/objectnav_v2/Uxmj2M2itWa_train.json"
+        config: "tasks/objectnav_thda_v2/Uxmj2M2itWa_train.json"
       }
     },
     {
       name: "Pm6F8kyY3z2.json",
-      config: "tasks/objectnav_v2/Pm6F8kyY3z2.json",
+      config: "tasks/objectnav_thda_v2/Pm6F8kyY3z2.json",
       scene: "Pm6F8kyY3z2.glb",
       trainingTask: {
         name: "Pm6F8kyY3z2_train.json",
-        config: "tasks/objectnav_v2/Pm6F8kyY3z2_train.json"
+        config: "tasks/objectnav_thda_v2/Pm6F8kyY3z2_train.json"
       }
     },
     {
       name: "p5wJjkQkbXX.json",
-      config: "tasks/objectnav_v2/p5wJjkQkbXX.json",
+      config: "tasks/objectnav_thda_v2/p5wJjkQkbXX.json",
       scene: "p5wJjkQkbXX.glb",
       trainingTask: {
         name: "p5wJjkQkbXX_train.json",
-        config: "tasks/objectnav_v2/p5wJjkQkbXX_train.json"
+        config: "tasks/objectnav_thda_v2/p5wJjkQkbXX_train.json"
       }
     },
     {
       name: "759xd9YjKW5.json",
-      config: "tasks/objectnav_v2/759xd9YjKW5.json",
+      config: "tasks/objectnav_thda_v2/759xd9YjKW5.json",
       scene: "759xd9YjKW5.glb",
       trainingTask: {
         name: "759xd9YjKW5_train.json",
-        config: "tasks/objectnav_v2/759xd9YjKW5_train.json"
+        config: "tasks/objectnav_thda_v2/759xd9YjKW5_train.json"
       }
     },
     {
       name: "JF19kD82Mey.json",
-      config: "tasks/objectnav_v2/JF19kD82Mey.json",
+      config: "tasks/objectnav_thda_v2/JF19kD82Mey.json",
       scene: "JF19kD82Mey.glb",
       trainingTask: {
         name: "JF19kD82Mey_train.json",
-        config: "tasks/objectnav_v2/JF19kD82Mey_train.json"
+        config: "tasks/objectnav_thda_v2/JF19kD82Mey_train.json"
       }
     },
     {
       name: "V2XKFyX4ASd.json",
-      config: "tasks/objectnav_v2/V2XKFyX4ASd.json",
+      config: "tasks/objectnav_thda_v2/V2XKFyX4ASd.json",
       scene: "V2XKFyX4ASd.glb",
       trainingTask: {
         name: "V2XKFyX4ASd_train.json",
-        config: "tasks/objectnav_v2/V2XKFyX4ASd_train.json"
+        config: "tasks/objectnav_thda_v2/V2XKFyX4ASd_train.json"
       }
     },
     {
       name: "1LXtFkjw3qL.json",
-      config: "tasks/objectnav_v2/1LXtFkjw3qL.json",
+      config: "tasks/objectnav_thda_v2/1LXtFkjw3qL.json",
       scene: "1LXtFkjw3qL.glb",
       trainingTask: {
         name: "1LXtFkjw3qL_train.json",
-        config: "tasks/objectnav_v2/1LXtFkjw3qL_train.json"
+        config: "tasks/objectnav_thda_v2/1LXtFkjw3qL_train.json"
       }
     },
     {
       name: "17DRP5sb8fy.json",
-      config: "tasks/objectnav_v2/17DRP5sb8fy.json",
+      config: "tasks/objectnav_thda_v2/17DRP5sb8fy.json",
       scene: "17DRP5sb8fy.glb",
       trainingTask: {
         name: "17DRP5sb8fy_train.json",
-        config: "tasks/objectnav_v2/17DRP5sb8fy_train.json"
+        config: "tasks/objectnav_thda_v2/17DRP5sb8fy_train.json"
       }
     },
     {
       name: "5q7pvUzZiYa.json",
-      config: "tasks/objectnav_v2/5q7pvUzZiYa.json",
+      config: "tasks/objectnav_thda_v2/5q7pvUzZiYa.json",
       scene: "5q7pvUzZiYa.glb",
       trainingTask: {
         name: "5q7pvUzZiYa_train.json",
-        config: "tasks/objectnav_v2/5q7pvUzZiYa_train.json"
+        config: "tasks/objectnav_thda_v2/5q7pvUzZiYa_train.json"
       }
     },
     {
       name: "VVfe2KiqLaN.json",
-      config: "tasks/objectnav_v2/VVfe2KiqLaN.json",
+      config: "tasks/objectnav_thda_v2/VVfe2KiqLaN.json",
       scene: "VVfe2KiqLaN.glb",
       trainingTask: {
         name: "VVfe2KiqLaN_train.json",
-        config: "tasks/objectnav_v2/VVfe2KiqLaN_train.json"
+        config: "tasks/objectnav_thda_v2/VVfe2KiqLaN_train.json"
       }
     },
     {
       name: "Vvot9Ly1tCj.json",
-      config: "tasks/objectnav_v2/Vvot9Ly1tCj.json",
+      config: "tasks/objectnav_thda_v2/Vvot9Ly1tCj.json",
       scene: "Vvot9Ly1tCj.glb",
       trainingTask: {
         name: "Vvot9Ly1tCj_train.json",
-        config: "tasks/objectnav_v2/Vvot9Ly1tCj_train.json"
+        config: "tasks/objectnav_thda_v2/Vvot9Ly1tCj_train.json"
       }
     },
     {
       name: "ULsKaCPVFJR.json",
-      config: "tasks/objectnav_v2/ULsKaCPVFJR.json",
+      config: "tasks/objectnav_thda_v2/ULsKaCPVFJR.json",
       scene: "ULsKaCPVFJR.glb",
       trainingTask: {
         name: "ULsKaCPVFJR_train.json",
-        config: "tasks/objectnav_v2/ULsKaCPVFJR_train.json"
+        config: "tasks/objectnav_thda_v2/ULsKaCPVFJR_train.json"
       }
     },
     {
       name: "D7G3Y4RVNrH.json",
-      config: "tasks/objectnav_v2/D7G3Y4RVNrH.json",
+      config: "tasks/objectnav_thda_v2/D7G3Y4RVNrH.json",
       scene: "D7G3Y4RVNrH.glb",
       trainingTask: {
         name: "D7G3Y4RVNrH_train.json",
-        config: "tasks/objectnav_v2/D7G3Y4RVNrH_train.json"
+        config: "tasks/objectnav_thda_v2/D7G3Y4RVNrH_train.json"
       }
     },
     {
       name: "uNb9QFRL6hY.json",
-      config: "tasks/objectnav_v2/uNb9QFRL6hY.json",
+      config: "tasks/objectnav_thda_v2/uNb9QFRL6hY.json",
       scene: "uNb9QFRL6hY.glb",
       trainingTask: {
         name: "uNb9QFRL6hY_train.json",
-        config: "tasks/objectnav_v2/uNb9QFRL6hY_train.json"
+        config: "tasks/objectnav_thda_v2/uNb9QFRL6hY_train.json"
       }
     },
     {
       name: "ZMojNkEp431.json",
-      config: "tasks/objectnav_v2/ZMojNkEp431.json",
+      config: "tasks/objectnav_thda_v2/ZMojNkEp431.json",
       scene: "ZMojNkEp431.glb",
       trainingTask: {
         name: "ZMojNkEp431_train.json",
-        config: "tasks/objectnav_v2/ZMojNkEp431_train.json"
+        config: "tasks/objectnav_thda_v2/ZMojNkEp431_train.json"
       }
     },
     {
       name: "vyrNrziPKCB.json",
-      config: "tasks/objectnav_v2/vyrNrziPKCB.json",
+      config: "tasks/objectnav_thda_v2/vyrNrziPKCB.json",
       scene: "vyrNrziPKCB.glb",
       trainingTask: {
         name: "vyrNrziPKCB_train.json",
-        config: "tasks/objectnav_v2/vyrNrziPKCB_train.json"
+        config: "tasks/objectnav_thda_v2/vyrNrziPKCB_train.json"
       }
     },
     {
       name: "e9zR4mvMWw7.json",
-      config: "tasks/objectnav_v2/e9zR4mvMWw7.json",
+      config: "tasks/objectnav_thda_v2/e9zR4mvMWw7.json",
       scene: "e9zR4mvMWw7.glb",
       trainingTask: {
         name: "e9zR4mvMWw7_train.json",
-        config: "tasks/objectnav_v2/e9zR4mvMWw7_train.json"
+        config: "tasks/objectnav_thda_v2/e9zR4mvMWw7_train.json"
       }
     },
     {
       name: "r1Q1Z4BcV1o.json",
-      config: "tasks/objectnav_v2/r1Q1Z4BcV1o.json",
+      config: "tasks/objectnav_thda_v2/r1Q1Z4BcV1o.json",
       scene: "r1Q1Z4BcV1o.glb",
       trainingTask: {
         name: "r1Q1Z4BcV1o_train.json",
-        config: "tasks/objectnav_v2/r1Q1Z4BcV1o_train.json"
+        config: "tasks/objectnav_thda_v2/r1Q1Z4BcV1o_train.json"
       }
     },
     {
       name: "PX4nDJXEHrG.json",
-      config: "tasks/objectnav_v2/PX4nDJXEHrG.json",
+      config: "tasks/objectnav_thda_v2/PX4nDJXEHrG.json",
       scene: "PX4nDJXEHrG.glb",
       trainingTask: {
         name: "PX4nDJXEHrG_train.json",
-        config: "tasks/objectnav_v2/PX4nDJXEHrG_train.json"
+        config: "tasks/objectnav_thda_v2/PX4nDJXEHrG_train.json"
       }
     },
     {
       name: "YmJkqBEsHnH.json",
-      config: "tasks/objectnav_v2/YmJkqBEsHnH.json",
+      config: "tasks/objectnav_thda_v2/YmJkqBEsHnH.json",
       scene: "YmJkqBEsHnH.glb",
       trainingTask: {
         name: "YmJkqBEsHnH_train.json",
-        config: "tasks/objectnav_v2/YmJkqBEsHnH_train.json"
+        config: "tasks/objectnav_thda_v2/YmJkqBEsHnH_train.json"
       }
     },
     {
       name: "b8cTxDM8gDG.json",
-      config: "tasks/objectnav_v2/b8cTxDM8gDG.json",
+      config: "tasks/objectnav_thda_v2/b8cTxDM8gDG.json",
       scene: "b8cTxDM8gDG.glb",
       trainingTask: {
         name: "b8cTxDM8gDG_train.json",
-        config: "tasks/objectnav_v2/b8cTxDM8gDG_train.json"
+        config: "tasks/objectnav_thda_v2/b8cTxDM8gDG_train.json"
       }
     },
     {
       name: "GdvgFV5R1Z5.json",
-      config: "tasks/objectnav_v2/GdvgFV5R1Z5.json",
+      config: "tasks/objectnav_thda_v2/GdvgFV5R1Z5.json",
       scene: "GdvgFV5R1Z5.glb",
       trainingTask: {
         name: "GdvgFV5R1Z5_train.json",
-        config: "tasks/objectnav_v2/GdvgFV5R1Z5_train.json"
+        config: "tasks/objectnav_thda_v2/GdvgFV5R1Z5_train.json"
       }
     },
     {
       name: "pRbA3pwrgk9.json",
-      config: "tasks/objectnav_v2/pRbA3pwrgk9.json",
+      config: "tasks/objectnav_thda_v2/pRbA3pwrgk9.json",
       scene: "pRbA3pwrgk9.glb",
       trainingTask: {
         name: "pRbA3pwrgk9_train.json",
-        config: "tasks/objectnav_v2/pRbA3pwrgk9_train.json"
+        config: "tasks/objectnav_thda_v2/pRbA3pwrgk9_train.json"
       }
     },
     {
       name: "jh4fc5c5qoQ.json",
-      config: "tasks/objectnav_v2/jh4fc5c5qoQ.json",
+      config: "tasks/objectnav_thda_v2/jh4fc5c5qoQ.json",
       scene: "jh4fc5c5qoQ.glb",
       trainingTask: {
         name: "jh4fc5c5qoQ_train.json",
-        config: "tasks/objectnav_v2/jh4fc5c5qoQ_train.json"
+        config: "tasks/objectnav_thda_v2/jh4fc5c5qoQ_train.json"
       }
     },
     {
       name: "1pXnuDYAj8r.json",
-      config: "tasks/objectnav_v2/1pXnuDYAj8r.json",
+      config: "tasks/objectnav_thda_v2/1pXnuDYAj8r.json",
       scene: "1pXnuDYAj8r.glb",
       trainingTask: {
         name: "1pXnuDYAj8r_train.json",
-        config: "tasks/objectnav_v2/1pXnuDYAj8r_train.json"
+        config: "tasks/objectnav_thda_v2/1pXnuDYAj8r_train.json"
       }
     },
     {
       name: "S9hNv5qa7GM.json",
-      config: "tasks/objectnav_v2/S9hNv5qa7GM.json",
+      config: "tasks/objectnav_thda_v2/S9hNv5qa7GM.json",
       scene: "S9hNv5qa7GM.glb",
       trainingTask: {
         name: "S9hNv5qa7GM_train.json",
-        config: "tasks/objectnav_v2/S9hNv5qa7GM_train.json"
+        config: "tasks/objectnav_thda_v2/S9hNv5qa7GM_train.json"
       }
     },
     {
       name: "VFuaQ6m2Qom.json",
-      config: "tasks/objectnav_v2/VFuaQ6m2Qom.json",
+      config: "tasks/objectnav_thda_v2/VFuaQ6m2Qom.json",
       scene: "VFuaQ6m2Qom.glb",
       trainingTask: {
         name: "VFuaQ6m2Qom_train.json",
-        config: "tasks/objectnav_v2/VFuaQ6m2Qom_train.json"
+        config: "tasks/objectnav_thda_v2/VFuaQ6m2Qom_train.json"
       }
     },
     {
       name: "cV4RVeZvu5T.json",
-      config: "tasks/objectnav_v2/cV4RVeZvu5T.json",
+      config: "tasks/objectnav_thda_v2/cV4RVeZvu5T.json",
       scene: "cV4RVeZvu5T.glb",
       trainingTask: {
         name: "cV4RVeZvu5T_train.json",
-        config: "tasks/objectnav_v2/cV4RVeZvu5T_train.json"
+        config: "tasks/objectnav_thda_v2/cV4RVeZvu5T_train.json"
       }
     },
     {
       name: "B6ByNegPMKs.json",
-      config: "tasks/objectnav_v2/B6ByNegPMKs.json",
+      config: "tasks/objectnav_thda_v2/B6ByNegPMKs.json",
       scene: "B6ByNegPMKs.glb",
       trainingTask: {
         name: "B6ByNegPMKs_train.json",
-        config: "tasks/objectnav_v2/B6ByNegPMKs_train.json"
+        config: "tasks/objectnav_thda_v2/B6ByNegPMKs_train.json"
       }
     },
     {
       name: "kEZ7cmS4wCh.json",
-      config: "tasks/objectnav_v2/kEZ7cmS4wCh.json",
+      config: "tasks/objectnav_thda_v2/kEZ7cmS4wCh.json",
       scene: "kEZ7cmS4wCh.glb",
       trainingTask: {
         name: "kEZ7cmS4wCh_train.json",
-        config: "tasks/objectnav_v2/kEZ7cmS4wCh_train.json"
+        config: "tasks/objectnav_thda_v2/kEZ7cmS4wCh_train.json"
       }
     },
     {
       name: "dhjEzFoUFzH.json",
-      config: "tasks/objectnav_v2/dhjEzFoUFzH.json",
+      config: "tasks/objectnav_thda_v2/dhjEzFoUFzH.json",
       scene: "dhjEzFoUFzH.glb",
       trainingTask: {
         name: "dhjEzFoUFzH_train.json",
-        config: "tasks/objectnav_v2/dhjEzFoUFzH_train.json"
+        config: "tasks/objectnav_thda_v2/dhjEzFoUFzH_train.json"
+      }
+    },
+    {
+      name: "zsNo4HB9uLZ.json",
+      config: "tasks/objectnav_val_v1/zsNo4HB9uLZ.json",
+      scene: "zsNo4HB9uLZ.glb",
+      trainingTask: {
+        name: "zsNo4HB9uLZ_train.json",
+        config: "tasks/objectnav_val_v1/zsNo4HB9uLZ_train.json"
+      }
+    },
+    {
+      name: "QUCTc6BB5sX.json",
+      config: "tasks/objectnav_val_v1/QUCTc6BB5sX.json",
+      scene: "QUCTc6BB5sX.glb",
+      trainingTask: {
+        name: "QUCTc6BB5sX_train.json",
+        config: "tasks/objectnav_val_v1/QUCTc6BB5sX_train.json"
+      }
+    },
+    {
+      name: "X7HyMhZNoso.json",
+      config: "tasks/objectnav_val_v1/X7HyMhZNoso.json",
+      scene: "X7HyMhZNoso.glb",
+      trainingTask: {
+        name: "X7HyMhZNoso_train.json",
+        config: "tasks/objectnav_val_v1/X7HyMhZNoso_train.json"
+      }
+    },
+    {
+      name: "EU6Fwq7SyZv.json",
+      config: "tasks/objectnav_val_v1/EU6Fwq7SyZv.json",
+      scene: "EU6Fwq7SyZv.glb",
+      trainingTask: {
+        name: "EU6Fwq7SyZv_train.json",
+        config: "tasks/objectnav_val_v1/EU6Fwq7SyZv_train.json"
+      }
+    },
+    {
+      name: "pLe4wQe7qrG.json",
+      config: "tasks/objectnav_val_v1/pLe4wQe7qrG.json",
+      scene: "pLe4wQe7qrG.glb",
+      trainingTask: {
+        name: "pLe4wQe7qrG_train.json",
+        config: "tasks/objectnav_val_v1/pLe4wQe7qrG_train.json"
+      }
+    },
+    {
+      name: "TbHJrupSAjP.json",
+      config: "tasks/objectnav_val_v1/TbHJrupSAjP.json",
+      scene: "TbHJrupSAjP.glb",
+      trainingTask: {
+        name: "TbHJrupSAjP_train.json",
+        config: "tasks/objectnav_val_v1/TbHJrupSAjP_train.json"
+      }
+    },
+    {
+      name: "2azQ1b91cZZ.json",
+      config: "tasks/objectnav_val_v1/2azQ1b91cZZ.json",
+      scene: "2azQ1b91cZZ.glb",
+      trainingTask: {
+        name: "2azQ1b91cZZ_train.json",
+        config: "tasks/objectnav_val_v1/2azQ1b91cZZ_train.json"
+      }
+    },
+    {
+      name: "oLBMNvg9in8.json",
+      config: "tasks/objectnav_val_v1/oLBMNvg9in8.json",
+      scene: "oLBMNvg9in8.glb",
+      trainingTask: {
+        name: "oLBMNvg9in8_train.json",
+        config: "tasks/objectnav_val_v1/oLBMNvg9in8_train.json"
+      }
+    },
+    {
+      name: "x8F5xyUWy9e.json",
+      config: "tasks/objectnav_val_v1/x8F5xyUWy9e.json",
+      scene: "x8F5xyUWy9e.glb",
+      trainingTask: {
+        name: "x8F5xyUWy9e_train.json",
+        config: "tasks/objectnav_val_v1/x8F5xyUWy9e_train.json"
+      }
+    },
+    {
+      name: "8194nk5LbLH.json",
+      config: "tasks/objectnav_val_v1/8194nk5LbLH.json",
+      scene: "8194nk5LbLH.glb",
+      trainingTask: {
+        name: "8194nk5LbLH_train.json",
+        config: "tasks/objectnav_val_v1/8194nk5LbLH_train.json"
+      }
+    },
+    {
+      name: "Z6MFQCViBuw.json",
+      config: "tasks/objectnav_val_v1/Z6MFQCViBuw.json",
+      scene: "Z6MFQCViBuw.glb",
+      trainingTask: {
+        name: "Z6MFQCViBuw_train.json",
+        config: "tasks/objectnav_val_v1/Z6MFQCViBuw_train.json"
       }
     }
   ]

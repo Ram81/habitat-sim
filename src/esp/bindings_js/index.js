@@ -15,14 +15,16 @@ import {
   taskFiles,
   episodeIdObjectReceptacleMap
 } from "./modules/defaults";
-import { cleaningTaskEpObjectsMap } from "./modules/object_maps";
+import { cleaningTaskEpObjectsMap, thdaObjects } from "./modules/object_maps";
 import "./bindings.css";
 import {
   checkWebAssemblySupport,
   checkWebgl2Support,
   getInfoSemanticUrl,
   buildConfigFromURLParameters,
-  loadEpisode
+  loadEpisode,
+  getEpisodeMeta,
+  getObjects
 } from "./modules/utils";
 
 function preload(url) {
@@ -42,7 +44,7 @@ function preload(url) {
   return file;
 }
 
-function preloadPhysConfig(url, episodeId) {
+function preloadPhysConfig(url, episodeId, objectsToLoad = null) {
   let emDataHome = "/data";
   FS.mkdir(emDataHome);
 
@@ -55,6 +57,7 @@ function preloadPhysConfig(url, episodeId) {
 
   let emObjHome = emDataHome.concat("/objects");
   FS.mkdir(emObjHome);
+
   // Do not load object assets for object nav task
   // if (window.config.dataset == "objectnav") {
   //   return emDataHome.concat("/".concat(file));
@@ -62,35 +65,21 @@ function preloadPhysConfig(url, episodeId) {
 
   // TODO Need to loop through the objects directory on the server (`phys/objects/*`) and put all of the glbs onto the client
   // TODO Fix hacky loading of selected objects for each episode
+  var objects = fileBasedObjects["objects"];
   let objectList = episodeIdObjectReceptacleMap["object_list"];
   if (window.config.task == 0 || window.config.task >= 15) {
     objectList = cleaningTaskEpObjectsMap;
   }
-  if (window.config.task >= 20) {
-    objectList = [];
+  if (
+    window.config.task >= 20 &&
+    window.config.dataset == "objectnav" &&
+    objectsToLoad != null
+  ) {
+    objectList = objectsToLoad;
+    objects = thdaObjects["objects"];
   }
-  let objectToLoadList = objectList[episodeId % objectList.length];
-  let trainingTaskObjects = [
-    "mustard_bottle",
-    "colored_wood_blocks",
-    "tomato_soup_can",
-    "plate",
-    "Down_To_Earth_Ceramic_Orchid_Pot_Asst_Blue",
-    "SpiderMan_Titan_Hero_12Inch_Action_Figure_5Hnn4mtkFsP",
-    "banana",
-    "ACE_Coffee_Mug_Kristen_16_oz_cup",
-    "Threshold_Porcelain_Pitcher_White",
-    "b_colored_wood_blocks",
-    "HeavyDuty_Flashlight",
-    "Shark",
-    "Closetmaid_Premium_Fabric_Cube_Red",
-    "orange",
-    "bowl",
-    "Threshold_Dinner_Plate_Square_Rim_White_Porcelain",
-    "bleach_cleanser",
-    "Threshold_Porcelain_Teapot_White"
-  ];
-  var objects = fileBasedObjects["objects"];
+  let objectToLoadList = objectList;
+  let trainingTaskObjects = ["tomato_soup_can", "plate"];
   for (let objectIdx in objects) {
     let is_present = false;
     for (let ii in objectToLoadList) {
@@ -107,7 +96,7 @@ function preloadPhysConfig(url, episodeId) {
     }
     if (is_present == false) {
       // do nothing, load all objects
-      //continue;
+      continue;
     }
     console.log(objects[objectIdx]["objectHandle"]);
     let physicsProperties = objects[objectIdx]["physicsProperties"];
@@ -190,6 +179,19 @@ Module.preRun.push(() => {
   window.config.taskConfig = taskConfig;
   let episodeId = config.episodeId;
 
+  let episodeMeta = getEpisodeMeta(taskConfig["config"], episodeId);
+  let trainingEpisodeMeta = getEpisodeMeta(
+    taskConfig["trainingTask"]["config"],
+    episodeId
+  );
+  let objectsToLoad = getObjects(
+    episodeMeta,
+    trainingEpisodeMeta,
+    window.config.dataset
+  );
+
+  console.log(objectsToLoad);
+
   // load scene from task if valid
   if (taskConfig !== undefined) {
     config.scene = taskConfig["scene"];
@@ -200,7 +202,11 @@ Module.preRun.push(() => {
   Module.scene = preload(scene);
 
   const physicsConfigFile = window.config.defaultPhysConfig;
-  Module.physicsConfigFile = preloadPhysConfig(physicsConfigFile, episodeId);
+  Module.physicsConfigFile = preloadPhysConfig(
+    physicsConfigFile,
+    episodeId,
+    objectsToLoad
+  );
 
   Module.enablePhysics = window.config.enablePhysics === "true";
   window.config.runFlythrough = window.config.runFlythrough === "true";

@@ -1770,7 +1770,7 @@ void ResourceManager::loadTextures(Importer& importer,
         // If there is just one level and the image is not compressed, we'll
         // generate mips ourselves
         if (levelCount == 1 && !image->isCompressed()) {
-          ASSERT(mipLevelsToSkip == 0);
+          // ASSERT(mipLevelsToSkip == 0);
           texture.setStorage(Mn::Math::log2(image->size().max()) + 1, format,
                              image->size());
           generateMipmap = true;

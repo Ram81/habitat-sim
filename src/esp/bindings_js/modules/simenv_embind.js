@@ -85,50 +85,11 @@ class SimEnv {
     this.initialAgentState = null;
     this.objectsInScene = [];
 
+    this.initialize_THDA_episode(episode);
     if (Object.keys(episode).length > 0) {
       this.initialAgentState = this.createAgentState(episode.startState);
       // add agent object for collision test
       this.sim.addContactTestObject(this.agentObjectHandle, 0);
-      console.log(episode.goals);
-
-      for (let goal_idx in episode.goals) {
-        let goal = episode.goals[goal_idx];
-
-        for (let idx in goal.view_points) {
-          let view_point = this.convertVec3fToVector3(
-            goal.view_points[idx].agent_state.position
-          );
-          let objectLibHandle =
-            "/data/objects/mustard_bottle.object_config.json";
-          let rotation = this.quatFromCoeffs([0, 0, 0, 1]);
-          let objectId = this.addObjectAtLocation(
-            objectLibHandle,
-            view_point,
-            rotation
-          );
-          this.addObjectInScene(objectId, {});
-          if (idx == 5) {
-            console.log("add obj");
-            break;
-          }
-        }
-      }
-      console.log("added objects");
-
-      let sem_objects = this.sim.getSemanticScene().objects;
-      console.log(sem_objects.size());
-      for (let idx = 0; idx < sem_objects.size(); idx++) {
-        if (idx < 1) {
-          continue;
-        }
-        if (
-          episode.goals[0].object_category ==
-          sem_objects.get(idx).category.getName("")
-        ) {
-          console.log(sem_objects.get(idx).category.getName(""));
-        }
-      }
-      console.log("sem annotat objects");
 
       if (episode.objects !== undefined) {
         let objects = JSON.parse(JSON.stringify(episode.objects));
@@ -147,13 +108,14 @@ class SimEnv {
         });
         for (let index in objects) {
           let objectLibHandle = objects[index]["objectHandle"];
-          let position = this.c(objects[index]["position"]);
+          let position = this.convertVec3fToVector3(objects[index]["position"]);
           let rotation = this.quatFromCoeffs(objects[index]["rotation"]);
 
           let objectId = this.addObjectAtLocation(
             objectLibHandle,
             position,
-            rotation
+            rotation,
+            Module.MotionType.DYNAMIC
           );
           this.addObjectInScene(objectId, objects[index]);
           // adding contact test shape for object
@@ -164,40 +126,49 @@ class SimEnv {
             episode.objects[index]["objectId"];
           episode.objects[index]["objectId"] = objectId;
         }
-        // for (let i = 0; i < 20; i++) {
-        //   let objectLibHandle = objects[0]["objectHandle"];
-        //   let position = this.convertVec3fToVector3(objects[0]["position"]);
-        //   let rotation = this.quatFromCoeffs(objects[0]["rotation"]);
-        //   let objectId = this.addObjectAtLocation(
-        //     objectLibHandle,
-        //     position,
-        //     rotation
-        //   );
-        //   this.addObjectInScene(objectId, objects[0]);
-        // }
-        // for (let i = 0; i < 20; i++) {
-        //   let objectLibHandle = objects[1]["objectHandle"];
-        //   let position = this.convertVec3fToVector3(objects[1]["position"]);
-        //   let rotation = this.quatFromCoeffs(objects[1]["rotation"]);
-        //   let objectId = this.addObjectAtLocation(
-        //     objectLibHandle,
-        //     position,
-        //     rotation
-        //   );
-        //   this.addObjectInScene(objectId, objects[1]);
-        // }
       }
     } else {
       // add agent object for collision test
       this.sim.addContactTestObject(this.agentObjectHandle, 0);
     }
     let episodeCopy = JSON.parse(JSON.stringify(episode));
-    if (window.config.dataset == "objectnav") {
+    if (window.config.dataset == "objectnav" && episode.is_thda != true) {
       episodeCopy.goals = [];
     }
     this.psiturk.handleRecordTrialData("TEST", "setEpisode", {
       episode: episodeCopy
     });
+  }
+
+  initialize_THDA_episode(episode) {
+    let scene_state = episode.scene_state;
+    if (scene_state !== undefined) {
+      let objects = scene_state.objects;
+
+      for (let idx in objects) {
+        let object = objects[idx];
+
+        let objectTemplate = object["object_template"].split("/");
+        let objectLibHandle =
+          "/data/objects/" +
+          objectTemplate[objectTemplate.length - 1] +
+          ".object_config.json";
+        let position = this.convertVec3fToVector3(object["position"]);
+        let rotation = this.quatFromCoeffs(object["rotation"]);
+
+        this.addObjectAtLocation(
+          objectLibHandle,
+          position,
+          rotation,
+          Module.MotionType.STATIC
+        );
+        // let objectDist = this.geodesicDistance(
+        //   episode.startState.position,
+        //   object["position"]
+        // );
+      }
+      this.recomputeNavMesh();
+    }
   }
 
   /**
@@ -245,11 +216,16 @@ class SimEnv {
   /**
    * Adds a dynamic object at specific position in simulation.
    */
-  addObjectAtLocation(objectLibHandle, position, rotation) {
+  addObjectAtLocation(
+    objectLibHandle,
+    position,
+    rotation,
+    motionType = Module.MotionType.STATIC
+  ) {
     let objectId = this.addObjectByHandle(objectLibHandle);
     this.setTranslation(position, objectId, 0);
     this.setRotation(rotation, objectId, 0);
-    this.setObjectMotionType(Module.MotionType.DYNAMIC, objectId, 0);
+    this.setObjectMotionType(motionType, objectId, 0);
     return objectId;
   }
 
@@ -263,7 +239,9 @@ class SimEnv {
       let object = this.getObjectFromScene(objectId);
 
       this.removeObject(objectId);
-      this.sim.removeContactTestObject(object["objectHandle"], 0);
+      if (window.config.dataset != "objectnav") {
+        this.sim.removeContactTestObject(object["objectHandle"], 0);
+      }
     }
     this.sim.clearRecycledObjectIds();
   }
@@ -276,7 +254,7 @@ class SimEnv {
     const agent = this.sim.getAgent(this.selectedAgentId);
     let agentTransform = this.getAgentTransformation(this.selectedAgentId);
     let data = this.isAgentColliding(action, agentTransform);
-    if (data["collision"]) {
+    if (data["collision"] && window.config.dataset != "objectnav") {
       return true;
     }
     agent.act(action);

@@ -18,8 +18,8 @@ void initEspBindings(py::module& m) {
   py::class_<box3f>(m, "BBox")
       .def_property_readonly("sizes", &box3f::sizes)
       .def_property_readonly("center", &box3f::center)
-      .def_property_readonly("min", py::overload_cast<>(&box3f::min))
-      .def_property_readonly("max", py::overload_cast<>(&box3f::max));
+      .def("min", py::overload_cast<>(&box3f::min))
+      .def("max", py::overload_cast<>(&box3f::max));
 }
 
 namespace core {
