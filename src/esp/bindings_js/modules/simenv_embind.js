@@ -48,6 +48,7 @@ class SimEnv {
     this.objectIndexx = 108;
     this.islandRadiusLimit = 1.8;
     this.recomputeNavMesh();
+    this.locobot_id = -1;
   }
 
   /**
@@ -59,6 +60,17 @@ class SimEnv {
       const agent = this.sim.getAgent(this.selectedAgentId);
       agent.setState(this.initialAgentState, true);
     }
+    // if (window.config.actualTask) {
+    //   let locobot_id = this.sim.addLocobot(
+    //     "/data/objects/locobot_merged.object_config.json",
+    //     0,
+    //     0,
+    //     ""
+    //   );
+    //   this.locobot_id = locobot_id;
+    //   console.log("locobot: " + locobot_id);
+    //   this.sim.setObjectMotionType(Module.MotionType.KINEMATIC, locobot_id, 0);
+    // }
     //this.updateCrossHairNode(this.getCrosshairPosition());
 
     this.grippedObjectId = -1;
@@ -86,11 +98,11 @@ class SimEnv {
     this.objectsInScene = [];
 
     this.initialize_THDA_episode(episode);
+    // console.log("init episode");
     if (Object.keys(episode).length > 0) {
       this.initialAgentState = this.createAgentState(episode.startState);
       // add agent object for collision test
       this.sim.addContactTestObject(this.agentObjectHandle, 0);
-
       if (episode.objects !== undefined) {
         let objects = JSON.parse(JSON.stringify(episode.objects));
 
@@ -234,6 +246,11 @@ class SimEnv {
    */
   removeAllObjects() {
     let existingObjectIds = this.getExistingObjectIDs();
+    // console.log("Removing: " + existingObjectIds.size());
+    // if (this.locobot_id != -1 && this.locobot_id != undefined) {
+    //   console.log("removing locobot");
+    //   this.sim.removeObject(this.locobot_id, false, true, 0);
+    // }
     for (let index = existingObjectIds.size() - 1; index >= 0; index--) {
       let objectId = existingObjectIds.get(index);
       let object = this.getObjectFromScene(objectId);
@@ -1031,7 +1048,9 @@ class SimEnv {
 
   euclideanDistance(positionA, positionB) {
     return Math.sqrt(
-      (positionA[0] - positionB[0]) ** 2 + (positionA[2] - positionB[2]) ** 2
+      (positionA[0] - positionB[0]) ** 2 +
+        (positionA[2] - positionB[2]) ** 2 +
+        (positionA[1] - positionB[1]) ** 2
     );
   }
 

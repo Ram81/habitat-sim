@@ -26,26 +26,31 @@ TEST(Mp3dTest, Load) {
       quatf::FromTwoVectors(-vec3f::UnitZ(), ESP_GRAVITY);
   const quatf alignFront = quatf::FromTwoVectors(-vec3f::UnitX(), ESP_FRONT);
   SemanticScene::loadMp3dHouse(filename, house, alignFront * alignGravity);
-  LOG(INFO) << "House{nobjects:" << house.count("objects")
-            << ",nlevels:" << house.count("levels")
-            << ",nregions:" << house.count("regions")
-            << ",ncategories:" << house.count("categories")
-            << ",bbox:" << house.aabb() << "}";
-  for (auto& category : house.categories()) {
-    LOG(INFO) << "SemanticCategory{i:" << category->index("raw")
-              << ",name:" << category->name("raw")
-              << ",mpcat40Name:" << category->name("") << "}";
-  }
-  for (auto& level : house.levels()) {
-    LOG(INFO) << "Level{id:" << level->id() << ",aabb:" << level->aabb() << "}";
-    for (auto& region : level->regions()) {
-      LOG(INFO) << "Region{id:" << region->id() << ",aabb:" << region->aabb()
-                << ",category:" << region->category()->name()
-                << ",index:" << region->category()->index() << "}";
-      for (auto& object : region->objects()) {
-        LOG(INFO) << "Object{id:" << object->id() << ",obb:" << object->obb()
-                  << ",category:" << object->category()->name() << "}";
-      }
-    }
+  // LOG(INFO) << "House{nobjects:" << house.count("objects")
+  //           << ",nlevels:" << house.count("levels")
+  //           << ",nregions:" << house.count("regions")
+  //           << ",ncategories:" << house.count("categories")
+  //           << ",bbox:" << house.aabb() << "}";
+  // for (auto& category : house.categories()) {
+  //   LOG(INFO) << "SemanticCategory{i:" << category->index("raw")
+  //             << ",name:" << category->name("raw")
+  //             << ",mpcat40Name:" << category->name("") << "}";
+  // }
+  // for (auto& level : house.levels()) {
+  //   LOG(INFO) << "Level{id:" << level->id() << ",aabb:" << level->aabb() << "}";
+  //   for (auto& region : level->regions()) {
+  //     LOG(INFO) << "Region{id:" << region->id() << ",aabb:" << region->aabb()
+  //               << ",category:" << region->category()->name()
+  //               << ",index:" << region->category()->index() << "}";
+  //     // for (auto& object : region->objects()) {
+  //     //   LOG(INFO) << "Object{id:" << object->id() << ",obb:" << object->obb()
+  //     //             << ",category:" << object->category()->name() << "}";
+  //     // }
+  //   }
+  // }
+  for (auto& region : house.regions()) {
+    LOG(INFO) << "Region{id:" << region->id() << ",aabb:" << region->aabb()
+              << ",category:" << region->category()->name()
+              << ",index:" << region->category()->index()  << ", " << region->aabb().center() << "}";
   }
 }

@@ -114,10 +114,11 @@ bool SemanticScene::loadMp3dHouse(
       return sceneBox;
 
     // Apply the rotation to center/sizes
-    auto worldCenter = rotation * sceneBox.center();
-    auto worldHalfSizes =
+    const vec3f worldCenter = rotation * sceneBox.center();
+    const vec3f worldHalfSizes =
         (rotation * sceneBox.sizes()).array().abs().matrix() / 2.0f;
-    // Then remake the box with min/max computed from rotated center/size
+
+    // // Then remake the box with min/max computed from rotated center/size
     return box3f{worldCenter - worldHalfSizes, worldCenter + worldHalfSizes};
   };
 

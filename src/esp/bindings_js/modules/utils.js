@@ -249,7 +249,7 @@ export function getEpisodeMeta(scene_config, episodeId) {
   if (request.status == 200) {
     let response = JSON.parse(request.response);
     let episode = response.episodes[episodeId];
-    console.log(episode);
+
     if (episode == undefined) {
       episode = response.episodes[0];
     }

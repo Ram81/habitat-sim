@@ -906,6 +906,12 @@ class Simulator {
     metadataMediator_ = _metadataMediator;
   }
 
+  int addLocobot(const std::string& objectLibHandle,
+                  int sceneID = 0,
+                  int agentID = 0,
+                  const std::string& lightSetupKey =
+                            metadata::MetadataMediator::DEFAULT_LIGHTING_KEY);
+
  protected:
   Simulator(){};
 

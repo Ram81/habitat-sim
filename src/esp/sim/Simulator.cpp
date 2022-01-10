@@ -1223,5 +1223,23 @@ Magnum::Range3D Simulator::getSceneBB() {
   return sceneBB;
 }
 
+int Simulator::addLocobot(const std::string& objectLibHandle,
+                           int sceneID,
+                           int agentID,
+                           const std::string& lightSetupKey) {
+  LOG (WARNING) << "Add agents locobot";
+  if (sceneHasPhysics(sceneID)) {
+    // TODO: change implementation to support multi-world and physics worlds
+    // to own reference to a sceneGraph to avoid this.
+    auto& sceneGraph_ = sceneManager_->getSceneGraph(activeSceneID_);
+    auto& drawables = sceneGraph_.getDrawables();
+    LOG (WARNING) << "Add: " << agentID;
+    LOG (WARNING) << "Add: " << getAgent(agentID);
+    return physicsManager_->addObject(objectLibHandle, &drawables,
+                                      &getAgent(agentID)->node(), lightSetupKey);
+  }
+  return ID_UNDEFINED;
+}
+
 }  // namespace sim
 }  // namespace esp

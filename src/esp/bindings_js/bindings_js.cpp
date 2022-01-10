@@ -477,5 +477,6 @@ EMSCRIPTEN_BINDINGS(habitat_sim_bindings_js) {
       .function("getGravity", &Simulator::getGravity)
       .function("setActiveState", &Simulator::setActiveState)
       .function("setObjectSemanticId", &Simulator::setObjectSemanticId)
-      .function("getSceneBB", &Simulator::getSceneBB);
+      .function("getSceneBB", &Simulator::getSceneBB)
+      .function("addLocobot", &Simulator::addLocobot);
 }

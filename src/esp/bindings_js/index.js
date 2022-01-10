@@ -79,7 +79,7 @@ function preloadPhysConfig(url, episodeId, objectsToLoad = null) {
     objects = thdaObjects["objects"];
   }
   let objectToLoadList = objectList;
-  let trainingTaskObjects = ["tomato_soup_can", "plate"];
+  let trainingTaskObjects = ["tomato_soup_can", "plate", "sugar_box"];
   for (let objectIdx in objects) {
     let is_present = false;
     for (let ii in objectToLoadList) {
@@ -189,8 +189,6 @@ Module.preRun.push(() => {
     trainingEpisodeMeta,
     window.config.dataset
   );
-
-  console.log(objectsToLoad);
 
   // load scene from task if valid
   if (taskConfig !== undefined) {
