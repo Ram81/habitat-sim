@@ -71,7 +71,7 @@ class SimEnv {
     //   console.log("locobot: " + locobot_id);
     //   this.sim.setObjectMotionType(Module.MotionType.KINEMATIC, locobot_id, 0);
     // }
-    //this.updateCrossHairNode(this.getCrosshairPosition());
+    // this.updateCrossHairNode(this.getCrosshairPosition());
 
     this.grippedObjectId = -1;
     this.nearestObjectId = -1;
@@ -98,7 +98,6 @@ class SimEnv {
     this.objectsInScene = [];
 
     this.initialize_THDA_episode(episode);
-    // console.log("init episode");
     if (Object.keys(episode).length > 0) {
       this.initialAgentState = this.createAgentState(episode.startState);
       // add agent object for collision test
@@ -269,11 +268,11 @@ class SimEnv {
    */
   step(action) {
     const agent = this.sim.getAgent(this.selectedAgentId);
-    let agentTransform = this.getAgentTransformation(this.selectedAgentId);
-    let data = this.isAgentColliding(action, agentTransform);
-    if (data["collision"] && window.config.dataset != "objectnav") {
-      return true;
-    }
+    // let agentTransform = this.getAgentTransformation(this.selectedAgentId);
+    // let data = this.isAgentColliding(action, agentTransform);
+    // if (data["collision"] && window.config.dataset != "objectnav") {
+    //   return true;
+    // }
     agent.act(action);
     return false;
   }

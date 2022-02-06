@@ -34,7 +34,7 @@ class WebDemo {
     if (window.config.dataset != "objectnav") {
       this.config.allowSliding = true;
     }
-    this.config.scene_id = Module.scene;
+    this.config.scene_id = Module.scene.split(".")[0] + ".stage_config.json";
     this.config.enablePhysics = Module.enablePhysics;
     this.config.physicsConfigFile = Module.physicsConfigFile;
 

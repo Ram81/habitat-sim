@@ -143,6 +143,7 @@ export function buildEpisodeFromJSON(
     let goal_id =
       scenePath[scenePath.length - 1] + "_" + episode.object_category;
 
+    episode.scene_dataset = episodeJSON.episodes[episode_id].scene_dataset;
     if (!Object.keys(episodeJSON.goals_by_category).includes(goal_id)) {
       episode.is_thda = true;
       episode.goals = episodeJSON.episodes[episode_id].goals;
