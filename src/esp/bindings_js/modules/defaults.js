@@ -38,7 +38,7 @@ export const infoSemanticFileName = "info_semantic.json";
 
 export const dataHome = "data/";
 export const taskHome = "data/tasks/pick_and_place/";
-export const sceneHome = "data/scenes/gibson/";
+export const sceneHome = "data/scenes/";
 export const flythroughHome = "data/replays/";
 export const primitiveObjectHandles = [
   "cylinderSolid_rings_1_segments_12_halfLen_1_useTexCoords_false_useTangents_false_capEnds_true"
@@ -2732,10 +2732,10 @@ export const taskConfigs = {
       position: [0.0, 0.88, 0.0]
     },
     actions: ["moveForward", "turnLeft", "turnRight", "lookUp", "lookDown"],
-    sliding: false,
+    sliding: true,
     actuationSpec: {
       move: 0.25,
-      turn: 30.0
+      turn: 15.0
     }
   },
   rearrangement: {

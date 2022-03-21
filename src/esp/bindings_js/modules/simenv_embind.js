@@ -119,6 +119,7 @@ class SimEnv {
         });
         for (let index in objects) {
           let objectLibHandle = objects[index]["objectHandle"];
+          console.log("add objects " + objectLibHandle);
           let position = this.convertVec3fToVector3(objects[index]["position"]);
           let rotation = this.quatFromCoeffs(objects[index]["rotation"]);
 
@@ -137,6 +138,7 @@ class SimEnv {
             episode.objects[index]["objectId"];
           episode.objects[index]["objectId"] = objectId;
         }
+        console.log("add objects done");
       }
     } else {
       // add agent object for collision test
@@ -173,10 +175,6 @@ class SimEnv {
           rotation,
           Module.MotionType.STATIC
         );
-        // let objectDist = this.geodesicDistance(
-        //   episode.startState.position,
-        //   object["position"]
-        // );
       }
       this.recomputeNavMesh();
     }
@@ -245,11 +243,6 @@ class SimEnv {
    */
   removeAllObjects() {
     let existingObjectIds = this.getExistingObjectIDs();
-    // console.log("Removing: " + existingObjectIds.size());
-    // if (this.locobot_id != -1 && this.locobot_id != undefined) {
-    //   console.log("removing locobot");
-    //   this.sim.removeObject(this.locobot_id, false, true, 0);
-    // }
     for (let index = existingObjectIds.size() - 1; index >= 0; index--) {
       let objectId = existingObjectIds.get(index);
       let object = this.getObjectFromScene(objectId);
@@ -268,11 +261,11 @@ class SimEnv {
    */
   step(action) {
     const agent = this.sim.getAgent(this.selectedAgentId);
-    // let agentTransform = this.getAgentTransformation(this.selectedAgentId);
-    // let data = this.isAgentColliding(action, agentTransform);
-    // if (data["collision"] && window.config.dataset != "objectnav") {
-    //   return true;
-    // }
+    let agentTransform = this.getAgentTransformation(this.selectedAgentId);
+    let data = this.isAgentColliding(action, agentTransform);
+    if (data["collision"] && window.config.dataset != "objectnav") {
+      return true;
+    }
     agent.act(action);
     return false;
   }

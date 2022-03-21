@@ -349,7 +349,7 @@ class Simulator(SimulatorBackend):
             if draw_crosshair:
                 for _sensor_uuid, sensor in agent_sensorsuite.items():
                     sensor.draw_observation(self.render_to_ui)
-                # self.update_cross_hair()
+                self.update_cross_hair()
             for _sensor_uuid, sensor in agent_sensorsuite.items():
                 sensor.draw_observation(self.render_to_ui)
 

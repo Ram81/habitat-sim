@@ -87,14 +87,14 @@ class NavigateTask {
 
     this.actions = [
       { name: "moveForward", key: "w", keyCode: 87 },
-      // { name: "moveBackward", key: "s", keyCode: 83 },
+      { name: "moveBackward", key: "s", keyCode: 83 },
       { name: "turnLeft", key: "ArrowLeft", keyCode: 37 },
       { name: "turnRight", key: "ArrowRight", keyCode: 39 },
       { name: "turnLeft", key: "a", keyCode: 65 },
       { name: "turnRight", key: "d", keyCode: 68 },
       { name: "lookUp", key: "ArrowUp", keyCode: 38 },
-      { name: "lookDown", key: "ArrowDown", keyCode: 40 }
-      // { name: "grabReleaseObject", key: " ", keyCode: 32 }
+      { name: "lookDown", key: "ArrowDown", keyCode: 40 },
+      { name: "grabReleaseObject", key: " ", keyCode: 32 }
       // { name: "agentPose", key: "p", keyCode: 80 }
       // { name: "removeLastObject", key: "u", keyCode: 85 }
       // { name: "dropObject", key: "o", keyCode: 79 }
@@ -541,6 +541,7 @@ class NavigateTask {
       logData["objectDropPoint"] = objectDropPoint;
       logData["objectStates"] = objectStates;
       logData["collision"] = collision;
+      logData["actionData"] = actionData;
     }
     this.psiturk.handleRecordTrialData("TEST", "handleAction", logData);
   }

@@ -30,7 +30,7 @@ class WebDemo {
     initializeTopDown = false
   ) {
     this.config = new Module.SimulatorConfiguration();
-    this.config.allowSliding = false;
+    this.config.allowSliding = true;
     if (window.config.dataset != "objectnav") {
       this.config.allowSliding = true;
     }

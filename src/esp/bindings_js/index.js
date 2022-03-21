@@ -94,11 +94,11 @@ function preloadPhysConfig(url, episodeId, objectsToLoad = null) {
         is_present = true;
       }
     }
-    if (is_present == false) {
-      // do nothing, load all objects
-      continue;
-    }
-    console.log(objects[objectIdx]["objectHandle"]);
+    // if (is_present == false) {
+    //   // do nothing, load all objects
+    //   continue;
+    // }
+    console.log(objects[objectIdx]["objectHandle"] + " - " + is_present);
     let physicsProperties = objects[objectIdx]["physicsProperties"];
     let physicsPropertyName = physicsProperties.split("/")[
       physicsProperties.split("/").length - 1
